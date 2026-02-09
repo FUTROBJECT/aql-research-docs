@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Global AI Governance Discovery Summary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.5;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 1in;
+    }
+    h1 {
+      font-size: 18pt;
+      color: #1a1a1a;
+      border-bottom: 2px solid #333;
+      padding-bottom: 8px;
+    }
+    h2 {
+      font-size: 14pt;
+      color: #333;
+      margin-top: 24px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 4px;
+    }
+    h3 {
+      font-size: 12pt;
+      color: #444;
+      margin-top: 16px;
+    }
+    h4 {
+      font-size: 11pt;
+      color: #555;
+      margin-top: 12px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0;
+      font-size: 10pt;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+    .highlight-box {
+      background-color: #fff3cd;
+      border: 1px solid #ffc107;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+    .callout {
+      background-color: #e7f3ff;
+      border-left: 4px solid #0066cc;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+    .critical {
+      background-color: #f8d7da;
+      border-left: 4px solid #c00;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+    .success {
+      background-color: #d4edda;
+      border-left: 4px solid #28a745;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+    .metadata {
+      color: #666;
+      font-size: 10pt;
+      margin-bottom: 20px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 24px 0;
+    }
+    em {
+      color: #555;
+    }
+    ul, ol {
+      margin: 8px 0;
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    .big-quote {
+      font-size: 20pt;
+      font-weight: bold;
+      color: #0066cc;
+      text-align: center;
+      padding: 20px;
+      margin: 24px 0;
+      border-top: 2px solid #0066cc;
+      border-bottom: 2px solid #0066cc;
+    }
+    .domain-box {
+      background: #f8f9fa;
+      border-left: 4px solid #0066cc;
+      padding: 12px 16px;
+      margin: 12px 0;
+    }
+    .domain-title {
+      font-weight: bold;
+      color: #0066cc;
+      margin-bottom: 4px;
+    }
+    .framework-box {
+      background: #fff;
+      border: 1px solid #28a745;
+      padding: 12px 16px;
+      margin: 12px 0;
+    }
+    .framework-title {
+      font-weight: bold;
+      color: #28a745;
+    }
+    .about-box {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 16px;
+      margin-top: 24px;
+      font-size: 10pt;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .stat-box {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 24pt;
+      font-weight: bold;
+      color: #0066cc;
+    }
+    .stat-label {
+      font-size: 10pt;
+      color: #666;
+      margin-top: 4px;
+    }
+    .recommendation-box {
+      background: #fff;
+      border-left: 4px solid #28a745;
+      padding: 12px 16px;
+      margin: 12px 0;
+    }
+    .rec-number {
+      display: inline-block;
+      background: #28a745;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 10pt;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 16px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 10pt;
+    }
+    /* Overview table row highlighting */
+    .row-critical {
+      background-color: #e7f3ff;
+    }
+    .row-high {
+      background-color: #d4edda;
+    }
+    .relevance-label-critical {
+      color: #0066cc;
+      font-weight: bold;
+    }
+    .relevance-label-high {
+      color: #28a745;
+      font-weight: bold;
+    }
+    .source-tag {
+      display: inline-block;
+      font-size: 8pt;
+      padding: 1px 6px;
+      border-radius: 3px;
+      color: #666;
+      background: #f0f0f0;
+      margin-top: 2px;
+    }
+
+    .gap-list {
+      background: #f8d7da;
+      border: 1px solid #c00;
+      padding: 16px;
+      margin: 16px 0;
+    }
+    .gap-list ul {
+      margin: 8px 0 0 0;
+    }
+    details {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin: 12px 0;
+    }
+    details summary {
+      padding: 12px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 11pt;
+      color: #333;
+    }
+    details summary:hover {
+      background: #eee;
+    }
+    details[open] summary {
+      border-bottom: 1px solid #ddd;
+    }
+    details pre {
+      margin: 0;
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 0 0 4px 4px;
+      font-size: 9pt;
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      color: #666;
+      font-size: 10pt;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ccc;
+    }
+
+    /* Citation superscripts */
+    sup.cite {
+      font-size: 8pt;
+      color: #0066cc;
+      font-weight: normal;
+      text-decoration: none;
+    }
+    sup.cite a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    sup.cite a:hover {
+      text-decoration: underline;
+    }
+
+    /* Sources section */
+    .sources-list {
+      font-size: 9pt;
+      line-height: 1.6;
+      color: #444;
+    }
+    .sources-list ol {
+      padding-left: 28px;
+    }
+    .sources-list li {
+      margin-bottom: 6px;
+    }
+    .sources-list a {
+      color: #0066cc;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+    <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+      <defs>
+        <style>
+          .cls-1 {
+            font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+            font-size: 130.25px;
+            font-style: italic;
+            font-weight: 600;
+          }
+          .cls-2 {
+            letter-spacing: -.02em;
+          }
+          .cls-3 {
+            letter-spacing: -.04em;
+          }
+        </style>
+      </defs>
+      <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+    </svg>
+    <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+  </div>
+
+<h1>Global AI Governance Discovery Summary</h1>
+
+<p class="metadata">
+<strong>Date:</strong> February 2, 2026<br>
+<strong>Phase:</strong> Discovery Complete<br>
+<strong>Prepared by:</strong> AQL Labs / FutureObjects<br>
+<strong>Commissioned by:</strong> College Futures Foundation
+</p>
+
+<hr>
+
+<h2>Executive Narrative</h2>
+
+<p>I tried to cast a large net with this discovery effort, and searched 12 domains of AI governance to identify frameworks relevant to College Futures' Ethical AI Framework for California community colleges. The research reveals a quickly growing global landscape. With over 200 frameworks identified and significant possible gaps:</p>
+<div class="big-quote">
+Community colleges remain largely invisible in authoritative AI governance frameworks.
+</div>
+
+<h3>The Global Picture</h3>
+
+<p>AI governance has reached an inflection point. The 2024-2025 period saw an unprecedented wave of binding legislation: Peru became among the first in Latin America to enact a general AI law (Law 31814, July 2023),<sup class="cite"><a href="#src-9">[9]</a></sup> South Korea passed its AI Basic Act in December 2024,<sup class="cite"><a href="#src-11">[11]</a></sup> Japan enacted the Act on Promotion of Research and Development of AI-Related Technologies in May 2025,<sup class="cite"><a href="#src-10">[10]</a></sup><sup class="cite"><a href="#src-12">[12]</a></sup> Taiwan passed its AI Basic Act in December 2025,<sup class="cite"><a href="#src-13">[13]</a></sup><sup class="cite"><a href="#src-14">[14]</a></sup> and Brazil's Marco Legal advanced through Congress. The EU AI Act entered into force on August 1, 2024, with obligations phased in through 2027,<sup class="cite"><a href="#src-8">[8]</a></sup> triggering ripple effects globally as regulators looked to Brussels for precedent.</p>
+
+<p>Regional coordination has accelerated. Africa adopted both the AU Continental AI Strategy<sup class="cite"><a href="#src-4">[4]</a></sup> and the Africa Declaration on AI (signed in Kigali), establishing the Africa AI Council through Smart Africa<sup class="cite"><a href="#src-18">[18]</a></sup> with ambitious financing targets, though fund capitalization and governance structures remain under development.<sup class="cite"><a href="#src-17">[17]</a></sup> Latin America built on the 2023 Santiago Declaration with the Montevideo Roadmap, creating a forum for ongoing ministerial coordination.<sup class="cite"><a href="#src-16">[16]</a></sup> ASEAN expanded its 2024 AI governance guide with GenAI-specific provisions in January 2025.<sup class="cite"><a href="#src-3">[3]</a></sup><sup class="cite"><a href="#src-15">[15]</a></sup></p>
+
+<h3>What's Missing: The Education Gap</h3>
+
+<p>Despite this activity, education remains peripheral in global AI governance. While the EU AI Act does classify education as a high-risk domain under Annex III (e.g., AI used for exam scoring or determining access to education),<sup class="cite"><a href="#src-8">[8]</a></sup> it provides minimal implementation guidance for educational institutions. National strategies acknowledge AI's educational potential but rarely provide operational frameworks. The frameworks that do address education&mdash;UNESCO's competency frameworks, TeachAI's principles, EDUCAUSE's resources&mdash;focus primarily on K-12 or four-year institutions.</p>
+
+<div class="critical">
+<strong>Community colleges are essentially absent.</strong> Of the 224 frameworks reviewed, our analysis identified only <strong>TWO</strong> that directly address community colleges: the Academic Senate for California Community Colleges (ASCCC) policy framework<sup class="cite"><a href="#src-19">[19]</a></sup> and the Achieving the Dream network's AI Task Force report.<sup class="cite"><a href="#src-1">[1]</a></sup> This is an initial analysis&mdash;the claim of exclusivity cannot be conclusively verified without exhaustive review of all 224 frameworks&mdash;but if confirmed it is a remarkable oversight given that community colleges serve approximately 43.7% of all US undergraduates (2020-21),<sup class="cite"><a href="#src-20">[20]</a></sup> disproportionately serve historically marginalized populations, and are the primary pipeline for workforce training that AI is transforming.
+</div>
+
+<h3>Potential Bright Spots for Adaptation</h3>
+
+<p>Several frameworks, while not education-specific, seem to offer models directly adaptable to the CC context:</p>
+
+<div class="framework-box">
+<span class="framework-title">The AI Handbook for Local Government</span> (University of Michigan) was designed explicitly for resource-constrained public institutions without dedicated compliance teams&mdash;a description that fits most community colleges precisely.
+</div>
+
+<div class="framework-box">
+<span class="framework-title">IEEE P7004</span> is the only international standards project specifically addressing child and student data governance.<sup class="cite"><a href="#src-6">[6]</a></sup> Currently an active draft (not yet a published standard), it is essential reading for any educational AI framework.
+</div>
+
+<div class="framework-box">
+<span class="framework-title">The NAIC Model Bulletin on AI</span> for insurers provides a remarkably detailed governance template&mdash;requiring written AI programs, cross-functional accountability structures, and documentation standards&mdash;that translates well to institutional AI policy despite its insurance focus.<sup class="cite"><a href="#src-2">[2]</a></sup>
+</div>
+
+<div class="framework-box">
+<span class="framework-title">OMB M-25-21</span>, the current federal AI policy, explicitly lists "access to education" as a "high-impact AI use" alongside healthcare, housing, and employment.<sup class="cite"><a href="#src-5">[5]</a></sup> This creates potential compliance implications for federally-funded institutions.
+</div>
+
+<div class="framework-box">
+<span class="framework-title">The Ethical Framework for AI in Education</span> (Institute for Ethical AI in Education, University of Buckingham) is the only procurement-focused framework in the inventory. Its nine requirements and vendor evaluation checklist provide an immediately actionable tool for CC technology selection committees. Adopted by Khan Academy and licensed CC BY-NC 4.0 for institutional adaptation.
+</div>
+
+<h3>The Frontier: Agentic AI</h3>
+
+<p>Maybe the most significant for forward-looking governance is the emergence of frameworks for agentic AI: systems that can autonomously pursue goals, make decisions, and take actions. Singapore's CSA published a draft addendum on securing agentic AI systems for public consultation in October 2025,<sup class="cite"><a href="#src-21">[21]</a></sup> and IMDA launched the Model AI Governance Framework for Agentic AI in January 2026<sup class="cite"><a href="#src-22">[22]</a></sup>&mdash;together representing the first major government attempts to govern these systems. The newly-formed Agentic AI Foundation under the Linux Foundation, with backing from Anthropic, OpenAI, and others, is establishing infrastructure standards through the Model Context Protocol.<sup class="cite"><a href="#src-23">[23]</a></sup></p>
+
+<div class="callout">
+<strong>This matters for community colleges</strong> because agentic AI is coming to education rapidly. AI tutoring agents, advising chatbots, and automated student support systems are no longer speculative&mdash;they're being deployed. Yet no framework addresses agentic AI in educational contexts. CC institutions adopting these tools today are essentially governing in a vacuum.
+</div>
+
+<h3>Indigenous Data Sovereignty: A Model for Collective Consent</h3>
+
+<p>The Indigenous data sovereignty movement offers valuable principles for CC's equity-centered mission. The CARE Principles (Collective Benefit, Authority to Control, Responsibility, Ethics), the Canadian OCAP framework, and New Zealand's Te Mana Raraunga challenge the individual consent model that dominates AI governance. They argue that data about communities should benefit those communities and be governed collectively.</p>
+
+<p>For community colleges serving place-based, historically marginalized communities, this framing resonates. A student's educational data isn't just theirs individually&mdash;it reflects and affects their communities. UNESCO's new Guidelines on Indigenous Data Sovereignty in AI specifically apply these principles to AI development, offering a model for culturally-responsive educational AI governance.</p>
+
+<h3>Recommendations</h3>
+
+<p>Based on this discovery, possible recommendations for College Futures:</p>
+
+<div class="recommendation-box">
+<span class="rec-number">1</span> <strong>Prioritize extraction and analysis</strong> of the ASCCC framework,<sup class="cite"><a href="#src-19">[19]</a></sup> Achieving the Dream report,<sup class="cite"><a href="#src-1">[1]</a></sup> IEEE P7004,<sup class="cite"><a href="#src-6">[6]</a></sup> and the AI Handbook for Local Government as directly applicable resources.
+</div>
+
+<div class="recommendation-box">
+<span class="rec-number">2</span> <strong>Develop CC-specific guidance</strong> filling the identified gaps&mdash;particularly for adult learners, workforce education, adjunct faculty considerations, and non-credit programs that other frameworks ignore.
+</div>
+
+<div class="recommendation-box">
+<span class="rec-number">3</span> <strong>Prepare for agentic AI</strong> by adapting Singapore's Agentic AI governance frameworks<sup class="cite"><a href="#src-21">[21]</a></sup><sup class="cite"><a href="#src-22">[22]</a></sup> to educational contexts before tutoring and advising agents proliferate.
+</div>
+
+<div class="recommendation-box">
+<span class="rec-number">4</span> <strong>Integrate Indigenous data sovereignty principles</strong> through Local Contexts TK Labels and CARE frameworks, recognizing community colleges' unique community-serving mission.
+</div>
+
+<div class="recommendation-box">
+<span class="rec-number">5</span> <strong>Monitor pending legislation</strong> including the federal AI Civil Rights Act (which explicitly covers education) and Brazil's Marco Legal (as a model for risk-based regulation in resource-constrained contexts).
+</div>
+
+<div class="highlight-box">
+The global AI governance landscape offers a lot of possible resources, but community colleges must adapt these frameworks rather than adopt them directly. This discovery phase provides the raw material; the further analysis and synthesis phase will need translate it to CC realities.
+</div>
+
+<hr>
+
+<h2>Discovery at a Glance</h2>
+
+<div class="stats-grid">
+  <div class="stat-box">
+    <div class="stat-number">12</div>
+    <div class="stat-label">Domains Searched</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-number">224</div>
+    <div class="stat-label">Frameworks Identified</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-number">~210</div>
+    <div class="stat-label">New Frameworks</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-number">62</div>
+    <div class="stat-label">High-Priority Additions</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-number">11</div>
+    <div class="stat-label">Critical/High for CC Context</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-number">~14</div>
+    <div class="stat-label">Already in Inventory</div>
+  </div>
+</div>
+
+<hr>
+
+<h2>Domain Summaries</h2>
+
+<div class="domain-box">
+  <div class="domain-title">1. Africa (15 frameworks)</div>
+  The AU Continental AI Strategy (2024)<sup class="cite"><a href="#src-4">[4]</a></sup> and the Africa Declaration on AI (2025) establish pan-African governance. Nigeria, Kenya, Rwanda, Egypt, and South Africa lead national efforts. The Africa AI Council launched via Smart Africa in November 2025.<sup class="cite"><a href="#src-18">[18]</a></sup> <strong>Key insight:</strong> emphasis on data sovereignty and local computing capacity aligns with CC equity concerns.
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">2. Asia-Pacific (26 frameworks)</div>
+  Most dynamic regulatory region. Japan's AI promotion act (2025),<sup class="cite"><a href="#src-10">[10]</a></sup><sup class="cite"><a href="#src-12">[12]</a></sup> South Korea AI Basic Act (2024),<sup class="cite"><a href="#src-11">[11]</a></sup> Taiwan AI Basic Act (2025)<sup class="cite"><a href="#src-13">[13]</a></sup><sup class="cite"><a href="#src-14">[14]</a></sup> represent binding legislation wave. ASEAN's voluntary guide covers 10 nations.<sup class="cite"><a href="#src-3">[3]</a></sup> Singapore's Agentic AI governance frameworks are globally significant.<sup class="cite"><a href="#src-21">[21]</a></sup><sup class="cite"><a href="#src-22">[22]</a></sup> China's labeling requirements and India's light-touch approach offer contrasting models.
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">3. Latin America (22 frameworks)</div>
+  Santiago (2023) and Montevideo (2024) Declarations create regional coordination.<sup class="cite"><a href="#src-16">[16]</a></sup> Peru enacted Law 31814 (2023), among the first general AI laws in the region.<sup class="cite"><a href="#src-9">[9]</a></sup> Brazil's Marco Legal most advanced pending bill. Chile first to complete UNESCO readiness assessment. Strong equity and vulnerable populations focus aligns with CC mission.
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">4. Industry Standards (22 frameworks)</div>
+  ISO/IEC 42001 certification accelerating. ISO 23894 (risk) and 38507 (governance) complement it. IEEE P7004 is the only standards project addressing student data governance (currently in development).<sup class="cite"><a href="#src-6">[6]</a></sup> NIST GenAI Profile (AI 600-1) addresses LLM risks. AI Verify offers open-source testing capability.
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">5. Financial Services (19 frameworks)</div>
+  Most operationalized sector governance. MAS Veritas provides "executable ethics" model. EU AI Act classifies credit scoring as high-risk.<sup class="cite"><a href="#src-8">[8]</a></sup> CFPB requires specific adverse action reasons. NAIC Model Bulletin offers adaptable governance template.<sup class="cite"><a href="#src-2">[2]</a></sup>
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">6. Healthcare (17 frameworks)</div>
+  High-stakes parallel to education decisions. WHO LMM guidance addresses GenAI. FDA GMLP harmonizes US/Canada/UK. CHAI assurance framework with "model cards" offers transparency model. NAM Code of Conduct provides six commitments framework.
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">7. Defense/Government (20 frameworks)</div>
+  OMB M-25-21 current federal policy&mdash;explicitly mentions education.<sup class="cite"><a href="#src-5">[5]</a></sup> GAO framework provides audit methodology. UK AI Playbook offers 10 principles. AI Handbook for Local Government directly addresses resource-constrained institutions.
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">8. Civil Society & Human Rights (17 frameworks)</div>
+  Freedom Online Coalition (2025) explicitly addresses education. AI Civil Rights Act would cover educational decisions. Amnesty toolkit enables community oversight. AI Now 2025 report offers critical industry analysis.
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">9. Indigenous Data Sovereignty (15 frameworks)</div>
+  CARE Principles foundational. OCAP (Canada) and Maiam nayri Wingara (Australia) establish national frameworks. UNESCO Indigenous AI Guidelines bridge data sovereignty and AI. Local Contexts TK Labels offer practical implementation tool.
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">10. Frontier AI (16 frameworks)</div>
+  Seoul Summit commitments from 20 organizations. International AI Safety Institutes network coordinates government efforts. OpenAI agentic practices paper addresses autonomous systems. Agentic AI Foundation/MCP establishing infrastructure standard.<sup class="cite"><a href="#src-23">[23]</a></sup>
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">11. Corporate Governance (13 frameworks)</div>
+  Microsoft, Google, IBM publish transparency reports. ISACA COBIT adapts IT governance for AI. Major vendors shape tools CC uses&mdash;understanding their governance informs vendor evaluation.
+</div>
+
+<div class="domain-box">
+  <div class="domain-title">12. Education-Adjacent (22 frameworks)</div>
+  EDUCAUSE provides most comprehensive higher ed resources. ASCCC framework directly addresses California CCs.<sup class="cite"><a href="#src-19">[19]</a></sup> Achieving the Dream report reflects CC network perspectives.<sup class="cite"><a href="#src-1">[1]</a></sup> Advance CTE covers workforce programs. Accreditors (SACSCOC, C-RAC, HLC) developing AI guidance with compliance implications.
+</div>
+
+<hr>
+
+<h2>Highest-Rated Frameworks for CC</h2>
+<p>Top-tier frameworks from both research streams based on detailed extraction and applicability analysis. See full rated inventories in <em>Extracted Framework Profiles</em> (15 global) and <em>Extracted Education Framework Profiles</em> (14 education).</p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+    <th>CC Applicability</th>
+  </tr>
+
+  <!-- Global Research: Critical -->
+  <tr class="row-critical">
+    <td>Creating the AI-Enabled Community College<br><span class="source-tag">Global Research</span></td>
+    <td>Achieving the Dream (ATD)</td>
+    <td>2025</td>
+    <td>Guidance</td>
+    <td class="relevance-label-critical">Critical</td>
+  </tr>
+  <tr class="row-critical">
+    <td>EDUCAUSE AI Governance Resources<br><span class="source-tag">Global Research</span></td>
+    <td>EDUCAUSE</td>
+    <td>2024&ndash;2025</td>
+    <td>Guidance</td>
+    <td class="relevance-label-critical">Critical</td>
+  </tr>
+  <tr class="row-critical">
+    <td>SACSCOC/C-RAC AI Guidance for Accreditation<br><span class="source-tag">Global Research</span></td>
+    <td>SACSCOC / C-RAC</td>
+    <td>2024&ndash;2025</td>
+    <td>Guidance</td>
+    <td class="relevance-label-critical">Critical</td>
+  </tr>
+  <tr class="row-critical">
+    <td>AI Handbook for Local Government<br><span class="source-tag">Global Research</span></td>
+    <td>U. Michigan STPP / MI Municipal League</td>
+    <td>2024</td>
+    <td>Toolkit</td>
+    <td class="relevance-label-critical">Critical</td>
+  </tr>
+  <tr class="row-critical">
+    <td>Singapore Agentic AI Framework<br><span class="source-tag">Global Research</span></td>
+    <td>IMDA / CSA / GovTech Singapore</td>
+    <td>2025&ndash;2026</td>
+    <td>Guidance</td>
+    <td class="relevance-label-critical">Critical</td>
+  </tr>
+
+  <!-- Education Inventory: High -->
+  <tr class="row-high">
+    <td>AI in K-12 Policy Template<br><span class="source-tag">Education Inventory</span></td>
+    <td>Alabama State DOE</td>
+    <td>2024</td>
+    <td>Policy</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>AI Literacy Framework<br><span class="source-tag">Education Inventory</span></td>
+    <td>Digital Education Council</td>
+    <td>2024</td>
+    <td>Competency</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>Responsible AI and Tech Justice<br><span class="source-tag">Education Inventory</span></td>
+    <td>Kapor Foundation</td>
+    <td>2024</td>
+    <td>Toolkit</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>Bloom's Taxonomy Revisited for GenAI<br><span class="source-tag">Education Inventory</span></td>
+    <td>Oregon State University</td>
+    <td>2024</td>
+    <td>Toolkit</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>AI Guidance for Schools Toolkit<br><span class="source-tag">Education Inventory</span></td>
+    <td>TeachAI</td>
+    <td>2024</td>
+    <td>Toolkit</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>The Ethical Framework for AI in Education<br><span class="source-tag">Education Inventory</span></td>
+    <td>Institute for Ethical AI in Education</td>
+    <td>2021</td>
+    <td>Framework</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+</table>
+
+<p><strong>Critical</strong> (blue) &mdash; Directly addresses CC contexts or provides essential governance structure.<br>
+<strong>High</strong> (green) &mdash; Directly usable structure or essential perspective for CC context.</p>
+
+<p><em>An additional 6 global frameworks rated <strong>High</strong> (ASCCC, IEEE P7004, OMB M-25-21, GAO, NIST AI 600-1, NAIC) and 6 education frameworks rated <strong>Medium</strong> provide valuable supporting elements. Full ratings in companion extraction documents.</em></p>
+
+<hr>
+
+<h2>Confirmed Gaps</h2>
+
+<div class="gap-list">
+<strong>No authoritative frameworks exist for:</strong>
+<ul>
+  <li>Community college-specific AI governance (partially addressed by ASCCC and ATD, but no comprehensive CC governance standard exists)</li>
+  <li>Adult learner/non-traditional student AI contexts</li>
+  <li>Dual enrollment AI governance (K-12/higher ed intersection)</li>
+  <li>Non-credit/continuing education AI</li>
+  <li>Adjunct/contingent faculty AI implications</li>
+  <li>Student-facing agentic AI (tutoring agents, advising bots)</li>
+  <li>Transfer student AI (articulation, credit evaluation)</li>
+  <li>Disability/accessibility in AI (Alabama template and ASCCC include accessibility provisions, but no dedicated AI accessibility governance framework exists)</li>
+  <li>Small organization implementation pathways (the AI Handbook for Local Government partially addresses resource-constrained contexts, but no education-specific guidance exists)</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>Project Data Files</h2>
+
+<details>
+<summary>Global AI Governance Research &mdash; 12 candidate files, 14 extractions</summary>
+<pre>
+global-ai-governance-research/
+├── data/
+│   ├── candidates/                          # Phase 1: Discovery (12 domains, ~224 frameworks)
+│   │   ├── africa.json
+│   │   ├── asia-pacific.json
+│   │   ├── civil-society.json
+│   │   ├── corporate-governance.json
+│   │   ├── defense-government.json
+│   │   ├── education-adjacent.json
+│   │   ├── financial-services.json
+│   │   ├── frontier-ai.json
+│   │   ├── healthcare.json
+│   │   ├── indigenous-data-sovereignty.json
+│   │   ├── industry-standards.json
+│   │   └── latin-america.json
+│   │
+│   └── extracted/                           # Phase 2: 14 framework extractions
+│       ├── advance-cte-ai-integration.json
+│       ├── ai-handbook-local-government.json
+│       ├── asccc-ai-policy.json
+│       ├── atd-ai-task-force.json
+│       ├── educause-ai-resources.json
+│       ├── freedom-online-coalition-ai-statement.json
+│       ├── gao-ai-accountability-framework.json
+│       ├── ieee-7004-student-data.json
+│       ├── naic-model-bulletin-ai.json
+│       ├── nist-ai-600-1-genai-profile.json
+│       ├── omb-m-25-21.json
+│       ├── sacscoc-crac-ai-guidance.json
+│       ├── singapore-agentic-ai.json
+│       └── unesco-indigenous-ai-guidelines.json
+</pre>
+</details>
+
+<details>
+<summary>Education Framework Inventory &mdash; 1 candidate file, 14 extractions</summary>
+<pre>
+ai-framework-inventory/
+├── data/
+│   ├── candidates/                          # Phase 1: Discovery
+│   │   └── candidates-from-project-knowledge.json
+│   │
+│   ├── extracted/                           # Phase 2: 14 framework extractions
+│   │   ├── alabama-ai-policy-template.json
+│   │   ├── colorado-ai-roadmap.json
+│   │   ├── dec-ai-literacy-framework.json
+│   │   ├── ieaied-ethical-framework.json
+│   │   ├── kapor-responsible-ai-tech-justice.json
+│   │   ├── khan-academy-khanmigo.json
+│   │   ├── magicschool-governance.json
+│   │   ├── nten-genai-policy-template.json
+│   │   ├── oecd-ec-ailit-framework.json
+│   │   ├── osu-blooms-taxonomy-genai.json
+│   │   ├── teachai-toolkit.json
+│   │   ├── unesco-ai-competency-students.json
+│   │   ├── unesco-ai-competency-teachers.json
+│   │   └── wef-teachai-7-principles.json
+│   │
+│   └── inventory.json                       # Combined inventory data
+</pre>
+</details>
+
+
+
+<h2>Next Steps</h2>
+
+<div class="success">
+<strong>Phase 3: Analysis</strong> — Map frameworks to CC governance needs, identify adaptable elements<br><br>
+<strong>Phase 4: Synthesis</strong> — Develop CC-specific recommendations incorporating global best practices
+</div>
+
+<hr>
+
+<h2>Questions for the Group</h2>
+
+<div class="action-box">
+<ol>
+  <li>Are there frameworks we should add?</li>
+  <li>Do these CC gap priorities match our understanding?</li>
+  <li>Which recommendations should we prioritize?</li>
+  <li>Who else should validate these findings?</li>
+</ol>
+</div>
+
+<hr>
+
+<!-- ============================================================ -->
+<!-- SOURCES -->
+<!-- ============================================================ -->
+
+<h2>Sources</h2>
+
+<div class="sources-list">
+<ol>
+  <li id="src-1">Achieving the Dream, <em>Creating the AI-Enabled Community College: AI for All Task Force Report</em> (July 2025). <a href="https://achievingthedream.org/wp-content/uploads/2025/07/ATD-AI-Task-Force-Report-Final-7-21-25.pdf">achievingthedream.org (PDF)</a></li>
+
+  <li id="src-2">NAIC, <em>Model Bulletin: Use of Artificial Intelligence Systems by Insurers</em>. <a href="https://content.naic.org/sites/default/files/cmte-h-big-data-artificial-intelligence-wg-ai-model-bulletin.pdf.pdf">content.naic.org (PDF)</a></li>
+
+  <li id="src-3">ASEAN, <em>Expanded ASEAN Guide on AI Governance and Ethics: Generative AI</em> (2nd ed., January 2025). <a href="https://asean.org/wp-content/uploads/2025/01/Expanded-ASEAN-Guide-on-AI-Governance-and-Ethics-Generative-AI.pdf">asean.org (PDF)</a></li>
+
+  <li id="src-4">African Union, <em>Continental AI Strategy</em> (July 2024). <a href="https://au.int/sites/default/files/documents/44004-doc-EN-_Continental_AI_Strategy_July_2024.pdf">au.int (PDF)</a></li>
+
+  <li id="src-5">White House OMB, <em>M-25-21: Accelerating Federal Use of AI through Innovation, Governance, and Public Trust</em> (February 2025). <a href="https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf">whitehouse.gov (PDF)</a></li>
+
+  <li id="src-6">IEEE Standards Association, <em>IEEE P7004 &ndash; Standard for Child and Student Data Governance</em> (Active PAR). <a href="https://standards.ieee.org/ieee/7004/10270/">standards.ieee.org</a></li>
+
+  <li id="src-8">European Commission, <em>Regulatory Framework for AI</em> (AI Act timeline and Annex III high-risk classifications). <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai">digital-strategy.ec.europa.eu</a></li>
+
+  <li id="src-9">UNESCO, <em>Global AI Ethics and Governance Observatory &ndash; Peru</em> (Law N&deg; 31814, July 2023). <a href="https://www.unesco.org/ethics-ai/en/peru">unesco.org</a></li>
+
+  <li id="src-10">White &amp; Case, <em>AI Watch: Global Regulatory Tracker &ndash; Japan</em> (June 2025). <a href="https://www.whitecase.com/insight-our-thinking/ai-watch-global-regulatory-tracker-japan">whitecase.com</a></li>
+
+  <li id="src-11">U.S. International Trade Administration, <em>South Korea Artificial Intelligence (AI) Basic Act</em> (April 2025). <a href="https://www.trade.gov/market-intelligence/south-korea-artificial-intelligence-ai-basic-act">trade.gov</a></li>
+
+  <li id="src-12">South Korea Ministry of Science and ICT, <em>Basic Act on AI Passed at the National Assembly's Plenary Session</em>. <a href="https://www.msit.go.kr/eng/bbs/view.do?bbsSeqNo=42&mId=4&mPid=2&nttSeqNo=1071">msit.go.kr</a></li>
+
+  <li id="src-13">Baker McKenzie, <em>Taiwan: AI Basic Act</em> (January 2026). <a href="https://www.bakermckenzie.com/en/insight/publications/2026/01/taiwan-ai-basic-act">bakermckenzie.com</a></li>
+
+  <li id="src-14">Taiwan Ministry of Digital Affairs, <em>Legislative Yuan Passes Artificial Intelligence Fundamental Act</em> (January 2026). <a href="https://moda.gov.tw/en/press/press-releases/18316">moda.gov.tw</a></li>
+
+  <li id="src-15">ASEAN, <em>Expanded ASEAN Guide on AI Governance and Ethics: Generative AI</em> (distribution copy, January 2025). <a href="https://asean.org/wp-content/uploads/2025/01/Expanded-ASEAN-Guide-on-AI-Governance-and-Ethics-Generative-AI.pdf">asean.org (PDF)</a></li>
+
+  <li id="src-16">UNESCO, <em>Chile Will Host First Latin American and Caribbean Ministerial and High-Level Summit on Ethics of AI</em> (Santiago Declaration 2023; Montevideo Roadmap 2024). <a href="https://www.unesco.org/en/articles/chile-will-host-first-latin-american-and-caribbean-ministerial-and-high-level-summit-ethics">unesco.org</a></li>
+
+  <li id="src-17">Carnegie Endowment for International Peace, <em>Understanding Africa's AI Governance Landscape: Insights from Policy, Practice, and Dialogue</em> (September 2025). <a href="https://carnegieendowment.org/posts/2025/09/understanding-africas-ai-governance-landscape-insights-from-policy-practice-and-dialogue">carnegieendowment.org</a></li>
+
+  <li id="src-18">Smart Africa, <em>The Smart Africa Board Unveils the Inaugural Africa AI Council to Lead the Continent's AI Transformation</em>. <a href="https://smartafrica.org/the-smart-africas-board-unveils-the-inaugural-africa-ai-council-to-lead-the-continents-ai-transformation/">smartafrica.org</a></li>
+
+  <li id="src-19">Academic Senate for California Community Colleges (ASCCC), <em>Academic Integrity Policies in the Age of Artificial Intelligence &ndash; AI Resources 2024</em>. <a href="https://www.asccc.org/sites/default/files/ASCCC_AI_Resources_2024.pdf">asccc.org (PDF)</a></li>
+
+  <li id="src-20">U.S. Department of Education, <em>Community College Facts at a Glance</em> (2020-21: 8,871,746 students, approximately 43.7% of undergraduates). <a href="https://www.ed.gov/higher-education/find-college-or-educational-program/community-college/facts-at-a-glance">ed.gov</a></li>
+
+  <li id="src-21">Cyber Security Agency of Singapore (CSA), <em>Addendum on Securing AI Systems &ndash; Securing Agentic AI Systems</em> (Draft for public consultation, October 2025). <a href="https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/">csa.gov.sg</a></li>
+
+  <li id="src-22">IMDA / MDDI Singapore, <em>New Model AI Governance Framework for Agentic AI</em> (January 2026). <a href="https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2026/new-model-ai-governance-framework-for-agentic-ai">imda.gov.sg</a></li>
+
+  <li id="src-23">Wired, <em>OpenAI, Anthropic, and Block Are Teaming Up on AI Agent Standards</em> (reporting on Agentic AI Foundation and MCP transfer to Linux Foundation). <a href="https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards">wired.com</a></li>
+</ol>
+</div>
+
+<hr>
+
+<div class="about-box">
+<strong>About This Document:</strong> This discovery summary documents the comprehensive search of 12 global domains for AI governance frameworks relevant to California community colleges. The research was done as Phase 1 and a start of Phase 2 of the Ethical AI Framework project for the College Futures Foundation. This revision (rev_01) incorporates claim verification against primary sources conducted February 2026.
+</div>
+
+<hr>
+
+<p class="metadata" style="text-align: center;">
+<em>Prepared by AQL Labs / FutureObjects</em><br>
+<em>Commissioned by College Futures Foundation | February 2026</em>
+</p>
+
+</body>
+</html>

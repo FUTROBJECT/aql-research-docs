@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extracted Education Framework Profiles</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    color: #333;
+  }
+
+  h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-top: 0;
+  }
+
+  h2 {
+    font-size: 14pt;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+  }
+
+  h3 {
+    font-size: 12pt;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+  }
+
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+
+  .critical {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+
+  .success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+
+  .about-box {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 16px;
+    font-size: 10pt;
+    font-style: italic;
+    margin: 24px 0;
+  }
+
+  .framework-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    margin: 24px 0;
+    border-radius: 4px;
+  }
+
+  .framework-header {
+    background: #0066cc;
+    color: white;
+    padding: 12px 16px;
+    margin: -20px -20px 16px -20px;
+    font-size: 13pt;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .framework-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+    font-size: 10pt;
+    color: #666;
+  }
+
+  .meta-tag {
+    display: inline-block;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 9pt;
+  }
+
+  .focus-tag {
+    display: inline-block;
+    background: #e7f3ff;
+    color: #0066cc;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 9pt;
+    margin-right: 4px;
+  }
+
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+
+  .approach-item {
+    background: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+    font-size: 10pt;
+  }
+
+  .approach-label {
+    font-weight: bold;
+    font-size: 9pt;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .approach-value {
+    font-size: 11pt;
+  }
+
+  .strength-item {
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  .strength-item::marker {
+    color: #28a745;
+  }
+
+  .gap-item {
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  .gap-item::marker {
+    color: #c00;
+  }
+
+  .toc {
+    background: #f8f9fa;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+  }
+
+  .toc a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+
+  .toc a:hover {
+    text-decoration: underline;
+  }
+
+  .toc ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .toc li {
+    margin-bottom: 4px;
+  }
+
+  .applicability-high {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+
+  .applicability-medium {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+
+  .applicability-low {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+
+  .applicability-critical {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+
+  /* Overview table row highlighting */
+  .row-high {
+    background-color: #d4edda;
+  }
+  .row-medium {
+    background-color: #fff3cd;
+  }
+  .row-low {
+    background-color: #f8d7da;
+  }
+  .relevance-label-high {
+    color: #28a745;
+    font-weight: bold;
+  }
+  .relevance-label-medium {
+    color: #856404;
+    font-weight: bold;
+  }
+  .relevance-label-low {
+    color: #c00;
+    font-weight: bold;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 32px 0;
+  }
+
+  @media print {
+    body {
+      padding: 0.5in;
+    }
+    .framework-card {
+      page-break-inside: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 {
+          font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+          font-size: 130.25px;
+          font-style: italic;
+          font-weight: 600;
+        }
+        .cls-2 {
+          letter-spacing: -.02em;
+        }
+        .cls-3 {
+          letter-spacing: -.04em;
+        }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<h1>Extracted Education Framework Profiles</h1>
+<p class="subtitle">14 Education AI Frameworks Analyzed for Community College Relevance</p>
+
+<p class="metadata">
+<strong>Date:</strong> January 2026<br>
+<strong>Phase:</strong> US Education Framework Research<br>
+<strong>Prepared by:</strong> AQL Labs / FutureObjects<br>
+<strong>Commissioned by:</strong> College Futures Foundation
+</p>
+
+<!-- ============================================================ -->
+<!-- FRAMEWORK OVERVIEW TABLE -->
+<!-- ============================================================ -->
+
+<h2>Framework Overview</h2>
+<p>Summary of 14 education-focused frameworks analyzed for community college relevance, sorted by applicability rating.</p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+    <th>Sector</th>
+    <th>CC Applicability</th>
+  </tr>
+
+  <!-- High -->
+  <tr class="row-high">
+    <td>AI in K-12 Policy Template</td>
+    <td>Alabama State DOE</td>
+    <td>2024</td>
+    <td>Policy</td>
+    <td>K-12</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>AI Literacy Framework</td>
+    <td>Digital Education Council</td>
+    <td>2024</td>
+    <td>Competency</td>
+    <td>Higher Ed</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>Responsible AI and Tech Justice</td>
+    <td>Kapor Foundation</td>
+    <td>2024</td>
+    <td>Toolkit</td>
+    <td>K-12</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>Bloom's Taxonomy Revisited for GenAI</td>
+    <td>Oregon State University</td>
+    <td>2024</td>
+    <td>Toolkit</td>
+    <td>Higher Ed</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>AI Guidance for Schools Toolkit</td>
+    <td>TeachAI</td>
+    <td>2024</td>
+    <td>Toolkit</td>
+    <td>K-12</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+  <tr class="row-high">
+    <td>The Ethical Framework for AI in Education</td>
+    <td>Institute for Ethical AI in Education</td>
+    <td>2021</td>
+    <td>Framework</td>
+    <td>Cross-sector</td>
+    <td class="relevance-label-high">High</td>
+  </tr>
+
+  <!-- Medium -->
+  <tr class="row-medium">
+    <td>Colorado Roadmap for AI in K-12</td>
+    <td>Colorado Education Initiative</td>
+    <td>2024</td>
+    <td>Policy</td>
+    <td>K-12</td>
+    <td class="relevance-label-medium">Medium</td>
+  </tr>
+  <tr class="row-medium">
+    <td>Generative AI Use Policy Template</td>
+    <td>NTEN</td>
+    <td>2024</td>
+    <td>Policy</td>
+    <td>General</td>
+    <td class="relevance-label-medium">Medium</td>
+  </tr>
+  <tr class="row-medium">
+    <td>AILit Framework</td>
+    <td>OECD / European Commission</td>
+    <td>2025</td>
+    <td>Competency</td>
+    <td>K-12</td>
+    <td class="relevance-label-medium">Medium</td>
+  </tr>
+  <tr class="row-medium">
+    <td>AI Competency Framework for Students</td>
+    <td>UNESCO</td>
+    <td>2024</td>
+    <td>Competency</td>
+    <td>K-12</td>
+    <td class="relevance-label-medium">Medium</td>
+  </tr>
+  <tr class="row-medium">
+    <td>AI Competency Framework for Teachers</td>
+    <td>UNESCO</td>
+    <td>2024</td>
+    <td>Competency</td>
+    <td>K-12</td>
+    <td class="relevance-label-medium">Medium</td>
+  </tr>
+  <tr class="row-medium">
+    <td>7 Principles for Responsible AI in Education</td>
+    <td>WEF / TeachAI</td>
+    <td>2024</td>
+    <td>Policy</td>
+    <td>General</td>
+    <td class="relevance-label-medium">Medium</td>
+  </tr>
+
+  <!-- Low -->
+  <tr class="row-low">
+    <td>Khan Academy's Framework for Responsible AI in Education</td>
+    <td>Khan Academy</td>
+    <td>2024</td>
+    <td>Platform</td>
+    <td>K-12</td>
+    <td class="relevance-label-low">Low</td>
+  </tr>
+  <tr class="row-low">
+    <td>MagicSchool Responsible AI Framework</td>
+    <td>MagicSchool</td>
+    <td>2024</td>
+    <td>Platform</td>
+    <td>K-12</td>
+    <td class="relevance-label-low">Low</td>
+  </tr>
+</table>
+
+<p><strong>High</strong> (green) &mdash; Directly usable structure or essential perspective for CC context.<br>
+<strong>Medium</strong> (yellow) &mdash; Valuable elements requiring adaptation for CC adult learner context.<br>
+<strong>Low</strong> (red) &mdash; Platform-specific; informative for vendor evaluation but not transferable governance.</p>
+
+<!-- ============================================================ -->
+<!-- TABLE OF CONTENTS -->
+<!-- ============================================================ -->
+
+<div class="toc">
+  <h3 style="margin-top: 0; border-bottom: none;">Table of Contents</h3>
+
+  <p><strong>High Applicability:</strong></p>
+  <ul>
+    <li>1. <a href="#fw-alabama">Alabama AI in K-12 Policy Template</a></li>
+    <li>2. <a href="#fw-dec">Digital Education Council AI Literacy Framework</a></li>
+    <li>3. <a href="#fw-kapor">Kapor Foundation Responsible AI and Tech Justice</a></li>
+    <li>4. <a href="#fw-osu">Oregon State Bloom's Taxonomy for GenAI</a></li>
+    <li>5. <a href="#fw-teachai">TeachAI Guidance for Schools Toolkit</a></li>
+    <li>6. <a href="#fw-ieaied">The Ethical Framework for AI in Education</a></li>
+  </ul>
+
+  <p><strong>Medium Applicability:</strong></p>
+  <ul>
+    <li>7. <a href="#fw-colorado">Colorado K-12 AI Education Roadmap</a></li>
+    <li>8. <a href="#fw-nten">NTEN Generative AI Use Policy Template</a></li>
+    <li>9. <a href="#fw-oecd">OECD/EC AILit Framework</a></li>
+    <li>10. <a href="#fw-unesco-students">UNESCO AI Competency Framework for Students</a></li>
+    <li>11. <a href="#fw-unesco-teachers">UNESCO AI Competency Framework for Teachers</a></li>
+    <li>12. <a href="#fw-wef">WEF/TeachAI 7 Principles</a></li>
+  </ul>
+
+  <p><strong>Low Applicability:</strong></p>
+  <ul>
+    <li>13. <a href="#fw-khan">Khan Academy Khanmigo Governance</a></li>
+    <li>14. <a href="#fw-magicschool">MagicSchool.ai Governance</a></li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- HIGH APPLICABILITY FRAMEWORKS -->
+<!-- ============================================================ -->
+
+<h2>High Applicability Frameworks</h2>
+
+<!-- ============================================================ -->
+<!-- 1. ALABAMA -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-alabama">
+  <div class="framework-header">1. AI in K-12 Policy Template</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> Alabama State Department of Education</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Policy</span>
+    <span class="meta-tag">K-12</span>
+    <span class="focus-tag">Governance</span>
+    <span class="focus-tag">Privacy</span>
+    <span class="focus-tag">Ethics</span>
+    <span>Document Link</span><a href="https://www.aiforeducation.io/s/AL-AI_PolicyTemplate_UPDATED_20240524.docx"> Download Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Eight foundational pillars: Strategy, Governance, Data Privacy and Security, Procurement, Implementation, Competency Development, Risk Management, and Utility and Effectiveness. Mandates AI Governance Committees, human verification of AI outputs, NIST-based risk assessment, and explicit prohibition on using school data to train AI models.</p>
+
+  <p><strong>Target Audience:</strong> Local Education Agencies (LEAs) in Alabama; adaptable template for district-level policy<br>
+  <strong>Implementation Level:</strong> Institutional</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Documentation focus</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Compliance focus</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Mentioned</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Mixed</td></tr>
+    <tr><td>Prescriptiveness</td><td>Rules</td></tr>
+    <tr><td>Enforcement</td><td>Required</td></tr>
+    <tr><td>Student Agency</td><td>Informed user</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-high">
+    <strong>CC Applicability: High</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Most comprehensive state-level policy template available</li>
+    <li class="strength-item">Eight-pillar structure provides complete governance framework</li>
+    <li class="strength-item">AI Governance Committee model directly adaptable to CC</li>
+    <li class="strength-item">Strong vendor contract requirements for data protection</li>
+    <li class="strength-item">Human verification mandate aligns with academic integrity needs</li>
+    <li class="strength-item">Grade dispute process model useful for CC student rights</li>
+    <li class="strength-item">NIST-based risk framework provides credible foundation</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">K-12 specific language needs adaptation</li>
+    <li class="gap-item">Doesn't address adult learner autonomy</li>
+    <li class="gap-item">No workforce development considerations</li>
+    <li class="gap-item">Student agency limited to appeals process, not co-governance</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Strongest policy template in inventory for CC adaptation. The eight-pillar structure maps well to CC governance needs. Would need to: (1) adapt K-12 language to higher ed, (2) add workforce/CTE considerations, (3) expand student role from appeals to participation in governance committees, (4) adjust parental notification to adult learner direct communication.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 2. DEC AI LITERACY FRAMEWORK -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-dec">
+  <div class="framework-header">2. AI Literacy Framework</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> Digital Education Council</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Competency</span>
+    <span class="meta-tag">Higher Ed</span>
+    <span class="focus-tag">Literacy</span>
+    <span>Document Link</span><a href="https://drive.google.com/file/d/13UwhXCbGK2VeHwKBkNfrthxkF90PfqLy/view?usp=sharing"> Downnload Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Defines 5 key dimensions of AI literacy with a human-centred approach emphasizing critical thinking, creativity, and emotional intelligence. Addresses both general AI literacy for all and specialized AI literacy adaptable to different disciplines and jurisdictions.</p>
+
+  <p><strong>Target Audience:</strong> Higher education institutions, faculty, students<br>
+  <strong>Implementation Level:</strong> Institutional</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Capability building</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Mentioned</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Admin</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>None</td></tr>
+    <tr><td>Student Agency</td><td>Informed user</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-high">
+    <strong>CC Applicability: High</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Higher ed focus (closer to CC context than K-12)</li>
+    <li class="strength-item">Discipline-specific adaptability useful for CTE programs</li>
+    <li class="strength-item">Human-centred approach emphasizes skills CCs value</li>
+    <li class="strength-item">Separate frameworks for faculty and students</li>
+    <li class="strength-item">Industry-specific applications support workforce alignment</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">Focused on literacy, not governance</li>
+    <li class="gap-item">May assume resources CCs don't have</li>
+    <li class="gap-item">Governance dimensions not addressed</li>
+    <li class="gap-item">Student agency framing limited</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Most directly applicable to CC of frameworks reviewed. Literacy dimensions could map to CC course outcomes. Would need to add governance layer and resource-conscious implementation guidance. Discipline adaptability is valuable for CTE pathways.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 3. KAPOR FOUNDATION -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-kapor">
+  <div class="framework-header">3. Responsible AI and Tech Justice: A Guide for K-12 Education</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> Kapor Foundation / Kapor Center</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Toolkit</span>
+    <span class="meta-tag">K-12</span>
+    <span class="focus-tag">Ethics</span>
+    <span class="focus-tag">Literacy</span>
+    <span>Document Link</span><a href="https://kaporfoundation.org/wp-content/uploads/2024/01/Responsible-AI-Guide-Kapor-Foundation.pdf"> Downnload Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Six inquiry-based components centering racial and social justice: (1) Examine AI creation ecosystem, (2) Interrogate technology-human relationships, (3) Explore societal impacts, (4) Interrogate personal AI usage, (5) Build critical lens on data collection, usage, and reporting, (6) Minimize/eliminate AI-caused harm. Explicitly centers how AI disproportionately impacts marginalized communities.</p>
+
+  <p><strong>Target Audience:</strong> K-12 educators and students<br>
+  <strong>Implementation Level:</strong> Classroom</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Capability building</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Central</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Faculty</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>None</td></tr>
+    <tr><td>Student Agency</td><td>Active participant</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-high">
+    <strong>CC Applicability: High</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Explicit racial and social justice lens aligns with CC equity mission</li>
+    <li class="strength-item">Critical interrogation approach suits adult learner sophistication</li>
+    <li class="strength-item">Developed by leading scholars in tech justice (Noble, Bender, Gilliard)</li>
+    <li class="strength-item">Six-component structure provides comprehensive curriculum framework</li>
+    <li class="strength-item">Addresses AI harm to marginalized communities - directly relevant to CC populations</li>
+    <li class="strength-item">Inquiry-based approach supports critical thinking development</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">K-12 framing in examples and activities</li>
+    <li class="gap-item">No institutional governance component</li>
+    <li class="gap-item">No workforce development connection</li>
+    <li class="gap-item">Classroom-focused, not policy-focused</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Most equity-centered framework in inventory. The justice lens is directly relevant to CC serving first-gen, BIPOC, low-income students. The six components could structure a CC AI ethics course or be integrated across curriculum. Would need to add institutional governance layer and connect to workforce contexts where students will encounter AI.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 4. OREGON STATE -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-osu">
+  <div class="framework-header">4. Bloom's Taxonomy Revisited for GenAI</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> Oregon State University eCampus</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Toolkit</span>
+    <span class="meta-tag">Higher Ed</span>
+    <span class="focus-tag">Assessment</span>
+    <span class="focus-tag">Literacy</span>
+    <span>Document Link</span><a href="https://ecampus.oregonstate.edu/faculty/artificial-intelligence-tools/blooms-taxonomy-revisited/"> Downnload Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Maps GenAI capabilities against Bloom's Taxonomy levels to identify distinctive human skills and AI supplementation opportunities. Six levels of human capabilities remain essential: creative/cognitive processes, metacognitive reflection, ethical appraisal, critical reasoning, real-world application, and context-dependent recall. Version 2.0 under CC BY-NC 4.0 license.</p>
+
+  <p><strong>Target Audience:</strong> Higher education faculty and instructional designers<br>
+  <strong>Implementation Level:</strong> Classroom</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not Addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Capability building</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Absent</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Faculty</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>None</td></tr>
+    <tr><td>Student Agency</td><td>None</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-high">
+    <strong>CC Applicability: High</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Higher ed source - directly applicable to CC</li>
+    <li class="strength-item">Practical framework for course/assessment redesign</li>
+    <li class="strength-item">Identifies what humans do that AI cannot</li>
+    <li class="strength-item">Maps AI as supplement, not replacement</li>
+    <li class="strength-item">Creative Commons license allows adaptation</li>
+    <li class="strength-item">Focuses on meaningful learning outcomes</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">No governance or policy component</li>
+    <li class="gap-item">No equity framing</li>
+    <li class="gap-item">Classroom-focused, not institutional</li>
+    <li class="gap-item">Doesn't address workforce preparation</li>
+    <li class="gap-item">No student agency or co-design element</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Immediately useful for CC faculty developing or revising courses. The human skills identification (creativity, metacognition, ethical reasoning, critical thinking) aligns with CC general education goals. Could be combined with equity-focused frameworks (Kapor) for comprehensive approach. Faculty development workshops could use this as foundation.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 5. TEACHAI -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-teachai">
+  <div class="framework-header">5. AI Guidance for Schools Toolkit</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> TeachAI (Code.org, ETS, ISTE, Khan Academy, World Economic Forum)</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Toolkit</span>
+    <span class="meta-tag">K-12</span>
+    <span class="focus-tag">Governance</span>
+    <span class="focus-tag">Privacy</span>
+    <span class="focus-tag">Ethics</span>
+    <span class="focus-tag">Literacy</span>
+    <span>Document Link</span><a href="https://www.teachai.org/toolkit"> Downnload Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Seven foundational principles for AI guidance. Addresses both opportunities (personalized learning, administrative efficiency) and challenges (privacy, bias, academic dishonesty, diminished agency). Emphasizes customizable starting points rather than prescriptive mandates.</p>
+
+  <p><strong>Target Audience:</strong> District/school administrators, teachers, education system leaders and policymakers<br>
+  <strong>Implementation Level:</strong> Institutional</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Documentation</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Balanced</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Central</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Mixed</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>Suggested</td></tr>
+    <tr><td>Student Agency</td><td>Informed user</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-high">
+    <strong>CC Applicability: High</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Practical toolkit format with customizable templates</li>
+    <li class="strength-item">Multi-stakeholder approach (admin, faculty, leaders)</li>
+    <li class="strength-item">Addresses equity gaps in AI guidance access</li>
+    <li class="strength-item">Integrates AI into existing policy frameworks</li>
+    <li class="strength-item">Emphasizes continuous evaluation and improvement</li>
+    <li class="strength-item">Includes communication templates for stakeholder engagement</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">K-12 focus doesn't address higher ed governance structures</li>
+    <li class="gap-item">No specific adult learner considerations</li>
+    <li class="gap-item">Workforce development pathways not addressed</li>
+    <li class="gap-item">Student governance role limited to 'informed user'</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Most directly applicable toolkit in inventory. Template-based approach allows CC customization. Would need to adapt stakeholder categories (add student government, workforce partners) and add adult learner privacy considerations. Strong foundation for CC AI policy development.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 6. IEAIED ETHICAL FRAMEWORK -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-ieaied">
+  <div class="framework-header">6. The Ethical Framework for AI in Education</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> Institute for Ethical AI in Education (University of Buckingham)</span>
+    <span><strong>Year:</strong> 2021</span>
+    <span class="meta-tag">Framework</span>
+    <span class="meta-tag">Cross-sector</span>
+    <span class="focus-tag">Governance</span>
+    <span class="focus-tag">Ethics</span>
+    <span class="focus-tag">Procurement</span>
+    <span>Document Link</span><a href="https://www.buckingham.ac.uk/wp-content/uploads/2021/03/The-Institute-for-Ethical-AI-in-Education-The-Ethical-Framework-for-AI-in-Education.pdf">Download PDF</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Nine requirements for ethical AI in education:</p>
+  <ul>
+    <li class="strength-item">(1) Achieving Educational Goals &mdash; AI used for well-defined goals with strong evidence</li>
+    <li class="strength-item">(2) Forms of Assessment &mdash; recognize broader aptitudes including metacognition</li>
+    <li class="strength-item">(3) Administration &amp; Workload &mdash; boost institutional capacity while respecting human relationships</li>
+    <li class="strength-item">(4) Equity &mdash; promote equity between learner groups</li>
+    <li class="strength-item">(5) Learner Autonomy &mdash; increase learner control over development</li>
+    <li class="strength-item">(6) Privacy &mdash; balance privacy with legitimate data use</li>
+    <li class="strength-item">(7) Transparency &amp; Accountability &mdash; humans accountable for AI decisions</li>
+    <li class="strength-item">(8) Informed Participation &mdash; stakeholders understand and consent to AI use</li>
+    <li class="strength-item">(9) Ethical Design &mdash; resources designed with learners' interests at heart</li>
+  </ul>
+  <p>Includes procurement checklist for evaluating AI vendors.</p>
+  <p><strong>Target Audience:</strong> Education leaders and practitioners making procurement and application decisions; AI suppliers<br>
+  <strong>Implementation Level:</strong> Institutional</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Balanced</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Present</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Administrators</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>None</td></tr>
+    <tr><td>Student Agency</td><td>Informed user</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-high">
+    <strong>CC Applicability: High</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Procurement-focused &mdash; directly usable for CC technology evaluation and RFPs</li>
+    <li class="strength-item">Nine-requirement structure provides systematic governance foundation</li>
+    <li class="strength-item">Sector-agnostic design &mdash; explicitly for 'any educational setting'</li>
+    <li class="strength-item">Checklist format (pages 4&ndash;9) immediately actionable</li>
+    <li class="strength-item">Supplier accountability emphasis &mdash; pushes responsibility to vendors</li>
+    <li class="strength-item">Khan Academy adoption validates credibility and ongoing relevance</li>
+    <li class="strength-item">Addresses metacognition and broader competency recognition</li>
+    <li class="strength-item">CC BY-NC 4.0 license allows institutional adaptation</li>
+    <li class="strength-item">Developed through extensive global consultation (200+ experts)</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">Pre-GenAI (March 2021) &mdash; doesn't address ChatGPT-era concerns</li>
+    <li class="gap-item">No academic integrity or AI detection component</li>
+    <li class="gap-item">Equity framing less robust than justice-centered frameworks (e.g., Kapor)</li>
+    <li class="gap-item">UK-based policy references may need localization</li>
+    <li class="gap-item">Institute defunct since 2021 &mdash; no ongoing updates or support</li>
+    <li class="gap-item">No workforce development or CTE considerations</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Only procurement-focused framework in inventory. The nine requirements provide foundational governance architecture that Khan Academy and others have built upon. Most valuable for CC technology selection committees evaluating AI tutoring, adaptive learning, and assessment tools. Pre-dates generative AI concerns, so should be combined with more recent frameworks (TeachAI Toolkit, Alabama Template) for comprehensive coverage. The procurement checklist can be adapted directly into CC vendor evaluation rubrics.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- MEDIUM APPLICABILITY FRAMEWORKS -->
+<!-- ============================================================ -->
+
+<h2>Medium Applicability Frameworks</h2>
+
+<!-- ============================================================ -->
+<!-- 7. COLORADO -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-colorado">
+  <div class="framework-header">7. Colorado Roadmap for AI in K-12 Education</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> Colorado Education Initiative</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Policy</span>
+    <span class="meta-tag">K-12</span>
+    <span class="focus-tag">Governance</span>
+    <span class="focus-tag">Literacy</span>
+    <span class="focus-tag">Ethics</span>
+    <span>Document Link</span><a href="https://www.coloradoedinitiative.org/wp-content/uploads/2024/08/Colorado-Roadmap-for-AI-in-K-12-Education_August-2024.pdf"> Downnload Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Collaborative stakeholder-driven roadmap developed by 100+ participants. Three working group focus areas: Reshaping Teaching and Learning, Advancing Equitable Access for All Learners, Developing Policy for Transparent and Ethical Use. Emphasizes local district flexibility and continuous improvement.</p>
+
+  <p><strong>Target Audience:</strong> K-12 districts, educators, education leaders in Colorado<br>
+  <strong>Implementation Level:</strong> Institutional</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Documentation</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Capability building</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Central</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Mixed</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>Suggested</td></tr>
+    <tr><td>Student Agency</td><td>Informed user</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-medium">
+    <strong>CC Applicability: Medium</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Strong equity and inclusion focus</li>
+    <li class="strength-item">Stakeholder-driven development process model</li>
+    <li class="strength-item">Emphasizes preparing students regardless of zip code (equity)</li>
+    <li class="strength-item">Flexible framework allows local adaptation</li>
+    <li class="strength-item">Career pathway connections useful for workforce alignment</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">K-12 specific, not higher ed</li>
+    <li class="gap-item">Skills progression designed for children, not adults</li>
+    <li class="gap-item">No governance committee structure</li>
+    <li class="gap-item">Limited policy enforcement mechanisms</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> The collaborative development process (100+ stakeholders) is a model CC could follow. Skills progression would need significant adaptation for adult learners. Career pathway connections provide useful bridge to workforce development. Equity framing aligns well with CC mission.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 8. NTEN -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-nten">
+  <div class="framework-header">8. Generative AI Use Policy Template</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> NTEN (Nonprofit Technology Network)</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Policy</span>
+    <span class="meta-tag">General</span>
+    <span class="focus-tag">Governance</span>
+    <span class="focus-tag">Ethics</span>
+    <span class="focus-tag">Privacy</span>
+    <span>Document Link</span><a href="https://word.nten.org/wp-content/uploads/2024/07/GAI-Policy-Template.pdf"> Download Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Comprehensive policy template for ethical, responsible, and transparent AI governance in organizations. Designed as living document for customization. Identifies seven categories of AI risks (confidentiality breach, contract breach, privacy violations, cybersecurity, IP risks, quality/ethics, environmental impact) and establishes user compliance responsibilities.</p>
+
+  <p><strong>Target Audience:</strong> Nonprofit organizations, social sector organizations<br>
+  <strong>Implementation Level:</strong> Institutional</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Documentation focus</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Balanced</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Present</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Admin</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>Required</td></tr>
+    <tr><td>Student Agency</td><td>Not addressed</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-medium">
+    <strong>CC Applicability: Medium</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Organizational policy template directly usable</li>
+    <li class="strength-item">Living document approach supports iteration</li>
+    <li class="strength-item">Developed for resource-constrained organizations (nonprofits)</li>
+    <li class="strength-item">Complementary resources (vendor questions, dos/don'ts, tool documentation)</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">Not education-specific</li>
+    <li class="gap-item">No student-facing policies</li>
+    <li class="gap-item">No academic integrity considerations</li>
+    <li class="gap-item">No learning outcomes or competency framework</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Useful for CC administrative/operational AI policy separate from academic policy. The nonprofit focus means resource-conscious approach. Would need significant additions for academic contexts: student use policies, assignment guidance, academic integrity, faculty roles. Could serve as administrative complement to education-specific frameworks.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 9. OECD/EC AILit -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-oecd">
+  <div class="framework-header">9. Empowering Learners for the Age of AI (AILit Framework)</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> OECD / European Commission (with Code.org/TeachAI support)</span>
+    <span><strong>Year:</strong> 2025</span>
+    <span class="meta-tag">Competency</span>
+    <span class="meta-tag">K-12</span>
+    <span class="focus-tag">Literacy</span>
+    <span class="focus-tag">Ethics</span>
+    <span>Document Link</span><a href="https://ailiteracyframework.org/wp-content/uploads/2025/05/AILitFramework_ReviewDraft.pdf"> DownLoad Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Global AI literacy standards defining competences for understanding how AI works, its societal impact, and ethical use. Four domains: engaging with AI, creating with AI, managing AI, and designing AI. Emphasizes critical thinking and creative expression. Framework defines 22 competences organized across four domains, with accompanying primary and secondary education scenarios for each competence. Will inform PISA 2029 Media and AI Literacy assessment.</p>
+
+  <p><strong>Target Audience:</strong> Teachers, education leaders, policymakers, learning designers (for K-12 implementation)<br>
+  <strong>Implementation Level:</strong> Institutional</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Capability building</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Mentioned</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Multi-stakeholder</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>None</td></tr>
+    <tr><td>Student Agency</td><td>Active participant</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-medium">
+    <strong>CC Applicability: Medium</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Comprehensive competency framework from credible international bodies</li>
+    <li class="strength-item">Four-domain structure provides clear curriculum mapping</li>
+    <li class="strength-item">Ethics integrated throughout, not separate domain</li>
+    <li class="strength-item">Will become global benchmark via PISA 2029</li>
+    <li class="strength-item">Multiple stakeholder audiences (teachers, leaders, designers)</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">K-12 focus, designed for school-aged children</li>
+    <li class="gap-item">No workforce development alignment</li>
+    <li class="gap-item">No governance structures beyond curriculum</li>
+    <li class="gap-item">Draft status means framework still evolving</li>
+    <li class="gap-item">Adult learner contexts not considered</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> The four-domain structure (engaging, creating, managing, designing AI) could map to CC course sequences. Ethics integration model is valuable. However, significant adaptation needed for adult learners and workforce contexts. Final version expected 2026.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 10. UNESCO STUDENTS -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-unesco-students">
+  <div class="framework-header">10. AI Competency Framework for Students</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> UNESCO</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Competency</span>
+    <span class="meta-tag">K-12</span>
+    <span class="focus-tag">Literacy</span>
+    <span class="focus-tag">Ethics</span>
+    <span>Document Link</span><a href="https://unesdoc.unesco.org/ark:/48223/pf0000391105">Download Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Outlines 12 competencies across 4 dimensions: Human-centred mindset, Ethics of AI, AI techniques and applications, and AI system design. Three progression levels: Understand, Apply, and Create. Envisions students as AI co-creators and responsible citizens.</p>
+  <p><strong>Guiding Principles:</strong></p>
+  <ul>
+    <li class="strength-item">Fostering a critical approach to AI</li>
+    <li class="strength-item">Prioritizing human-centred interaction</li>
+    <li class="strength-item">Encouraging environmentally sustainable AI</li>
+    <li class="strength-item">Promoting inclusivity in AI competency development</li>
+    <li class="strength-item">Building core competencies for lifelong learning</li>
+  </ul>
+  <p><strong>Target Audience:</strong> Policymakers, curriculum developers, school leaders, teachers, and educational experts (defining competencies for K-12 students)<br>
+  <strong>Implementation Level:</strong> Institutional/Systemic</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Capability building</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Central</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Multi-stakeholder</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>None</td></tr>
+    <tr><td>Student Agency</td><td>Active participant</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-medium">
+    <strong>CC Applicability: Medium</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Student-centered with emphasis on agency and co-creation</li>
+    <li class="strength-item">Comprehensive competency model adaptable to curriculum</li>
+    <li class="strength-item">Strong ethics dimension with critical judgment focus</li>
+    <li class="strength-item">Equity and inclusion framed as central to AI design</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">K-12 framing assumes younger learners, not adult students</li>
+    <li class="gap-item">No workforce development connection</li>
+    <li class="gap-item">Progression levels may not fit accelerated CC timelines</li>
+    <li class="gap-item">Doesn't address part-time or working student contexts</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> The co-creator and responsible citizen framing is valuable for CC. Would need significant adaptation for adult learners who bring workplace AI experience. Could inform AI literacy course outcomes or general education requirements.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 11. UNESCO TEACHERS -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-unesco-teachers">
+  <div class="framework-header">11. AI Competency Framework for Teachers</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> UNESCO</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Competency</span>
+    <span class="meta-tag">K-12</span>
+    <span class="focus-tag">Literacy</span>
+    <span class="focus-tag">Ethics</span>
+    <span class="focus-tag">Governance</span>
+    <span>Document Link</span><a href="unesdoc.unesco.org/in/rest/annotationSVC/DownloadWatermarkedAttachment/attach_import_d418160e-3eb2-4d1c-8239-2744911cc721?_=391104eng.pdf&to=52&from=1">Download Link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Defines 15 competencies across 5 dimensions (Human-centred mindset, Ethics of AI, AI foundations and applications, AI pedagogy, AI for professional development) for teachers. Emphasizes protecting teachers' rights, human agency, and sustainability in the AI age.</p>
+  <p><strong>Guiding Principles</strong></p>
+  <ul>
+    <li class="strength-item">Ensuring inclusive digital futures</li>
+    <li class="strength-item">A human-centred approach to AI</li>
+    <li class="strength-item">Protecting teachers' rights and (re)defining teachers' roles</li>
+    <li class="strength-item">Promoting trustworthy and environmentally sustainable AI</li>
+    <li class="strength-item">Ensuring applicability for all teachers</li>
+    <li class="strength-item">Lifelong professional learning for teachers</li>
+  </ul>
+  <p><strong>Target Audience:</strong> Policymakers, teacher education providers, teachers' unions, school leaders, teachers, and educational experts<br>
+  <strong>Implementation Level:</strong> Systemic/Institutional</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Capability building</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Present</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Multi-stakeholder</td></tr>
+    <tr><td>Prescriptiveness</td><td>Guidelines</td></tr>
+    <tr><td>Enforcement</td><td>None</td></tr>
+    <tr><td>Student Agency</td><td>Not addressed</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-medium">
+    <strong>CC Applicability: Medium</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Comprehensive competency model for faculty development</li>
+    <li class="strength-item">Three progression levels (Acquire, Deepen, Create) allow flexible adoption</li>
+    <li class="strength-item">Human-centred mindset dimension aligns with CC equity values</li>
+    <li class="strength-item">Ethics dimension provides foundation for responsible AI use</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">K-12 framing doesn't address adult learner contexts</li>
+    <li class="gap-item">No governance structures for institutional adoption</li>
+    <li class="gap-item">Doesn't address student agency or co-governance</li>
+    <li class="gap-item">Resource requirements unclear for under-resourced institutions</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Could inform CC faculty professional development programs. Would need to adapt language from K-12 to higher ed context and add institutional governance layer. The competency progression model is useful but needs CC-specific examples.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 12. WEF/TEACHAI 7 PRINCIPLES -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-wef">
+  <div class="framework-header">12. 7 Principles for Responsible AI in Education</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> TeachAI (Code.org, ETS, ISTE, Khan Academy, World Economic Forum)</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Policy</span>
+    <span class="meta-tag">General</span>
+    <span class="focus-tag">Ethics</span>
+    <span class="focus-tag">Governance</span>
+    <span class="focus-tag">Privacy</span>
+    <span class="focus-tag">Literacy</span>
+    <span>Document Link</span><a href="https://www.weforum.org/stories/2024/01/ai-guidance-school-responsible-use-in-education/">Download link</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Seven principles: (1) Purpose: Connect AI to educational goals, (2) Compliance: Affirm adherence to existing policies, (3) Knowledge: Promote AI literacy, (4) Balance: Realize benefits and address risks, (5) Integrity: Advance academic integrity, (6) Agency: Maintain human decision-making, (7) Evaluation: Continuously assess AI impact.</p>
+  <p><strong>Three levels of AI use for assignments:</strong></p>
+  <ul>
+    <li class="strength-item">Permissive: Students can freely use AI for ideas, proofreading, organizing</li>
+    <li class="strength-item">Moderate: AI for brainstorming/research only; core content must be original</li>
+    <li class="strength-item">Restrictive: AI prohibited; all work must be student's original creation</li>
+  </ul>
+  <p><strong>Target Audience:</strong> Education leaders, policymakers, school administrators globally<br>
+  <strong>Implementation Level:</strong> Institutional</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Balanced</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Mentioned</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Mixed</td></tr>
+    <tr><td>Prescriptiveness</td><td>Principles</td></tr>
+    <tr><td>Enforcement</td><td>None</td></tr>
+    <tr><td>Student Agency</td><td>Informed user</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-medium">
+    <strong>CC Applicability: Medium</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">High-level principles applicable across education sectors</li>
+    <li class="strength-item">Human agency principle aligns with adult learner autonomy</li>
+    <li class="strength-item">Community feedback principle supports participatory governance</li>
+    <li class="strength-item">Continuous evaluation supports iterative policy development</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">Lacks implementation specifics</li>
+    <li class="gap-item">No resource considerations for constrained institutions</li>
+    <li class="gap-item">Workforce development not addressed</li>
+    <li class="gap-item">Student governance role not explicit</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Useful as foundational principles for CC AI policy. Would need to operationalize each principle with CC-specific implementation guidance. Community feedback principle could be expanded to include student co-governance.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- LOW APPLICABILITY FRAMEWORKS -->
+<!-- ============================================================ -->
+
+<h2>Low Applicability Frameworks</h2>
+
+<!-- ============================================================ -->
+<!-- 13. KHAN ACADEMY -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-khan">
+  <div class="framework-header">13. Khan Academy's Framework for Responsible AI in Education</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> Khan Academy</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Platform</span>
+    <span class="meta-tag">K-12</span>
+    <span class="focus-tag">Privacy</span>
+    <span class="focus-tag">Governance</span>
+    <span class="focus-tag">Ethics</span>
+    <span>Document Link</span><a href="https://blog.khanacademy.org/khan-academys-framework-for-responsible-ai-in-education/">Download Source</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Adopts nine tenets from The Ethical Framework for AI in Education combined with NIST AI Risk Management Framework. Tenets: (1) Achieving Educational Goals, (2) Forms of Assessment, (3) Administration & Workload, (4) Equity, (5) Learner Autonomy, (6) Privacy, (7) Transparency & Accountability, (8) Informed Participation, (9) Ethical Design. Each tenet has associated guardrails used to identify, rate, and mitigate risks during feature development.</p>
+
+  <p><strong>Target Audience:</strong> K-12 students, teachers, parents<br>
+  <strong>Implementation Level:</strong> Classroom</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Balanced</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Mentioned</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Admin</td></tr>
+    <tr><td>Prescriptiveness</td><td>Rules</td></tr>
+    <tr><td>Enforcement</td><td>Required</td></tr>
+    <tr><td>Student Agency</td><td>Informed user</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-low">
+    <strong>CC Applicability: Low</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Strong data protection model (no LLM training on user data)<strong>** To Be Verified **</strong></li>
+    <li class="strength-item">Uses established ethical frameworks (AI RMF)</li>
+    <li class="strength-item">Common Sense Media rated high for transparency, safety, privacy</li>
+    <li class="strength-item">Clear privacy reminders in user interface</li>
+    <li class="strength-item">Risk mitigation process documented</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">K-12 parental oversight model inappropriate for adult learners</li>
+    <li class="gap-item">Narrow educational scope limits applicability to CC breadth</li>
+    <li class="gap-item">Known issues with math and factual accuracy problematic for workforce training <strong>**Cite/Verify**</strong></li>
+    <li class="gap-item">Bias amplification concerns noted in reviews<strong>**Cite/Verify**</strong></li>
+    <li class="gap-item">Platform-specific governance not transferable</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Data protection principles (no LLM training on user data) should inform CC vendor requirements. The transparency and accountability model is valuable, but parental oversight must be replaced with adult learner autonomy. CC should require similar risk documentation from AI vendors.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 14. MAGICSCHOOL -->
+<!-- ============================================================ -->
+
+<div class="framework-card" id="fw-magicschool">
+  <div class="framework-header">14. MagicSchool's Responsible AI Framework / MagicSchool AI Safety and Privacy Documentation</div>
+
+  <div class="framework-meta">
+    <span><strong>Organization:</strong> MagicSchool</span>
+    <span><strong>Year:</strong> 2024</span>
+    <span class="meta-tag">Platform</span>
+    <span class="meta-tag">K-12</span>
+    <span class="focus-tag">Privacy</span>
+    <span class="focus-tag">Governance</span>
+    <span>Document Link</span><a href="https://www.magicschool.ai/blog-posts/commitment-to-responsible-ai-in-schools">Download Source</a>
+  </div>
+
+  <h3>Key Principles</h3>
+  <p>Responsible AI for education with built-in safeguards. SOC 2 certified, FERPA/COPPA compliant. Explicit commitment: 'We don't use student or teacher data to train AI.' Advanced data dashboards for district monitoring, student learning insights, AI instructional coach for teachers.</p>
+  <p><strong>Four Pillars:</strong></p>
+  <ul>
+    <li class="strength-item">Built-in safeguards (clear terms, on-screen guidance, bias warnings, professional learning)</li>
+    <li class="strength-item">Designed for equity (human/automated bias monitoring, real-time quality control, friction where it matters)</li>
+    <li class="strength-item">Multi-model infrastructure (not locked to one provider, can route to best models)</li>
+    <li class="strength-item">Teachers at the center (opt-in tools, educators set context, amplify not automate)</li>
+  </ul>
+  <p><strong>Target Audience:</strong> K-12 teachers, students, district administrators<br>
+  <strong>Implementation Level:</strong> Classroom</p>
+
+  <h3>Approach</h3>
+  <div class="approach-grid">
+    <div class="approach-item">
+      <div class="approach-label">Detection vs Documentation</div>
+      <div class="approach-value">Not addressed</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Capability vs Compliance</div>
+      <div class="approach-value">Guided user</div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-label">Equity Framing</div>
+      <div class="approach-value">Present</div>
+    </div>
+  </div>
+
+  <h3>Governance Dimensions</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Decision Makers</td><td>Admin</td></tr>
+    <tr><td>Prescriptiveness</td><td>Rules</td></tr>
+    <tr><td>Enforcement</td><td>Required</td></tr>
+    <tr><td>Student Agency</td><td>Passive compliance</td></tr>
+  </table>
+
+  <h3>CC Assessment</h3>
+
+  <div class="applicability-low">
+    <strong>CC Applicability: Low</strong>
+  </div>
+
+  <p><strong>Strengths for CC:</strong></p>
+  <ul>
+    <li class="strength-item">Strong privacy compliance model (SOC 2, FERPA, COPPA, GDPR, CCPA)</li>
+    <li class="strength-item">Clear data use policy (no training on user data)</li>
+    <li class="strength-item">Teacher customization tools (rubrics, feedback criteria, IEP generation)</li>
+    <li class="strength-item">Enterprise-grade security infrastructure</li>
+  </ul>
+
+  <p><strong>Gaps for CC:</strong></p>
+  <ul>
+    <li class="gap-item">K-12 focus with teacher oversight model inappropriate for adult learners</li>
+    <li class="gap-item">Surveillance model conflicts with adult learner autonomy</li>
+    <li class="gap-item">Student agency framed as passive compliance</li>
+    <li class="gap-item">Platform-specific, not transferable governance model</li>
+  </ul>
+
+  <p><em><strong>Adaptation Notes:</strong> Privacy and compliance standards could inform CC vendor requirements. However, the teacher-oversight/student-surveillance model is inappropriate for adult learners. CCs should require similar data protections but with adult-appropriate autonomy and agency.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- FOOTER -->
+<!-- ============================================================ -->
+
+<div class="about-box">
+These framework profiles were extracted as part of the US Education Framework Research project. Each profile documents a framework's structure, approach, and relevance to California community colleges.
+</div>
+
+<hr>
+
+<p class="metadata" style="text-align: center;">
+<em>Prepared by AQL Labs / FutureObjects</em><br>
+<em>Commissioned by College Futures Foundation | January 2026</em>
+</p>
+
+</body>
+</html>
