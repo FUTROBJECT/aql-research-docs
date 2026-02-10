@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 2 Research Findings &mdash; Ethical AI Framework for Community Colleges</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    padding-top: 0.5in;
+    color: #333;
+  }
+
+  h1 {
+    font-size: 18pt;
+    color: #1a1a1a;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+  }
+  h2 {
+    font-size: 14pt;
+    color: #333;
+    margin-top: 24px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 4px;
+  }
+  h3 {
+    font-size: 12pt;
+    color: #444;
+    margin-top: 20px;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #555;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+    margin-bottom: 16px;
+  }
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 24px 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+  ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+
+  em {
+    color: #555;
+  }
+
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+  .critical {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+  .about-box {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 16px;
+    font-size: 10pt;
+    font-style: italic;
+    margin: 24px 0;
+  }
+
+  .pillar-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    margin: 16px 0;
+    border-radius: 4px;
+    border-left: 4px solid #0066cc;
+  }
+  .pillar-card h4 {
+    margin-top: 0;
+    color: #0066cc;
+    font-size: 12pt;
+  }
+
+  .source-note {
+    background: #f8f9fa;
+    border-left: 3px solid #28a745;
+    padding: 8px 14px;
+    margin: 8px 0;
+    font-size: 10pt;
+  }
+  .source-note strong {
+    color: #28a745;
+  }
+
+  .audience-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    padding: 14px 16px;
+    margin: 10px 0;
+    border-radius: 4px;
+  }
+  .audience-card strong {
+    color: #0066cc;
+  }
+
+  /* Summary stat boxes */
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .stat-box {
+    flex: 1;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-top: 4px solid #0066cc;
+    padding: 16px;
+    text-align: center;
+    border-radius: 0 0 4px 4px;
+  }
+  .stat-box .stat-number {
+    font-size: 28pt;
+    font-weight: bold;
+    color: #0066cc;
+    display: block;
+    line-height: 1.1;
+  }
+  .stat-box .stat-label {
+    font-size: 9pt;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+
+  /* Bar chart */
+  .bar-chart {
+    margin: 16px 0;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin: 6px 0;
+    font-size: 9pt;
+  }
+  .bar-label {
+    width: 220px;
+    text-align: right;
+    padding-right: 10px;
+    color: #444;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    background: #f0f0f0;
+    height: 22px;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: #b8d4f0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 3px 0 0 3px;
+    transition: width 0.3s;
+  }
+  .bar-fill-hi {
+    height: 100%;
+    background: #0066cc;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 3px 0 0 3px;
+    transition: width 0.3s;
+  }
+  .bar-count {
+    position: relative;
+    z-index: 1;
+    padding: 0 8px;
+    line-height: 22px;
+    font-weight: bold;
+    font-size: 9pt;
+    color: #333;
+    white-space: nowrap;
+  }
+
+  /* Priority badge */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 8pt;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .badge-direct {
+    background: #d4edda;
+    color: #155724;
+  }
+  .badge-indirect {
+    background: #e7f3ff;
+    color: #004085;
+  }
+
+  /* Gap card */
+  .gap-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-left: 4px solid #dc3545;
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .gap-card strong {
+    color: #dc3545;
+  }
+
+  @media print {
+    body { padding: 0.5in; }
+    .stat-row { break-inside: avoid; }
+    .bar-chart { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 {
+          font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+          font-size: 130.25px;
+          font-style: italic;
+          font-weight: 600;
+        }
+        .cls-2 { letter-spacing: -.02em; }
+        .cls-3 { letter-spacing: -.04em; }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<h1>Phase 2 Research Findings</h1>
+<p class="subtitle">Gap-Fill &amp; Network Governance Evidence</p>
+
+<p class="metadata">
+<strong>Date:</strong> February 2026<br>
+<strong>Phase:</strong> Phase 2 Discovery (Domains 13&ndash;24)<br>
+<strong>Builds on:</strong> Phase 1 (210+ frameworks across 12 domains)<br>
+<strong>Prepared by:</strong> AQL Labs / FutureObjects<br>
+<strong>Commissioned by:</strong> College Futures Foundation
+</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<!-- SUMMARY STATISTICS -->
+<!-- ============================================================ -->
+
+<h2>At a Glance</h2>
+
+<div class="stat-row">
+  <div class="stat-box">
+    <span class="stat-number">12</span>
+    <span class="stat-label">Domains Searched</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number">~351</span>
+    <span class="stat-label">Total Candidates</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number">~129</span>
+    <span class="stat-label">High Priority</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number">10</span>
+    <span class="stat-label">Gaps Remaining</span>
+  </div>
+</div>
+
+<hr>
+
+<!-- ============================================================ -->
+<!-- EXECUTIVE SUMMARY -->
+<!-- ============================================================ -->
+
+<h2>Executive Summary</h2>
+
+<p>Phase 2 searched 12 targeted domains to fill gaps identified in Phase 1 and build the evidence base for network governance. Seven key findings emerged:</p>
+
+<div class="pillar-card" style="border-left-color: #28a745;">
+  <h4 style="color: #28a745;">1. The CC system already has a network governance model.</h4>
+  <p>The CCCCO AI Mobilization Framework (2025) describes a polycentric structure with AI Fellows (13), ChangeMakers (110), regional consortia, and the HUMANS ethical framework. The Network Governance section of our framework should reference and build on this&mdash;not design from scratch.</p>
+</div>
+
+<div class="pillar-card">
+  <h4>2. No CC system anywhere has a comprehensive AI governance framework.</h4>
+  <p>Most have piecemeal guidance focused on academic integrity. California has the opportunity to be the first system with an integrated, equity-centered, theoretically grounded AI governance model.</p>
+</div>
+
+<div class="pillar-card">
+  <h4>3. Multiple state systems have produced governance models worth studying.</h4>
+  <p>SUNY (federated strategy), Georgia (board mandate), Tennessee (legislative mandate), VCCS (federated service), Oklahoma (collaborative committee), and CUNY (equity-centered shared governance) each represent a distinct archetype.</p>
+</div>
+
+<div class="pillar-card">
+  <h4>4. Faculty governance is activating through three channels.</h4>
+  <p>Academic senates (ASCCC), unions (AFT/NEA/CFA/CFT), and advocacy organizations (FACCC/AAUP) are all simultaneously engaging on AI. AI is becoming a mandatory bargaining subject.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #dc3545;">
+  <h4 style="color: #dc3545;">5. Critical gaps remain unfilled.</h4>
+  <p>No adjunct-specific AI governance, no non-credit/ESL AI governance, no transfer student AI policy portability, no CC student AI rights framework, no accessibility-specific AI governance.</p>
+</div>
+
+<div class="pillar-card">
+  <h4>6. Network governance theory provides strong but untapped foundations.</h4>
+  <p>Provan &amp; Kenis, Ansell &amp; Gash, Ostrom, Emerson/Nabatchi/Balogh, and Feiock provide robust theoretical grounding&mdash;but no published work applies these to educational AI governance. This is an original contribution opportunity.</p>
+</div>
+
+<div class="pillar-card">
+  <h4>7. Cooperative procurement infrastructure exists but lacks AI criteria.</h4>
+  <p>HECVAT 4 added AI questions, 1EdTech has a GenAI Data Rubric, Digital Promise offers independent certification, FoundationCCC/CollegeBuys operates system-wide&mdash;but no CC procurement cooperative has AI-specific evaluation criteria yet.</p>
+</div>
+
+<hr>
+
+<!-- ============================================================ -->
+<!-- DOMAIN COVERAGE -->
+<!-- ============================================================ -->
+
+<h2>Domain Coverage</h2>
+
+<p>Candidates discovered per domain. <span style="color: #0066cc; font-weight: bold;">Dark bars</span> = high priority. <span style="color: #b8d4f0;">Light bars</span> = total candidates.</p>
+
+<div class="bar-chart">
+
+  <div class="bar-row">
+    <span class="bar-label">D22: Network Gov Theory</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 100%;"></div>
+      <div class="bar-fill-hi" style="width: 50%;"></div>
+      <span class="bar-count">40 total / 20 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D14: State System Governance</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 92%;"></div>
+      <div class="bar-fill-hi" style="width: 38%;"></div>
+      <span class="bar-count">37 total / 15 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D17: Student Rights</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 82%;"></div>
+      <div class="bar-fill-hi" style="width: 25%;"></div>
+      <span class="bar-count">33 total / 10 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D23: Recent 2025&ndash;2026</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 82%;"></div>
+      <div class="bar-fill-hi" style="width: 35%;"></div>
+      <span class="bar-count">33 total / 14 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D20: Adjunct Faculty</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 72%;"></div>
+      <div class="bar-fill-hi" style="width: 22%;"></div>
+      <span class="bar-count">29 total / 9 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D19: Accessibility &amp; UDL</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 70%;"></div>
+      <div class="bar-fill-hi" style="width: 22%;"></div>
+      <span class="bar-count">28 total / 9 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D15: Higher Ed Consortia</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 68%;"></div>
+      <div class="bar-fill-hi" style="width: 20%;"></div>
+      <span class="bar-count">27 total / 8 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D24: Cooperative Procurement</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 68%;"></div>
+      <div class="bar-fill-hi" style="width: 25%;"></div>
+      <span class="bar-count">27 total / 10 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D16: Faculty Networks</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 65%;"></div>
+      <div class="bar-fill-hi" style="width: 20%;"></div>
+      <span class="bar-count">26 total / 8 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D13: CC System Governance</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 60%;"></div>
+      <div class="bar-fill-hi" style="width: 22%;"></div>
+      <span class="bar-count">24 total / 9 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D18: Transfer &amp; Credentials</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 60%;"></div>
+      <div class="bar-fill-hi" style="width: 20%;"></div>
+      <span class="bar-count">24 total / 8 high</span>
+    </div>
+  </div>
+
+  <div class="bar-row">
+    <span class="bar-label">D21: Non-Credit &amp; Adult Ed</span>
+    <div class="bar-track">
+      <div class="bar-fill" style="width: 58%;"></div>
+      <div class="bar-fill-hi" style="width: 22%;"></div>
+      <span class="bar-count">23 total / 9 high</span>
+    </div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- ============================================================ -->
+<!-- HIGH-PRIORITY FRAMEWORKS -->
+<!-- ============================================================ -->
+
+<h2>High-Priority Frameworks by Domain</h2>
+
+<!-- Domain 13 -->
+<h3>CC System-Level Governance (Domain 13)</h3>
+<p><em>9 high-priority candidates from 24 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+    <th>Net Gov</th>
+  </tr>
+  <tr><td>Vision 2030: AI Workplan</td><td>CCCCO</td><td>2025</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>AI HUMANS Framework</td><td>CCCCO</td><td>2024</td><td>Guidance</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>AI Mobilization Framework: Distributed Leadership</td><td>CCCCO</td><td>2025</td><td>Guidance</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>Digital Center for Innovation, Transformation &amp; Equity</td><td>CCCCO / Foothill-De Anza</td><td>2024</td><td>Platform</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>GenAI and Future of Teaching &amp; Learning Report</td><td>CCCCO</td><td>2024</td><td>Report</td><td><span class="badge badge-indirect">Indirect</span></td></tr>
+  <tr><td>FoundationCCC AI Hub</td><td>Foundation for CCC</td><td>2024</td><td>Platform</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>Data Governance Advisory Workgroup (DGAW)</td><td>CCCCO</td><td>2024</td><td>Guidance</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>AI Fellows Program</td><td>CCCCO</td><td>2025</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>AB 2370 (Human Instructor of Record)</td><td>CA Legislature</td><td>2024</td><td>Policy</td><td><span class="badge badge-indirect">Indirect</span></td></tr>
+</table>
+
+<!-- Domain 14 -->
+<h3>State System Governance Models (Domain 14)</h3>
+<p><em>15 high-priority candidates from 37 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+    <th>Net Gov</th>
+  </tr>
+  <tr><td>SUNY STRIVE AI Strategic Plan</td><td>SUNY</td><td>2024</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>SUNY Empire AI Campus Partnerships</td><td>SUNY / Governor's Office</td><td>2025</td><td>Platform</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>CUNY AI Academic Hub &amp; Strategy</td><td>CUNY</td><td>2024</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>VCCS Federated AI Chatbot</td><td>VCCS</td><td>2023</td><td>Platform</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>Virginia EO 30 AI Education Guidelines</td><td>Governor of VA</td><td>2024</td><td>Guidance</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>Tennessee Code 49-7-185</td><td>TN Legislature</td><td>2024</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>UT System Policy BT0035</td><td>UT Board of Trustees</td><td>2025</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>TBR AI Policy (40 CC/TCAT)</td><td>TN Board of Regents</td><td>2025</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>USG Board of Regents Policy 6.28</td><td>GA Board of Regents</td><td>2025</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>Oklahoma AI Impact Committee</td><td>OK State Regents</td><td>2023</td><td>Guidance</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>CSU AI Workforce Acceleration Initiative</td><td>CSU</td><td>2025</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>CFA Response to CSU AI Initiative</td><td>CFA</td><td>2025</td><td>Resolution</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>SREB Commission Recommendations</td><td>SREB</td><td>2025</td><td>Guidance</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>MSCHE AI Accreditation Policy</td><td>MSCHE</td><td>2025</td><td>Policy</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>ECS AI Policy Tracker</td><td>ECS</td><td>2025</td><td>Research</td><td><span class="badge badge-direct">Direct</span></td></tr>
+</table>
+
+<!-- Domain 15 -->
+<h3>Higher Ed Consortia (Domain 15)</h3>
+<p><em>8 high-priority candidates from 27 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+    <th>Net Gov</th>
+  </tr>
+  <tr><td>AACC AI Incubator Network</td><td>AACC / Intel / Dell</td><td>2022+</td><td>Platform</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>Internet2 NET+ GenAI Community</td><td>Internet2</td><td>2024&ndash;25</td><td>Platform</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>1EdTech TrustEd Apps GenAI Data Rubric</td><td>1EdTech</td><td>2025</td><td>Standard</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>SREB Commission on AI in Education</td><td>SREB</td><td>2025</td><td>Guidance</td><td><span class="badge badge-direct">Direct</span></td></tr>
+  <tr><td>Mississippi AI Network (MAIN)</td><td>State of MS / SREB</td><td>2024&ndash;25</td><td>Platform</td><td><span class="badge badge-direct">Direct</span></td></tr>
+</table>
+
+<!-- Domain 16 -->
+<h3>Faculty Networks (Domain 16)</h3>
+<p><em>8 high-priority candidates from 26 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+  </tr>
+  <tr><td>AFT Resolution on Artificial Intelligence</td><td>AFT</td><td>2024</td><td>Resolution</td></tr>
+  <tr><td>NEA Task Force on AI in Education</td><td>NEA</td><td>2024</td><td>Report</td></tr>
+  <tr><td>CFA Resolution for CBA Article on AI</td><td>CFA</td><td>2024</td><td>Resolution</td></tr>
+  <tr><td>CFT Task Force on AI in Education</td><td>CFT</td><td>2024</td><td>Resolution</td></tr>
+  <tr><td>FACCC Policy Statement on AI in CCC</td><td>FACCC</td><td>2024</td><td>Policy</td></tr>
+  <tr><td>Palomar College Joint Union-Senate AI Resolution</td><td>PFF / Palomar Senate</td><td>2025</td><td>Resolution</td></tr>
+  <tr><td>CUNY UFS Resolution on Shared Governance &amp; IT</td><td>CUNY UFS</td><td>2025</td><td>Resolution</td></tr>
+  <tr><td>EDUCAUSE 2024 Action Plan: AI Policies</td><td>EDUCAUSE</td><td>2024</td><td>Guidance</td></tr>
+</table>
+
+<div class="highlight-box">
+  <strong>Key finding:</strong> Faculty governance is activating simultaneously through three channels&mdash;academic senates, unions, and advocacy organizations. The CSU/CFA conflict demonstrates the consequences of bypassing shared governance: unfair practice charges, legislative oversight hearings, and faculty backlash.
+</div>
+
+<!-- Domain 17 -->
+<h3>Student Rights (Domain 17)</h3>
+<p><em>10 high-priority candidates from 33 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+  </tr>
+  <tr><td>Blueprint for an AI Bill of Rights for Education</td><td>Conrad / Critical AI</td><td>2024</td><td>Research</td></tr>
+  <tr><td>AAPS Student AI Bill of Rights (student-authored)</td><td>Ann Arbor PS</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>SSCCC Resolution on AI Detection Software</td><td>SSCCC</td><td>2025</td><td>Resolution</td></tr>
+  <tr><td>NEA Five Principles for AI in Education</td><td>NEA</td><td>2024</td><td>Policy</td></tr>
+  <tr><td>AAUP: AI and Academic Professions</td><td>AAUP</td><td>2025</td><td>Report</td></tr>
+  <tr><td>CDT Student/Teacher/Parent Perspectives on AI</td><td>CDT</td><td>2024</td><td>Research</td></tr>
+  <tr><td>UNESCO: AI and Education &ndash; Protecting Learner Rights</td><td>UNESCO</td><td>2025</td><td>Report</td></tr>
+  <tr><td>California SB 1288: AI in Education Working Group</td><td>CA Legislature</td><td>2024</td><td>Policy</td></tr>
+  <tr><td>US Dept of Education AI Guidance</td><td>US DoE</td><td>2024</td><td>Guidance</td></tr>
+</table>
+
+<!-- Domain 18 -->
+<h3>Transfer &amp; Credentials (Domain 18)</h3>
+<p><em>8 high-priority candidates from 24 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+  </tr>
+  <tr><td>C-RAC Statement on AI in Learning Evaluation</td><td>C-RAC</td><td>2025</td><td>Guidance</td></tr>
+  <tr><td>ATAIN / CourseWise Platform</td><td>AACC / UC Berkeley</td><td>2024</td><td>Platform</td></tr>
+  <tr><td>MSCHE AI Accreditation Policy</td><td>MSCHE</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>ASCCC Academic Integrity in an AI World</td><td>ASCCC</td><td>2024</td><td>Guidance</td></tr>
+  <tr><td>1EdTech CLR Standard v2.0</td><td>1EdTech</td><td>2025</td><td>Standard</td></tr>
+  <tr><td>W3C Verifiable Credentials 2.0</td><td>W3C</td><td>2025</td><td>Standard</td></tr>
+  <tr><td>Credential Engine CTDL + AI Integration</td><td>Credential Engine</td><td>2025</td><td>Standard</td></tr>
+  <tr><td>Learning and Employment Record Ecosystem</td><td>Multiple</td><td>2024</td><td>Standard</td></tr>
+</table>
+
+<!-- Domain 19 -->
+<h3>Accessibility &amp; UDL (Domain 19)</h3>
+<p><em>9 high-priority candidates from 28 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+  </tr>
+  <tr><td>CAN-ASC-6.2:2025 (Accessible &amp; Equitable AI)</td><td>Canada / Accessibility Standards</td><td>2025</td><td>Standard</td></tr>
+  <tr><td>CDT/AAPD Disability-Inclusive AI Ecosystem</td><td>CDT / AAPD</td><td>2025</td><td>Report</td></tr>
+  <tr><td>Teach Access / ELE &ldquo;Where AI Meets Accessibility&rdquo;</td><td>Teach Access / Every Learner Everywhere</td><td>2025</td><td>Toolkit</td></tr>
+  <tr><td>CoSN/CAST AI &amp; Accessibility in Education</td><td>CoSN / CAST</td><td>2024</td><td>Report</td></tr>
+  <tr><td>ADA Title II Final Rule (April 2026/2027 deadlines)</td><td>DOJ</td><td>2024</td><td>Policy</td></tr>
+</table>
+
+<div class="critical">
+  <strong>Urgent:</strong> ADA Title II Final Rule sets digital accessibility compliance deadlines of April 2026 and April 2027 for public entities. Any AI tool deployed by a community college must meet WCAG 2.1 AA standards. This creates immediate urgency for the Equity pillar and cooperative procurement criteria.
+</div>
+
+<!-- Domain 20 -->
+<h3>Adjunct Faculty (Domain 20)</h3>
+<p><em>9 high-priority candidates from 29 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+  </tr>
+  <tr><td>AAUP: AI and Academic Professions</td><td>AAUP</td><td>2025</td><td>Report</td></tr>
+  <tr><td>AFT Resolution on AI</td><td>AFT</td><td>2024</td><td>Resolution</td></tr>
+  <tr><td>AFT Commonsense Guardrails for AI in Schools</td><td>AFT</td><td>2024</td><td>Guidance</td></tr>
+  <tr><td>NEA Policy Statement on AI in Education</td><td>NEA</td><td>2024</td><td>Policy</td></tr>
+  <tr><td>ATD Creating the AI-Enabled Community College</td><td>ATD</td><td>2025</td><td>Guidance</td></tr>
+  <tr><td>CCCCO AI Workplan</td><td>CCCCO</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>Education International: Collective Bargaining for AI</td><td>EI</td><td>2025</td><td>Guidance</td></tr>
+  <tr><td>Forum Special Issue: AI Labor and Contingency</td><td>Academic journal</td><td>2025</td><td>Research</td></tr>
+</table>
+
+<div class="highlight-box">
+  <strong>Gap confirmed:</strong> No framework anywhere specifically addresses AI governance for adjunct/part-time faculty&mdash;yet adjuncts deliver approximately 70% of CC instruction. This is a significant gap the framework can fill.
+</div>
+
+<!-- Domain 21 -->
+<h3>Non-Credit &amp; Adult Ed (Domain 21)</h3>
+<p><em>9 high-priority candidates from 23 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+  </tr>
+  <tr><td>TEGL 03-25 (WIOA AI Skills Training)</td><td>DOL</td><td>2025</td><td>Guidance</td></tr>
+  <tr><td>EO 14277: Advancing AI Education</td><td>White House</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>America's Talent Strategy</td><td>DOL / Commerce / ED</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>JFF Policy Priorities for AI-Ready Workforce</td><td>JFF</td><td>2025</td><td>Report</td></tr>
+  <tr><td>Future-Ready States</td><td>Corp for a Skilled Workforce</td><td>2025</td><td>Guidance</td></tr>
+  <tr><td>NAAIC (NSF-funded CC AI Consortium)</td><td>Miami Dade / Houston / Maricopa</td><td>2024</td><td>Platform</td></tr>
+</table>
+
+<!-- Domain 22 -->
+<h3>Network Governance Theory (Domain 22)</h3>
+<p><em>20 high-priority candidates from 40 total &mdash; richest domain</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Authors / Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+  </tr>
+  <tr><td>Modes of Network Governance</td><td>Provan &amp; Kenis</td><td>2008</td><td>Research</td></tr>
+  <tr><td>Collaborative Governance</td><td>Ansell &amp; Gash</td><td>2008</td><td>Research</td></tr>
+  <tr><td>Integrative Framework for Collaborative Governance</td><td>Emerson, Nabatchi &amp; Balogh</td><td>2012</td><td>Research</td></tr>
+  <tr><td>Governing the Commons / Polycentric Governance</td><td>Ostrom</td><td>1990/2009</td><td>Research</td></tr>
+  <tr><td>Institutional Collective Action</td><td>Feiock</td><td>2013</td><td>Research</td></tr>
+  <tr><td>Multi-Level Governance</td><td>Hooghe &amp; Marks</td><td>2001</td><td>Research</td></tr>
+  <tr><td>Managing Within Networks</td><td>Agranoff</td><td>2007</td><td>Research</td></tr>
+  <tr><td>Governance Networks</td><td>Klijn &amp; Koppenjan</td><td>2024</td><td>Research</td></tr>
+  <tr><td>Iowa CC Online Consortium (ICCOC)</td><td>Iowa CCs</td><td>2000+</td><td>Platform</td></tr>
+  <tr><td>PACE/Stanford CA Governance Framework</td><td>Stanford</td><td>Various</td><td>Research</td></tr>
+</table>
+
+<div class="success">
+  <strong>Original contribution:</strong> No published framework integrates commons governance (Ostrom), collaborative governance (Ansell &amp; Gash), and network governance (Provan &amp; Kenis) into a unified model for educational AI governance. The intersection of network governance theory with AI governance is essentially uncharted.
+</div>
+
+<!-- Domain 23 -->
+<h3>Recent Frameworks 2025&ndash;2026 (Domain 23)</h3>
+<p><em>14 high-priority candidates from 33 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+  </tr>
+  <tr><td>EO: Advancing AI Education for American Youth</td><td>White House</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>EO: AI Preemption of State Laws</td><td>White House</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>FIPSE AI Grants ($169M)</td><td>US DoE</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>Texas TRAIGA</td><td>TX Legislature</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>California SB 53 (Frontier AI Transparency)</td><td>CA Legislature</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>Illinois SB 1920 (CC AI-Only Instruction Ban)</td><td>IL Legislature</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>Singapore Agentic AI Governance Framework</td><td>IMDA / CSA</td><td>2026</td><td>Guidance</td></tr>
+  <tr><td>SUNY Empire AI Campus Partnerships</td><td>SUNY</td><td>2026</td><td>Platform</td></tr>
+  <tr><td>NAAIC AI Summit and Mentorship</td><td>NSF / MDC / Houston / Maricopa</td><td>2026</td><td>Platform</td></tr>
+  <tr><td>Columbia State CC COMPASS</td><td>Columbia State CC</td><td>2025</td><td>Toolkit</td></tr>
+  <tr><td>Workforce Pell Grants (July 2026)</td><td>US DoE</td><td>2025</td><td>Policy</td></tr>
+  <tr><td>WWT/NVIDIA ARMOR Framework</td><td>WWT / NVIDIA</td><td>2026</td><td>Standard</td></tr>
+</table>
+
+<!-- Domain 24 -->
+<h3>Cooperative Procurement (Domain 24)</h3>
+<p><em>10 high-priority candidates from 27 total</em></p>
+
+<table>
+  <tr>
+    <th>Framework</th>
+    <th>Organization</th>
+    <th>Year</th>
+    <th>Type</th>
+  </tr>
+  <tr><td>HECVAT 4 with AI Questions</td><td>EDUCAUSE / HEISC / Internet2</td><td>2025</td><td>Standard</td></tr>
+  <tr><td>1EdTech TrustEd Apps GenAI Data Rubric</td><td>1EdTech</td><td>2024</td><td>Standard</td></tr>
+  <tr><td>Digital Promise Responsible AI Certification</td><td>Digital Promise</td><td>2025</td><td>Standard</td></tr>
+  <tr><td>CDT EdTech AI Transparency Rubric</td><td>CDT</td><td>2025</td><td>Standard</td></tr>
+  <tr><td>E&amp;I Cooperative AI Contract Category</td><td>E&amp;I Cooperative</td><td>2024&ndash;25</td><td>Standard</td></tr>
+  <tr><td>FoundationCCC AI Hub &amp; CollegeBuys</td><td>Foundation for CCC</td><td>2024</td><td>Platform</td></tr>
+  <tr><td>GovAI Coalition AI Contract Hub</td><td>GovAI / Pavilion</td><td>2025</td><td>Toolkit</td></tr>
+  <tr><td>EDUCAUSE-NACUBO Joint AI Governance Survey</td><td>EDUCAUSE / NACUBO / CUPA-HR / AIR</td><td>2026</td><td>Research</td></tr>
+  <tr><td>ACE-EDUCAUSE AI Procurement Report</td><td>ACE / EDUCAUSE</td><td>2025</td><td>Report</td></tr>
+  <tr><td>EU Model Contractual Clauses for AI (MCC-AI)</td><td>European Commission</td><td>2025</td><td>Standard</td></tr>
+</table>
+
+<hr>
+
+<!-- ============================================================ -->
+<!-- GAPS -->
+<!-- ============================================================ -->
+
+<h2>Confirmed Gaps Still Remaining</h2>
+
+<p>Even after Phase 2, no authoritative framework exists for these areas:</p>
+
+<div class="gap-card">
+  <strong>1. CC student-specific AI rights</strong><br>
+  No framework addresses the unique circumstances of community college students&mdash;adult learners, part-time, working, transferring between institutions.
+</div>
+
+<div class="gap-card">
+  <strong>2. Adjunct-specific AI governance</strong><br>
+  No framework addresses AI governance for the approximately 70% of CC instruction delivered by part-time faculty.
+</div>
+
+<div class="gap-card">
+  <strong>3. Non-credit/ESL AI governance</strong><br>
+  No framework governs AI in WIOA Title II programs, ESL, adult basic education, or non-credit workforce training.
+</div>
+
+<div class="gap-card">
+  <strong>4. Transfer student AI policy portability</strong><br>
+  No framework harmonizes AI policies across institutions for transferring students.
+</div>
+
+<div class="gap-card">
+  <strong>5. AI competency articulation</strong><br>
+  No articulation agreements cover AI skills or competencies.
+</div>
+
+<div class="gap-card">
+  <strong>6. Equity-centered AI procurement</strong><br>
+  No procurement framework centers equity for institutions serving historically underserved populations.
+</div>
+
+<div class="gap-card">
+  <strong>7. AI in assessment governance</strong><br>
+  No framework governs AI use in CASAS, TABE, or other standardized assessments for adult learners.
+</div>
+
+<div class="gap-card">
+  <strong>8. CC-specific AI accessibility</strong><br>
+  No guidance addresses the 15% vs. 35% disability disclosure rate gap between 2-year and 4-year institutions.
+</div>
+
+<div class="gap-card">
+  <strong>9. Collective bargaining AI contract language</strong><br>
+  Template language is under development (AFT, NEA, EI) but no negotiated provisions are publicly available.
+</div>
+
+<div class="gap-card">
+  <strong>10. Inter-system coordination</strong><br>
+  No framework addresses CCC-CSU-UC alignment on AI governance despite shared transfer pathways.
+</div>
+
+<div class="callout">
+  <strong>The gaps:</strong> Areas where the CC Ethical AI Framework could make an original contribution that no other system has made.
+</div>
+
+<hr>
+
+
+
+<!-- ============================================================ -->
+<!-- FOOTER -->
+<!-- ============================================================ -->
+
+<div class="about-box">
+<strong>About This Document:</strong> This document presents findings from Phase 2 research for the Ethical AI Framework for California Community Colleges. Phase 2 searched 12 additional domains (Domains 13&ndash;24) to fill gaps identified in Phase 1 and build the evidence base for network governance. The research identified approximately 351 candidates across CC system governance, state system models, higher education consortia, faculty networks, student rights, transfer and credentials, accessibility, adjunct faculty, non-credit and adult education, network governance theory, recent 2025&ndash;2026 frameworks, and cooperative procurement. Phase 1 covered 210+ frameworks across 12 domains focused on global AI governance, regional frameworks, sector-specific standards, civil society, indigenous data sovereignty, and corporate governance.
+</div>
+
+<hr>
+
+<p class="metadata" style="text-align: center;">
+<em>Prepared by AQL Labs / FutureObjects</em><br>
+<em>Commissioned by College Futures Foundation | February 2026</em>
+</p>
+
+</body>
+</html>
