@@ -588,7 +588,7 @@
     .display-md { font-size: 2.4rem; }
     .split { grid-template-columns: 1fr; }
     .split-text { padding: 4rem 2.4rem; }
-    .spec-grid { grid-template-columns: 1fr; }
+    .spec-grid { grid-template-columns: 1fr !important; }
     .arch-grid { grid-template-columns: 1fr; }
     .assess-container { padding: 4rem 2.4rem; }
     .assess-question-text { font-size: 2.4rem; }
@@ -626,7 +626,7 @@
         Navigate AI.<br>Designed for<br>your college.
       </div>
       <div class="body-lg" style="color: var(--dark-muted); max-width: 48rem; margin-bottom: 4.8rem;">
-        The first ethical AI governance framework built for community colleges. Tell us about your institution &mdash; in two minutes, you&rsquo;ll have a personalized starting point with the right tier, the right templates, and the right first steps.
+        The first ethical AI governance framework built for community colleges. Tell us about your institution &mdash; in a few minutes, you&rsquo;ll have a personalized starting point with the right tier, the right templates, and the right first steps.
       </div>
       <div style="display: flex; gap: 1.6rem; align-items: center; flex-wrap: wrap;">
         <button class="btn btn-primary btn-lg" onclick="startAssessment()">Take the Assessment</button>
@@ -642,7 +642,7 @@
       <div class="spec-label">Frameworks Researched</div>
     </div>
     <div class="spec-item">
-      <div class="spec-value">9</div>
+      <div class="spec-value">10</div>
       <div class="spec-label">CC Gaps Identified</div>
     </div>
     <div class="spec-item">
@@ -655,7 +655,7 @@
   <div class="split">
     <div class="split-text">
       <div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">How It Works</div>
-      <div class="display-md" style="margin-bottom: 2.4rem;">You answer<br>seven questions.<br>We build your<br>starting point.</div>
+      <div class="display-md" style="margin-bottom: 2.4rem;">You answer<br>ten questions.<br>We build your<br>starting point.</div>
       <div style="color: var(--ink-soft); max-width: 42rem; margin-bottom: 3.2rem; font-size: 1.6rem; line-height: 1.6;">
         The assessment places your college on the governance spectrum. Based on your answers, the Navigator surfaces your recommended tier, your highest-priority gaps, and the specific templates to address them first.
       </div>
@@ -663,7 +663,7 @@
     </div>
     <div class="split-visual" style="background: var(--surface); padding: 6rem; flex-direction: column; gap: 1.6rem;">
       <div style="width: 100%; max-width: 40rem;">
-        <div class="label" style="color: var(--mid); margin-bottom: 1.6rem;">Question 3 of 7</div>
+        <div class="label" style="color: var(--mid); margin-bottom: 1.6rem;">Question 3 of 10</div>
         <div class="display-xs" style="margin-bottom: 2.4rem;">What percentage of your faculty are part-time?</div>
         <div style="display: flex; flex-direction: column; gap: 0.8rem;">
           <div style="padding: 1.6rem 2rem; border: 2px solid var(--border); background: var(--white); font-family: var(--display); font-size: 1.4rem; font-weight: 600;">Under 40%</div>
@@ -706,7 +706,7 @@
   <div class="section section-surface" style="text-align: center;">
     <div class="section-inner" style="max-width: 72rem;">
       <div class="display-lg" style="margin-bottom: 3.2rem;">The first AI governance framework that meets colleges where they are.</div>
-      <div class="body-lg" style="color: var(--ink-muted); max-width: 56rem; margin: 0 auto;">Not a document to read. A tool to use. Built from analysis of 224 global frameworks, validated across four pilot colleges, and designed to complement the CCCCO AI Mobilization Framework.</div>
+      <div class="body-lg" style="color: var(--ink-muted); max-width: 56rem; margin: 0 auto;">Not a document to read. A tool to use. Built from analysis of 224 global frameworks, validated across four pilot colleges, and designed to complement the CCCCO AI Mobilization Framework. Now with a pedagogical governance layer that measures whether AI is building student capability.</div>
     </div>
   </div>
 
@@ -887,6 +887,39 @@ var QUESTIONS = [
       { label: 'AI hiring / HR', value: 'ai_hr' },
       { label: 'AI detection tools', value: 'ai_detection' }
     ]
+  },
+  {
+    id: 'q8',
+    text: 'How does your institution guide faculty on structuring AI availability in coursework?',
+    type: 'single',
+    options: [
+      { label: 'No institutional guidance \u2014 individual faculty decide', value: 0, key: 'no_guidance' },
+      { label: 'General encouragement to use or avoid AI', value: 1, key: 'general' },
+      { label: 'Recommended approaches (e.g., syllabus language options)', value: 2, key: 'recommended' },
+      { label: 'Structured framework for when AI is available, bounded, or absent', value: 3, key: 'structured' }
+    ]
+  },
+  {
+    id: 'q9',
+    text: 'How does your institution know whether AI tools are helping students learn \u2014 not just helping them produce work?',
+    type: 'single',
+    options: [
+      { label: 'We don\u2019t currently measure this', value: 0, key: 'no_measure' },
+      { label: 'We track usage and satisfaction data', value: 1, key: 'usage_data' },
+      { label: 'Faculty assess student understanding through traditional methods', value: 2, key: 'traditional' },
+      { label: 'We assess student performance both with and without AI support', value: 3, key: 'with_without' }
+    ]
+  },
+  {
+    id: 'q10',
+    text: 'For AI tools that interact directly with students (tutoring, advising, writing support), what governance is in place?',
+    type: 'single',
+    options: [
+      { label: 'We haven\u2019t deployed student-facing AI', value: -1, key: 'no_deploy' },
+      { label: 'Deployed, but no specific learning governance', value: 0, key: 'no_governance' },
+      { label: 'Faculty set expectations for how students use AI tools', value: 2, key: 'faculty_expect' },
+      { label: 'Structured approach to AI availability that varies by learning objective', value: 3, key: 'structured_approach' }
+    ]
   }
 ];
 
@@ -944,7 +977,13 @@ var GAPS = [
     coverage: '1 of 224', coveragePct: '< 1%', coverageDetail: 'Only the Local Government AI Handbook directly addresses resource constraints, but requires educational adaptation.',
     provisions: ['Minimum viable governance (policy + inventory + designated responsibility)', 'Shared-service AI governance models', 'Consortium approaches to AI evaluation', 'Phased implementation based on capacity', 'Templates requiring no legal staff or AI expertise'],
     pillars: ['P1', 'P5'], template: 5, templateName: 'AI Inventory Template',
-    pilotNote: 'Start with what you have. Monthly governance meetings added to existing shared governance conversations. No new positions required.' }
+    pilotNote: 'Start with what you have. Monthly governance meetings added to existing shared governance conversations. No new positions required.' },
+  { id: 'G10', name: 'Capability Dependency Risk', base: 4,
+    desc: 'No framework distinguishes between AI that builds student capability and AI that creates student dependency.',
+    coverage: '0 of 224', coveragePct: '0%', coverageDetail: 'Complete gap. No framework globally addresses whether educational AI is building student capability or creating dependency. Current governance focuses on responsible AI use without addressing learning outcomes measured independently of AI.',
+    provisions: ['AI Mode Selection Guide for structuring when AI is available, bounded, or absent', 'Student Capability Assessment Protocol for verifying learning outcomes without AI', 'Mode distribution review across departments to ensure balanced AI availability', 'Capability verification milestone at months 7\u20139 to evaluate whether AI tools build or erode capability'],
+    pillars: ['P2', 'P3', 'P4'], template: 13, templateName: 'AI Mode Selection Guide',
+    pilotNote: 'A pilot college adopted an AI writing tutor and tracked engagement data for one semester. Usage was high and satisfaction was 4.2/5, but in-class essays without AI showed scores dropped below pre-AI levels. With the Mode Selection Guide, the college restructured AI availability and independent writing scores recovered within two semesters.' }
 ];
 
 var PILLARS = [
@@ -957,67 +996,76 @@ var PILLARS = [
         { title: 'Write an AI policy statement', desc: 'Board-adoptable language establishing your institution\u2019s AI governance position.', template: 1 },
         { title: 'Conduct an AI inventory', desc: 'Identify every AI tool in use. You can\u2019t govern what you don\u2019t know about.', template: 5 },
         { title: 'Designate responsibility', desc: 'Name a person or body accountable. Can be added to an existing role.', template: 4 },
-        { title: 'Establish meeting cadence', desc: 'Monthly governance meeting integrating AI into existing shared governance.', template: null }
+        { title: 'Establish meeting cadence', desc: 'Monthly governance meeting integrating AI into existing shared governance.', template: null },
+        { title: 'Include AI mode inventory', desc: 'For each AI tool used in instruction, note whether there is a structured approach to when the tool is available vs. restricted vs. absent. Flag gaps for review.', template: 5 }
       ],
       2: [
         { title: 'Stage-gate evaluation process', desc: 'Formal review before deploying new AI tools.', template: 6 },
         { title: 'Floor-and-ceiling model', desc: 'Institution sets minimum standards; faculty may restrict further.', template: null },
         { title: 'Tiered governance by impact', desc: 'Low/medium/high-impact AI decisions get proportional oversight.', template: 7 },
-        { title: 'Annual AI governance report', desc: 'Structured reporting to the board on AI governance activities.', template: 12 }
+        { title: 'Annual AI governance report', desc: 'Structured reporting to the board on AI governance activities.', template: 12 },
+        { title: 'Capability evidence in stage-gate', desc: 'Before advancing an AI tool from pilot to deployment, evaluate evidence that it builds student capability, not just satisfaction or usage.', template: 14 }
       ],
       3: [
         { title: 'Comprehensive written program', desc: 'Full documentation: policy, procedures, risk classification, audit trail.', template: null },
         { title: 'Cross-institutional coordination', desc: 'Connect to CCCCO Digital Center, regional consortia, ChangeMaker network.', template: null },
-        { title: 'Advanced risk assessment', desc: 'Systematic evaluation of AI risk across all institutional functions.', template: 7 }
+        { title: 'Advanced risk assessment', desc: 'Systematic evaluation of AI risk across all institutional functions.', template: 7 },
+        { title: 'Capability verification in annual review', desc: 'Report on capability verification findings across departments. Include disaggregated data by student population. Use findings to inform AI tool renewal decisions.', template: 12 }
       ]
     }
   },
   { id: 'P2', name: 'Faculty Authority & Professional Support', color: 'var(--p2)', colorHex: '#6366F1',
     def: 'Faculty primacy in academic AI decisions, coupled with equitable support for all faculty.',
     why: 'Faculty implement AI governance in every classroom. Any framework that ignores adjunct reality will fail.',
-    gaps: ['G5', 'G9'],
+    gaps: ['G5', 'G9', 'G10'],
     tiers: {
       1: [
         { title: 'Faculty set assignment-level AI permissions', desc: 'Faculty determine what AI use is allowed per assignment.', template: 2 },
         { title: '30-minute adjunct AI orientation', desc: 'Essential policy in a realistic time commitment.', template: 9 },
-        { title: 'Equitable tool access', desc: 'Part-time faculty get same AI tools and training as full-time.', template: null }
+        { title: 'Equitable tool access', desc: 'Part-time faculty get same AI tools and training as full-time.', template: null },
+        { title: 'AI mode selection guidance', desc: 'Include mode declaration language (Explore / Assisted / Restricted / Human-Only) as a syllabus option. Distribute AI Mode Selection Guide in faculty orientation.', template: 13 }
       ],
       2: [
         { title: 'Bloom\u2019s Taxonomy AI mapping', desc: 'Map human vs. AI capabilities at each taxonomy level for course redesign.', template: null },
         { title: 'Compensated governance participation', desc: 'Adjuncts paid for governance work beyond teaching.', template: 4 },
-        { title: 'Faculty AI mentorship', desc: 'Experienced faculty support colleagues in AI integration.', template: null }
+        { title: 'Faculty AI mentorship', desc: 'Experienced faculty support colleagues in AI integration.', template: null },
+        { title: 'Mode selection workshop', desc: 'Workshop on determining which AI mode serves different learning objectives. 60\u201390 minute session using Mode Selection Guide as working document.', template: 13 }
       ],
       3: [
         { title: 'Portable cross-institutional framework', desc: 'Consistent enough for adjuncts teaching at multiple CCs.', template: null },
-        { title: 'Faculty-led AI research', desc: 'Faculty conduct action research on AI in their disciplines.', template: null }
+        { title: 'Faculty-led AI research', desc: 'Faculty conduct action research on AI in their disciplines.', template: null },
+        { title: 'Department mode distribution review', desc: 'Departments review aggregate mode distributions across courses. No Human-Only assessments or no Explore activities are governance findings.', template: null }
       ]
     }
   },
   { id: 'P3', name: 'Student Rights & Adult Learner Agency', color: 'var(--p3)', colorHex: '#A855F7',
     def: 'Student rights regarding AI \u2014 to know, to human review, to fair treatment, to privacy, to appeal.',
     why: 'CC students average age 28+. Surveillance models designed for minors are paternalistic and inappropriate.',
-    gaps: ['G2', 'G7', 'G8'],
+    gaps: ['G2', 'G7', 'G8', 'G10'],
     tiers: {
       1: [
         { title: 'Student AI rights notice', desc: 'Students informed when AI influences decisions affecting them.', template: 10 },
         { title: 'Right to human review', desc: 'Students may always request human review of AI-assisted decisions.', template: null },
-        { title: 'Transparency commitment', desc: 'Disclose AI use in advising, grading, enrollment.', template: null }
+        { title: 'Transparency commitment', desc: 'Disclose AI use in advising, grading, enrollment.', template: null },
+        { title: 'AI mode transparency', desc: 'Students have the right to understand how AI availability is structured in their courses and why certain assignments restrict AI.', template: null }
       ],
       2: [
         { title: 'Appeal process for AI decisions', desc: 'Clear path for contesting AI-influenced academic decisions.', template: null },
         { title: 'AI interaction data ownership', desc: 'Students own their AI interaction data.', template: null },
-        { title: 'Prior AI experience recognition', desc: 'Policy builds on students\u2019 workplace AI knowledge.', template: null }
+        { title: 'Prior AI experience recognition', desc: 'Policy builds on students\u2019 workplace AI knowledge.', template: null },
+        { title: 'AI restriction appeal right', desc: 'Students may request explanation for AI restrictions and appeal to the department if they believe a restriction is inappropriate.', template: 10 }
       ],
       3: [
         { title: 'Comprehensive student data rights', desc: 'Full transparency, portability, and control over AI data.', template: null },
-        { title: 'Student AI advisory voice', desc: 'Students participate in AI governance decisions.', template: 4 }
+        { title: 'Student AI advisory voice', desc: 'Students participate in AI governance decisions.', template: 4 },
+        { title: 'Student capability voice', desc: 'Students participate in evaluating whether AI tools serve their learning. End-of-semester survey: \u201CDo you feel you can do this work independently, without AI?\u201D', template: 14 }
       ]
     }
   },
   { id: 'P4', name: 'Academic & Credential Integrity', color: 'var(--p4)', colorHex: '#D97706',
     def: 'Ensuring educational authenticity through documentation rather than detection.',
     why: 'Detection tools have 15-30% false positive rates that disproportionately flag ESL students and students with disabilities.',
-    gaps: ['G2', 'G3', 'G8'],
+    gaps: ['G2', 'G3', 'G8', 'G10'],
     tiers: {
       1: [
         { title: 'Documentation-over-detection policy', desc: 'Students document AI use rather than being scanned.', template: 3 },
@@ -1091,7 +1139,9 @@ var TEMPLATES = [
   { id: 9, name: 'Faculty AI Training Outline', purpose: 'PD curriculum incl. 30-min adjunct orientation', pillar: 'P2', minTier: 1 },
   { id: 10, name: 'Student AI Rights Notice', purpose: 'Student communication and rights disclosure', pillar: 'P3', minTier: 1 },
   { id: 11, name: 'AI Incident Response Protocol', purpose: 'Incident management procedures', pillar: 'P5', minTier: 2 },
-  { id: 12, name: 'Annual AI Governance Report', purpose: 'Board reporting template', pillar: 'P1', minTier: 1 }
+  { id: 12, name: 'Annual AI Governance Report', purpose: 'Board reporting template', pillar: 'P1', minTier: 1 },
+  { id: 13, name: 'AI Mode Selection Guide', purpose: 'Faculty course planning for structured AI availability', pillar: 'P2', minTier: 1 },
+  { id: 14, name: 'Student Capability Assessment Protocol', purpose: 'Learning outcome verification with and without AI', pillar: 'P3', minTier: 1 }
 ];
 
 var ARCHETYPES = [
@@ -1129,16 +1179,19 @@ var ROADMAP = {
       { text: 'Establish AI committee or integrate into existing body', template: 4 },
       { text: 'Distribute faculty syllabus language options', template: 2 },
       { text: 'Conduct adjunct AI orientation', template: 9 },
-      { text: 'Complete first vendor evaluation', template: 6 }
+      { text: 'Complete first vendor evaluation', template: 6 },
+      { text: 'Distribute AI Mode Selection Guide to faculty', template: 13 }
     ]},
     { phase: 'Months 7\u20139: Practice', color: 'var(--p3)', items: [
       { text: 'Deploy student AI rights notice', template: 10 },
       { text: 'Implement documentation-over-detection policy', template: 3 },
       { text: 'Evaluate highest-impact AI tool', template: 7 },
-      { text: 'Connect with CCCCO regional consortium', template: null }
+      { text: 'Connect with CCCCO regional consortium', template: null },
+      { text: 'Conduct capability verification for AI tools used in instruction', template: 14 }
     ]},
     { phase: 'Months 10\u201312: Report & Plan', color: 'var(--accent)', items: [
       { text: 'Complete first annual AI governance report', template: 12 },
+      { text: 'Include capability verification findings in annual report', template: null },
       { text: 'Assess readiness for Tier 2 governance', template: null },
       { text: 'Identify Year 2 priorities', template: null },
       { text: 'Share learnings with ChangeMaker network', template: null }
@@ -1155,16 +1208,19 @@ var ROADMAP = {
       { text: 'Credential integrity by pathway (CTE, transfer, gen ed)', template: null },
       { text: 'High-impact AI assessment for top use cases', template: 7 },
       { text: 'Compensated adjunct governance participation', template: null },
-      { text: 'Incident response protocol deployment', template: 11 }
+      { text: 'Incident response protocol deployment', template: 11 },
+      { text: 'Mode selection workshop for faculty', template: 13 }
     ]},
     { phase: 'Months 7\u20139: Deepen', color: 'var(--p3)', items: [
       { text: 'Agentic AI autonomy limits by decision type', template: 7 },
       { text: 'Data lifecycle requirements in vendor contracts', template: 8 },
       { text: 'Faculty Bloom\u2019s Taxonomy AI mapping', template: null },
-      { text: 'Cross-departmental consistency review', template: null }
+      { text: 'Cross-departmental consistency review', template: null },
+      { text: 'Capability verification for deployed AI tools', template: 14 }
     ]},
     { phase: 'Months 10\u201312: Advance', color: 'var(--accent)', items: [
       { text: 'Comprehensive annual report', template: 12 },
+      { text: 'Include capability verification findings in annual report', template: null },
       { text: 'Assess readiness for Tier 3', template: null },
       { text: 'Pilot innovation with sunset provisions', template: null },
       { text: 'System-level coordination via FoundationCCC', template: null }
@@ -1181,16 +1237,19 @@ var ROADMAP = {
       { text: 'Pilot exemptions with evaluation requirements', template: null },
       { text: 'Cross-institutional framework coordination', template: null },
       { text: 'Comprehensive vendor scorecard system', template: 6 },
-      { text: 'AI portfolio documentation for students', template: 3 }
+      { text: 'AI portfolio documentation for students', template: 3 },
+      { text: 'Department mode distribution review', template: 13 }
     ]},
     { phase: 'Months 7\u20139: Lead', color: 'var(--p3)', items: [
       { text: 'Consortium negotiating power via system-level coordination', template: null },
       { text: 'Faculty-led AI research program', template: null },
       { text: 'Portable cross-institutional framework', template: null },
-      { text: 'Comprehensive student data rights', template: null }
+      { text: 'Comprehensive student data rights', template: null },
+      { text: 'System-wide capability verification', template: 14 }
     ]},
     { phase: 'Months 10\u201312: Sustain', color: 'var(--accent)', items: [
       { text: 'Full annual governance report with impact data', template: 12 },
+      { text: 'Capability verification findings with disaggregated data', template: null },
       { text: 'R&D findings shared with CC system', template: null },
       { text: 'Governance model refinement', template: null },
       { text: 'Contribute to CCCCO ChangeMaker knowledge base', template: null }
@@ -1437,6 +1496,7 @@ function computeResults() {
         if (multiHas('q7', 'ai_tutoring')) score += 5;
         if (multiHas('q7', 'ai_student_support')) score += 4;
         if (multiHas('q3', 'student_ai_agents')) score += 3;
+        if (getOptKey('q10') === 'no_governance') score += 2;
         break;
       case 'G7':
         if (multiHas('q5', 'transfer')) score += 4;
@@ -1450,6 +1510,18 @@ function computeResults() {
         if (getOptKey('q6') === 'small_rural') score += 4;
         if (getOptKey('q2') === 'none') score += 3;
         if (tier === 1) score += 2;
+        break;
+      case 'G10':
+        if (getOptKey('q8') === 'no_guidance') score += 5;
+        else if (getOptKey('q8') === 'general') score += 3;
+        else if (getOptKey('q8') === 'recommended') score += 1;
+        if (getOptKey('q9') === 'no_measure') score += 5;
+        else if (getOptKey('q9') === 'usage_data') score += 4;
+        else if (getOptKey('q9') === 'traditional') score += 1;
+        if (getOptKey('q10') === 'no_governance') score += 5;
+        else if (getOptKey('q10') === 'faculty_expect') score += 1;
+        if (multiHas('q7', 'ai_tutoring')) score += 3;
+        if (multiHas('q3', 'academic_integrity')) score += 2;
         break;
     }
     gapScores[g.id] = score;
@@ -1493,6 +1565,13 @@ function computeResults() {
 
   var bestArch = Object.keys(archScores).sort(function(a, b) { return archScores[b] - archScores[a]; })[0];
 
+  // Pedagogical governance score
+  var q8v = getOptVal('q8');
+  var q9v = getOptVal('q9');
+  var q10v = getOptVal('q10');
+  var pedScore = q8v + q9v + (q10v >= 0 ? q10v : 0);
+  var pedLevel = pedScore <= 2 ? 1 : pedScore <= 5 ? 2 : 3;
+
   // Template recommendations
   var recTemplates = [];
   // Always recommend: 1, 4, 5
@@ -1501,6 +1580,10 @@ function computeResults() {
   if (priorityGaps.indexOf('G2') !== -1 || multiHas('q3', 'equity_bias')) recTemplates.push(10);
   if (multiHas('q3', 'academic_integrity')) recTemplates.push(3);
   if (priorityGaps.indexOf('G6') !== -1 && tier >= 2) recTemplates.push(7);
+  if (priorityGaps.indexOf('G10') !== -1) recTemplates.push(13, 14);
+  if (getOptKey('q8') === 'no_guidance' || getOptKey('q8') === 'general') recTemplates.push(13);
+  if (getOptKey('q9') === 'no_measure' || getOptKey('q9') === 'usage_data') recTemplates.push(14);
+  if (priorityGaps.indexOf('G5') !== -1) recTemplates.push(13); // adjunct faculty need mode guidance most
   // deduplicate
   recTemplates = recTemplates.filter(function(v, i, a) { return a.indexOf(v) === i; });
 
@@ -1510,6 +1593,8 @@ function computeResults() {
   state.results = {
     tier: tier,
     tierScore: tierScore,
+    pedScore: pedScore,
+    pedLevel: pedLevel,
     gapScores: gapScores,
     priorityGaps: priorityGaps,
     archetype: bestArch,
@@ -1525,13 +1610,13 @@ function computeResults() {
 
 function quickStart(archId) {
   if (archId === 'merced') {
-    state.answers = { q1: 1, q2: 0, q3: ['academic_integrity','left_behind'], q4: 2, q5: ['cte','working_adults'], q6: 0, q7: ['ai_content'] };
+    state.answers = { q1: 1, q2: 0, q3: ['academic_integrity','left_behind'], q4: 2, q5: ['cte','working_adults'], q6: 0, q7: ['ai_content'], q8: 0, q9: 0, q10: 0 };
   } else if (archId === 'miracosta') {
-    state.answers = { q1: 3, q2: 2, q3: ['faculty_resistance','academic_integrity','equity_bias'], q4: 1, q5: ['transfer','working_adults'], q6: 1, q7: ['ai_content','ai_tutoring','ai_detection'] };
+    state.answers = { q1: 3, q2: 2, q3: ['faculty_resistance','academic_integrity','equity_bias'], q4: 1, q5: ['transfer','working_adults'], q6: 1, q7: ['ai_content','ai_tutoring','ai_detection'], q8: 1, q9: 1, q10: 1 };
   } else if (archId === 'lbcc') {
-    state.answers = { q1: 2, q2: 1, q3: ['equity_bias','student_ai_agents','data_privacy'], q4: 2, q5: ['working_adults','transfer','cte'], q6: 2, q7: ['ai_tutoring','ai_student_support','ai_enrollment'] };
+    state.answers = { q1: 2, q2: 1, q3: ['equity_bias','student_ai_agents','data_privacy'], q4: 2, q5: ['working_adults','transfer','cte'], q6: 2, q7: ['ai_tutoring','ai_student_support','ai_enrollment'], q8: 1, q9: 1, q10: 1 };
   } else if (archId === 'calbright') {
-    state.answers = { q1: 3, q2: 3, q3: ['student_ai_agents','equity_bias','compliance'], q4: 1, q5: ['working_adults','online','non_credit'], q6: 3, q7: ['ai_tutoring','ai_student_support','ai_content','ai_enrollment'] };
+    state.answers = { q1: 3, q2: 3, q3: ['student_ai_agents','equity_bias','compliance'], q4: 1, q5: ['working_adults','online','non_credit'], q6: 3, q7: ['ai_tutoring','ai_student_support','ai_content','ai_enrollment'], q8: 2, q9: 2, q10: 2 };
   }
   _skipPush = true; showView('loading'); _skipPush = false;
   setTimeout(function() {
@@ -1561,8 +1646,11 @@ function renderProfile() {
   // Spec grid
   html += '</div></div>';
   html += '<div style="background: var(--dark);">';
-  html += '<div class="spec-grid">';
+  var pedColors = { 1: 'var(--accent)', 2: 'var(--signal)', 3: 'var(--live)' };
+  var pedNames = { 1: 'No Pedagogical Governance', 2: 'Emerging', 3: 'Structured' };
+  html += '<div class="spec-grid" style="grid-template-columns: repeat(4, 1fr);">';
   html += '<div class="spec-item spec-item-dark"><div class="spec-value" style="color: ' + tierColors[r.tier] + ';">Tier ' + r.tier + '</div><div class="spec-label">' + tierNames[r.tier] + '</div></div>';
+  html += '<div class="spec-item spec-item-dark"><div class="spec-value" style="color: ' + pedColors[r.pedLevel] + ';">Level ' + r.pedLevel + '</div><div class="spec-label">' + pedNames[r.pedLevel] + '</div></div>';
   html += '<div class="spec-item spec-item-dark"><div class="spec-value" style="color: var(--critical);">' + r.priorityGaps.length + '</div><div class="spec-label">Priority Gaps</div></div>';
   html += '<div class="spec-item spec-item-dark"><div class="spec-value" style="color: var(--accent);">' + r.recTemplates.length + '</div><div class="spec-label">Templates to Start</div></div>';
   html += '</div></div>';
@@ -1574,7 +1662,7 @@ function renderProfile() {
   html += '<div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 3.2rem;">';
   r.priorityGaps.forEach(function(gId) {
     var gap = GAPS.filter(function(g) { return g.id === gId; })[0];
-    var gapColors = { G1: 'var(--p1)', G2: 'var(--p3)', G3: 'var(--p6)', G4: 'var(--accent)', G5: 'var(--p2)', G6: 'var(--p6)', G7: 'var(--p4)', G8: 'var(--p5)', G9: 'var(--mid)' };
+    var gapColors = { G1: 'var(--p1)', G2: 'var(--p3)', G3: 'var(--p6)', G4: 'var(--accent)', G5: 'var(--p2)', G6: 'var(--p6)', G7: 'var(--p4)', G8: 'var(--p5)', G9: 'var(--mid)', G10: 'var(--critical)' };
     var c = gapColors[gId] || 'var(--signal)';
     html += '<span class="gap-tag" style="background: rgba(255,255,255,0.08); color: ' + c + ';" onclick="showGap(\'' + gId + '\')">' + gId + ' ' + gap.name.toUpperCase() + '</span>';
   });
@@ -1637,7 +1725,7 @@ function renderProfile() {
   // ALL GAPS
   html += '<div class="section section-dark">';
   html += '<div class="section-inner">';
-  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">All 9 CC Gaps</div>';
+  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">All 10 CC Gaps</div>';
   html += '<div class="display-sm" style="margin-bottom: 4rem;">Your priorities are highlighted. Click any gap to explore.</div>';
   GAPS.forEach(function(g) {
     var isPriority = r.priorityGaps.indexOf(g.id) !== -1;
@@ -1890,7 +1978,7 @@ function renderExplore() {
   html += '<div class="section section-dark" style="padding: 14rem 6rem 8rem;">';
   html += '<div class="section-inner">';
   html += '<div class="label" style="color: var(--signal); margin-bottom: 2.4rem;">The Full Framework</div>';
-  html += '<div class="display-xl" style="max-width: 80rem; margin-bottom: 3.2rem;">Six pillars.<br>Nine gaps.<br>Twelve templates.</div>';
+  html += '<div class="display-xl" style="max-width: 80rem; margin-bottom: 3.2rem;">Six pillars.<br>Ten gaps.<br>Fourteen templates.</div>';
   html += '<div class="body-lg" style="color: var(--dark-muted); max-width: 48rem; margin-bottom: 4.8rem;">';
   html += 'The AQL Ethical AI Framework synthesizes 224 global frameworks into a CC-specific governance architecture. Browse the full framework below, or <button class="btn-text" style="color: var(--signal); font-size: 1.8rem;" onclick="startAssessment()">take the assessment</button> for a personalized starting point.';
   html += '</div></div></div>';
@@ -1898,8 +1986,8 @@ function renderExplore() {
   // Spec strip
   html += '<div class="spec-grid">';
   html += '<div class="spec-item"><div class="spec-value" style="color: var(--signal);">6</div><div class="spec-label">Governance Pillars</div></div>';
-  html += '<div class="spec-item"><div class="spec-value">9</div><div class="spec-label">CC-Specific Gaps</div></div>';
-  html += '<div class="spec-item"><div class="spec-value">12</div><div class="spec-label">Ready Templates</div></div>';
+  html += '<div class="spec-item"><div class="spec-value">10</div><div class="spec-label">CC-Specific Gaps</div></div>';
+  html += '<div class="spec-item"><div class="spec-value">14</div><div class="spec-label">Ready Templates</div></div>';
   html += '</div>';
 
   // Pillars section
@@ -1925,9 +2013,9 @@ function renderExplore() {
   // Gaps section
   html += '<div class="section section-dark">';
   html += '<div class="section-inner">';
-  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">The Nine CC Gaps</div>';
+  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">The Ten CC Gaps</div>';
   html += '<div class="display-sm" style="margin-bottom: 1.6rem;">What no existing framework addresses.</div>';
-  html += '<div style="font-size: 1.5rem; color: var(--dark-muted); margin-bottom: 4rem; max-width: 56rem;">Our research across 224 global AI governance frameworks confirmed that community colleges are essentially invisible. Six of these nine gaps have zero coverage from any framework worldwide.</div>';
+  html += '<div style="font-size: 1.5rem; color: var(--dark-muted); margin-bottom: 4rem; max-width: 56rem;">Our research across 224 global AI governance frameworks confirmed that community colleges are essentially invisible. Seven of these ten gaps have zero coverage from any framework worldwide.</div>';
 
   GAPS.forEach(function(g) {
     html += '<div style="display: grid; grid-template-columns: 4rem 1fr auto; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--dark-border); align-items: center; cursor: pointer;" onclick="showGapExplore(\'' + g.id + '\')">';
@@ -1944,7 +2032,7 @@ function renderExplore() {
   // Templates section
   html += '<div class="section">';
   html += '<div class="section-inner">';
-  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">The Twelve Templates</div>';
+  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">The Fourteen Templates</div>';
   html += '<div class="display-sm" style="margin-bottom: 1.6rem;">Ready-to-use governance tools.</div>';
   html += '<div style="font-size: 1.5rem; color: var(--ink-muted); margin-bottom: 4rem; max-width: 56rem;">Each template is tagged by pillar and minimum tier. Take the assessment to see which templates your college should start with.</div>';
 
@@ -1985,7 +2073,7 @@ function renderExplore() {
   html += '<div class="section section-signal" style="text-align: center;">';
   html += '<div class="section-inner" style="max-width: 56rem;">';
   html += '<div class="display-md" style="margin-bottom: 2.4rem;">Find your starting point.</div>';
-  html += '<div class="body-lg" style="color: rgba(255,255,255,0.7); margin-bottom: 3.2rem;">The assessment takes 2 minutes. You\u2019ll get a personalized governance profile with your tier, your priority gaps, and the specific templates to start with.</div>';
+  html += '<div class="body-lg" style="color: rgba(255,255,255,0.7); margin-bottom: 3.2rem;">The assessment takes a few minutes. You\u2019ll get a personalized governance profile with your tier, your priority gaps, and the specific templates to start with.</div>';
   html += '<button class="btn btn-primary btn-lg" onclick="startAssessment()" style="background: var(--white); color: var(--signal-deep); border-color: var(--white);">Take the Assessment</button>';
   html += '</div></div>';
 
@@ -1996,7 +2084,7 @@ function renderExplore() {
 function showGapExplore(gapId) {
   // Create minimal results so gap view renders properly
   if (!state.results) {
-    state.results = { tier: 1, priorityGaps: [], recTemplates: [], pillarPriority: ['P1','P2','P3','P4','P5','P6'], gapScores: {} };
+    state.results = { tier: 1, pedLevel: 1, pedScore: 0, priorityGaps: [], recTemplates: [], pillarPriority: ['P1','P2','P3','P4','P5','P6'], gapScores: {} };
   }
   // Update nav to point back to explore instead of profile
   showGap(gapId);
@@ -2006,7 +2094,7 @@ function showGapExplore(gapId) {
 
 function showPillarExplore(pillarId) {
   if (!state.results) {
-    state.results = { tier: 1, priorityGaps: [], recTemplates: [], pillarPriority: ['P1','P2','P3','P4','P5','P6'], gapScores: {} };
+    state.results = { tier: 1, pedLevel: 1, pedScore: 0, priorityGaps: [], recTemplates: [], pillarPriority: ['P1','P2','P3','P4','P5','P6'], gapScores: {} };
   }
   showPillar(pillarId);
   var navRight = document.getElementById('nav-right');
