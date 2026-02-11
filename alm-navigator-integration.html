@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedagogical Governance Layer &mdash; Proposed Addition to AI Governance Navigator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    color: #333;
+  }
+  h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-size: 14pt;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    margin-top: 28px;
+  }
+  h3 {
+    font-size: 12pt;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+    margin-top: 20px;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #444;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+  }
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .critical {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .about-box {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 16px;
+    font-size: 10pt;
+    font-style: italic;
+    margin: 24px 0;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 24px 0;
+  }
+  ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+  .big-quote {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #0066cc;
+    text-align: center;
+    padding: 20px;
+    margin: 24px 0;
+    border-top: 2px solid #0066cc;
+    border-bottom: 2px solid #0066cc;
+  }
+
+  /* Tab navigation */
+  .tab-nav {
+    display: flex;
+    border-bottom: 2px solid #0066cc;
+    margin: 24px 0 0 0;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    cursor: pointer;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #555;
+    border-radius: 4px 4px 0 0;
+    transition: background 0.2s;
+  }
+  .tab-btn:hover {
+    background: #e0e0e0;
+  }
+  .tab-btn.active {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+  }
+  .tab-panel {
+    display: none;
+    padding: 4px 0 0 0;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+
+  /* Screen mockup cards */
+  .screen-card {
+    background: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  .screen-header {
+    background: linear-gradient(135deg, #0066cc, #004999);
+    color: white;
+    padding: 12px 16px;
+    font-weight: bold;
+    font-size: 11pt;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .screen-header .screen-num {
+    background: rgba(255,255,255,0.25);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12pt;
+    flex-shrink: 0;
+  }
+  .screen-body {
+    padding: 16px 20px;
+  }
+  .screen-body h4 {
+    margin-top: 8px;
+  }
+  .screen-body p {
+    font-size: 10pt;
+  }
+  .screen-wireframe {
+    background: #f8f9fa;
+    border: 1px dashed #bbb;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 12px 0;
+    font-size: 9.5pt;
+    color: #555;
+  }
+  .screen-wireframe .wire-label {
+    font-size: 8pt;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  /* Assessment question mockup */
+  .q-mock {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 8px 0;
+  }
+  .q-mock .q-text {
+    font-weight: bold;
+    font-size: 10pt;
+    margin-bottom: 6px;
+  }
+  .q-mock .q-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .q-option {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 9pt;
+    cursor: pointer;
+  }
+  .q-option:hover {
+    background: #e7f3ff;
+    border-color: #0066cc;
+  }
+  .q-option.selected {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+  }
+
+  /* Data model table */
+  .dm-field {
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+    background: #f0f0f0;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+
+  /* Template content styles */
+  .template-section {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .template-section h4 {
+    color: #0066cc;
+    margin-top: 4px;
+  }
+  .fill-field {
+    display: inline-block;
+    border-bottom: 2px solid #0066cc;
+    min-width: 180px;
+    color: #999;
+    font-style: italic;
+    font-size: 9.5pt;
+    padding: 2px 4px;
+  }
+  .mode-card {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    background: white;
+  }
+  .mode-card.explore { border-left: 5px solid #28a745; }
+  .mode-card.assisted { border-left: 5px solid #0066cc; }
+  .mode-card.restricted { border-left: 5px solid #fd7e14; }
+  .mode-card.human-only { border-left: 5px solid #dc3545; }
+  .mode-card .mode-name {
+    font-weight: bold;
+    font-size: 11pt;
+    margin-bottom: 4px;
+  }
+  .mode-card .mode-desc {
+    font-size: 9.5pt;
+    color: #555;
+  }
+  .mode-card .mode-when {
+    font-size: 9pt;
+    color: #888;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  @media print {
+    body { padding: 0.5in; }
+    .tab-nav { display: none; }
+    .tab-panel { display: block !important; page-break-before: always; }
+    .tab-panel:first-of-type { page-break-before: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 {
+          font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+          font-size: 130.25px;
+          font-style: italic;
+          font-weight: 600;
+        }
+        .cls-2 { letter-spacing: -.02em; }
+        .cls-3 { letter-spacing: -.04em; }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<h1>Pedagogical Governance Layer</h1>
+<p class="subtitle">Proposed Addition to the AI Governance Navigator</p>
+
+<p class="metadata">
+<strong>Date:</strong> February 11, 2026<br>
+<strong>Author:</strong> Adam<br>
+<strong>Purpose:</strong> Integrate AI Learning Mode research into the Navigator tool &mdash; adding a pedagogical governance dimension alongside institutional governance<br>
+<strong>Status:</strong> Draft for team discussion
+</p>
+
+<div class="big-quote">
+The Navigator currently asks: &ldquo;How mature is your AI governance?&rdquo;<br>
+This proposal adds: &ldquo;Is your AI actually building student capability?&rdquo;
+</div>
+
+<div class="callout">
+<strong>What this adds to the tool:</strong> 3 new assessment questions, 1 new gap (G10), 2 new templates (T13 &amp; T14), pillar provision enhancements, and a roadmap milestone. All designed to integrate seamlessly into the existing Navigator architecture without adding complexity for users.
+</div>
+
+<!-- TAB NAVIGATION -->
+<div class="tab-nav">
+  <div class="tab-btn active" onclick="switchTab('rationale')">Why This Matters</div>
+  <div class="tab-btn" onclick="switchTab('assessment')">Assessment Questions</div>
+  <div class="tab-btn" onclick="switchTab('gap')">Gap G10</div>
+  <div class="tab-btn" onclick="switchTab('templates')">Templates</div>
+  <div class="tab-btn" onclick="switchTab('integration')">Pillar &amp; Roadmap</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 1: RATIONALE -->
+<!-- ============================================================ -->
+<div class="tab-panel active" id="tab-rationale">
+
+<h2>The Problem</h2>
+
+<p>The Navigator&rsquo;s current 7 questions assess <strong>institutional governance maturity</strong> &mdash; how many AI tools, what governance structure, what size, what populations. Every question is about the institution as an organization. None ask about what&rsquo;s happening in the learning space.</p>
+
+<p>This means a college can score Tier 3 (advanced governance) while having zero mechanisms to determine whether their AI tools are building student capability or creating dependency. Their governance is excellent on paper. Their students may be losing the ability to work independently.</p>
+
+<div class="critical">
+<strong>The gap in our own tool:</strong> We identified 9 gaps that no global framework addresses. But our Navigator doesn&rsquo;t ask about the most fundamental question in educational AI governance: <em>when the AI is removed, what remains in the student?</em> No framework globally asks this question. Including ours, currently.
+</div>
+
+<hr>
+
+<h2>What This Adds</h2>
+
+<table>
+  <tr>
+    <th style="width:20%">Component</th>
+    <th style="width:15%">Quantity</th>
+    <th>What It Does</th>
+  </tr>
+  <tr>
+    <td><strong>Assessment questions</strong></td>
+    <td>3 new (Q8&ndash;Q10)</td>
+    <td>Surface pedagogical AI governance maturity. Feed a new scoring dimension alongside institutional tier.</td>
+  </tr>
+  <tr>
+    <td><strong>Gap</strong></td>
+    <td>1 new (G10)</td>
+    <td>Capability dependency risk. Zero global coverage &mdash; extends our novelty claim from 9 gaps to 10.</td>
+  </tr>
+  <tr>
+    <td><strong>Templates</strong></td>
+    <td>2 new (T13, T14)</td>
+    <td>Faculty AI Mode Selection Guide and Student Capability Assessment Protocol. First pedagogical governance templates in the toolkit.</td>
+  </tr>
+  <tr>
+    <td><strong>Pillar enhancements</strong></td>
+    <td>Provisions for P1, P2, P3</td>
+    <td>Add tier-specific pedagogical governance provisions to existing pillars.</td>
+  </tr>
+  <tr>
+    <td><strong>Roadmap milestone</strong></td>
+    <td>1 new checkpoint</td>
+    <td>Capability verification step at months 7&ndash;9. &ldquo;Are your AI tools actually working?&rdquo;</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Why This Is Differentiation, Not Philosophy</h2>
+
+<p>Every AI governance framework globally tells institutions <em>how to manage AI responsibly</em>. None tell institutions <em>how to know if AI is actually helping students learn</em>. That&rsquo;s the difference between governing the tool and governing the outcome.</p>
+
+<div class="success">
+<strong>The CFF headline:</strong> &ldquo;Every framework measures whether AI is being used responsibly. Ours is the only one that measures whether AI is actually building capability. That&rsquo;s a 10th gap with zero global coverage.&rdquo;
+</div>
+
+<p>This extends the Navigator&rsquo;s novelty claim in exactly the dimensions we&rsquo;ve already established:</p>
+
+<table>
+  <tr>
+    <th style="width:30%">Novelty Dimension</th>
+    <th style="width:35%">Current Claim</th>
+    <th>With This Addition</th>
+  </tr>
+  <tr>
+    <td>Content novelty</td>
+    <td>9 CC-specific gaps, 6 with zero coverage</td>
+    <td>10 CC-specific gaps, 7 with zero coverage</td>
+  </tr>
+  <tr>
+    <td>Personalization novelty</td>
+    <td>Adapts to institutional profile</td>
+    <td>Adapts to both institutional <em>and</em> pedagogical profile</td>
+  </tr>
+  <tr>
+    <td>Actionability novelty</td>
+    <td>12 templates for institutional governance</td>
+    <td>14 templates spanning institutional <em>and</em> classroom governance</td>
+  </tr>
+</table>
+
+</div><!-- /tab-rationale -->
+
+<!-- ============================================================ -->
+<!-- TAB 2: ASSESSMENT QUESTIONS -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-assessment">
+
+<h2>Three New Assessment Questions (Q8&ndash;Q10)</h2>
+
+<p>These questions surface pedagogical AI governance maturity. They produce a secondary scoring dimension that enriches the college profile without changing the existing tier logic.</p>
+
+<hr>
+
+<h3>The Questions</h3>
+
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">Q8</div>
+    AI in the Classroom
+  </div>
+  <div class="screen-body">
+    <div class="q-mock">
+      <div class="q-text">How does your institution guide faculty on structuring AI availability in coursework?</div>
+      <div class="q-options">
+        <div class="q-option">No institutional guidance &mdash; individual faculty decide</div>
+        <div class="q-option">General encouragement to use or avoid AI</div>
+        <div class="q-option">Recommended approaches (e.g., syllabus language options)</div>
+        <div class="q-option selected">Structured framework for when AI is available, bounded, or absent</div>
+      </div>
+    </div>
+
+    <h4>What This Surfaces</h4>
+    <p>Whether the college has any pedagogical governance at all. Most CCs will answer option 1 or 2 &mdash; which means AI availability in every classroom is ad hoc. This is the pedagogical equivalent of having no institutional governance body (Q2 = &ldquo;no formal governance&rdquo;).</p>
+
+    <h4>Scoring</h4>
+    <table>
+      <tr>
+        <th>Answer</th>
+        <th>Pedagogical Governance Score</th>
+        <th>Triggers</th>
+      </tr>
+      <tr>
+        <td>No guidance</td>
+        <td>0</td>
+        <td>G10 +5, T13 priority</td>
+      </tr>
+      <tr>
+        <td>General encouragement</td>
+        <td>1</td>
+        <td>G10 +3, T13 priority</td>
+      </tr>
+      <tr>
+        <td>Recommended approaches</td>
+        <td>2</td>
+        <td>G10 +1</td>
+      </tr>
+      <tr>
+        <td>Structured framework</td>
+        <td>3</td>
+        <td>None (already addressed)</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">Q9</div>
+    Measuring What Matters
+  </div>
+  <div class="screen-body">
+    <div class="q-mock">
+      <div class="q-text">How does your institution know whether AI tools are helping students learn &mdash; not just helping them produce work?</div>
+      <div class="q-options">
+        <div class="q-option selected">We don&rsquo;t currently measure this</div>
+        <div class="q-option">We track usage and satisfaction data</div>
+        <div class="q-option">Faculty assess student understanding through traditional methods</div>
+        <div class="q-option">We assess student performance both with and without AI support</div>
+      </div>
+    </div>
+
+    <h4>What This Surfaces</h4>
+    <p>This is the Fork question, operationalized. Nearly every CC will answer option 1 or 2. Option 2 is particularly revealing &mdash; tracking usage and satisfaction is the <em>Information Model</em> approach. It tells you students are engaging with the tool, not whether capability is forming. Option 4 describes the capability verification approach no institution is currently doing.</p>
+
+    <h4>Scoring</h4>
+    <table>
+      <tr>
+        <th>Answer</th>
+        <th>Pedagogical Governance Score</th>
+        <th>Triggers</th>
+      </tr>
+      <tr>
+        <td>Don&rsquo;t measure</td>
+        <td>0</td>
+        <td>G10 +5, T14 priority</td>
+      </tr>
+      <tr>
+        <td>Usage/satisfaction data</td>
+        <td>1</td>
+        <td>G10 +4, T14 priority (usage data creates false confidence)</td>
+      </tr>
+      <tr>
+        <td>Traditional assessment</td>
+        <td>2</td>
+        <td>G10 +1</td>
+      </tr>
+      <tr>
+        <td>With and without AI</td>
+        <td>3</td>
+        <td>None (already addressed)</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box">
+      <strong>Design note:</strong> Option 2 (&ldquo;usage and satisfaction&rdquo;) scores <em>higher</em> on G10 trigger than option 1 (&ldquo;don&rsquo;t measure&rdquo;). This is intentional. A college that tracks usage data believes it&rsquo;s measuring AI effectiveness when it isn&rsquo;t. That false confidence is a greater risk than knowing nothing at all. The gap deep-dive explains why.
+    </div>
+  </div>
+</div>
+
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">Q10</div>
+    Student-Facing AI Governance
+  </div>
+  <div class="screen-body">
+    <div class="q-mock">
+      <div class="q-text">For AI tools that interact directly with students (tutoring, advising, writing support), what governance is in place?</div>
+      <div class="q-options">
+        <div class="q-option">We haven&rsquo;t deployed student-facing AI</div>
+        <div class="q-option selected">Deployed, but no specific learning governance</div>
+        <div class="q-option">Faculty set expectations for how students use AI tools</div>
+        <div class="q-option">Structured approach to AI availability that varies by learning objective</div>
+      </div>
+    </div>
+
+    <h4>What This Surfaces</h4>
+    <p>Whether student-facing AI operates in a pedagogical governance vacuum. This connects to G6 (agentic AI) but adds the capability dimension. A college might govern the <em>data and safety</em> aspects of an AI tutor (covered by Q7 and existing gaps) while having zero governance over whether that tutor is building capability or creating dependency (this question).</p>
+
+    <h4>Scoring</h4>
+    <table>
+      <tr>
+        <th>Answer</th>
+        <th>Pedagogical Governance Score</th>
+        <th>Triggers</th>
+      </tr>
+      <tr>
+        <td>No student-facing AI</td>
+        <td>N/A (skip)</td>
+        <td>No G10 impact</td>
+      </tr>
+      <tr>
+        <td>Deployed, no learning governance</td>
+        <td>0</td>
+        <td>G10 +5, G6 +2, T13 and T14 priority</td>
+      </tr>
+      <tr>
+        <td>Faculty set expectations</td>
+        <td>2</td>
+        <td>G10 +1</td>
+      </tr>
+      <tr>
+        <td>Structured approach by objective</td>
+        <td>3</td>
+        <td>None</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<h3>Pedagogical Governance Score</h3>
+
+<p>Q8&ndash;Q10 produce a secondary score displayed on the profile dashboard alongside the institutional tier.</p>
+
+<div class="callout">
+<strong>Pedagogical governance formula:</strong> <span class="dm-field">ped_score = Q8 + Q9 + Q10</span> (Q10 = 0 if N/A)<br><br>
+<strong>Level 1</strong> (No Pedagogical Governance): score 0&ndash;2<br>
+<strong>Level 2</strong> (Emerging): score 3&ndash;5<br>
+<strong>Level 3</strong> (Structured): score 6&ndash;9
+</div>
+
+<h4>Dashboard Display</h4>
+
+<div class="screen-wireframe">
+  <div class="wire-label">Enhanced profile dashboard (adds fourth stat)</div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 12px 0;">
+    <div style="text-align: center; padding: 12px; background: #28a745; border-radius: 6px;">
+      <div style="font-size: 18pt; font-weight: bold; color: white;">Tier 1</div>
+      <div style="font-size: 8pt; color: rgba(255,255,255,0.85);">Institutional Governance</div>
+    </div>
+    <div style="text-align: center; padding: 12px; background: #fd7e14; border-radius: 6px;">
+      <div style="font-size: 18pt; font-weight: bold; color: white;">Level 1</div>
+      <div style="font-size: 8pt; color: rgba(255,255,255,0.85);">Pedagogical Governance</div>
+    </div>
+    <div style="text-align: center; padding: 12px; background: #dc3545; border-radius: 6px;">
+      <div style="font-size: 18pt; font-weight: bold; color: white;">5</div>
+      <div style="font-size: 8pt; color: rgba(255,255,255,0.85);">Priority Gaps</div>
+    </div>
+    <div style="text-align: center; padding: 12px; background: #6f42c1; border-radius: 6px;">
+      <div style="font-size: 18pt; font-weight: bold; color: white;">Merced</div>
+      <div style="font-size: 8pt; color: rgba(255,255,255,0.85);">Closest Pilot Match</div>
+    </div>
+  </div>
+  <div style="font-size: 9pt; color: #888; text-align: center;">A college can be advanced on institutional governance but at Level 1 on pedagogical governance &mdash; and vice versa. Both matter.</div>
+</div>
+
+<div class="highlight-box">
+<strong>UX note:</strong> The two-axis display (institutional tier + pedagogical level) is the most important UX decision in this proposal. It communicates that governing AI <em>use</em> and governing AI&rsquo;s <em>impact on learning</em> are related but distinct challenges. Most colleges will discover they&rsquo;re further along on institutional governance than pedagogical governance. That&rsquo;s the insight that drives engagement with G10, T13, and T14.
+</div>
+
+</div><!-- /tab-assessment -->
+
+<!-- ============================================================ -->
+<!-- TAB 3: GAP G10 -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-gap">
+
+<h2>Gap G10: Capability Dependency Risk</h2>
+
+<p>No AI governance framework globally addresses the question of whether educational AI is building student capability or creating dependency. This is the 10th gap &mdash; and arguably the most consequential for the educational mission.</p>
+
+<hr>
+
+<h3>Gap Definition</h3>
+
+<table>
+  <tr>
+    <th style="width:20%">Field</th>
+    <th>Content</th>
+  </tr>
+  <tr>
+    <td><strong>ID</strong></td>
+    <td><span class="dm-field">G10</span></td>
+  </tr>
+  <tr>
+    <td><strong>Name</strong></td>
+    <td>Capability Dependency Risk</td>
+  </tr>
+  <tr>
+    <td><strong>Description</strong></td>
+    <td>No framework distinguishes between AI that builds student capability and AI that creates student dependency. Current governance focuses on responsible AI <em>use</em> (data, bias, access) without addressing whether the AI is actually advancing learning outcomes when measured independently of the AI itself.</td>
+  </tr>
+  <tr>
+    <td><strong>Global Coverage</strong></td>
+    <td style="color: #dc3545; font-weight: bold;">0 / 224 frameworks</td>
+  </tr>
+  <tr>
+    <td><strong>Base Priority Score</strong></td>
+    <td>4 (high base &mdash; relevant to every college using AI in instruction)</td>
+  </tr>
+  <tr>
+    <td><strong>Pillars</strong></td>
+    <td>P2 (Faculty Authority), P3 (Transparency &amp; Student Agency), P4 (Academic Integrity)</td>
+  </tr>
+  <tr>
+    <td><strong>Templates</strong></td>
+    <td>T13 (AI Mode Selection Guide), T14 (Capability Assessment Protocol)</td>
+  </tr>
+</table>
+
+<hr>
+
+<h3>Gap Deep-Dive Screen</h3>
+
+<p>This is what a user sees when they click on G10 from their profile dashboard.</p>
+
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">G10</div>
+    Gap Deep-Dive &mdash; Capability Dependency Risk
+  </div>
+  <div class="screen-body">
+    <div class="screen-wireframe">
+      <div style="font-size: 12pt; font-weight: bold; color: #dc3545; margin: 8px 0;">Gap G10: Capability Dependency Risk</div>
+      <div style="font-size: 10pt; color: #555; margin-bottom: 12px;">No AI governance framework globally addresses whether educational AI is building student capability or creating student dependency.</div>
+
+      <div style="display: flex; gap: 12px; margin: 12px 0;">
+        <div style="flex:1; padding: 10px; background: #f8d7da; border-radius: 4px; text-align: center;">
+          <div style="font-size: 18pt; font-weight: bold; color: #721c24;">0 / 224</div>
+          <div style="font-size: 8pt; color: #721c24;">Frameworks addressing this gap</div>
+        </div>
+        <div style="flex:1; padding: 10px; background: #e7f3ff; border-radius: 4px; text-align: center;">
+          <div style="font-size: 18pt; font-weight: bold; color: #004085;">100%</div>
+          <div style="font-size: 8pt; color: #004085;">CCs using AI in instruction that need this</div>
+        </div>
+      </div>
+
+      <!-- THE CORE CONCEPT -->
+      <div style="font-weight: bold; font-size: 10pt; margin: 14px 0 6px;">The core question</div>
+      <div style="font-size: 9.5pt; color: #555; padding: 10px; background: #fff3cd; border-radius: 4px;">
+        <strong>Are you measuring what happens during AI interaction, or what remains when AI is removed?</strong><br><br>
+        An AI tutor that helps students produce excellent essays is succeeding by one measure. But if those students can&rsquo;t write independently when the AI is unavailable, no capability formed &mdash; the AI did the work, and the student received the output. This distinction is invisible to every existing framework, including student satisfaction surveys and usage analytics.
+      </div>
+
+      <!-- WHY THIS MATTERS FOR YOUR COLLEGE -->
+      <div style="font-weight: bold; font-size: 10pt; margin: 14px 0 4px;">Why this matters for your college</div>
+      <div style="font-size: 9.5pt; color: #555;">You reported that <strong>[dynamic: Q9 answer]</strong>. This means <strong>[dynamic: interpretation]</strong>.</div>
+
+      <div style="margin: 10px 0; font-size: 9pt; color: #555;">
+        <div style="padding: 8px; background: white; border: 1px solid #ddd; border-radius: 4px; margin: 6px 0;">
+          <strong>If Q9 = &ldquo;We don&rsquo;t measure&rdquo;:</strong> Your institution has no way to distinguish between AI tools that build capability and AI tools that create dependency. Every student-facing AI tool is operating without learning outcome verification.
+        </div>
+        <div style="padding: 8px; background: white; border: 1px solid #ddd; border-radius: 4px; margin: 6px 0;">
+          <strong>If Q9 = &ldquo;Usage/satisfaction data&rdquo;:</strong> Usage data tells you students are engaging. Satisfaction data tells you they like it. Neither tells you whether capability formed. High engagement with an AI tutor that does the thinking for students produces great metrics and poor learning outcomes. This is the most dangerous scenario because the data creates false confidence.
+        </div>
+        <div style="padding: 8px; background: white; border: 1px solid #ddd; border-radius: 4px; margin: 6px 0;">
+          <strong>If Q9 = &ldquo;Traditional assessment&rdquo;:</strong> You&rsquo;re closer than most. But if students use AI throughout the semester and are assessed traditionally at the end, you don&rsquo;t know whether their performance reflects capability or last-minute cramming. Structured comparison &mdash; assessing performance both with and without AI support &mdash; provides the clearer picture.
+        </div>
+      </div>
+
+      <!-- WHAT THE FRAMEWORK PROVIDES -->
+      <div style="font-weight: bold; font-size: 10pt; margin: 14px 0 4px;">What the framework provides</div>
+      <div style="font-size: 9.5pt; color: #555;">
+        <div style="padding: 6px 0;">&bull; <strong>AI Mode Selection Guide</strong> (Template 13) &mdash; structured approach for faculty to determine when AI is available, bounded, or absent based on learning objectives</div>
+        <div style="padding: 6px 0;">&bull; <strong>Capability Assessment Protocol</strong> (Template 14) &mdash; lightweight method for assessing student performance without AI support to verify capability formation</div>
+        <div style="padding: 6px 0;">&bull; <strong>Mode distribution review</strong> &mdash; governance mechanism for monitoring whether departments have appropriate balance of AI-supported and independent work</div>
+        <div style="padding: 6px 0;">&bull; <strong>Capability verification milestone</strong> &mdash; roadmap checkpoint at months 7&ndash;9 for evaluating whether deployed AI tools are producing capability or dependency</div>
+      </div>
+
+      <!-- YOUR NEXT STEP -->
+      <div style="font-weight: bold; font-size: 10pt; margin: 14px 0 4px;">Your next steps</div>
+      <div style="font-size: 9.5pt;">
+        <span style="color: #0066cc; cursor: pointer;">Template 13: AI Mode Selection Guide &rarr;</span><br>
+        <span style="color: #0066cc; cursor: pointer;">Template 14: Capability Assessment Protocol &rarr;</span>
+      </div>
+
+      <!-- PILOT EXAMPLE -->
+      <div style="margin-top: 12px; padding: 8px; background: #d4edda; border-radius: 4px; font-size: 9pt;">
+        <strong>What this looks like in practice:</strong> A community college adopted an AI writing tutor and tracked engagement data for one semester. Usage was high, student satisfaction was 4.2/5, and essay scores improved 15%. But when the same students wrote in-class essays without the AI tutor, scores dropped to below pre-AI levels. The tool had improved outputs without building capability. With the Mode Selection Guide, the college restructured: AI-supported drafting (Assisted mode) followed by independent revision (Restricted) and an in-class writing checkpoint (Human-Only). Essay scores with AI support stayed high, and independent writing scores recovered within two semesters.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h3>Gap Scoring Integration</h3>
+
+<p>G10 integrates into the existing gap priority scoring model:</p>
+
+<table>
+  <tr>
+    <th style="width:8%">Gap</th>
+    <th style="width:25%">Description</th>
+    <th style="width:8%">Base</th>
+    <th>Triggers That Increase Priority</th>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td><strong>G10</strong></td>
+    <td>Capability dependency risk</td>
+    <td>4</td>
+    <td>Q8 = no guidance (+5); Q9 = don&rsquo;t measure (+5); Q9 = usage/satisfaction (+4); Q10 = deployed, no governance (+5); Q7 includes AI tutoring (+3); Q3 includes academic integrity (+2)</td>
+  </tr>
+</table>
+
+<div class="callout">
+<strong>Expected behavior:</strong> G10 will be a top-3 priority gap for any college that has deployed student-facing AI without pedagogical governance (which is nearly all of them). This is by design. It surfaces the most important question no one is asking.
+</div>
+
+</div><!-- /tab-gap -->
+
+<!-- ============================================================ -->
+<!-- TAB 4: TEMPLATES -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-templates">
+
+<h2>Template 13: AI Mode Selection Guide for Faculty</h2>
+
+<table>
+  <tr>
+    <th style="width:18%">Field</th>
+    <th>Value</th>
+  </tr>
+  <tr><td>Template ID</td><td><span class="dm-field">T13</span></td></tr>
+  <tr><td>Name</td><td>AI Mode Selection Guide</td></tr>
+  <tr><td>Purpose</td><td>Help faculty determine when AI should be available, bounded, or absent &mdash; based on learning objectives, not personal preference</td></tr>
+  <tr><td>Pillar</td><td>P2 (Faculty Authority &amp; Support)</td></tr>
+  <tr><td>Min Tier</td><td>Tier 1 (all colleges)</td></tr>
+  <tr><td>Shows When</td><td>G10 is priority OR Q8 = no guidance/general encouragement</td></tr>
+  <tr><td>Estimated Use Time</td><td>15&ndash;20 minutes per course</td></tr>
+</table>
+
+<hr>
+
+<h3>Template Content</h3>
+
+<div class="template-section">
+  <h4>AI Mode Selection Guide</h4>
+  <p style="font-size: 9.5pt; color: #666;">Use this guide to determine the appropriate level of AI availability for each assignment or learning activity. The goal is not to restrict AI but to structure its availability so students develop capability, not dependency.</p>
+
+  <div style="padding: 10px; background: #e7f3ff; border-radius: 4px; margin: 12px 0; font-size: 9.5pt;">
+    <strong>Institution:</strong> <span class="fill-field">[Institution Name]</span><br>
+    <strong>Course:</strong> <span class="fill-field">[Course Number &amp; Title]</span><br>
+    <strong>Faculty:</strong> <span class="fill-field">[Name]</span><br>
+    <strong>Date:</strong> <span class="fill-field">[Semester / Date]</span>
+  </div>
+
+  <h4>The Four Modes</h4>
+
+  <div class="mode-card explore">
+    <div class="mode-name" style="color: #28a745;">EXPLORE &mdash; Open AI Interaction</div>
+    <div class="mode-desc">
+      <strong>What it is:</strong> Students use AI freely for brainstorming, idea generation, discovering connections, and exploring topics without constraints on what AI can do.<br><br>
+      <strong>What it develops:</strong> AI literacy, prompt craft, ability to evaluate AI output, curiosity-driven exploration, ability to recognize useful information amid noise.<br><br>
+      <strong>What students submit:</strong> A brief reflection on what they discovered, what surprised them, what they want to investigate further. No quality judgment on AI output.
+    </div>
+    <div class="mode-when"><strong>Use when:</strong> The learning objective is exploration, ideation, or AI literacy itself. Early-semester activities. Low-stakes assignments where the process of engaging with AI is more valuable than the output.</div>
+  </div>
+
+  <div class="mode-card assisted">
+    <div class="mode-name" style="color: #0066cc;">ASSISTED &mdash; AI as Bounded Collaborator</div>
+    <div class="mode-desc">
+      <strong>What it is:</strong> Students use AI for specific, defined tasks (research, outlining, syntax checking, data analysis) while performing the core intellectual work themselves. All AI contributions are documented.<br><br>
+      <strong>What it develops:</strong> Editorial judgment, ability to evaluate and integrate AI suggestions, understanding of what AI does well versus what requires human judgment, documentation skills.<br><br>
+      <strong>What students submit:</strong> The completed work plus a brief AI use statement: what AI was used for, what suggestions were accepted or rejected, and why.
+    </div>
+    <div class="mode-when"><strong>Use when:</strong> The learning objective involves both skill development and practical output. Mid-semester assignments. Projects where AI assistance reflects realistic professional practice but students must demonstrate understanding.</div>
+  </div>
+
+  <div class="mode-card restricted">
+    <div class="mode-name" style="color: #fd7e14;">RESTRICTED &mdash; Limited AI with Full Documentation</div>
+    <div class="mode-desc">
+      <strong>What it is:</strong> AI is available only for narrowly specified tasks (e.g., grammar checking only, or data formatting only). Students must document every AI interaction and explain every accepted suggestion.<br><br>
+      <strong>What it develops:</strong> Independent problem-solving with minimal support, critical evaluation of AI output, self-awareness about what students can and cannot do independently.<br><br>
+      <strong>What students submit:</strong> The completed work, full AI interaction log, and a reflection on what the restrictions revealed about their own capability.
+    </div>
+    <div class="mode-when"><strong>Use when:</strong> The learning objective requires students to demonstrate developing competence. Late-semester skill-building. Assignments where the <em>struggle</em> is the point &mdash; problem sets, coding exercises, analytical writing where working through difficulty builds understanding.</div>
+  </div>
+
+  <div class="mode-card human-only">
+    <div class="mode-name" style="color: #dc3545;">HUMAN-ONLY &mdash; Independent Demonstration</div>
+    <div class="mode-desc">
+      <strong>What it is:</strong> No AI assistance permitted. Students demonstrate capability using their own knowledge and skills. Validated through process artifacts (outlines, drafts, revision notes) or in-person demonstration, not through surveillance or detection software.<br><br>
+      <strong>What it develops:</strong> Nothing new &mdash; this mode <em>reveals</em> what already formed. It answers the question: can the student do this independently?<br><br>
+      <strong>What students submit:</strong> The completed work plus process artifacts that demonstrate independent work (outlines, drafts, revision history). For in-class work, the controlled environment provides verification.
+    </div>
+    <div class="mode-when"><strong>Use when:</strong> The learning objective is to verify that capability formed. Exams and major assessments. Capstone demonstrations. Any moment when you need to know what the student can actually do, not what the student-plus-AI can produce.</div>
+  </div>
+
+  <h4>Mode Selection Worksheet</h4>
+
+  <p style="font-size: 9.5pt;">For each major assignment or activity in your course, identify the mode that best serves the learning objective:</p>
+
+  <table>
+    <tr>
+      <th style="width:22%">Assignment / Activity</th>
+      <th style="width:30%">Primary Learning Objective</th>
+      <th style="width:14%">Mode</th>
+      <th style="width:18%">AI Boundaries</th>
+      <th style="width:16%">What Students Submit</th>
+    </tr>
+    <tr>
+      <td><span class="fill-field" style="min-width: 100px;">[Assignment 1]</span></td>
+      <td><span class="fill-field" style="min-width: 140px;">[Objective]</span></td>
+      <td><span class="fill-field" style="min-width: 60px;">[Mode]</span></td>
+      <td><span class="fill-field" style="min-width: 80px;">[Boundaries]</span></td>
+      <td><span class="fill-field" style="min-width: 70px;">[Artifacts]</span></td>
+    </tr>
+    <tr>
+      <td><span class="fill-field" style="min-width: 100px;">[Assignment 2]</span></td>
+      <td><span class="fill-field" style="min-width: 140px;">[Objective]</span></td>
+      <td><span class="fill-field" style="min-width: 60px;">[Mode]</span></td>
+      <td><span class="fill-field" style="min-width: 80px;">[Boundaries]</span></td>
+      <td><span class="fill-field" style="min-width: 70px;">[Artifacts]</span></td>
+    </tr>
+    <tr>
+      <td><span class="fill-field" style="min-width: 100px;">[Assignment 3]</span></td>
+      <td><span class="fill-field" style="min-width: 140px;">[Objective]</span></td>
+      <td><span class="fill-field" style="min-width: 60px;">[Mode]</span></td>
+      <td><span class="fill-field" style="min-width: 80px;">[Boundaries]</span></td>
+      <td><span class="fill-field" style="min-width: 70px;">[Artifacts]</span></td>
+    </tr>
+    <tr>
+      <td colspan="5" style="font-size: 9pt; color: #888; text-align: center;">[Add rows as needed]</td>
+    </tr>
+  </table>
+
+  <div style="padding: 10px; background: #fff3cd; border-radius: 4px; margin: 12px 0; font-size: 9pt;">
+    <strong>Rule of thumb:</strong> A well-designed course includes all four modes across the semester. If every assignment is the same mode, the course is either over-restricting AI (all Human-Only) or under-governing it (all Explore). The progression typically moves from more open modes early in the semester toward more restricted modes as students develop capability.
+  </div>
+
+  <h4>Syllabus Language</h4>
+
+  <p style="font-size: 9.5pt;">Add the following to your syllabus (customize to your context):</p>
+
+  <div style="padding: 12px; background: white; border: 1px solid #ddd; border-radius: 4px; font-size: 9.5pt; margin: 8px 0;">
+    <strong>AI Use in This Course</strong><br><br>
+    This course uses a structured approach to AI. Different assignments have different levels of AI availability, based on what each assignment is designed to help you learn. Each assignment will be marked with one of four modes: <strong>EXPLORE</strong> (AI available for open discovery), <strong>ASSISTED</strong> (AI available for specific tasks, with documentation), <strong>RESTRICTED</strong> (AI limited to specified functions), or <strong>HUMAN-ONLY</strong> (independent work, no AI).<br><br>
+    This structure is not about restricting your access to AI. It is about making sure you develop real capability &mdash; skills and understanding that remain yours when AI is not available. In your professional life, you will sometimes have AI support and sometimes will not. This course prepares you for both.
+  </div>
+</div>
+
+<hr>
+
+<h2>Template 14: Student Capability Assessment Protocol</h2>
+
+<table>
+  <tr>
+    <th style="width:18%">Field</th>
+    <th>Value</th>
+  </tr>
+  <tr><td>Template ID</td><td><span class="dm-field">T14</span></td></tr>
+  <tr><td>Name</td><td>Student Capability Assessment Protocol</td></tr>
+  <tr><td>Purpose</td><td>Lightweight method for verifying whether students can perform independently after AI-supported coursework</td></tr>
+  <tr><td>Pillar</td><td>P3 (Transparency &amp; Student Agency), P4 (Academic Integrity)</td></tr>
+  <tr><td>Min Tier</td><td>Tier 1+ (recommended after first semester of AI tool deployment)</td></tr>
+  <tr><td>Shows When</td><td>G10 is priority OR Q9 = don&rsquo;t measure / usage data</td></tr>
+  <tr><td>Estimated Use Time</td><td>30 minutes to set up; ongoing as part of normal assessment</td></tr>
+</table>
+
+<hr>
+
+<h3>Template Content</h3>
+
+<div class="template-section">
+  <h4>Student Capability Assessment Protocol</h4>
+  <p style="font-size: 9.5pt; color: #666;">This protocol helps your institution determine whether AI tools are building student capability or creating dependency. It does not require new technology, additional staff, or surveillance. It uses assessment methods faculty already employ, structured to answer one question: <strong>can the student do this without AI?</strong></p>
+
+  <div style="padding: 10px; background: #e7f3ff; border-radius: 4px; margin: 12px 0; font-size: 9.5pt;">
+    <strong>Institution:</strong> <span class="fill-field">[Institution Name]</span><br>
+    <strong>Department / Program:</strong> <span class="fill-field">[Department]</span><br>
+    <strong>AI Tool(s) Under Review:</strong> <span class="fill-field">[Tool Name(s)]</span><br>
+    <strong>Review Period:</strong> <span class="fill-field">[Semester / Date Range]</span>
+  </div>
+
+  <h4>Step 1: Identify Comparison Points</h4>
+
+  <p style="font-size: 9.5pt;">Select 2&ndash;3 core competencies that AI tools are expected to support in your program. For each, identify an existing assessment that can be administered in a Human-Only condition (no AI access).</p>
+
+  <table>
+    <tr>
+      <th style="width:25%">Core Competency</th>
+      <th style="width:30%">AI Tool Supporting It</th>
+      <th style="width:25%">Human-Only Assessment</th>
+      <th style="width:20%">When Administered</th>
+    </tr>
+    <tr>
+      <td><span class="fill-field" style="min-width: 100px;">[e.g., Analytical writing]</span></td>
+      <td><span class="fill-field" style="min-width: 120px;">[e.g., AI writing tutor]</span></td>
+      <td><span class="fill-field" style="min-width: 100px;">[e.g., In-class essay]</span></td>
+      <td><span class="fill-field" style="min-width: 80px;">[e.g., Week 12]</span></td>
+    </tr>
+    <tr>
+      <td><span class="fill-field" style="min-width: 100px;">[Competency 2]</span></td>
+      <td><span class="fill-field" style="min-width: 120px;">[Tool]</span></td>
+      <td><span class="fill-field" style="min-width: 100px;">[Assessment]</span></td>
+      <td><span class="fill-field" style="min-width: 80px;">[When]</span></td>
+    </tr>
+    <tr>
+      <td><span class="fill-field" style="min-width: 100px;">[Competency 3]</span></td>
+      <td><span class="fill-field" style="min-width: 120px;">[Tool]</span></td>
+      <td><span class="fill-field" style="min-width: 100px;">[Assessment]</span></td>
+      <td><span class="fill-field" style="min-width: 80px;">[When]</span></td>
+    </tr>
+  </table>
+
+  <h4>Step 2: Establish Baselines</h4>
+
+  <p style="font-size: 9.5pt;">Before or early in the semester, assess student capability on the identified competencies without AI support. This establishes what students can do <em>before</em> the AI tool is introduced.</p>
+
+  <div style="padding: 8px; background: #fff3cd; border-radius: 4px; font-size: 9pt; margin: 8px 0;">
+    <strong>Practical note:</strong> This does not require a separate assessment event. Use an existing early-semester assignment or diagnostic. The key is that it&rsquo;s completed without AI support and measures the same competency you&rsquo;ll assess later.
+  </div>
+
+  <h4>Step 3: Administer Capability Verification</h4>
+
+  <p style="font-size: 9.5pt;">At least once during the semester (ideally at the end), administer the Human-Only assessment identified in Step 1. Compare results to the baseline.</p>
+
+  <table>
+    <tr>
+      <th style="width:25%">Competency</th>
+      <th style="width:20%">Baseline Score<br>(without AI, early semester)</th>
+      <th style="width:20%">AI-Supported Performance<br>(with AI, mid-semester)</th>
+      <th style="width:20%">Independent Score<br>(without AI, late semester)</th>
+      <th style="width:15%">Finding</th>
+    </tr>
+    <tr>
+      <td><span class="fill-field" style="min-width: 80px;">[Comp 1]</span></td>
+      <td><span class="fill-field" style="min-width: 60px;">[Score]</span></td>
+      <td><span class="fill-field" style="min-width: 60px;">[Score]</span></td>
+      <td><span class="fill-field" style="min-width: 60px;">[Score]</span></td>
+      <td><span class="fill-field" style="min-width: 40px;">[See below]</span></td>
+    </tr>
+    <tr>
+      <td><span class="fill-field" style="min-width: 80px;">[Comp 2]</span></td>
+      <td><span class="fill-field" style="min-width: 60px;">[Score]</span></td>
+      <td><span class="fill-field" style="min-width: 60px;">[Score]</span></td>
+      <td><span class="fill-field" style="min-width: 60px;">[Score]</span></td>
+      <td><span class="fill-field" style="min-width: 40px;"></span></td>
+    </tr>
+  </table>
+
+  <h4>Step 4: Interpret Results</h4>
+
+  <table>
+    <tr>
+      <th style="width:30%">Pattern</th>
+      <th style="width:35%">What It Means</th>
+      <th style="width:35%">Action</th>
+    </tr>
+    <tr>
+      <td style="background: #d4edda;"><strong>Independent score &ge; Baseline</strong></td>
+      <td>Capability formed. Students can perform independently at or above their starting level. AI supported learning.</td>
+      <td>Continue current approach. Document as evidence of effective AI integration.</td>
+    </tr>
+    <tr>
+      <td style="background: #fff3cd;"><strong>Independent score &asymp; Baseline</strong><br>(but AI-supported was much higher)</td>
+      <td>Mixed signal. Students didn&rsquo;t get worse, but the AI-supported performance gain didn&rsquo;t transfer. The AI improved output without building capability.</td>
+      <td>Review mode structure. Consider increasing Restricted and Human-Only assignments to force more independent practice. Evaluate whether AI tool is doing <em>for</em> students rather than supporting them.</td>
+    </tr>
+    <tr>
+      <td style="background: #f8d7da;"><strong>Independent score &lt; Baseline</strong></td>
+      <td>Dependency risk. Students perform worse independently than before the AI tool was introduced. The tool may be atrophying capability rather than building it.</td>
+      <td>Flag for governance review. Restructure AI availability to include more independent practice. Evaluate whether the AI tool should continue in its current form. Report finding in annual AI governance report (Template 12).</td>
+    </tr>
+  </table>
+
+  <h4>Step 5: Report to Governance</h4>
+
+  <p style="font-size: 9.5pt;">Include capability verification findings in your annual AI governance report (Template 12). This ensures the institution has data on whether AI tools are serving their educational mission, not just operating within policy.</p>
+
+  <div style="padding: 10px; background: #e7f3ff; border-radius: 4px; font-size: 9pt; margin: 12px 0;">
+    <strong>Equity dimension:</strong> Disaggregate results by student population where possible. If capability dependency shows up disproportionately in specific populations (first-generation students, students from under-resourced backgrounds, students with lower baseline scores), this is an equity finding that requires attention. AI tools that build capability for well-prepared students while creating dependency for under-prepared students are widening gaps, not closing them.
+  </div>
+</div>
+
+<hr>
+
+<h3>Template Integration with Navigator</h3>
+
+<table>
+  <tr>
+    <th style="width:8%">#</th>
+    <th style="width:30%">Template</th>
+    <th style="width:20%">Purpose</th>
+    <th style="width:15%">Tier</th>
+    <th>Pillar</th>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td>13</td>
+    <td>AI Mode Selection Guide</td>
+    <td>Faculty course planning</td>
+    <td>All tiers</td>
+    <td>P2</td>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td>14</td>
+    <td>Capability Assessment Protocol</td>
+    <td>Learning outcome verification</td>
+    <td>Tier 1+</td>
+    <td>P3, P4</td>
+  </tr>
+</table>
+
+<div class="callout">
+<strong>Template priority logic:</strong><br>
+T13 shows when: G10 is priority OR Q8 = no guidance/general encouragement OR G5 is priority (adjunct faculty need structured guidance most)<br>
+T14 shows when: G10 is priority OR Q9 = don&rsquo;t measure/usage data OR Q7 includes AI tutoring/advising
+</div>
+
+</div><!-- /tab-templates -->
+
+<!-- ============================================================ -->
+<!-- TAB 5: PILLAR & ROADMAP INTEGRATION -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-integration">
+
+<h2>Pillar Provision Enhancements</h2>
+
+<p>These add tier-specific provisions to existing pillars. They don&rsquo;t change the pillar structure &mdash; they deepen what&rsquo;s already there with the pedagogical governance dimension.</p>
+
+<hr>
+
+<h3>Pillar 1: Governance Structure &amp; Accountability</h3>
+
+<table>
+  <tr>
+    <th style="width:12%">Tier</th>
+    <th style="width:44%">Existing Provision</th>
+    <th style="width:44%">Add</th>
+  </tr>
+  <tr>
+    <td><strong>Tier 1</strong></td>
+    <td>Adopt AI policy statement. Conduct AI inventory. Designate responsibility.</td>
+    <td><strong>Include in AI inventory:</strong> For each AI tool used in instruction, note whether there is any structured approach to when the tool is available vs. restricted vs. absent. If none exists, flag for review.</td>
+  </tr>
+  <tr>
+    <td><strong>Tier 2</strong></td>
+    <td>Stage-gate evaluation. Floor-and-ceiling model. Tiered governance by impact.</td>
+    <td><strong>Add to stage-gate criteria:</strong> Before advancing an AI tool from pilot to institutional deployment, evaluate evidence that the tool builds student capability (not just satisfaction or usage). Use Template 14.</td>
+  </tr>
+  <tr>
+    <td><strong>Tier 3</strong></td>
+    <td>Comprehensive program. Annual reporting. Continuous improvement.</td>
+    <td><strong>Add to annual review:</strong> Report on capability verification findings across departments. Include disaggregated data by student population. Use findings to inform AI tool renewal or discontinuation decisions.</td>
+  </tr>
+</table>
+
+<hr>
+
+<h3>Pillar 2: Faculty Authority &amp; Support</h3>
+
+<table>
+  <tr>
+    <th style="width:12%">Tier</th>
+    <th style="width:44%">Existing Provision</th>
+    <th style="width:44%">Add</th>
+  </tr>
+  <tr>
+    <td><strong>Tier 1</strong></td>
+    <td>Syllabus language options. Faculty AI orientation (30-min adjunct version).</td>
+    <td><strong>Expand syllabus options:</strong> Include mode declaration language (EXPLORE / ASSISTED / RESTRICTED / HUMAN-ONLY) as one of the syllabus options in Template 2. Include Template 13 (Mode Selection Guide) in the faculty orientation materials.</td>
+  </tr>
+  <tr>
+    <td><strong>Tier 2</strong></td>
+    <td>Compensated PD. Faculty governance participation.</td>
+    <td><strong>Add to PD curriculum:</strong> Workshop on mode selection &mdash; how to determine which mode serves different learning objectives. Include concrete examples from different disciplines. 60&ndash;90 minute workshop using Template 13 as the working document.</td>
+  </tr>
+  <tr>
+    <td><strong>Tier 3</strong></td>
+    <td>Faculty as AI governance leaders. Cross-departmental coordination.</td>
+    <td><strong>Add departmental review:</strong> Departments review aggregate mode distributions across courses. If a department has no Human-Only assessments, that&rsquo;s a governance finding. If a department uses only Human-Only, they may be under-leveraging AI for appropriate learning activities.</td>
+  </tr>
+</table>
+
+<hr>
+
+<h3>Pillar 3: Transparency &amp; Student Agency</h3>
+
+<table>
+  <tr>
+    <th style="width:12%">Tier</th>
+    <th style="width:44%">Existing Provision</th>
+    <th style="width:44%">Add</th>
+  </tr>
+  <tr>
+    <td><strong>Tier 1</strong></td>
+    <td>Students have the right to know when AI is used in decisions affecting them.</td>
+    <td><strong>Extend &ldquo;right to know&rdquo;:</strong> Students have the right to understand how AI availability is structured in their courses and why certain assignments restrict AI. Mode declarations on assignments make this transparent.</td>
+  </tr>
+  <tr>
+    <td><strong>Tier 2</strong></td>
+    <td>Student rights notice. Human review option.</td>
+    <td><strong>Add to student rights notice (Template 10):</strong> &ldquo;You have the right to understand why an assignment restricts AI availability. If you believe a restriction is inappropriate, you may request an explanation from your instructor or appeal to the department.&rdquo;</td>
+  </tr>
+  <tr>
+    <td><strong>Tier 3</strong></td>
+    <td>Student governance participation. Feedback mechanisms.</td>
+    <td><strong>Add student voice:</strong> Students participate in evaluating whether AI tools are serving their learning. End-of-semester student survey includes: &ldquo;Do you feel you can do this work independently, without AI?&rdquo; This provides qualitative data to complement the quantitative capability assessment (Template 14).</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Roadmap Enhancement</h2>
+
+<p>Add one milestone to the existing roadmap. It fits naturally in the &ldquo;Practice&rdquo; phase (months 7&ndash;9) when AI tools have been deployed long enough to measure impact.</p>
+
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">+</div>
+    Roadmap Addition &mdash; Capability Verification Checkpoint
+  </div>
+  <div class="screen-body">
+    <div class="screen-wireframe">
+      <div class="wire-label">Enhanced roadmap (Tier 1 college) &mdash; addition highlighted</div>
+
+      <div style="border-left: 3px solid #0066cc; padding-left: 16px; margin: 12px 0;">
+        <div style="font-weight: bold; font-size: 10pt; color: #28a745;">Months 1&ndash;3: Foundation</div>
+        <div style="font-size: 9pt; color: #555; margin: 4px 0 12px;">
+          &#9744; Adopt AI policy statement (Template 1)<br>
+          &#9744; Complete AI tool inventory (Template 5)<br>
+          &#9744; Designate AI governance responsibility<br>
+          &#9744; Hold first governance meeting
+        </div>
+
+        <div style="font-weight: bold; font-size: 10pt; color: #0066cc;">Months 4&ndash;6: Structure</div>
+        <div style="font-size: 9pt; color: #555; margin: 4px 0 12px;">
+          &#9744; Establish AI committee or integrate into existing body (Template 4)<br>
+          &#9744; Distribute faculty syllabus language options (Template 2)<br>
+          &#9744; Conduct adjunct AI orientation (Template 9)<br>
+          &#9744; Complete first vendor evaluation (Template 6)<br>
+          <span style="background: #e7f3ff; padding: 2px 6px; border-radius: 3px;">&#9744; Distribute AI Mode Selection Guide to faculty (Template 13)</span>
+        </div>
+
+        <div style="font-weight: bold; font-size: 10pt; color: #6f42c1;">Months 7&ndash;9: Practice</div>
+        <div style="font-size: 9pt; color: #555; margin: 4px 0 12px;">
+          &#9744; Deploy student AI rights notice (Template 10)<br>
+          &#9744; Implement documentation-over-detection policy (Template 3)<br>
+          &#9744; Evaluate highest-impact AI tool using assessment protocol (Template 7)<br>
+          &#9744; Connect with CCCCO regional consortium<br>
+          <span style="background: #fff3cd; padding: 2px 6px; border-radius: 3px; border: 1px solid #ffc107;"><strong>&#9744; Conduct capability verification for AI tools used in instruction (Template 14)</strong></span>
+        </div>
+
+        <div style="font-weight: bold; font-size: 10pt; color: #fd7e14;">Months 10&ndash;12: Report &amp; Plan</div>
+        <div style="font-size: 9pt; color: #555; margin: 4px 0 12px;">
+          &#9744; Complete first annual AI governance report (Template 12)<br>
+          <span style="background: #e7f3ff; padding: 2px 6px; border-radius: 3px;">&#9744; Include capability verification findings in annual report</span><br>
+          &#9744; Assess readiness for Tier 2 governance<br>
+          &#9744; Identify Year 2 priorities<br>
+          &#9744; Share learnings with ChangeMaker network
+        </div>
+      </div>
+    </div>
+
+    <h4>Why Months 7&ndash;9</h4>
+    <p>By this point, AI tools have been deployed with governance structure (months 1&ndash;6) for at least one semester. Faculty have had the Mode Selection Guide. Students have experienced structured AI availability. There&rsquo;s enough data to ask the question: <strong>is this working?</strong> The capability verification at months 7&ndash;9 feeds directly into the annual report at months 10&ndash;12, giving the governance body evidence-based findings to inform Year 2 decisions.</p>
+  </div>
+</div>
+
+<hr>
+
+<h2>How to Present This to the Team</h2>
+
+<div class="highlight-box">
+<strong>The pitch in one sentence:</strong> &ldquo;I&rsquo;ve drafted a pedagogical governance layer for the Navigator &mdash; 3 assessment questions, a 10th gap, and 2 templates that extend our novelty claim and give colleges something no framework globally offers: a way to know whether their AI tools are actually building student capability.&rdquo;
+</div>
+
+<h4>For Amin</h4>
+<p>Frame as differentiation, not philosophy. This adds a scoring dimension, a gap with zero global coverage, and two practical templates. Everything integrates into the existing architecture &mdash; the same tier logic, the same gap scoring model, the same template structure, the same roadmap format. It makes the framework more comprehensive and more novel without adding complexity for users.</p>
+
+<h4>For Mimi</h4>
+<p>Frame as student protection. The capability assessment protocol ensures colleges don&rsquo;t adopt AI tools that create dependency for the students who can least afford it. The equity dimension &mdash; disaggregating capability verification by student population &mdash; is exactly what Kapor lens analysis calls for.</p>
+
+<h4>For CFF</h4>
+<p>Frame as outcome measurement. CFF wants to know whether this framework makes a difference. The capability verification protocol gives colleges (and CFF) a way to measure whether AI governance is actually serving students, not just governing tools. That&rsquo;s an outcome metric, not a compliance checkbox.</p>
+
+<hr>
+
+<div class="about-box">
+  <strong>About This Document</strong><br>
+  This proposal describes additions to the AI Governance Navigator that integrate pedagogical governance alongside institutional governance. All content is designed to plug into the existing Navigator architecture (assessment &rarr; profile &rarr; gaps &rarr; pillars &rarr; templates &rarr; roadmap) without requiring structural changes.<br><br>
+  <strong>Date:</strong> February 11, 2026<br>
+  <strong>Author:</strong> Adam<br>
+  <strong>Source:</strong> AI Learning Mode Framework (FutureObjects Research), AQL Ethical AI Framework, Capstone Deliverable Concept<br>
+  <strong>Research Base:</strong> &ldquo;Why Fog Makes Humans Irreplaceable&rdquo; (Murray, 2025), AI Learning Mode Framework v3.5, 224-framework global coverage analysis
+</div>
+
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(panel) { panel.classList.remove('active'); });
+  document.getElementById('tab-' + tabId).classList.add('active');
+  var btns = document.querySelectorAll('.tab-btn');
+  var tabMap = { 'rationale': 0, 'assessment': 1, 'gap': 2, 'templates': 3, 'integration': 4 };
+  if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+}
+</script>
+
+</body>
+</html>
