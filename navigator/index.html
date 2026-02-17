@@ -31,12 +31,15 @@
     --live: #16A34A;
     --caution: #EAB308;
     --critical: #DC2626;
-    --p1: #0891B2;
-    --p2: #6366F1;
-    --p3: #A855F7;
-    --p4: #D97706;
-    --p5: #E11D48;
-    --p6: #0EA5E9;
+    --p1: #0066cc;
+    --p2: #28a745;
+    --p3: #6f42c1;
+    --p4: #fd7e14;
+    --p5: #dc3545;
+    --p6: #17a2b8;
+    --p7: #e83e8c;
+    --p8: #6610f2;
+    --p9: #795548;
     --display: 'Plus Jakarta Sans', sans-serif;
     --body: 'Inter', sans-serif;
   }
@@ -928,220 +931,287 @@ var GAPS = [
     desc: 'Frameworks designed for community college context, mission, and constraints.',
     coverage: '2 of 224', coveragePct: '< 1%', coverageDetail: 'Only ASCCC and ATD directly address CC context. All others require significant adaptation.',
     provisions: ['Written AI governance program adapted for CC capacity', 'Faculty-led AI committee with cross-functional representation', '"Institutional floor, faculty ceiling" model', 'Tiered governance intensity by AI impact level', 'Annual AI inventory for accreditation documentation'],
-    pillars: ['P1', 'P2'], template: 1, templateName: 'AI Policy Statement',
+    pillars: ['P3', 'P9'], template: 1, templateName: 'AI Policy Statement',
     pilotNote: 'Monthly AI Taskforce meetings integrated into existing shared governance. Decision flowcharts posted in shared drive.' },
   { id: 'G2', name: 'Adult Learner Contexts', base: 3,
     desc: 'AI governance for working adults, returning students, and non-traditional pathways.',
     coverage: '0 of 224', coveragePct: '0%', coverageDetail: 'No framework specifically addresses adult learner AI contexts, despite CCs serving 8+ million adult learners annually.',
     provisions: ['Recognition of prior AI workplace experience', 'Work-schedule-sensitive AI communications', 'Boundary-based guardrails instead of surveillance', 'Adult informed consent (not parental permission models)', '"AI-anxious" student support pathways'],
-    pillars: ['P3', 'P4'], template: 10, templateName: 'Student AI Rights Notice',
+    pillars: ['P4', 'P7'], template: 10, templateName: 'Student AI Rights Notice',
     pilotNote: 'Adult learners bring workplace AI knowledge. Policy builds on this rather than assuming no prior experience.' },
   { id: 'G3', name: 'Dual Enrollment', base: 1,
     desc: 'AI governance at the K-12/higher ed intersection for concurrent enrollment students.',
     coverage: '0 of 224', coveragePct: '0%', coverageDetail: 'Complete gap. No framework addresses FERPA vs. COPPA data handling, parental consent, or K-12 policy conflicts.',
     provisions: ['Age-appropriate AI interaction guidelines', 'Dual consent protocols (parent + student)', 'K-12 district AI policy coordination requirements', 'Special protections for minors in AI-driven decisions'],
-    pillars: ['P3', 'P6'], template: 10, templateName: 'Student AI Rights Notice',
+    pillars: ['P1', 'P5'], template: 10, templateName: 'Student AI Rights Notice',
     pilotNote: 'Dual enrollment requires careful navigation of both K-12 and college AI policies simultaneously.' },
   { id: 'G4', name: 'Non-Credit / Continuing Ed', base: 1,
     desc: 'AI governance for workforce training, professional development, and non-credit programs.',
     coverage: '0 of 224', coveragePct: '0%', coverageDetail: 'Significant gap. Non-credit programs serve 5+ million CC students annually with different data retention and employer partnership considerations.',
     provisions: ['AI governance for contract training', 'Employer data sharing boundaries', 'Certificate vs. credential AI policy differentiation', 'Short-term program AI assessment protocols'],
-    pillars: ['P4', 'P6'], template: 6, templateName: 'AI Tool Evaluation Checklist',
+    pillars: ['P1', 'P9'], template: 6, templateName: 'AI Tool Evaluation Checklist',
     pilotNote: 'Non-credit programs often involve corporate partners with their own AI policies that must be reconciled.' },
   { id: 'G5', name: 'Adjunct / Contingent Faculty', base: 4,
     desc: 'AI governance for part-time instructors who make up 70%+ of CC faculty.',
     coverage: '0 of 224', coveragePct: '0%', coverageDetail: 'Critical gap. No framework addresses the reality that 70%+ of CC faculty are part-time, with limited PD access, different employment status, and limited time.',
     provisions: ['30-minute orientation maximum for essential AI policy', 'Compensated governance participation', 'Equitable tool access (same as full-time)', 'Portable framework across institutions', 'Decision flowcharts and pre-made templates'],
-    pillars: ['P2'], template: 9, templateName: 'Faculty AI Training Outline',
+    pillars: ['P4', 'P2'], template: 9, templateName: 'Faculty AI Training Outline',
     pilotNote: 'Monthly AI Taskforce meetings with compensated adjunct slots. 30-min orientation at start of each semester. Decision flowcharts posted in shared drive.' },
   { id: 'G6', name: 'Student-Facing Agentic AI', base: 2,
     desc: 'Governance for tutoring agents, advising bots, and automated student support systems.',
     coverage: '1 of 224', coveragePct: '< 1%', coverageDetail: 'Only Singapore\'s agentic AI framework provides direct coverage, but requires significant educational adaptation.',
     provisions: ['Autonomy limits by decision type (informational / recommendatory / consequential)', 'Human accountability checkpoints for every consequential decision', 'Tutoring agent standards: hallucination prevention, faculty oversight', 'Advising agent standards: accuracy requirements, human review for complex cases', 'Student opt-out to human always available'],
-    pillars: ['P6'], template: 7, templateName: 'High-Impact AI Assessment Protocol',
+    pillars: ['P5', 'P6', 'P7'], template: 7, templateName: 'High-Impact AI Assessment Protocol',
     pilotNote: 'Student Success Coach (AI advising agent) deployed with human counselor backup. Students can always escalate to a person.' },
   { id: 'G7', name: 'Transfer / Credentials', base: 2,
     desc: 'AI governance for articulation, credit evaluation, and transfer pathway recommendations.',
     coverage: '0 of 224', coveragePct: '0%', coverageDetail: 'Complete gap. No framework addresses AI in transfer credit decisions, cross-institutional data, or transfer pathway AI advising.',
     provisions: ['Transparency in AI transfer credit decisions', 'Human review requirements for transfer denial', 'Cross-institution data governance for AI', 'Student appeal rights for AI transfer decisions'],
-    pillars: ['P3', 'P4'], template: 10, templateName: 'Student AI Rights Notice',
+    pillars: ['P1', 'P6'], template: 10, templateName: 'Student AI Rights Notice',
     pilotNote: 'Transfer pathway alignment requires coordination with UC/CSU AI policies. Documentation ensures portability.' },
   { id: 'G8', name: 'Disability / Accessibility', base: 3,
     desc: 'AI governance ensuring accessibility and addressing disability-related considerations.',
     coverage: '0 of 224', coveragePct: '0%', coverageDetail: 'Significant gap despite major implications. No framework addresses AI accessibility, accommodation data in AI systems, or bias against disabled students.',
     provisions: ['AI accessibility requirements (WCAG alignment)', 'Accommodation data handling in AI systems', 'Alternative AI interaction modes', 'Bias testing for disability-related outcomes', 'Detection tool bias protection for students with disabilities'],
-    pillars: ['P3', 'P5'], template: 6, templateName: 'AI Tool Evaluation Checklist',
+    pillars: ['P2', 'P7'], template: 6, templateName: 'AI Tool Evaluation Checklist',
     pilotNote: 'AI detection tools show 15-30% false positive rates that disproportionately flag ESL students and students with disabilities.' },
   { id: 'G9', name: 'Small Organization Implementation', base: 3,
     desc: 'Implementation pathways for resource-constrained institutions without dedicated AI staff.',
     coverage: '1 of 224', coveragePct: '< 1%', coverageDetail: 'Only the Local Government AI Handbook directly addresses resource constraints, but requires educational adaptation.',
     provisions: ['Minimum viable governance (policy + inventory + designated responsibility)', 'Shared-service AI governance models', 'Consortium approaches to AI evaluation', 'Phased implementation based on capacity', 'Templates requiring no legal staff or AI expertise'],
-    pillars: ['P1', 'P5'], template: 5, templateName: 'AI Inventory Template',
+    pillars: ['P3', 'P8', 'P9'], template: 5, templateName: 'AI Inventory Template',
     pilotNote: 'Start with what you have. Monthly governance meetings added to existing shared governance conversations. No new positions required.' },
   { id: 'G10', name: 'Capability Dependency Risk', base: 4,
     desc: 'No framework distinguishes between AI that builds student capability and AI that creates student dependency.',
     coverage: '0 of 224', coveragePct: '0%', coverageDetail: 'Complete gap. No framework globally addresses whether educational AI is building student capability or creating dependency. Current governance focuses on responsible AI use without addressing learning outcomes measured independently of AI.',
     provisions: ['AI Mode Selection Guide for structuring when AI is available, bounded, or absent', 'Student Capability Assessment Protocol for verifying learning outcomes without AI', 'Mode distribution review across departments to ensure balanced AI availability', 'Capability verification milestone at months 7\u20139 to evaluate whether AI tools build or erode capability'],
-    pillars: ['P2', 'P3', 'P4'], template: 13, templateName: 'AI Mode Selection Guide',
+    pillars: ['P1', 'P4', 'P5'], template: 13, templateName: 'AI Mode Selection Guide',
     pilotNote: 'A pilot college adopted an AI writing tutor and tracked engagement data for one semester. Usage was high and satisfaction was 4.2/5, but in-class essays without AI showed scores dropped below pre-AI levels. With the Mode Selection Guide, the college restructured AI availability and independent writing scores recovered within two semesters.' }
 ];
 
 var PILLARS = [
-  { id: 'P1', name: 'Governance Structure & Accountability', color: 'var(--p1)', colorHex: '#0891B2',
-    def: 'Formal mechanisms for AI decision-making, documentation, and oversight.',
-    why: 'Community colleges need governance that fits their reality: limited capacity, shared governance traditions, and accreditation requirements.',
-    gaps: ['G1', 'G5', 'G9'],
+  { id: 'P1', name: 'Purpose & Educational Legitimacy', color: 'var(--p1)', colorHex: '#0066cc',
+    def: 'Every AI deployment must serve a genuine educational purpose and protect the meaning of credentials.',
+    why: 'AI use is justified by learning outcomes, not efficiency alone. Detection tools have 15\u201330% false positive rates that disproportionately flag ESL students and students with disabilities.',
+    gaps: ['G3', 'G4', 'G7', 'G10'],
     tiers: {
       1: [
-        { title: 'Write an AI policy statement', desc: 'Board-adoptable language establishing your institution\u2019s AI governance position.', template: 1 },
-        { title: 'Conduct an AI inventory', desc: 'Identify every AI tool in use. You can\u2019t govern what you don\u2019t know about.', template: 5 },
-        { title: 'Designate responsibility', desc: 'Name a person or body accountable. Can be added to an existing role.', template: 4 },
-        { title: 'Establish meeting cadence', desc: 'Monthly governance meeting integrating AI into existing shared governance.', template: null },
-        { title: 'Include AI mode inventory', desc: 'For each AI tool used in instruction, note whether there is a structured approach to when the tool is available vs. restricted vs. absent. Flag gaps for review.', template: 5 }
-      ],
-      2: [
-        { title: 'Stage-gate evaluation process', desc: 'Formal review before deploying new AI tools.', template: 6 },
-        { title: 'Floor-and-ceiling model', desc: 'Institution sets minimum standards; faculty may restrict further.', template: null },
-        { title: 'Tiered governance by impact', desc: 'Low/medium/high-impact AI decisions get proportional oversight.', template: 7 },
-        { title: 'Annual AI governance report', desc: 'Structured reporting to the board on AI governance activities.', template: 12 },
-        { title: 'Capability evidence in stage-gate', desc: 'Before advancing an AI tool from pilot to deployment, evaluate evidence that it builds student capability, not just satisfaction or usage.', template: 14 }
-      ],
-      3: [
-        { title: 'Comprehensive written program', desc: 'Full documentation: policy, procedures, risk classification, audit trail.', template: null },
-        { title: 'Cross-institutional coordination', desc: 'Connect to CCCCO Digital Center, regional consortia, ChangeMaker network.', template: null },
-        { title: 'Advanced risk assessment', desc: 'Systematic evaluation of AI risk across all institutional functions.', template: 7 },
-        { title: 'Capability verification in annual review', desc: 'Report on capability verification findings across departments. Include disaggregated data by student population. Use findings to inform AI tool renewal decisions.', template: 12 }
-      ]
-    }
-  },
-  { id: 'P2', name: 'Faculty Authority & Professional Support', color: 'var(--p2)', colorHex: '#6366F1',
-    def: 'Faculty primacy in academic AI decisions, coupled with equitable support for all faculty.',
-    why: 'Faculty implement AI governance in every classroom. Any framework that ignores adjunct reality will fail.',
-    gaps: ['G5', 'G9', 'G10'],
-    tiers: {
-      1: [
-        { title: 'Faculty set assignment-level AI permissions', desc: 'Faculty determine what AI use is allowed per assignment.', template: 2 },
-        { title: '30-minute adjunct AI orientation', desc: 'Essential policy in a realistic time commitment.', template: 9 },
-        { title: 'Equitable tool access', desc: 'Part-time faculty get same AI tools and training as full-time.', template: null },
-        { title: 'AI mode selection guidance', desc: 'Include mode declaration language (Explore / Assisted / Restricted / Human-Only) as a syllabus option. Distribute AI Mode Selection Guide in faculty orientation.', template: 13 }
-      ],
-      2: [
-        { title: 'Bloom\u2019s Taxonomy AI mapping', desc: 'Map human vs. AI capabilities at each taxonomy level for course redesign.', template: null },
-        { title: 'Compensated governance participation', desc: 'Adjuncts paid for governance work beyond teaching.', template: 4 },
-        { title: 'Faculty AI mentorship', desc: 'Experienced faculty support colleagues in AI integration.', template: null },
-        { title: 'Mode selection workshop', desc: 'Workshop on determining which AI mode serves different learning objectives. 60\u201390 minute session using Mode Selection Guide as working document.', template: 13 }
-      ],
-      3: [
-        { title: 'Portable cross-institutional framework', desc: 'Consistent enough for adjuncts teaching at multiple CCs.', template: null },
-        { title: 'Faculty-led AI research', desc: 'Faculty conduct action research on AI in their disciplines.', template: null },
-        { title: 'Department mode distribution review', desc: 'Departments review aggregate mode distributions across courses. No Human-Only assessments or no Explore activities are governance findings.', template: null }
-      ]
-    }
-  },
-  { id: 'P3', name: 'Student Rights & Adult Learner Agency', color: 'var(--p3)', colorHex: '#A855F7',
-    def: 'Student rights regarding AI \u2014 to know, to human review, to fair treatment, to privacy, to appeal.',
-    why: 'CC students average age 28+. Surveillance models designed for minors are paternalistic and inappropriate.',
-    gaps: ['G2', 'G7', 'G8', 'G10'],
-    tiers: {
-      1: [
-        { title: 'Student AI rights notice', desc: 'Students informed when AI influences decisions affecting them.', template: 10 },
-        { title: 'Right to human review', desc: 'Students may always request human review of AI-assisted decisions.', template: null },
-        { title: 'Transparency commitment', desc: 'Disclose AI use in advising, grading, enrollment.', template: null },
-        { title: 'AI mode transparency', desc: 'Students have the right to understand how AI availability is structured in their courses and why certain assignments restrict AI.', template: null }
-      ],
-      2: [
-        { title: 'Appeal process for AI decisions', desc: 'Clear path for contesting AI-influenced academic decisions.', template: null },
-        { title: 'AI interaction data ownership', desc: 'Students own their AI interaction data.', template: null },
-        { title: 'Prior AI experience recognition', desc: 'Policy builds on students\u2019 workplace AI knowledge.', template: null },
-        { title: 'AI restriction appeal right', desc: 'Students may request explanation for AI restrictions and appeal to the department if they believe a restriction is inappropriate.', template: 10 }
-      ],
-      3: [
-        { title: 'Comprehensive student data rights', desc: 'Full transparency, portability, and control over AI data.', template: null },
-        { title: 'Student AI advisory voice', desc: 'Students participate in AI governance decisions.', template: 4 },
-        { title: 'Student capability voice', desc: 'Students participate in evaluating whether AI tools serve their learning. End-of-semester survey: \u201CDo you feel you can do this work independently, without AI?\u201D', template: 14 }
-      ]
-    }
-  },
-  { id: 'P4', name: 'Academic & Credential Integrity', color: 'var(--p4)', colorHex: '#D97706',
-    def: 'Ensuring educational authenticity through documentation rather than detection.',
-    why: 'Detection tools have 15-30% false positive rates that disproportionately flag ESL students and students with disabilities.',
-    gaps: ['G2', 'G3', 'G8', 'G10'],
-    tiers: {
-      1: [
-        { title: 'Documentation-over-detection policy', desc: 'Students document AI use rather than being scanned.', template: 3 },
-        { title: 'Faculty-set assignment permissions', desc: 'Each assignment tagged with AI use expectations.', template: 2 },
-        { title: 'Education before enforcement', desc: 'Students taught proper documentation before facing consequences.', template: null }
+        { title: 'Documentation-over-detection policy', desc: 'Students document AI use rather than being scanned. Equity-based approach.', template: 3 },
+        { title: 'Educational purpose requirement', desc: 'All AI deployments must articulate a genuine educational purpose aligned with institutional mission.', template: null },
+        { title: 'Faculty-set assignment permissions', desc: 'Each assignment tagged with AI use expectations and educational rationale.', template: 2 },
+        { title: 'Education before enforcement', desc: 'Students taught proper AI documentation before facing consequences.', template: null }
       ],
       2: [
         { title: 'Credential integrity by pathway', desc: 'Different rules for licensure CTE, transfer-track, and general education.', template: null },
         { title: 'Industry advisory board input', desc: 'CTE programs involve industry in defining AI-free competency requirements.', template: null },
-        { title: 'Iowa bias definition adopted', desc: 'Clear, operational, testable definition for AI bias assessment.', template: null }
+        { title: 'Capability evidence in evaluations', desc: 'Before advancing an AI tool from pilot to deployment, evaluate evidence that it builds student capability, not just satisfaction or usage.', template: 14 }
       ],
       3: [
         { title: 'AI portfolio documentation', desc: 'Students maintain AI use portfolios for transfer and employment.', template: 3 },
-        { title: 'Cross-pathway consistency', desc: 'Unified integrity framework across all credential types.', template: null }
+        { title: 'Cross-pathway consistency', desc: 'Unified integrity framework across all credential types.', template: null },
+        { title: 'Institutional mission alignment review', desc: 'Annual review of whether AI deployments continue to serve institutional educational mission.', template: null }
       ]
     }
   },
-  { id: 'P5', name: 'Vendor & Technology Accountability', color: 'var(--p5)', colorHex: '#E11D48',
-    def: 'Evaluating, procuring, and holding accountable the AI tools and vendors CCs use.',
-    why: 'CCs are buyers, not builders, of AI. Our governance power is in procurement and contracts.',
-    gaps: ['G9'],
+  { id: 'P2', name: 'Equity & Differential Impact', color: 'var(--p2)', colorHex: '#28a745',
+    def: 'AI governance must center equity and account for differential impacts on diverse CC student populations.',
+    why: 'Drawing on the Kapor Center justice lens, this pillar ensures AI does not create new barriers or reinforce existing ones for ESL, disability, and first-generation students.',
+    gaps: ['G5', 'G8'],
     tiers: {
       1: [
-        { title: 'AI tool evaluation checklist', desc: 'Practical vendor evaluation before procurement.', template: 6 },
-        { title: 'No training on student data', desc: 'Non-negotiable contract term: vendors cannot train on student data without consent.', template: 8 },
-        { title: 'FERPA compliance baseline', desc: 'All AI tools must meet FERPA requirements.', template: null }
+        { title: 'Differential impact review', desc: 'Review new AI deployments for differential impacts on diverse student populations before launch.', template: null },
+        { title: 'Equitable tool access', desc: 'All student populations and part-time faculty get same AI tools and training as full-time peers.', template: null },
+        { title: 'Bias-aware procurement checklist', desc: 'Include equity criteria in every AI tool evaluation.', template: 6 }
       ],
       2: [
-        { title: 'Vendor audit rights', desc: 'Institution may audit or require third-party audit of vendor AI practices.', template: 8 },
-        { title: 'Incident disclosure requirement', desc: 'Vendors must report AI failures, bias findings, security issues.', template: 11 },
-        { title: 'Data lifecycle requirements', desc: 'Access, collect, store, use, share, destroy \u2014 all specified.', template: 8 }
+        { title: 'Bias audit requirements', desc: 'Regular bias testing for deployed AI tools, especially those affecting grades, advising, and enrollment.', template: null },
+        { title: 'Equity review in procurement', desc: 'Equity review integrated into all procurement and implementation decisions.', template: null },
+        { title: 'ESL and disability impact analysis', desc: 'Specific attention to impacts on ESL, disability, and first-generation student populations.', template: null }
       ],
       3: [
-        { title: 'Consortium negotiating power', desc: 'System-level coordination for stronger contract terms via FoundationCCC.', template: null },
-        { title: 'Comprehensive vendor scorecard', desc: 'Regular vendor performance assessment against governance standards.', template: 6 }
+        { title: 'Comprehensive equity monitoring', desc: 'Ongoing monitoring across all AI systems with disaggregated outcomes data.', template: null },
+        { title: 'Non-discrimination provisions', desc: 'Non-discrimination requirements in all AI vendor contracts and institutional policies.', template: 8 },
+        { title: 'Community input on equity', desc: 'Students and community members inform equity standards through advisory panels.', template: null }
       ]
     }
   },
-  { id: 'P6', name: 'Emerging AI & Future Preparedness', color: 'var(--p6)', colorHex: '#0EA5E9',
-    def: 'Governance for agentic AI systems that take actions rather than just generate content.',
-    why: 'Tutoring agents and advising bots are already deploying. Current frameworks govern outputs; agentic AI requires governing actions.',
-    gaps: ['G3', 'G4', 'G6'],
+  { id: 'P3', name: 'Human Authority & Decision Accountability', color: 'var(--p3)', colorHex: '#6f42c1',
+    def: 'Humans \u2014 not algorithms \u2014 make consequential decisions about students, with formal governance structures ensuring accountability.',
+    why: 'Community colleges need governance that fits their reality: shared governance traditions, accreditation requirements, and clear chains of responsibility for AI-influenced decisions.',
+    gaps: ['G1', 'G9'],
     tiers: {
       1: [
-        { title: 'High-impact AI definition', desc: 'Identify which AI use cases at your institution are consequential.', template: null },
-        { title: 'Human-in-the-loop requirement', desc: 'Consequential decisions always involve a named human.', template: null }
+        { title: 'Write an AI policy statement', desc: 'Board-adoptable language establishing your institution\u2019s AI governance position.', template: 1 },
+        { title: 'Designate responsibility', desc: 'Name a person or body accountable for AI governance. Can be added to an existing role.', template: 4 },
+        { title: 'Faculty-led AI committee', desc: 'Establish AI committee with cross-functional representation through shared governance.', template: 4 },
+        { title: 'Establish meeting cadence', desc: 'Monthly governance meeting integrating AI into existing shared governance structures.', template: null }
+      ],
+      2: [
+        { title: 'Stage-gate evaluation process', desc: 'Formal review before deploying new AI tools. No tool goes live without governance sign-off.', template: 6 },
+        { title: '"Institutional floor, faculty ceiling" model', desc: 'Institution sets minimum AI standards; faculty may restrict further within their courses.', template: null },
+        { title: 'Human authority over consequential decisions', desc: 'All consequential AI decisions require a named human accountable for the outcome.', template: null },
+        { title: 'Decision documentation and audit trail', desc: 'Document who decided, when, using what criteria, with what accountability.', template: null }
+      ],
+      3: [
+        { title: 'Comprehensive written AI governance program', desc: 'Full documentation: policy, procedures, risk classification, audit trail.', template: null },
+        { title: 'Clear accountability chains', desc: 'Every AI-influenced outcome traces to a responsible human decision-maker.', template: null },
+        { title: 'Advanced risk assessment', desc: 'Systematic evaluation of AI risk across all institutional functions.', template: 7 }
+      ]
+    }
+  },
+  { id: 'P4', name: 'Student and Faculty Agency', color: 'var(--p4)', colorHex: '#fd7e14',
+    def: 'Students and faculty are empowered participants in AI governance, not subjects of it.',
+    why: 'Faculty implement AI governance in every classroom. CC students average age 28+. Any framework that ignores adjunct reality or treats adult learners as minors will fail.',
+    gaps: ['G2', 'G5', 'G10'],
+    tiers: {
+      1: [
+        { title: 'Faculty set assignment-level AI permissions', desc: 'Faculty determine what AI use is allowed per assignment using mode declaration language.', template: 2 },
+        { title: '30-minute adjunct AI orientation', desc: 'Essential policy in a realistic time commitment for the 70%+ adjunct workforce.', template: 9 },
+        { title: 'Student AI rights notice', desc: 'Students informed when AI influences decisions affecting them.', template: 10 },
+        { title: 'AI mode selection guidance', desc: 'Mode declaration language (Explore / Assisted / Restricted / Human-Only) as a syllabus option.', template: 13 }
+      ],
+      2: [
+        { title: 'Compensated governance participation', desc: 'Adjuncts paid for governance work beyond teaching duties.', template: 4 },
+        { title: 'Prior AI experience recognition', desc: 'Policy builds on adult learners\u2019 workplace AI knowledge rather than assuming none.', template: null },
+        { title: 'Mode selection workshop', desc: 'Workshop on determining which AI mode serves different learning objectives. 60\u201390 min session.', template: 13 },
+        { title: 'Appeal process for AI decisions', desc: 'Clear path for students to contest AI-influenced academic decisions.', template: null }
+      ],
+      3: [
+        { title: 'Portable cross-institutional framework', desc: 'Consistent enough for adjuncts teaching at multiple CCs.', template: null },
+        { title: 'Student AI advisory voice', desc: 'Students participate in AI governance decisions through advisory panels.', template: 4 },
+        { title: 'Faculty-led AI research', desc: 'Faculty conduct action research on AI in their disciplines.', template: null },
+        { title: 'Department mode distribution review', desc: 'Departments review aggregate mode distributions across courses. Imbalances are governance findings.', template: null }
+      ]
+    }
+  },
+  { id: 'P5', name: 'Risk Proportionality & Harm Mitigation', color: 'var(--p5)', colorHex: '#dc3545',
+    def: 'Governance intensity matches risk level. Low-impact AI gets lightweight review; high-impact AI gets full governance.',
+    why: 'Tutoring agents and advising bots are already deploying. Current frameworks govern outputs; agentic AI requires governing actions with harm mitigation built in.',
+    gaps: ['G3', 'G6', 'G10'],
+    tiers: {
+      1: [
+        { title: 'High-impact AI definition', desc: 'Identify which AI use cases at your institution are consequential vs. informational.', template: null },
+        { title: 'Human-in-the-loop requirement', desc: 'Consequential decisions always involve a named human decision-maker.', template: null },
+        { title: 'Student opt-out to human', desc: 'Students may always request human interaction instead of AI-mediated processes.', template: null }
       ],
       2: [
         { title: 'Autonomy limits by decision type', desc: 'Informational (autonomous), recommendatory (human review), consequential (human decides).', template: 7 },
         { title: 'Tutoring agent standards', desc: 'Hallucination prevention, faculty oversight of content, student opt-out.', template: null },
-        { title: 'Advising agent standards', desc: 'Accuracy requirements, human review for complex cases.', template: null }
+        { title: 'Advising agent standards', desc: 'Accuracy requirements, human review for complex cases.', template: null },
+        { title: 'Automation bias training', desc: 'Faculty and staff trained to not over-rely on AI recommendations.', template: 9 }
       ],
       3: [
         { title: 'Pilot exemptions with sunset', desc: 'Innovation pathways that require evaluation before permanent deployment.', template: null },
-        { title: 'Automation bias training', desc: 'Faculty and staff trained to not over-rely on AI recommendations.', template: 9 },
-        { title: 'Escalation protocols', desc: 'Clear triggers and pathways for human intervention.', template: 11 }
+        { title: 'Escalation protocols', desc: 'Clear triggers and pathways for human intervention when AI causes harm.', template: 11 },
+        { title: 'Harm mitigation protocols for agentic AI', desc: 'Specific protocols for tutoring agents, advising bots, and automated student support.', template: 7 }
+      ]
+    }
+  },
+  { id: 'P6', name: 'Data Stewardship & System Integrity', color: 'var(--p6)', colorHex: '#17a2b8',
+    def: 'Student data is a public trust. AI systems must meet data stewardship standards that protect privacy and maintain institutional control.',
+    why: 'CCs handle sensitive student data across complex scenarios \u2014 employer partnerships, cross-institutional transfer, minors in dual enrollment \u2014 requiring robust data governance.',
+    gaps: ['G6', 'G7'],
+    tiers: {
+      1: [
+        { title: 'No training on student data without consent', desc: 'Non-negotiable: vendors cannot train on student data without explicit consent.', template: 8 },
+        { title: 'FERPA compliance baseline', desc: 'All AI tools must meet FERPA requirements before deployment.', template: null },
+        { title: 'Incident response protocol', desc: 'Procedures for managing AI-related data incidents and security breaches.', template: 11 }
+      ],
+      2: [
+        { title: 'Data lifecycle requirements', desc: 'Access, collect, store, use, share, destroy \u2014 all specified in AI tool contracts.', template: 8 },
+        { title: 'Incident disclosure requirement', desc: 'Vendors must report AI failures, bias findings, and security issues promptly.', template: 11 },
+        { title: 'CCCCO DGAW alignment', desc: 'Data governance aligned with CCCCO Digital Gateway and Access Warehouse standards.', template: null }
+      ],
+      3: [
+        { title: 'Institutional data sovereignty', desc: 'Institution maintains full control over how student data is used in AI systems.', template: null },
+        { title: 'Secure data sharing protocols', desc: 'Protocols for cross-institutional data sharing (transfer, articulation, workforce).', template: null },
+        { title: 'System integrity standards', desc: 'Ongoing verification that AI systems operate within approved parameters.', template: null }
+      ]
+    }
+  },
+  { id: 'P7', name: 'Transparency & Contestability', color: 'var(--p7)', colorHex: '#e83e8c',
+    def: 'Students and faculty have the right to know when AI influences decisions \u2014 and the right to contest those decisions.',
+    why: 'CC students average age 28+. They deserve meaningful transparency and genuine appeal processes, not patronizing notices buried in fine print.',
+    gaps: ['G2', 'G6', 'G8'],
+    tiers: {
+      1: [
+        { title: 'Transparency commitment', desc: 'Disclose AI use in advising, grading, enrollment, and all student-facing processes.', template: null },
+        { title: 'Right to know', desc: 'Students have the right to know when AI influences decisions that affect them.', template: 10 },
+        { title: 'AI mode transparency', desc: 'Students understand how AI availability is structured in their courses and why.', template: null }
+      ],
+      2: [
+        { title: 'Meaningful explanation of AI outputs', desc: 'When AI influences a decision, provide explanation that a student can actually understand and act on.', template: null },
+        { title: 'Right to contest and appeal', desc: 'Clear, accessible process for contesting AI-influenced decisions with human review.', template: null },
+        { title: 'Public disclosure of AI systems', desc: 'Institution publishes list of AI systems in use and their purposes.', template: null }
+      ],
+      3: [
+        { title: 'Comprehensive student data rights', desc: 'Full transparency, portability, and control over AI interaction data.', template: null },
+        { title: 'Clear escalation pathways', desc: 'Students and faculty know exactly how to escalate concerns about AI decisions.', template: null },
+        { title: 'Accessibility of transparency', desc: 'All transparency measures are accessible to students with disabilities, ESL students, and other populations.', template: null }
+      ]
+    }
+  },
+  { id: 'P8', name: 'Vendor Accountability & Institutional Sovereignty', color: 'var(--p8)', colorHex: '#6610f2',
+    def: 'CCs are buyers, not builders, of AI. Vendor relationships must protect institutional sovereignty and leverage collective power.',
+    why: 'Governance power is in procurement and contracts. Consortium approaches through FoundationCCC/CollegeBuys give CCs negotiating leverage they lack individually.',
+    gaps: ['G9'],
+    tiers: {
+      1: [
+        { title: 'AI tool evaluation checklist', desc: 'Practical vendor evaluation before procurement \u2014 equity, data, accessibility criteria.', template: 6 },
+        { title: 'Vendor contract AI addendum', desc: 'Standard contract language for AI accountability, data rights, and exit clauses.', template: 8 },
+        { title: 'No training on student data', desc: 'Non-negotiable contract term: vendors cannot train on student data without consent.', template: 8 }
+      ],
+      2: [
+        { title: 'Vendor audit rights', desc: 'Institution may audit or require third-party audit of vendor AI practices.', template: 8 },
+        { title: 'Bias audit requirements in contracts', desc: 'Require vendors to conduct and share bias audits as a contract condition.', template: null },
+        { title: 'Exit and data portability clauses', desc: 'Ensure institution can leave vendor without losing data or continuity.', template: null }
+      ],
+      3: [
+        { title: 'Consortium negotiating power', desc: 'System-level coordination for stronger contract terms via FoundationCCC/CollegeBuys.', template: null },
+        { title: 'Comprehensive vendor scorecard', desc: 'Regular vendor performance assessment against governance standards.', template: 6 },
+        { title: 'AI procurement playbook', desc: 'Full procurement guide from needs assessment through contract to evaluation.', template: null }
+      ]
+    }
+  },
+  { id: 'P9', name: 'Institutional Capacity & Continuous Governance', color: 'var(--p9)', colorHex: '#795548',
+    def: 'Governance must be achievable at every institutional scale, with tiered implementation and continuous improvement.',
+    why: 'Resource-constrained colleges need minimum viable governance they can start today and grow over time. Shared resources reduce the burden.',
+    gaps: ['G1', 'G4', 'G9'],
+    tiers: {
+      1: [
+        { title: 'Conduct an AI inventory', desc: 'Identify every AI tool in use. You can\u2019t govern what you don\u2019t know about.', template: 5 },
+        { title: 'Minimum viable governance', desc: 'Policy + inventory + designated responsibility. No new positions required.', template: null },
+        { title: 'Templates requiring no expertise', desc: 'Start with ready-to-use templates that need no legal staff or AI expertise.', template: null }
+      ],
+      2: [
+        { title: 'Annual AI governance report', desc: 'Structured reporting to the board on AI governance activities and findings.', template: 12 },
+        { title: 'Tiered governance by impact', desc: 'Low/medium/high-impact AI decisions get proportional oversight based on capacity.', template: 7 },
+        { title: 'Shared-service governance models', desc: 'Consortium approaches to AI evaluation, reducing the burden on individual institutions.', template: null }
+      ],
+      3: [
+        { title: 'Cross-institutional coordination', desc: 'Connect to CCCCO Digital Center, regional consortia, ChangeMaker network.', template: null },
+        { title: 'Continuous governance review cycles', desc: 'Regular review and update of governance as AI capabilities and institutional needs evolve.', template: 12 },
+        { title: 'Progressive maturity model', desc: 'Clear pathway from Tier 1 through Tier 3 with milestones and capacity-building supports.', template: null }
       ]
     }
   }
 ];
 
 var TEMPLATES = [
-  { id: 1, name: 'AI Policy Statement', purpose: 'Board-ready policy language', pillar: 'P1', minTier: 1 },
-  { id: 2, name: 'Syllabus AI Language Options', purpose: '5 options for faculty (prohibited to encouraged)', pillar: 'P2', minTier: 1 },
-  { id: 3, name: 'Student AI Documentation Form', purpose: 'Assignment submission documentation', pillar: 'P4', minTier: 1 },
-  { id: 4, name: 'AI Governance Committee Charter', purpose: 'Committee establishment and structure', pillar: 'P1', minTier: 1 },
-  { id: 5, name: 'AI Inventory Template', purpose: 'Annual AI tool inventory', pillar: 'P1', minTier: 1 },
-  { id: 6, name: 'AI Tool Evaluation Checklist', purpose: 'Procurement evaluation criteria', pillar: 'P5', minTier: 1 },
-  { id: 7, name: 'High-Impact AI Assessment Protocol', purpose: 'Pre-deployment assessment for consequential AI', pillar: 'P6', minTier: 2 },
-  { id: 8, name: 'Vendor Contract AI Addendum', purpose: 'Contract language for AI accountability', pillar: 'P5', minTier: 2 },
-  { id: 9, name: 'Faculty AI Training Outline', purpose: 'PD curriculum incl. 30-min adjunct orientation', pillar: 'P2', minTier: 1 },
-  { id: 10, name: 'Student AI Rights Notice', purpose: 'Student communication and rights disclosure', pillar: 'P3', minTier: 1 },
-  { id: 11, name: 'AI Incident Response Protocol', purpose: 'Incident management procedures', pillar: 'P5', minTier: 2 },
-  { id: 12, name: 'Annual AI Governance Report', purpose: 'Board reporting template', pillar: 'P1', minTier: 1 },
-  { id: 13, name: 'AI Mode Selection Guide', purpose: 'Faculty course planning for structured AI availability', pillar: 'P2', minTier: 1 },
-  { id: 14, name: 'Student Capability Assessment Protocol', purpose: 'Learning outcome verification with and without AI', pillar: 'P3', minTier: 1 }
+  { id: 1, name: 'AI Policy Statement', purpose: 'Board-ready policy language', pillar: 'P3', minTier: 1 },
+  { id: 2, name: 'Syllabus AI Language Options', purpose: '5 options for faculty (prohibited to encouraged)', pillar: 'P4', minTier: 1 },
+  { id: 3, name: 'Student AI Documentation Form', purpose: 'Assignment submission documentation', pillar: 'P1', minTier: 1 },
+  { id: 4, name: 'AI Governance Committee Charter', purpose: 'Committee establishment and structure', pillar: 'P3', minTier: 1 },
+  { id: 5, name: 'AI Inventory Template', purpose: 'Annual AI tool inventory', pillar: 'P9', minTier: 1 },
+  { id: 6, name: 'AI Tool Evaluation Checklist', purpose: 'Procurement evaluation criteria', pillar: 'P8', minTier: 1 },
+  { id: 7, name: 'High-Impact AI Assessment Protocol', purpose: 'Pre-deployment assessment for consequential AI', pillar: 'P5', minTier: 2 },
+  { id: 8, name: 'Vendor Contract AI Addendum', purpose: 'Contract language for AI accountability', pillar: 'P8', minTier: 2 },
+  { id: 9, name: 'Faculty AI Training Outline', purpose: 'PD curriculum incl. 30-min adjunct orientation', pillar: 'P4', minTier: 1 },
+  { id: 10, name: 'Student AI Rights Notice', purpose: 'Student communication and rights disclosure', pillar: 'P7', minTier: 1 },
+  { id: 11, name: 'AI Incident Response Protocol', purpose: 'Incident management procedures', pillar: 'P6', minTier: 2 },
+  { id: 12, name: 'Annual AI Governance Report', purpose: 'Board reporting template', pillar: 'P9', minTier: 1 },
+  { id: 13, name: 'AI Mode Selection Guide', purpose: 'Faculty course planning for structured AI availability', pillar: 'P4', minTier: 1 },
+  { id: 14, name: 'Student Capability Assessment Protocol', purpose: 'Learning outcome verification with and without AI', pillar: 'P1', minTier: 1 }
 ];
 
 var ARCHETYPES = [
@@ -1588,7 +1658,7 @@ function computeResults() {
   recTemplates = recTemplates.filter(function(v, i, a) { return a.indexOf(v) === i; });
 
   // Pillar priority by tier
-  var pillarPriority = tier === 1 ? ['P1','P2','P5'] : tier === 2 ? ['P1','P3','P4','P2'] : ['P6','P5','P1','P3','P4','P2'];
+  var pillarPriority = tier === 1 ? ['P3','P9','P8','P1','P4','P2','P5','P6','P7'] : tier === 2 ? ['P3','P4','P1','P5','P2','P8','P9','P7','P6'] : ['P5','P7','P6','P1','P4','P3','P8','P2','P9'];
 
   state.results = {
     tier: tier,
@@ -1633,7 +1703,7 @@ function quickStart(archId) {
 function renderProfile() {
   var r = state.results;
   var arch = ARCHETYPES.filter(function(a) { return a.id === r.archetype; })[0];
-  var tierColors = { 1: 'var(--live)', 2: 'var(--p2)', 3: 'var(--p3)' };
+  var tierColors = { 1: 'var(--live)', 2: '#6366F1', 3: '#A855F7' };
   var tierNames = { 1: 'Foundation', 2: 'Structure', 3: 'Advanced' };
 
   var html = '';
@@ -1662,7 +1732,7 @@ function renderProfile() {
   html += '<div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 3.2rem;">';
   r.priorityGaps.forEach(function(gId) {
     var gap = GAPS.filter(function(g) { return g.id === gId; })[0];
-    var gapColors = { G1: 'var(--p1)', G2: 'var(--p3)', G3: 'var(--p6)', G4: 'var(--accent)', G5: 'var(--p2)', G6: 'var(--p6)', G7: 'var(--p4)', G8: 'var(--p5)', G9: 'var(--mid)', G10: 'var(--critical)' };
+    var gapColors = { G1: 'var(--p3)', G2: 'var(--p4)', G3: 'var(--p1)', G4: 'var(--p9)', G5: 'var(--p2)', G6: 'var(--p5)', G7: 'var(--p6)', G8: 'var(--p7)', G9: 'var(--p8)', G10: 'var(--critical)' };
     var c = gapColors[gId] || 'var(--signal)';
     html += '<span class="gap-tag" style="background: rgba(255,255,255,0.08); color: ' + c + ';" onclick="showGap(\'' + gId + '\')">' + gId + ' ' + gap.name.toUpperCase() + '</span>';
   });
@@ -1978,14 +2048,14 @@ function renderExplore() {
   html += '<div class="section section-dark" style="padding: 14rem 6rem 8rem;">';
   html += '<div class="section-inner">';
   html += '<div class="label" style="color: var(--signal); margin-bottom: 2.4rem;">The Full Framework</div>';
-  html += '<div class="display-xl" style="max-width: 80rem; margin-bottom: 3.2rem;">Six pillars.<br>Ten gaps.<br>Fourteen templates.</div>';
+  html += '<div class="display-xl" style="max-width: 80rem; margin-bottom: 3.2rem;">Nine pillars.<br>Ten gaps.<br>Fourteen templates.</div>';
   html += '<div class="body-lg" style="color: var(--dark-muted); max-width: 48rem; margin-bottom: 4.8rem;">';
   html += 'The AQL Ethical AI Framework synthesizes 224 global frameworks into a CC-specific governance architecture. Browse the full framework below, or <button class="btn-text" style="color: var(--signal); font-size: 1.8rem;" onclick="startAssessment()">take the assessment</button> for a personalized starting point.';
   html += '</div></div></div>';
 
   // Spec strip
   html += '<div class="spec-grid">';
-  html += '<div class="spec-item"><div class="spec-value" style="color: var(--signal);">6</div><div class="spec-label">Governance Pillars</div></div>';
+  html += '<div class="spec-item"><div class="spec-value" style="color: var(--signal);">9</div><div class="spec-label">Governance Pillars</div></div>';
   html += '<div class="spec-item"><div class="spec-value">10</div><div class="spec-label">CC-Specific Gaps</div></div>';
   html += '<div class="spec-item"><div class="spec-value">14</div><div class="spec-label">Ready Templates</div></div>';
   html += '</div>';
@@ -1993,7 +2063,7 @@ function renderExplore() {
   // Pillars section
   html += '<div class="section">';
   html += '<div class="section-inner">';
-  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">The Six Pillars</div>';
+  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">The Nine Pillars</div>';
   html += '<div class="display-sm" style="margin-bottom: 1.6rem;">The organizing structure for CC AI governance.</div>';
   html += '<div style="font-size: 1.5rem; color: var(--ink-muted); margin-bottom: 4rem; max-width: 56rem;">Each pillar has tiered provisions \u2014 what you need depends on where your college is. Click a pillar to explore its provisions at all three tiers.</div>';
 
@@ -2084,7 +2154,7 @@ function renderExplore() {
 function showGapExplore(gapId) {
   // Create minimal results so gap view renders properly
   if (!state.results) {
-    state.results = { tier: 1, pedLevel: 1, pedScore: 0, priorityGaps: [], recTemplates: [], pillarPriority: ['P1','P2','P3','P4','P5','P6'], gapScores: {} };
+    state.results = { tier: 1, pedLevel: 1, pedScore: 0, priorityGaps: [], recTemplates: [], pillarPriority: ['P1','P2','P3','P4','P5','P6','P7','P8','P9'], gapScores: {} };
   }
   // Update nav to point back to explore instead of profile
   showGap(gapId);
@@ -2094,7 +2164,7 @@ function showGapExplore(gapId) {
 
 function showPillarExplore(pillarId) {
   if (!state.results) {
-    state.results = { tier: 1, pedLevel: 1, pedScore: 0, priorityGaps: [], recTemplates: [], pillarPriority: ['P1','P2','P3','P4','P5','P6'], gapScores: {} };
+    state.results = { tier: 1, pedLevel: 1, pedScore: 0, priorityGaps: [], recTemplates: [], pillarPriority: ['P1','P2','P3','P4','P5','P6','P7','P8','P9'], gapScores: {} };
   }
   showPillar(pillarId);
   var navRight = document.getElementById('nav-right');
