@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCCCO AI Mobilization Framework &mdash; Extraction &amp; Analysis</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    padding-top: 0.5in;
+    color: #333;
+  }
+
+  h1 {
+    font-size: 18pt;
+    color: #1a1a1a;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+  }
+  h2 {
+    font-size: 14pt;
+    color: #333;
+    margin-top: 24px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 4px;
+  }
+  h3 {
+    font-size: 12pt;
+    color: #444;
+    margin-top: 20px;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #555;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+    margin-bottom: 16px;
+  }
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 24px 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+  ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+
+  em {
+    color: #555;
+  }
+
+  /* Shared box styles */
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+  .critical {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+  .about-box {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 16px;
+    font-size: 10pt;
+    font-style: italic;
+    margin: 24px 0;
+  }
+
+  .pillar-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    margin: 16px 0;
+    border-radius: 4px;
+    border-left: 4px solid #0066cc;
+  }
+  .pillar-card h4 {
+    margin-top: 0;
+    color: #0066cc;
+    font-size: 12pt;
+  }
+  .pillar-card .key-question {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 10px 14px;
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 10pt;
+  }
+
+  .source-note {
+    background: #f8f9fa;
+    border-left: 3px solid #28a745;
+    padding: 8px 14px;
+    margin: 8px 0;
+    font-size: 10pt;
+  }
+  .source-note strong {
+    color: #28a745;
+  }
+
+  .audience-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    padding: 14px 16px;
+    margin: 10px 0;
+    border-radius: 4px;
+  }
+  .audience-card strong {
+    color: #0066cc;
+  }
+
+  /* Tab navigation */
+  .tab-nav {
+    display: flex;
+    border-bottom: 2px solid #0066cc;
+    margin: 20px 0 0 0;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background: #f0f0f0;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #666;
+    border-radius: 4px 4px 0 0;
+    transition: background 0.2s, color 0.2s;
+  }
+  .tab-btn:hover {
+    background: #e0e0e0;
+  }
+  .tab-btn.active {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+  }
+  .tab-content {
+    display: none;
+    padding-top: 8px;
+  }
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Stat boxes */
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .stat-box {
+    flex: 1;
+    min-width: 100px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-top: 4px solid #0066cc;
+    padding: 16px;
+    text-align: center;
+    border-radius: 0 0 4px 4px;
+  }
+  .stat-box .stat-number {
+    font-size: 26pt;
+    font-weight: bold;
+    color: #0066cc;
+    display: block;
+    line-height: 1.1;
+  }
+  .stat-box .stat-label {
+    font-size: 8pt;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+
+  /* HUMANS letter cards */
+  .humans-row {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .humans-card {
+    flex: 1;
+    min-width: 100px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .humans-letter {
+    background: #0066cc;
+    color: white;
+    text-align: center;
+    font-size: 22pt;
+    font-weight: bold;
+    padding: 8px 0;
+    line-height: 1;
+  }
+  .humans-label {
+    padding: 8px 10px;
+    font-size: 9pt;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    background: #f0f0f0;
+    border-bottom: 1px solid #dee2e6;
+  }
+  .humans-desc {
+    padding: 8px 10px;
+    font-size: 8pt;
+    color: #555;
+    line-height: 1.4;
+  }
+
+  /* Diagram */
+  .diagram-container {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    margin: 16px 0;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .diagram-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 6px 0;
+    flex-wrap: wrap;
+  }
+  .diagram-box {
+    background: #0066cc;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: center;
+    min-width: 120px;
+  }
+  .diagram-box.system { background: #0066cc; }
+  .diagram-box.regional { background: #17a2b8; }
+  .diagram-box.college { background: #28a745; }
+  .diagram-box.governance { background: #6c757d; }
+  .diagram-arrow {
+    color: #999;
+    font-size: 18pt;
+    line-height: 1;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    margin: 16px 0;
+    padding-left: 24px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #dee2e6;
+  }
+  .tl-item {
+    position: relative;
+    padding: 8px 0 8px 20px;
+    font-size: 10pt;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 14px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0066cc;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px #dee2e6;
+  }
+  .tl-item.milestone::before {
+    background: #28a745;
+    width: 14px;
+    height: 14px;
+    top: 13px;
+    left: -21px;
+  }
+  .tl-date {
+    font-weight: bold;
+    color: #0066cc;
+  }
+  .tl-item.milestone .tl-date {
+    color: #28a745;
+  }
+
+  /* Pipeline */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 16px 0;
+  }
+  .pipeline-stage {
+    flex: 1;
+    text-align: center;
+    padding: 14px 10px;
+    font-size: 9pt;
+    font-weight: bold;
+    color: white;
+    position: relative;
+  }
+  .pipeline-stage:first-child { border-radius: 4px 0 0 4px; }
+  .pipeline-stage:last-child { border-radius: 0 4px 4px 0; }
+  .pipeline-stage .stage-label {
+    display: block;
+    font-size: 8pt;
+    font-weight: normal;
+    opacity: 0.9;
+    margin-top: 2px;
+  }
+  .pipeline-arrow {
+    color: #999;
+    font-size: 16pt;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+  }
+
+  /* Alignment dot */
+  .dot-primary {
+    color: #0066cc;
+    font-size: 14pt;
+    font-weight: bold;
+  }
+  .dot-secondary {
+    color: #999;
+    font-size: 14pt;
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 8pt;
+    font-weight: bold;
+  }
+  .badge-existing { background: #d4edda; color: #155724; }
+  .badge-new { background: #e7f3ff; color: #004085; }
+  .badge-gap { background: #f8d7da; color: #721c24; }
+
+  @media print {
+    .tab-nav { display: none; }
+    .tab-content { display: block !important; page-break-before: always; }
+    .tab-content:first-of-type { page-break-before: avoid; }
+    body { padding: 0.5in; }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 {
+          font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+          font-size: 130.25px;
+          font-style: italic;
+          font-weight: 600;
+        }
+        .cls-2 { letter-spacing: -.02em; }
+        .cls-3 { letter-spacing: -.04em; }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<h1>CCCCO AI Mobilization Framework</h1>
+<p class="subtitle">Distributed Leadership for Startup Velocity Innovation</p>
+
+<p class="metadata">
+<strong>Organization:</strong> California Community Colleges Chancellor's Office<br>
+<strong>Published:</strong> July 2025<br>
+<strong>Type:</strong> System-wide Guidance<br>
+<strong>Source:</strong> <a href="https://www.cccco.edu/-/media/CCCCO-Website/docs/report/cccaimobilizationframework13a11y" style="color: #0066cc;">CCCCO AI Mobilization Framework PDF</a><br>
+<strong>Extracted by:</strong> AQL Labs / FutureObjects | February 2026
+</p>
+
+<div class="success">
+<strong>Why this matters:</strong> This is the system our Ethical AI Framework operates within. The AI Mobilization Framework is an existing, operational, polycentric network governance model. Our framework builds on this architecture&mdash;it does not replace it.
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB NAVIGATION -->
+<!-- ============================================================ -->
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="openTab(event, 'tab-overview')">Overview</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab-governance')">Governance Structure</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab-implementation')">Implementation</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab-alignment')">Framework Alignment</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 1: OVERVIEW -->
+<!-- ============================================================ -->
+
+<div id="tab-overview" class="tab-content active">
+
+<h2>At a Glance</h2>
+
+<div class="stat-row">
+  <div class="stat-box">
+    <span class="stat-number">116</span>
+    <span class="stat-label">Colleges</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number">73</span>
+    <span class="stat-label">Districts</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number">2.1M</span>
+    <span class="stat-label">Students</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number">88K</span>
+    <span class="stat-label">Professionals</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number">13</span>
+    <span class="stat-label">AI Fellows</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number">110</span>
+    <span class="stat-label">ChangeMakers</span>
+  </div>
+</div>
+
+<p>The AI Mobilization Framework is the operational blueprint for integrating AI across the largest higher education system in the United States. It implements <strong>Vision 2030 Action 12</strong> under Strategic Direction 3: Generative AI and the Future of Learning.</p>
+
+<div class="callout">
+<strong>Central proposition:</strong> The CCC system requires &ldquo;immediate strategic mobilization&rdquo; at &ldquo;startup velocity&rdquo;&mdash;compressing traditional higher education timelines from years to months&mdash;while maintaining educational excellence and equity commitments.
+</div>
+
+<hr>
+
+<h2>Four Pillars of Mobilization</h2>
+
+<div class="pillar-card">
+  <h4>Pillar 1: Culture Cultivation</h4>
+  <p>Cultivating a culture that engages existing talent and recruits innovators within a belief system that actualizes Vision 2030. Sustainable transformation requires cultural change management alongside technological advancement, ensuring AI integration serves educational mission rather than replacing it.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #17a2b8;">
+  <h4 style="color: #17a2b8;">Pillar 2: Innovation Behaviors</h4>
+  <p>Modeling behaviors that facilitate the speed and mindset of positive change across seven focus areas and within numerous communities of practice. Addresses the need for an innovation mindset that can operate at speeds uncommon in higher education bureaucracies.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #28a745;">
+  <h4 style="color: #28a745;">Pillar 3: Technical Infrastructure &amp; Partnerships</h4>
+  <p>Identifying, demonstrating, adopting, and scaling technical infrastructure and partnerships that support rapid adoption. Includes the Common Cloud Data Platform ($10M initial + $12M scaling), industry MOUs (Google, NVIDIA, Microsoft, IBM, Intel, OpenAI, Adobe), and the Digital Center for Innovation, Transformation and Equity.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #6c757d;">
+  <h4 style="color: #6c757d;">Pillar 4: Empowered Communities of Champions</h4>
+  <p>Deploying distributed leadership composed of small, empowered communities of champions across all constituency groups. The operational heart of the framework: a multi-tiered role structure (Fellows, ChangeMakers, Ambassadors, Scholars, Innovators) distributed across regions and colleges. ChangeMakers across 116 colleges &ldquo;simulate multiple local innovation nodes that operate simultaneously, generating rapid system-wide learning through parallel experimentation.&rdquo;</p>
+</div>
+
+<hr>
+
+<h2>HUMANS Ethical Framework</h2>
+
+<p>The HUMANS framework provides binding ethical guardrails for all AI adoption across the system. All AI solutions must adhere to these principles.</p>
+
+<div class="humans-row">
+  <div class="humans-card">
+    <div class="humans-letter">H</div>
+    <div class="humans-label">Human-Centered</div>
+    <div class="humans-desc">Include humans in design and testing. Preserve faculty and student agency. AI complements&mdash;not replaces&mdash;people.</div>
+  </div>
+  <div class="humans-card">
+    <div class="humans-letter">U</div>
+    <div class="humans-label">Universal Support</div>
+    <div class="humans-desc">Opt-out rights where appropriate. Equitable access to tools and training. Right to human support alternatives.</div>
+  </div>
+  <div class="humans-card">
+    <div class="humans-letter">M</div>
+    <div class="humans-label">Managed Privacy</div>
+    <div class="humans-desc">User agency over personal data collection. Control over how data is collected, stored, and used.</div>
+  </div>
+  <div class="humans-card">
+    <div class="humans-letter">A</div>
+    <div class="humans-label">Algorithmic Discrimination</div>
+    <div class="humans-desc">Swift action to remedy discriminatory tools. Active monitoring and audit mechanisms. Bias-free systems.</div>
+  </div>
+  <div class="humans-card">
+    <div class="humans-letter">N</div>
+    <div class="humans-label">Notice &amp; Explanation</div>
+    <div class="humans-desc">Sufficient notification about automated systems, impact on users, and contribution to outcomes.</div>
+  </div>
+  <div class="humans-card">
+    <div class="humans-letter">S</div>
+    <div class="humans-label">Safety &amp; Security</div>
+    <div class="humans-desc">Protection from unsafe or ineffective tools. AI systems meet security standards.</div>
+  </div>
+</div>
+
+<hr>
+
+<h2>Eight Distinctive Features</h2>
+
+<table>
+  <tr><th>#</th><th>Feature</th><th>Why It Matters</th></tr>
+  <tr><td>1</td><td><strong>Startup velocity innovation</strong></td><td>Parallel experimentation across 116 nodes compresses timelines from years to months&mdash;unusual for public higher education</td></tr>
+  <tr><td>2</td><td><strong>Protected student dissent</strong></td><td>Explicit protection from academic penalty for students who disagree with AI adoption&mdash;rarely seen in any AI framework</td></tr>
+  <tr><td>3</td><td><strong>System-specific ethical framework</strong></td><td>HUMANS was developed for the CC context rather than adopting an external framework</td></tr>
+  <tr><td>4</td><td><strong>Three-tier federated governance</strong></td><td>System-regional-college structure with bidirectional feedback loops creates polycentric governance</td></tr>
+  <tr><td>5</td><td><strong>Equity as infrastructure</strong></td><td>Under-resourced districts included in core decision-making, not as recipients of completed decisions</td></tr>
+  <tr><td>6</td><td><strong>Workforce-education bridge</strong></td><td>Industry MOUs directly align curriculum with labor market needs across all career pathways</td></tr>
+  <tr><td>7</td><td><strong>Environmental responsibility</strong></td><td>Digital Center acknowledges environmental challenges posed by AI&mdash;rare in education AI frameworks</td></tr>
+  <tr><td>8</td><td><strong>Pre-existing infrastructure</strong></td><td>Builds on 25+ years of CCC Technology Center, existing regional consortia, and shared governance bodies</td></tr>
+</table>
+
+</div><!-- end tab-overview -->
+
+<!-- ============================================================ -->
+<!-- TAB 2: GOVERNANCE STRUCTURE -->
+<!-- ============================================================ -->
+
+<div id="tab-governance" class="tab-content">
+
+<h2>Three-Tier Governance Architecture</h2>
+
+<p>The framework implements a three-tier federated governance model with bidirectional feedback loops. Authority flows both directions: system-to-college for standards and guardrails, college-to-system for innovation and evidence.</p>
+
+<div class="diagram-container">
+  <div class="diagram-row">
+    <div class="diagram-box system" style="min-width: 400px;">
+      SYSTEM LEVEL<br>
+      <span style="font-size: 8pt; font-weight: normal;">Chancellor's Office &bull; AI Council &bull; AI Fellows (13) &bull; DGAW &bull; Digital Center</span>
+    </div>
+  </div>
+  <div class="diagram-arrow">&darr; &uarr;</div>
+  <div class="diagram-row">
+    <div class="diagram-box regional">Bay Area</div>
+    <div class="diagram-box regional">LA</div>
+    <div class="diagram-box regional">San Diego</div>
+    <div class="diagram-box regional">Central Valley</div>
+    <div class="diagram-box regional">Inland Empire</div>
+    <div class="diagram-box regional">North</div>
+    <div class="diagram-box regional">OC</div>
+  </div>
+  <div style="text-align: center; font-size: 9pt; color: #17a2b8; font-weight: bold; margin: 4px 0;">REGIONAL CONSORTIA &mdash; Innovation Laboratories with AI Task Forces</div>
+  <div class="diagram-arrow">&darr; &uarr;</div>
+  <div class="diagram-row">
+    <div class="diagram-box college" style="min-width: 400px;">
+      116 COLLEGES<br>
+      <span style="font-size: 8pt; font-weight: normal;">ChangeMakers (110) &bull; Local Shared Governance &bull; Faculty Senates &bull; Students</span>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h3>System-Level Bodies</h3>
+
+<table>
+  <tr>
+    <th style="width: 22%;">Body</th>
+    <th style="width: 40%;">Role</th>
+    <th style="width: 38%;">Authority</th>
+  </tr>
+  <tr>
+    <td><strong>AI Council</strong></td>
+    <td>Strategic direction and ethical guardrails</td>
+    <td>Oversees HUMANS compliance; coordinates systemwide AI training</td>
+  </tr>
+  <tr>
+    <td><strong>Chancellor's Office</strong></td>
+    <td>Overall coordination via Vision 2030</td>
+    <td>Sets system-level AI strategy; publishes guidance; convenes stakeholders</td>
+  </tr>
+  <tr>
+    <td><strong>AI Fellows</strong> (13)</td>
+    <td>Strategic project managers and thought leaders</td>
+    <td>Manage system-level projects across 7 focus areas; support regional task forces</td>
+  </tr>
+  <tr>
+    <td><strong>DGAW</strong></td>
+    <td>Data governance standards</td>
+    <td>3 chairs, 18 members from 13 associations; quarterly meetings; standardizes data practices system-wide</td>
+  </tr>
+  <tr>
+    <td><strong>Digital Center</strong><br>(Foothill-De Anza)</td>
+    <td>Innovation incubation and evaluation</td>
+    <td>Evaluation gate: determines efficacy and scalability before system-wide adoption</td>
+  </tr>
+  <tr>
+    <td><strong>FoundationCCC</strong></td>
+    <td>Cooperative procurement and partnerships</td>
+    <td>AI Hub; negotiates MOUs; CollegeBuys system-wide procurement</td>
+  </tr>
+  <tr>
+    <td><strong>Board of Governors</strong></td>
+    <td>Policy authority</td>
+    <td>Resolution 2024-17 authorizing Digital Center and AI governance architecture</td>
+  </tr>
+</table>
+
+<hr>
+
+<h3>AI Fellows &mdash; Inaugural Cohort (2025)</h3>
+
+<p>13 Fellows organized across seven focus areas, with geographic coverage of all major California regions:</p>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Institution</th>
+    <th>Background</th>
+  </tr>
+  <tr><td>Dr. Suha Aljuboori</td><td>Folsom Lake College</td><td>AI Department Chair</td></tr>
+  <tr><td>Alicia Cardenas</td><td>West Valley College</td><td>Counselor</td></tr>
+  <tr><td>Gary Graves</td><td>Fullerton College</td><td>Professor of Entrepreneurship</td></tr>
+  <tr><td>Dr. Jacqueline Hester</td><td>Miramar College</td><td>Dean of Public Safety</td></tr>
+  <tr><td>Scott James</td><td>Santiago Canyon College</td><td>Professor, Distance Education Coordinator</td></tr>
+  <tr><td>Donnell Philip Layne</td><td>Moreno Valley College</td><td>STEM Innovation Center Director</td></tr>
+  <tr><td>Dr. Parvaneh Mohammadian</td><td>LA Mission College</td><td>Life Sciences Faculty</td></tr>
+  <tr><td>Trudi Radtke</td><td>Moorpark College</td><td>Instructional Technologist/Designer</td></tr>
+  <tr><td>John Tarantino</td><td>College of the Siskiyous</td><td>Director of Planning, Assessment &amp; Research</td></tr>
+  <tr><td>Dr. Rachel Tatro-Duarte</td><td>Porterville College</td><td>English Professor</td></tr>
+  <tr><td>Fabiola Torres</td><td>Glendale Community College</td><td>Ethnic Studies Professor</td></tr>
+  <tr><td>Dominique Wu</td><td>Ca&ntilde;ada College</td><td>Adjunct Faculty / Instructional Designer</td></tr>
+  <tr><td>Hongling Yang</td><td>San Diego CCD</td><td>Research Associate</td></tr>
+</table>
+
+<div class="source-note">
+  <strong>Diversity of expertise:</strong> The cohort spans disciplines from nursing and automotive technology to ethnic studies and entrepreneurship&mdash;ensuring AI literacy is embedded across career pathways, not confined to computer science.
+</div>
+
+<h4>Seven Focus Areas</h4>
+
+<table>
+  <tr>
+    <th>#</th>
+    <th>Focus Area</th>
+  </tr>
+  <tr><td>1</td><td>Assessment and Learning Analytics</td></tr>
+  <tr><td>2</td><td>Infrastructure and API Integration</td></tr>
+  <tr><td>3</td><td>Professional Development and Training</td></tr>
+  <tr><td>4</td><td>Research and Innovation</td></tr>
+  <tr><td>5</td><td>Teaching and Learning</td></tr>
+  <tr><td>6</td><td>Student Supports and Services</td></tr>
+  <tr><td>7</td><td>Workforce and Economic Development</td></tr>
+</table>
+
+<hr>
+
+<h3>Stakeholder Participation</h3>
+
+<table>
+  <tr>
+    <th>Constituency</th>
+    <th>Governance Role</th>
+    <th>Key Mechanisms</th>
+  </tr>
+  <tr>
+    <td><strong>Faculty</strong></td>
+    <td>Curriculum authority; shared governance; pedagogical autonomy</td>
+    <td>ASCCC AI policy framework; AB 2370 (human instructor of record); CCC AI Consortium (cccaic.org); academic senate representation</td>
+  </tr>
+  <tr>
+    <td><strong>Students</strong></td>
+    <td>Full partners in AI evaluation, adoption, and deployment</td>
+    <td>Protected dissent without academic penalty; opt-out rights (HUMANS &ldquo;U&rdquo;); notice rights (HUMANS &ldquo;N&rdquo;); SSCCC representation</td>
+  </tr>
+  <tr>
+    <td><strong>Classified Staff</strong></td>
+    <td>AI literacy and professional development; shared governance</td>
+    <td>Included in systemwide training; represented through existing governance structures</td>
+  </tr>
+  <tr>
+    <td><strong>Industry</strong></td>
+    <td>Tools, training, and curriculum alignment</td>
+    <td>MOUs with Google, NVIDIA, Microsoft, IBM, Intel, OpenAI, Adobe; employer advisory input</td>
+  </tr>
+  <tr>
+    <td><strong>Administrators</strong></td>
+    <td>Strategic leadership and resource allocation</td>
+    <td>AI Council; regional consortium leadership; institutional governance committees</td>
+  </tr>
+</table>
+
+<hr>
+
+<h3>Student Participation Protections</h3>
+
+<div class="highlight-box">
+  <strong>Distinctive provision:</strong> The framework includes explicit protections for student voice in AI governance that are rarely seen in any AI framework:
+</div>
+
+<table>
+  <tr><th>Protection</th><th>Description</th></tr>
+  <tr><td><strong>Full Partnership</strong></td><td>Students participate as full partners in AI evaluation, adoption, and deployment decisions</td></tr>
+  <tr><td><strong>Protected Dissent</strong></td><td>Students have protected space to disagree with technological approaches, suggest alternatives, and advocate for student-centered implementation <em>without academic penalty</em></td></tr>
+  <tr><td><strong>Opt-Out Rights</strong></td><td>Under HUMANS &ldquo;U&rdquo;, students can opt out of AI systems where appropriate</td></tr>
+  <tr><td><strong>Privacy Controls</strong></td><td>Under HUMANS &ldquo;M&rdquo;, students have agency over personal data collection</td></tr>
+  <tr><td><strong>Notice Rights</strong></td><td>Under HUMANS &ldquo;N&rdquo;, students must be notified about automated systems, their impact, and contribution to outcomes</td></tr>
+  <tr><td><strong>Senate Collaboration</strong></td><td>Broad student representation through formal Student Senate (SSCCC) structures</td></tr>
+</table>
+
+</div><!-- end tab-governance -->
+
+<!-- ============================================================ -->
+<!-- TAB 3: IMPLEMENTATION -->
+<!-- ============================================================ -->
+
+<div id="tab-implementation" class="tab-content">
+
+<h2>Innovation Scaling Pipeline</h2>
+
+<p>The framework describes a specific pathway for moving innovation from pilot to system-wide adoption:</p>
+
+<div class="diagram-container" style="text-align: left;">
+  <div style="display: flex; align-items: stretch; gap: 0; justify-content: center;">
+    <div style="flex: 1; max-width: 180px; background: #e7f3ff; border: 2px solid #0066cc; border-radius: 4px 0 0 4px; padding: 14px; text-align: center;">
+      <div style="font-weight: bold; color: #0066cc; font-size: 11pt;">PILOT</div>
+      <div style="font-size: 9pt; color: #555; margin-top: 4px;">Digital Center creates nimble, data-informed pilots. Individual colleges pilot through ChangeMakers.</div>
+    </div>
+    <div style="display: flex; align-items: center; padding: 0 4px; font-size: 20pt; color: #999;">&rarr;</div>
+    <div style="flex: 1; max-width: 180px; background: #d1ecf1; border: 2px solid #17a2b8; padding: 14px; text-align: center;">
+      <div style="font-weight: bold; color: #17a2b8; font-size: 11pt;">VALIDATE</div>
+      <div style="font-size: 9pt; color: #555; margin-top: 4px;">Proven innovations move through regional consortia validation before system-wide adoption.</div>
+    </div>
+    <div style="display: flex; align-items: center; padding: 0 4px; font-size: 20pt; color: #999;">&rarr;</div>
+    <div style="flex: 1; max-width: 180px; background: #d4edda; border: 2px solid #28a745; border-radius: 0 4px 4px 0; padding: 14px; text-align: center;">
+      <div style="font-weight: bold; color: #28a745; font-size: 11pt;">SCALE</div>
+      <div style="font-size: 9pt; color: #555; margin-top: 4px;">Successful innovations shared system-wide through knowledge-sharing protocols and Vision Resource Center.</div>
+    </div>
+  </div>
+  <div style="text-align: center; font-size: 9pt; color: #666; margin-top: 12px; font-style: italic;">Parallel experimentation across 116 nodes generates rapid system-wide learning while preventing premature scaling.</div>
+</div>
+
+<hr>
+
+<h2>AI Workplan: Six Activities</h2>
+
+<p>The Vision 2030 Artificial Intelligence Workplan (July 2025) consists of six activities driving Outcomes 2, 4, 5, and 6:</p>
+
+<div class="pillar-card" style="border-left-color: #0066cc;">
+  <h4 style="color: #0066cc;">Activity 1: AI Infrastructure &amp; Data Governance</h4>
+  <p>Common Cloud Data Platform ($10M initial + $12M scaling) for centralized data management, real-time analytics, student progress tracking, program mapping, and automated credit transfers. DGAW standardizes data practices. Tools include Program Pathways Mapper, eTranscripts, CSU Transfer Planner, and a Chancellor's LLM-Dashboard.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #17a2b8;">
+  <h4 style="color: #17a2b8;">Activity 2: Student Support</h4>
+  <p>AI-driven tutoring, 24/7 AI chatbots for personalized student support, fraud detection, and Credit for Prior Learning automation. Uses the Common Cloud Data Platform to enhance proactive support and guidance.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #28a745;">
+  <h4 style="color: #28a745;">Activity 3: Professional Development</h4>
+  <p>AI Fellows and Advisors creating a bidirectional workflow connecting local and statewide initiatives. Targeted workshops, discipline-specific guides, and assessment tools. Systemwide training via AI Council and Vision Resource Center.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #6c757d;">
+  <h4 style="color: #6c757d;">Activity 4: Workforce Development</h4>
+  <p>Expanding workforce readiness by making GenAI tools and training accessible to students and external partners including small businesses. Built on industry MOUs with Google, NVIDIA, Microsoft, IBM, Intel, and OpenAI.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #fd7e14;">
+  <h4 style="color: #fd7e14;">Activity 5: Teaching &amp; Learning</h4>
+  <p>AI integration across disciplines&mdash;from nursing and automotive technology to business and liberal arts. Developing student-facing AI curricula. AI literacy not confined to STEM.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #dc3545;">
+  <h4 style="color: #dc3545;">Activity 6: AI Policy &amp; AI Literacy</h4>
+  <p>Expanding AI literacy and ethical AI practices. AI literacy as a foundational learning outcome for all subjects. Standardizing ethical guidelines aligned with HUMANS framework.</p>
+</div>
+
+<hr>
+
+<h2>Key Partnerships</h2>
+
+<h3>Technology Industry MOUs</h3>
+
+<table>
+  <tr>
+    <th>Partner</th>
+    <th>Scope</th>
+  </tr>
+  <tr>
+    <td><strong>Google</strong></td>
+    <td>Nation's largest higher-ed AI partnership. Gemini for Education (FERPA-compliant), NotebookLM, Google Career Certificates, Google AI Essentials, Prompting Essentials. First member of Google AI for Education Accelerator.</td>
+  </tr>
+  <tr>
+    <td><strong>NVIDIA</strong></td>
+    <td>MOU for courses and resources; separate Digital Center MOU</td>
+  </tr>
+  <tr>
+    <td><strong>Microsoft</strong></td>
+    <td>Workforce AI tools and training</td>
+  </tr>
+  <tr>
+    <td><strong>IBM</strong></td>
+    <td>AI training and workforce development resources</td>
+  </tr>
+  <tr>
+    <td><strong>Intel</strong></td>
+    <td>Course and resource development; BACCC AI partnership</td>
+  </tr>
+  <tr>
+    <td><strong>OpenAI</strong></td>
+    <td>MOU for course development and GenAI resources</td>
+  </tr>
+  <tr>
+    <td><strong>Adobe</strong></td>
+    <td>Partnership for creative and design AI tools</td>
+  </tr>
+</table>
+
+<h3>Educational &amp; Government Partners</h3>
+
+<table>
+  <tr>
+    <th>Partner</th>
+    <th>Scope</th>
+  </tr>
+  <tr>
+    <td><strong>Foothill-De Anza CCD</strong></td>
+    <td>Principal partner and fiscal agent for Digital Center (Silicon Valley location)</td>
+  </tr>
+  <tr>
+    <td><strong>Carnegie Mellon University</strong></td>
+    <td>Professional development partnership</td>
+  </tr>
+  <tr>
+    <td><strong>California Learning Lab</strong></td>
+    <td>PD partnership; AI Challenge grant program</td>
+  </tr>
+  <tr>
+    <td><strong>Stanford University / BACCC</strong></td>
+    <td>Faculty implementation playbooks from Google tools pilot</td>
+  </tr>
+  <tr>
+    <td><strong>Governor Newsom's Office</strong></td>
+    <td>AI Fellows aligned with Governor's statewide AI agenda</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Timeline</h2>
+
+<div class="timeline">
+  <div class="tl-item">
+    <span class="tl-date">July 2023</span> &mdash; Vision 2030 presented to Board of Governors
+  </div>
+  <div class="tl-item milestone">
+    <span class="tl-date">July 2024</span> &mdash; GenAI and Future of Teaching &amp; Learning report published; Board of Governors Resolution 2024-17 authorizing Digital Center
+  </div>
+  <div class="tl-item">
+    <span class="tl-date">September 2024</span> &mdash; Digital Center launched at De Anza College; inaugural Futures Summit
+  </div>
+  <div class="tl-item">
+    <span class="tl-date">November 2024</span> &mdash; Data Governance Advisory Workgroup (DGAW) launched
+  </div>
+  <div class="tl-item">
+    <span class="tl-date">January 2025</span> &mdash; Vision 2030 refreshed under new Board of Governors President
+  </div>
+  <div class="tl-item milestone">
+    <span class="tl-date">July 2025</span> &mdash; AI Mobilization Framework published; AI Workplan published
+  </div>
+  <div class="tl-item milestone">
+    <span class="tl-date">September 2025</span> &mdash; 2nd Futures Summit (800+ attendees); AI Fellows program and Google partnership announced
+  </div>
+  <div class="tl-item">
+    <span class="tl-date">Fall 2025</span> &mdash; AI Fellows implementation begins; DGAW frameworks and templates due
+  </div>
+  <div class="tl-item">
+    <span class="tl-date">2025&ndash;2026</span> &mdash; AI webinar series (Sept/Oct, Dec, Feb, Apr/May); Regional PD events Spring 2026
+  </div>
+  <div class="tl-item">
+    <span class="tl-date">Through 2030</span> &mdash; Vision 2030 implementation continues
+  </div>
+</div>
+
+<hr>
+
+<h2>Existing Infrastructure Leveraged</h2>
+
+<p>The framework builds on established CCC infrastructure rather than creating parallel structures:</p>
+
+<table>
+  <tr><th>Infrastructure</th><th>Age</th><th>AI Role</th></tr>
+  <tr><td>CCC Technology Center (Butte-Glenn)</td><td>25+ years</td><td>CCCApply, OpenCCC, eTranscript, CENIC, Accessibility Center</td></tr>
+  <tr><td>FoundationCCC / CollegeBuys</td><td>Established</td><td>System-wide cooperative procurement; AI Hub; vendor MOUs</td></tr>
+  <tr><td>Regional Consortia</td><td>Established</td><td>Innovation laboratories; workforce alignment; AI task forces</td></tr>
+  <tr><td>ASCCC</td><td>Established</td><td>Faculty governance; AI policy framework; Disciplines List</td></tr>
+  <tr><td>SSCCC</td><td>Established</td><td>Student governance; AI Detection Resolution</td></tr>
+  <tr><td>Vision Resource Center</td><td>Established</td><td>AI training modules; communities of practice</td></tr>
+  <tr><td>RPDNs</td><td>Established</td><td>PD Leads at each college; regional AI literacy events</td></tr>
+  <tr><td>CENIC</td><td>Established</td><td>Gigabit network infrastructure supporting AI tools</td></tr>
+</table>
+
+</div><!-- end tab-implementation -->
+
+<!-- ============================================================ -->
+<!-- TAB 4: FRAMEWORK ALIGNMENT -->
+<!-- ============================================================ -->
+
+<div id="tab-alignment" class="tab-content">
+
+<h2>HUMANS &harr; Nine Pillars Alignment</h2>
+
+<p>The CCCCO HUMANS framework and AQL&rsquo;s nine governance pillars are complementary. This table maps the alignment:</p>
+
+<table>
+  <tr>
+    <th style="width: 15%;">HUMANS</th>
+    <th style="width: 25%;">Principle</th>
+    <th style="width: 20%;">AQL Pillar(s)</th>
+    <th style="width: 40%;">Relationship</th>
+  </tr>
+  <tr>
+    <td style="text-align: center; font-size: 16pt; font-weight: bold; color: #0066cc;">H</td>
+    <td>Human-Centered Approach</td>
+    <td><strong>P3: Human Authority &amp; Decision Accountability</strong><br>P4: Student and Faculty Agency</td>
+    <td>HUMANS &ldquo;H&rdquo; establishes the principle; P3 operationalizes it with governance structures ensuring humans &mdash; not algorithms &mdash; make consequential decisions. P4 extends it to faculty pedagogical authority and student participation. AB 2370 provides legislative floor.</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; font-size: 16pt; font-weight: bold; color: #0066cc;">U</td>
+    <td>Universal Support</td>
+    <td><strong>P2: Equity &amp; Differential Impact</strong><br>P4: Student and Faculty Agency</td>
+    <td>Opt-out rights and equitable access align with the Equity pillar&rsquo;s differential impact analysis. P4 extends &ldquo;universal&rdquo; to faculty agency (including 70%+ adjunct workforce) and adult learner autonomy.</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; font-size: 16pt; font-weight: bold; color: #0066cc;">M</td>
+    <td>Managed Privacy Controls</td>
+    <td><strong>P6: Data Stewardship &amp; System Integrity</strong></td>
+    <td>User agency over data aligns directly. P6 extends to data lifecycle requirements, institutional data sovereignty, CCCCO DGAW alignment, and incident response protocols.</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; font-size: 16pt; font-weight: bold; color: #0066cc;">A</td>
+    <td>Algorithmic Discrimination</td>
+    <td><strong>P2: Equity &amp; Differential Impact</strong><br>P5: Risk Proportionality &amp; Harm Mitigation</td>
+    <td>Direct alignment. HUMANS requires remediation; P2 adds disaggregated outcome measurement, bias audits, and differential impact analysis. P5 adds risk-proportionate governance ensuring high-impact AI receives rigorous oversight.</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; font-size: 16pt; font-weight: bold; color: #0066cc;">N</td>
+    <td>Notice &amp; Explanation</td>
+    <td><strong>P7: Transparency &amp; Contestability</strong></td>
+    <td>Direct alignment. P7 adds classroom-level disclosure, public-facing governance documentation, meaningful explanation of AI outputs, and the right to contest AI-influenced decisions through accessible processes.</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; font-size: 16pt; font-weight: bold; color: #0066cc;">S</td>
+    <td>Safety &amp; Security</td>
+    <td><strong>P8: Vendor Accountability &amp; Institutional Sovereignty</strong><br>P9: Institutional Capacity &amp; Continuous Governance</td>
+    <td>Safety aligns with vendor accountability (P8: evaluation checklists, audit rights, contract addenda) and institutional capacity (P9: governance reporting, tiered implementation, progressive maturity). P5 (Risk Proportionality) also contributes through incident escalation and harm mitigation protocols.</td>
+  </tr>
+</table>
+
+<div class="success">
+<strong>Key finding:</strong> HUMANS and the nine pillars are structurally compatible. HUMANS sets system-wide ethical principles; the nine pillars operationalize them at the institutional governance level. They complement rather than compete.
+</div>
+
+<hr>
+
+<h2>Network Governance Theory Alignment</h2>
+
+<p>The AI Mobilization Framework, while not using academic governance terminology, maps directly to established network governance theory (Some of these theories are familiar from past research):</p>
+
+<table>
+  <tr>
+    <th>Theory</th>
+    <th>Concept</th>
+    <th>How the Framework Implements It</th>
+  </tr>
+  <tr>
+    <td><strong>Provan &amp; Kenis</strong><br>(2008)</td>
+    <td>Network Administrative Organization (NAO)</td>
+    <td>CCCCO / College Futures coordinate the network without controlling it. Separate coordinating entity (Digital Center, AI Fellows) manages network-level functions.</td>
+  </tr>
+  <tr>
+    <td><strong>Ostrom</strong><br>(1990/2009)</td>
+    <td>Polycentric Governance</td>
+    <td>System-regional-college three-tier structure with multiple decision centers. The framework is explicitly polycentric.</td>
+  </tr>
+  <tr>
+    <td rowspan="5"><strong>Ostrom</strong></td>
+    <td>Clearly defined boundaries</td>
+    <td>116 colleges, 73 districts&mdash;system membership is clear</td>
+  </tr>
+  <tr>
+    <td>Congruence with local conditions</td>
+    <td>Regional consortia adapt to local workforce needs</td>
+  </tr>
+  <tr>
+    <td>Collective-choice arrangements</td>
+    <td>Shared governance through ASCCC, SSCCC, DGAW</td>
+  </tr>
+  <tr>
+    <td>Monitoring</td>
+    <td>Digital Center evaluation; DGAW standards; Research Fellow</td>
+  </tr>
+  <tr>
+    <td>Nested enterprises</td>
+    <td>System &rarr; regional &rarr; college governance layers</td>
+  </tr>
+  <tr>
+    <td><strong>Ansell &amp; Gash</strong><br>(2008)</td>
+    <td>Virtuous Cycle</td>
+    <td>Innovation scaling model (pilot &rarr; validate &rarr; scale) follows the trust-building cycle: small wins &rarr; trust &rarr; larger collaboration.</td>
+  </tr>
+  <tr>
+    <td rowspan="4"><strong>Feiock</strong><br>(2013)</td>
+    <td>Network embeddedness (informal)</td>
+    <td>110 ChangeMakers distributed across all 116 colleges as informal coordination nodes</td>
+  </tr>
+  <tr>
+    <td>Contracts (formal bilateral)</td>
+    <td>Industry MOUs with negotiated data protections (e.g., Google FERPA compliance)</td>
+  </tr>
+  <tr>
+    <td>Delegated authority (formal multilateral)</td>
+    <td>Digital Center evaluates/approves technology; FoundationCCC negotiates system-wide contracts</td>
+  </tr>
+  <tr>
+    <td>Imposed authority (mandated)</td>
+    <td>AB 2370 legislative mandate; Board of Governors Resolution 2024-17</td>
+  </tr>
+  <tr>
+    <td><strong>Emerson, Nabatchi &amp; Balogh</strong><br>(2012)</td>
+    <td>Collaborative Dynamics</td>
+    <td>Principled engagement (student protected dissent), shared motivation (Vision 2030 equity goals), capacity for joint action (Common Cloud Data Platform, industry MOUs)</td>
+  </tr>
+</table>
+
+<div class="callout">
+<strong>Original contribution:</strong> No published work found has mapped an operational community college AI governance framework to network governance theory. This analysis demonstrates that the CCCCO framework is, in theoretical terms, a polycentric NAO (Network Administrative Organization) with nested enterprises and multiple ICA(Institutional Collective Action) mechanisms, even though it was not designed using that vocabulary.
+</div>
+
+<hr>
+
+<h2>What the Framework Covers and What It Does Not</h2>
+
+<table>
+  <tr>
+    <th style="width: 50%;">Covered <span class="badge badge-existing">Addressed</span></th>
+    <th style="width: 50%;">Not Covered <span class="badge badge-gap">Gap</span></th>
+  </tr>
+  <tr>
+    <td>System-level ethical principles (HUMANS)</td>
+    <td>Adjunct-specific AI governance (70% of instruction)</td>
+  </tr>
+  <tr>
+    <td>Distributed leadership structure (Fellows + ChangeMakers)</td>
+    <td>Non-credit / ESL / adult education AI governance</td>
+  </tr>
+  <tr>
+    <td>Data governance (DGAW + Common Cloud Platform)</td>
+    <td>Transfer student AI policy portability (CCC &harr; CSU &harr; UC)</td>
+  </tr>
+  <tr>
+    <td>Cooperative procurement (FoundationCCC)</td>
+    <td>CC student-specific AI rights framework</td>
+  </tr>
+  <tr>
+    <td>Student participation protections</td>
+    <td>AI-specific vendor evaluation criteria for procurement</td>
+  </tr>
+  <tr>
+    <td>Faculty governance (ASCCC alignment)</td>
+    <td>Collective bargaining AI contract language</td>
+  </tr>
+  <tr>
+    <td>Industry partnerships (7 major MOUs)</td>
+    <td>Accessibility-specific AI governance (ADA Title II)</td>
+  </tr>
+  <tr>
+    <td>Innovation scaling pipeline</td>
+    <td>AI in assessment governance (CASAS, TABE)</td>
+  </tr>
+  <tr>
+    <td>Professional development infrastructure</td>
+    <td>Inter-system coordination (CCC-CSU-UC alignment)</td>
+  </tr>
+  <tr>
+    <td>Environmental responsibility acknowledgment</td>
+    <td>Equity-centered AI procurement criteria</td>
+  </tr>
+</table>
+
+<div class="highlight-box">
+<strong>Implication for our framework:</strong> The gaps in the left column represent possible areas where the AQL Ethical AI Framework makes original contributions. Our framework could complement the AI Mobilization Framework by filling these specific governance gaps&mdash;particularly around adjunct faculty, non-credit programs, transfer portability, student AI rights, and AI-specific procurement evaluation criteria.
+</div>
+
+<hr>
+
+<h2>Accountability Mechanisms</h2>
+
+<table>
+  <tr>
+    <th>Mechanism</th>
+    <th>Description</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td><strong>HUMANS Compliance</strong></td>
+    <td>All AI solutions must adhere to HUMANS principles</td>
+    <td><span class="badge badge-existing">Operational</span></td>
+  </tr>
+  <tr>
+    <td><strong>Digital Center Evaluation Gate</strong></td>
+    <td>Efficacy and scalability determined before system-wide adoption</td>
+    <td><span class="badge badge-existing">Operational</span></td>
+  </tr>
+  <tr>
+    <td><strong>Board of Governors Oversight</strong></td>
+    <td>Resolution 2024-17; reporting requirements</td>
+    <td><span class="badge badge-existing">Operational</span></td>
+  </tr>
+  <tr>
+    <td><strong>DGAW Data Standards</strong></td>
+    <td>Frameworks, templates, and standards for system-wide data governance</td>
+    <td><span class="badge badge-new">In development</span></td>
+  </tr>
+  <tr>
+    <td><strong>ASCCC Shared Governance</strong></td>
+    <td>Academic Senate oversight of curriculum and instructional technology</td>
+    <td><span class="badge badge-existing">Operational</span></td>
+  </tr>
+  <tr>
+    <td><strong>AB 2370 Legislative Mandate</strong></td>
+    <td>Human instructor of record required for all courses</td>
+    <td><span class="badge badge-existing">Enacted law</span></td>
+  </tr>
+  <tr>
+    <td><strong>Vision 2030 Performance Metrics</strong></td>
+    <td>Tied to equity outcomes (Outcomes 2, 4, 5, 6)</td>
+    <td><span class="badge badge-existing">Operational</span></td>
+  </tr>
+  <tr>
+    <td><strong>Research &amp; Innovation Fellow</strong></td>
+    <td>Dedicated Fellow for evidence generation and impact research</td>
+    <td><span class="badge badge-new">New (Fall 2025)</span></td>
+  </tr>
+</table>
+
+</div><!-- end tab-alignment -->
+
+<!-- ============================================================ -->
+<!-- FOOTER -->
+<!-- ============================================================ -->
+
+<hr>
+
+<div class="about-box">
+<strong>About This Document:</strong> This document presents the full extraction and analysis of the CCCCO AI Mobilization Framework (July 2025) for the Ethical AI Framework for California Community Colleges. It synthesizes information from the AI Mobilization Framework PDF, Vision 2030 AI Workplan, AI Fellows program documentation, FoundationCCC AI Hub, Digital Center announcements, DGAW documentation, and related CCCCO publications. The framework alignment analysis maps the AI Mobilization Framework to both the AQL nine-pillar model and network governance theory (Provan &amp; Kenis, Ostrom, Ansell &amp; Gash, Emerson/Nabatchi/Balogh, Feiock). This is the foundational system document that the Ethical AI Framework operates within.
+</div>
+
+<hr>
+
+<p class="metadata" style="text-align: center;">
+<em>Prepared by AQL Labs / FutureObjects</em><br>
+<em>Commissioned by College Futures Foundation | February 2026</em>
+</p>
+
+<!-- ============================================================ -->
+<!-- TAB JAVASCRIPT -->
+<!-- ============================================================ -->
+
+<script>
+function openTab(evt, tabId) {
+  var contents = document.querySelectorAll('.tab-content');
+  for (var i = 0; i < contents.length; i++) {
+    contents[i].classList.remove('active');
+  }
+  var buttons = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove('active');
+  }
+  document.getElementById(tabId).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+</script>
+
+</body>
+</html>
