@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Governance Navigator — Wireframe v2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const SCREENS = {
+  landing: {
+    id: "landing",
+    label: "Landing",
+    type: "entry",
+    color: "#0C0C0C",
+    accent: "#0EA5E9",
+    textColor: "#fff",
+    sections: [
+      { name: "Nav Bar", desc: "Fixed top. Logo + 'Get Started' CTA", h: 1 },
+      { name: "Hero", desc: "Dark BG. Headline, subhead, 2 CTAs: 'Take Assessment' + 'Explore Framework'", h: 2 },
+      { name: "Stat Strip", desc: "3-col grid: 224 Frameworks / 10 Gaps / 0 Existing", h: 1 },
+      { name: "How It Works", desc: "Split layout: text left, mock question card right", h: 2 },
+      { name: "Quick-Start Cards", desc: "4 archetype cards (Merced, MiraCosta, LBCC, Calbright). Click \u2192 skip assessment", h: 2 },
+      { name: "Statement", desc: "Centered mission statement", h: 1 },
+    ],
+    exits: ["assess", "explore", "loading"],
+    exitLabels: ["Take Assessment", "Explore Framework", "Quick-Start Card"],
+  },
+  assess: {
+    id: "assess",
+    label: "Assessment",
+    type: "flow",
+    color: "#0891B2",
+    accent: "#06B6D4",
+    textColor: "#fff",
+    sections: [
+      { name: "Progress Bar", desc: "Step counter + percentage + fill bar", h: 1 },
+      { name: "Question", desc: "Large text + optional subtitle", h: 1 },
+      { name: "Options", desc: "Single-select or multi-select buttons (up to 8 options)", h: 2 },
+      { name: "Navigation", desc: "Back + Next/See My Profile buttons", h: 1 },
+    ],
+    exits: ["landing", "loading"],
+    exitLabels: ["Exit", "See My Profile (Q10)"],
+  },
+  loading: {
+    id: "loading",
+    label: "Loading",
+    type: "transition",
+    color: "#155E75",
+    accent: "#22D3EE",
+    textColor: "#fff",
+    sections: [
+      { name: "Spinner", desc: "CSS animation", h: 1 },
+      { name: "Status Text", desc: "'Building your governance profile'", h: 1 },
+    ],
+    exits: ["profile"],
+    exitLabels: ["Auto (1.8s delay)"],
+  },
+  profile: {
+    id: "profile",
+    label: "Profile Dashboard",
+    type: "hub",
+    color: "#4F46E5",
+    accent: "#818CF8",
+    textColor: "#fff",
+    sections: [
+      { name: "Hero", desc: "'Here's where to start'", h: 1 },
+      { name: "Stat Strip", desc: "4-col: Tier / Ped Level / Priority Gaps / Templates", h: 1 },
+      { name: "Priority Gap Tags", desc: "Clickable colored tags for top 4 gaps", h: 1 },
+      { name: "Archetype Match", desc: "Closest college match card", h: 1 },
+      { name: "Priority Pillars", desc: "Top 3 pillar rows, clickable \u2192 Pillar Detail", h: 2 },
+      { name: "Recommended Templates", desc: "Top 5 template rows with pillar tags", h: 1 },
+      { name: "Roadmap CTA", desc: "Signal-colored banner \u2192 'View Your Roadmap'", h: 1 },
+      { name: "All 10 Gaps List", desc: "Full gap list, priorities highlighted, all clickable", h: 2 },
+    ],
+    exits: ["gap", "pillar", "roadmap", "assess"],
+    exitLabels: ["Gap tag/row", "Pillar row", "Roadmap CTA", "Retake"],
+  },
+  gap: {
+    id: "gap",
+    label: "Gap Detail",
+    type: "detail",
+    color: "#DC2626",
+    accent: "#F87171",
+    textColor: "#fff",
+    sections: [
+      { name: "Hero", desc: "Gap ID, name, coverage badge (e.g. '0 of 224')", h: 1 },
+      { name: "Stat Strip", desc: "3-col: Frameworks / Coverage% / Provisions count", h: 1 },
+      { name: "Global Landscape", desc: "Coverage context paragraph", h: 1 },
+      { name: "Why This Matters", desc: "Conditional \u2014 only if gap is in user's priority list", h: 1 },
+      { name: "Framework Provisions", desc: "Bulleted list of novel provisions", h: 2 },
+      { name: "Pilot Note", desc: "Dark section with implementation note", h: 1 },
+      { name: "Next Step", desc: "Recommended template + Back button", h: 1 },
+    ],
+    exits: ["profile", "explore"],
+    exitLabels: ["Back (from Profile)", "Back (from Explore)"],
+  },
+  pillar: {
+    id: "pillar",
+    label: "Pillar Detail",
+    type: "detail",
+    color: "#7C3AED",
+    accent: "#A78BFA",
+    textColor: "#fff",
+    sections: [
+      { name: "Hero", desc: "Pillar ID, name, 'why' statement", h: 1 },
+      { name: "Tier Filter", desc: "3 toggle buttons: Tier 1 / 2 / 3", h: 1 },
+      { name: "Provisions List", desc: "Cards with title, desc, template link. Filtered by tier", h: 3 },
+      { name: "Next Tier Preview", desc: "Amber card: 'At Tier N+1 you'll add\u2026'", h: 1 },
+      { name: "Related Gaps", desc: "Clickable gap tags \u2192 Gap Detail", h: 1 },
+    ],
+    exits: ["profile", "gap", "explore"],
+    exitLabels: ["Back (from Profile)", "Gap tag", "Back (from Explore)"],
+  },
+  roadmap: {
+    id: "roadmap",
+    label: "Roadmap",
+    type: "detail",
+    color: "#D97706",
+    accent: "#FBBF24",
+    textColor: "#fff",
+    sections: [
+      { name: "Hero", desc: "Tier badge + 'Your first year of AI governance'", h: 1 },
+      { name: "Timeline", desc: "3 phases (Months 1-3, 4-6, 7-12) with vertical line + checkboxes + template links", h: 4 },
+      { name: "CTA", desc: "'Ready to begin?' + Back button", h: 1 },
+    ],
+    exits: ["profile"],
+    exitLabels: ["Back"],
+  },
+  explore: {
+    id: "explore",
+    label: "Explore Framework",
+    type: "browse",
+    color: "#0284C7",
+    accent: "#38BDF8",
+    textColor: "#fff",
+    sections: [
+      { name: "Hero", desc: "'Six pillars. Ten gaps. Fourteen templates.'", h: 1 },
+      { name: "Stat Strip", desc: "3-col: 6 Pillars / 10 Gaps / 14 Templates", h: 1 },
+      { name: "All 6 Pillars", desc: "Clickable rows \u2192 Pillar Detail (no assessment needed)", h: 2 },
+      { name: "All 10 Gaps", desc: "Clickable rows with coverage indicators", h: 2 },
+      { name: "All 14 Templates", desc: "Rows with pillar tag + min tier", h: 2 },
+      { name: "4 Pilot Colleges", desc: "2\u00d72 grid: archetype cards", h: 2 },
+      { name: "Assessment CTA", desc: "Signal-colored banner \u2192 'Take the Assessment'", h: 1 },
+    ],
+    exits: ["pillar", "gap", "assess"],
+    exitLabels: ["Pillar row", "Gap row", "Assessment CTA"],
+  },
+};
+
+const SCORING = {
+  inputs: [
+    { id: "q1", short: "AI tools count", type: "single", range: "0-3" },
+    { id: "q2", short: "Governance body", type: "single", range: "0-3" },
+    { id: "q3", short: "Top concerns", type: "multi(3)", range: "8 options" },
+    { id: "q4", short: "Adjunct %", type: "single", range: "0-3" },
+    { id: "q5", short: "Student pop.", type: "multi", range: "6 options" },
+    { id: "q6", short: "Institution type", type: "single", range: "0-2" },
+    { id: "q7", short: "AI use cases", type: "multi", range: "6 options" },
+    { id: "q8", short: "AI course guidance", type: "single", range: "0-3" },
+    { id: "q9", short: "Learning measurement", type: "single", range: "0-3" },
+    { id: "q10", short: "Student AI gov.", type: "single", range: "-1 to 3" },
+  ],
+  outputs: [
+    { id: "tier", desc: "Governance maturity (1-3)", formula: "(q1+q2)\u00d72 + q6 \u2192 thresholds" },
+    { id: "gapScores", desc: "Weighted score per gap (G1-G10)", formula: "base + conditional bonuses per question" },
+    { id: "priorityGaps", desc: "Top 4 gaps by score", formula: "sort gapScores desc \u2192 take 4" },
+    { id: "archetype", desc: "Closest college match", formula: "4 archetype accumulators \u2192 max" },
+    { id: "pedLevel", desc: "Pedagogical governance (1-3)", formula: "q8 + q9 + q10 \u2192 thresholds" },
+    { id: "recTemplates", desc: "Recommended templates", formula: "Always: 1,4,5 + conditional per gap/answer" },
+    { id: "pillarPriority", desc: "Ordered pillar list", formula: "Fixed order per tier" },
+  ],
+};
+
+const DATA_MODEL = [
+  { name: "QUESTIONS", count: 10, desc: "Assessment questions with options" },
+  { name: "GAPS", count: 10, desc: "CC-specific governance gaps (G1-G10)" },
+  { name: "PILLARS", count: 6, desc: "Governance pillars (P1-P6) with 3 tiers each" },
+  { name: "TEMPLATES", count: 14, desc: "Ready-to-use governance tools" },
+  { name: "ARCHETYPES", count: 4, desc: "Pilot college profiles" },
+  { name: "ROADMAP", count: 3, desc: "Phase timelines per tier" },
+];
+
+const FLOW_POSITIONS = {
+  landing:  { x: 0, y: 0 },
+  assess:   { x: 1, y: -1 },
+  loading:  { x: 2, y: 0 },
+  profile:  { x: 3, y: 0 },
+  gap:      { x: 4, y: -1 },
+  pillar:   { x: 4, y: 1 },
+  roadmap:  { x: 4, y: 0 },
+  explore:  { x: 1, y: 1 },
+};
+
+const CONNECTIONS = [
+  { from: "landing", to: "assess", label: "CTA" },
+  { from: "landing", to: "explore", label: "Browse" },
+  { from: "landing", to: "loading", label: "Quick-start", dash: true, labelDy: -14 },
+  { from: "assess", to: "loading", label: "Complete" },
+  { from: "loading", to: "profile", label: "Auto", labelDy: -14 },
+  { from: "profile", to: "gap", label: "Click" },
+  { from: "profile", to: "pillar", label: "Click" },
+  { from: "profile", to: "roadmap", label: "CTA" },
+  { from: "explore", to: "pillar", label: "Click", dash: true },
+  { from: "explore", to: "gap", label: "Click", dash: true, labelDy: 16 },
+  { from: "explore", to: "assess", label: "CTA", dash: true, labelDx: 16, labelDy: 16 },
+  { from: "pillar", to: "gap", label: "Tag", dash: true, labelDx: 16 },
+];
+
+const TYPE_LABELS = {
+  entry: "Entry Point",
+  flow: "Sequential Flow",
+  transition: "Transition",
+  hub: "Central Hub",
+  detail: "Detail View",
+  browse: "Browse Mode",
+};
+
+const FONT = {
+  sans: "-apple-system, 'Segoe UI', 'Inter', Roboto, Helvetica, Arial, sans-serif",
+  serif: "Georgia, 'Times New Roman', serif",
+  mono: "'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace",
+};
+
+function NavigatorWireframe() {
+  const [activeTab, setActiveTab] = useState("flow");
+  const [selectedScreen, setSelectedScreen] = useState(null);
+  const [hoveredScreen, setHoveredScreen] = useState(null);
+
+  const screen = selectedScreen ? SCREENS[selectedScreen] : null;
+
+  return (
+    <div style={{
+      fontFamily: FONT.sans,
+      background: "#F8FAFC",
+      minHeight: "100vh",
+      color: "#0F172A",
+    }}>
+      {/* Header */}
+      <div style={{
+        background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)",
+        color: "#fff",
+        padding: "28px 36px",
+        borderBottom: "3px solid #0891B2",
+      }}>
+        <div style={{
+          fontSize: "10px",
+          letterSpacing: "0.2em",
+          textTransform: "uppercase",
+          color: "#22D3EE",
+          marginBottom: "10px",
+          fontWeight: 600,
+          fontFamily: FONT.mono,
+        }}>
+          Architectural Wireframe
+        </div>
+        <div style={{
+          fontSize: "24px",
+          fontWeight: 700,
+          letterSpacing: "-0.025em",
+          fontFamily: FONT.serif,
+          lineHeight: 1.2,
+        }}>
+          AI Governance Navigator &mdash; System Map
+        </div>
+        <div style={{
+          fontSize: "13px",
+          color: "#94A3B8",
+          marginTop: "6px",
+          lineHeight: 1.5,
+          fontWeight: 400,
+        }}>
+          8 views &middot; 10-question scoring engine &middot; 6 data collections &middot; 7 computed outputs
+        </div>
+      </div>
+
+      {/* Tab bar */}
+      <div style={{
+        display: "flex",
+        gap: "2px",
+        borderBottom: "1px solid #E2E8F0",
+        background: "#fff",
+        padding: "0 36px",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+      }}>
+        {[
+          { id: "flow", label: "Screen Flow" },
+          { id: "scoring", label: "Scoring Engine" },
+          { id: "data", label: "Data Model" },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => { setActiveTab(tab.id); setSelectedScreen(null); }}
+            style={{
+              padding: "14px 24px",
+              fontSize: "12px",
+              fontFamily: FONT.sans,
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+              fontWeight: activeTab === tab.id ? 600 : 400,
+              color: activeTab === tab.id ? "#0891B2" : "#64748B",
+              background: "none",
+              border: "none",
+              borderBottom: activeTab === tab.id ? "2px solid #0891B2" : "2px solid transparent",
+              cursor: "pointer",
+              transition: "color 0.2s, border-color 0.2s",
+              marginBottom: "-1px",
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: "28px 36px" }}>
+
+        {/* ===== FLOW TAB ===== */}
+        {activeTab === "flow" && (
+          <div>
+            {/* Flow diagram */}
+            <div style={{
+              background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)",
+              borderRadius: "8px",
+              padding: "36px",
+              marginBottom: "24px",
+              overflowX: "auto",
+              boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)",
+            }}>
+              <svg viewBox="-20 -160 620 380" style={{ width: "100%", height: "auto", minHeight: "260px" }}>
+                <defs>
+                  <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                    <path d="M0,0 L8,3 L0,6" fill="#475569" />
+                  </marker>
+                  <marker id="arrow-hl" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                    <path d="M0,0 L8,3 L0,6" fill="#22D3EE" />
+                  </marker>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                    <feMerge>
+                      <feMergeNode in="coloredBlur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <filter id="nodeShadow">
+                    <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#000" floodOpacity="0.3" />
+                  </filter>
+                </defs>
+
+                {/* Connection lines */}
+                {CONNECTIONS.map((conn, i) => {
+                  const from = FLOW_POSITIONS[conn.from];
+                  const to = FLOW_POSITIONS[conn.to];
+                  const x1 = from.x * 120 + 50;
+                  const y1 = from.y * 110 + 50;
+                  const x2 = to.x * 120 + 50;
+                  const y2 = to.y * 110 + 50;
+                  const mx = (x1 + x2) / 2;
+                  const my = (y1 + y2) / 2;
+                  const isHl = hoveredScreen && (conn.from === hoveredScreen || conn.to === hoveredScreen);
+                  const isSelected = selectedScreen && (conn.from === selectedScreen || conn.to === selectedScreen);
+                  const active = isHl || isSelected;
+
+                  return (
+                    <g key={i}>
+                      <line
+                        x1={x1} y1={y1} x2={x2} y2={y2}
+                        stroke={active ? "#22D3EE" : "#334155"}
+                        strokeWidth={active ? 1.5 : 0.8}
+                        strokeDasharray={conn.dash ? "5,4" : "none"}
+                        markerEnd={active ? "url(#arrow-hl)" : "url(#arrow)"}
+                        opacity={active ? 1 : 0.6}
+                        filter={active ? "url(#glow)" : "none"}
+                      />
+                      <text
+                        x={mx + (conn.labelDx || 0)} y={my - 7 + (conn.labelDy || 0)}
+                        textAnchor="middle"
+                        fontSize="7"
+                        fill={active ? "#22D3EE" : "#64748B"}
+                        fontFamily={FONT.mono}
+                        fontWeight={active ? 600 : 400}
+                      >
+                        {conn.label}
+                      </text>
+                    </g>
+                  );
+                })}
+
+                {/* Screen nodes */}
+                {Object.entries(FLOW_POSITIONS).map(([id, pos]) => {
+                  const s = SCREENS[id];
+                  const x = pos.x * 120;
+                  const y = pos.y * 110;
+                  const isActive = selectedScreen === id;
+                  const isHover = hoveredScreen === id;
+
+                  return (
+                    <g
+                      key={id}
+                      onClick={() => setSelectedScreen(isActive ? null : id)}
+                      onMouseEnter={() => setHoveredScreen(id)}
+                      onMouseLeave={() => setHoveredScreen(null)}
+                      style={{ cursor: "pointer" }}
+                      filter={isActive || isHover ? "url(#nodeShadow)" : "none"}
+                    >
+                      <rect
+                        x={x} y={y}
+                        width={100} height={64}
+                        rx={6}
+                        fill={isActive ? s.color : isHover ? "#1E293B" : "#0F172A"}
+                        stroke={isActive ? "#fff" : isHover ? s.color : "#334155"}
+                        strokeWidth={isActive ? 2 : 1}
+                      />
+                      {/* Top rounded corners for accent bar */}
+                      <rect
+                        x={x} y={y}
+                        width={100} height={6}
+                        rx={6} ry={6}
+                        fill={s.accent || s.color}
+                      />
+                      <rect
+                        x={x} y={y + 4}
+                        width={100} height={3}
+                        fill={s.accent || s.color}
+                      />
+                      <text
+                        x={x + 50} y={y + 30}
+                        textAnchor="middle"
+                        fontSize="10"
+                        fontWeight="700"
+                        fill="#F1F5F9"
+                        fontFamily={FONT.sans}
+                      >
+                        {s.label}
+                      </text>
+                      <text
+                        x={x + 50} y={y + 43}
+                        textAnchor="middle"
+                        fontSize="7"
+                        fill="#94A3B8"
+                        fontFamily={FONT.mono}
+                      >
+                        {TYPE_LABELS[s.type]}
+                      </text>
+                      <text
+                        x={x + 50} y={y + 55}
+                        textAnchor="middle"
+                        fontSize="7"
+                        fill="#64748B"
+                        fontFamily={FONT.mono}
+                      >
+                        {s.sections.length} sections
+                      </text>
+                    </g>
+                  );
+                })}
+              </svg>
+            </div>
+
+            {/* Legend */}
+            <div style={{
+              display: "flex",
+              gap: "24px",
+              marginBottom: "24px",
+              fontSize: "11px",
+              color: "#64748B",
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}>
+              <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <svg width="24" height="2"><line x1="0" y1="1" x2="24" y2="1" stroke="#64748B" strokeWidth="1.5" /></svg>
+                Direct flow
+              </span>
+              <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <svg width="24" height="2"><line x1="0" y1="1" x2="24" y2="1" stroke="#64748B" strokeWidth="1.5" strokeDasharray="5,4" /></svg>
+                Alternate path
+              </span>
+              <span style={{ color: "#0891B2", fontWeight: 500 }}>
+                Click a node to inspect
+              </span>
+            </div>
+
+            {/* Detail panel */}
+            {screen ? (
+              <div style={{
+                borderRadius: "8px",
+                overflow: "hidden",
+                boxShadow: "0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05)",
+                border: "1px solid #E2E8F0",
+                background: "#fff",
+              }}>
+                {/* Screen header */}
+                <div style={{
+                  background: screen.color,
+                  color: screen.textColor,
+                  padding: "20px 28px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}>
+                  <div>
+                    <div style={{
+                      fontSize: "10px",
+                      letterSpacing: "0.15em",
+                      textTransform: "uppercase",
+                      opacity: 0.8,
+                      fontWeight: 500,
+                      fontFamily: FONT.mono,
+                      marginBottom: "4px",
+                    }}>
+                      {TYPE_LABELS[screen.type]}
+                    </div>
+                    <div style={{
+                      fontSize: "20px",
+                      fontWeight: 700,
+                      fontFamily: FONT.serif,
+                      letterSpacing: "-0.015em",
+                    }}>
+                      {screen.label}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setSelectedScreen(null)}
+                    style={{
+                      background: "rgba(255,255,255,0.15)",
+                      backdropFilter: "blur(4px)",
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      borderRadius: "6px",
+                      color: "#fff",
+                      padding: "6px 14px",
+                      fontSize: "12px",
+                      cursor: "pointer",
+                      fontFamily: FONT.sans,
+                      fontWeight: 500,
+                      transition: "background 0.2s",
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
+
+                {/* Wireframe sections */}
+                <div style={{ padding: "24px 28px" }}>
+                  <div style={{
+                    fontSize: "10px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#64748B",
+                    marginBottom: "14px",
+                    fontWeight: 600,
+                    fontFamily: FONT.mono,
+                  }}>
+                    Section Layout ({screen.sections.length} sections)
+                  </div>
+
+                  <div style={{
+                    border: "1px solid #E2E8F0",
+                    borderRadius: "6px",
+                    overflow: "hidden",
+                    background: "#F8FAFC",
+                  }}>
+                    {screen.sections.map((sec, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          borderBottom: i < screen.sections.length - 1 ? "1px dashed #CBD5E1" : "none",
+                          padding: "14px 18px",
+                          minHeight: `${sec.h * 34}px`,
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "14px",
+                          background: i % 2 === 0 ? "#fff" : "#F8FAFC",
+                          transition: "background 0.15s",
+                        }}
+                      >
+                        <div style={{
+                          fontSize: "10px",
+                          color: screen.accent || screen.color,
+                          fontWeight: 700,
+                          minWidth: "20px",
+                          textAlign: "right",
+                          marginTop: "2px",
+                          fontFamily: FONT.mono,
+                        }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </div>
+                        <div>
+                          <div style={{
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            marginBottom: "3px",
+                            color: "#0F172A",
+                          }}>
+                            {sec.name}
+                          </div>
+                          <div style={{
+                            fontSize: "12px",
+                            color: "#64748B",
+                            lineHeight: 1.5,
+                          }}>
+                            {sec.desc}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Navigation exits */}
+                <div style={{ padding: "0 28px 24px" }}>
+                  <div style={{
+                    fontSize: "10px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#64748B",
+                    marginBottom: "10px",
+                    fontWeight: 600,
+                    fontFamily: FONT.mono,
+                  }}>
+                    Navigation Exits
+                  </div>
+                  <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                    {screen.exits.map((exit, i) => {
+                      const target = SCREENS[exit];
+                      return (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedScreen(exit)}
+                          style={{
+                            padding: "8px 14px",
+                            fontSize: "11px",
+                            fontFamily: FONT.sans,
+                            fontWeight: 500,
+                            background: "#F8FAFC",
+                            border: "1px solid #E2E8F0",
+                            borderRadius: "6px",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "8px",
+                            color: "#334155",
+                            transition: "border-color 0.2s, box-shadow 0.2s",
+                          }}
+                        >
+                          <span style={{
+                            width: "8px", height: "8px",
+                            background: target.color,
+                            display: "inline-block",
+                            borderRadius: "2px",
+                          }} />
+                          {screen.exitLabels[i]}
+                          <span style={{ color: "#94A3B8" }}>{"\u2192"}</span>
+                          <span style={{ fontWeight: 600 }}>{target.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div style={{
+                border: "2px dashed #CBD5E1",
+                borderRadius: "8px",
+                padding: "40px",
+                textAlign: "center",
+                color: "#94A3B8",
+                fontSize: "13px",
+                background: "#fff",
+              }}>
+                Click any screen node above to inspect its section layout and navigation exits.
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ===== SCORING TAB ===== */}
+        {activeTab === "scoring" && (
+          <div>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 48px 1fr",
+              gap: "0",
+              alignItems: "start",
+            }}>
+              {/* Inputs */}
+              <div style={{
+                borderRadius: "8px",
+                overflow: "hidden",
+                border: "1px solid #E2E8F0",
+                background: "#fff",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+              }}>
+                <div style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#0891B2",
+                  padding: "14px 16px",
+                  fontWeight: 700,
+                  borderBottom: "2px solid #0891B2",
+                  background: "#F0FDFA",
+                  fontFamily: FONT.mono,
+                }}>
+                  10 Questions (Input)
+                </div>
+                {SCORING.inputs.map((q, i) => (
+                  <div
+                    key={q.id}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "40px 1fr 64px",
+                      gap: "8px",
+                      padding: "10px 16px",
+                      borderBottom: i < SCORING.inputs.length - 1 ? "1px solid #F1F5F9" : "none",
+                      background: i % 2 === 0 ? "#fff" : "#F8FAFC",
+                      fontSize: "12px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span style={{
+                      fontWeight: 700,
+                      color: "#0891B2",
+                      fontFamily: FONT.mono,
+                      fontSize: "11px",
+                    }}>
+                      {q.id}
+                    </span>
+                    <span style={{ color: "#334155" }}>{q.short}</span>
+                    <span style={{
+                      color: "#94A3B8",
+                      fontSize: "10px",
+                      textAlign: "right",
+                      fontFamily: FONT.mono,
+                    }}>
+                      {q.type}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Arrow column */}
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                minHeight: "300px",
+              }}>
+                <svg width="24" height="60" viewBox="0 0 24 60">
+                  <defs>
+                    <linearGradient id="arrowGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#0891B2" />
+                      <stop offset="100%" stopColor="#4F46E5" />
+                    </linearGradient>
+                  </defs>
+                  <line x1="12" y1="0" x2="12" y2="50" stroke="url(#arrowGrad)" strokeWidth="2" />
+                  <polygon points="6,46 18,46 12,56" fill="#4F46E5" />
+                </svg>
+              </div>
+
+              {/* Outputs */}
+              <div style={{
+                borderRadius: "8px",
+                overflow: "hidden",
+                border: "1px solid #E2E8F0",
+                background: "#fff",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+              }}>
+                <div style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#4F46E5",
+                  padding: "14px 16px",
+                  fontWeight: 700,
+                  borderBottom: "2px solid #4F46E5",
+                  background: "#EEF2FF",
+                  fontFamily: FONT.mono,
+                }}>
+                  7 Computed Outputs
+                </div>
+                {SCORING.outputs.map((out, i) => (
+                  <div
+                    key={out.id}
+                    style={{
+                      padding: "12px 16px",
+                      borderBottom: i < SCORING.outputs.length - 1 ? "1px solid #F1F5F9" : "none",
+                      background: i % 2 === 0 ? "#fff" : "#F8FAFC",
+                    }}
+                  >
+                    <div style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "3px",
+                    }}>
+                      <span style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#0F172A",
+                        fontFamily: FONT.mono,
+                      }}>
+                        {out.id}
+                      </span>
+                      <span style={{
+                        fontSize: "11px",
+                        color: "#64748B",
+                      }}>
+                        {out.desc}
+                      </span>
+                    </div>
+                    <div style={{
+                      fontSize: "11px",
+                      color: "#94A3B8",
+                      fontStyle: "italic",
+                      fontFamily: FONT.mono,
+                    }}>
+                      {out.formula}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Key scoring paths */}
+            <div style={{ marginTop: "28px" }}>
+              <div style={{
+                fontSize: "10px",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#64748B",
+                marginBottom: "14px",
+                fontWeight: 700,
+                fontFamily: FONT.mono,
+              }}>
+                Key Scoring Paths
+              </div>
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+                gap: "16px",
+              }}>
+                {[
+                  {
+                    title: "Tier Assignment",
+                    color: "#16A34A",
+                    bg: "#F0FDF4",
+                    steps: ["q1 (AI tools) + q2 (governance) \u2192 weighted \u00d72", "q6 (institution type) \u2192 add", "Total \u22644 \u2192 Tier 1 | \u22648 \u2192 Tier 2 | 9+ \u2192 Tier 3"],
+                  },
+                  {
+                    title: "Gap Prioritization",
+                    color: "#DC2626",
+                    bg: "#FEF2F2",
+                    steps: ["Each gap has a base score (1-5)", "Questions add conditional bonuses (1-6 pts)", "Sort all 10 gaps desc \u2192 top 4 = priority"],
+                  },
+                  {
+                    title: "Pedagogical Level",
+                    color: "#D97706",
+                    bg: "#FFFBEB",
+                    steps: ["q8 (course guidance) + q9 (measurement) + q10 (student AI gov)", "Sum \u22642 \u2192 Level 1 | \u22645 \u2192 Level 2 | 6+ \u2192 Level 3", "G10 bonus: q8 no-guidance +5, q9 no-measure +5"],
+                  },
+                ].map((path, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      border: "1px solid #E2E8F0",
+                      borderRadius: "8px",
+                      background: "#fff",
+                      overflow: "hidden",
+                      boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                    }}
+                  >
+                    <div style={{
+                      padding: "12px 16px",
+                      borderBottom: "1px solid #E2E8F0",
+                      fontSize: "13px",
+                      fontWeight: 600,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      background: path.bg,
+                    }}>
+                      <span style={{
+                        width: "10px", height: "10px",
+                        background: path.color,
+                        display: "inline-block",
+                        borderRadius: "3px",
+                      }} />
+                      {path.title}
+                    </div>
+                    <div style={{ padding: "14px 16px" }}>
+                      {path.steps.map((step, j) => (
+                        <div
+                          key={j}
+                          style={{
+                            fontSize: "11px",
+                            color: "#64748B",
+                            padding: "6px 0",
+                            borderBottom: j < path.steps.length - 1 ? "1px dotted #E2E8F0" : "none",
+                            lineHeight: 1.5,
+                            display: "flex",
+                            gap: "8px",
+                          }}
+                        >
+                          <span style={{
+                            color: path.color,
+                            fontWeight: 700,
+                            fontFamily: FONT.mono,
+                            fontSize: "10px",
+                            minWidth: "14px",
+                          }}>
+                            {j + 1}.
+                          </span>
+                          <span>{step}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ===== DATA TAB ===== */}
+        {activeTab === "data" && (
+          <div>
+            <div style={{
+              fontSize: "10px",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#64748B",
+              marginBottom: "16px",
+              fontWeight: 700,
+              fontFamily: FONT.mono,
+            }}>
+              6 Data Collections
+            </div>
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              gap: "16px",
+              marginBottom: "32px",
+            }}>
+              {DATA_MODEL.map((d) => (
+                <div
+                  key={d.name}
+                  style={{
+                    border: "1px solid #E2E8F0",
+                    borderRadius: "8px",
+                    background: "#fff",
+                    padding: "20px",
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                    transition: "box-shadow 0.2s, border-color 0.2s",
+                  }}
+                >
+                  <div style={{
+                    fontSize: "32px",
+                    fontWeight: 700,
+                    color: "#0891B2",
+                    fontFamily: FONT.serif,
+                    lineHeight: 1,
+                    marginBottom: "4px",
+                  }}>
+                    {d.count}
+                  </div>
+                  <div style={{
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    marginBottom: "6px",
+                    color: "#0F172A",
+                    fontFamily: FONT.mono,
+                    letterSpacing: "0.04em",
+                  }}>
+                    {d.name}
+                  </div>
+                  <div style={{
+                    fontSize: "12px",
+                    color: "#64748B",
+                    lineHeight: 1.5,
+                  }}>
+                    {d.desc}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Relationship map */}
+            <div style={{
+              fontSize: "10px",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#64748B",
+              marginBottom: "16px",
+              fontWeight: 700,
+              fontFamily: FONT.mono,
+            }}>
+              Data Relationships
+            </div>
+            <div style={{
+              background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)",
+              padding: "28px",
+              borderRadius: "8px",
+              boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)",
+            }}>
+              <svg viewBox="0 0 600 200" style={{ width: "100%", height: "auto" }}>
+                <defs>
+                  <filter id="entityShadow">
+                    <feDropShadow dx="0" dy="1" stdDeviation="2" floodColor="#000" floodOpacity="0.3" />
+                  </filter>
+                </defs>
+                {/* Entities */}
+                {[
+                  { name: "QUESTIONS", x: 20, y: 30, w: 90, color: "#0891B2" },
+                  { name: "GAPS", x: 160, y: 30, w: 70, color: "#DC2626" },
+                  { name: "PILLARS", x: 280, y: 30, w: 80, color: "#7C3AED" },
+                  { name: "TEMPLATES", x: 410, y: 30, w: 95, color: "#D97706" },
+                  { name: "ARCHETYPES", x: 160, y: 130, w: 100, color: "#4F46E5" },
+                  { name: "ROADMAP", x: 410, y: 130, w: 85, color: "#0284C7" },
+                ].map((e) => (
+                  <g key={e.name} filter="url(#entityShadow)">
+                    <rect x={e.x} y={e.y} width={e.w} height={36} rx={6} fill="#1E293B" stroke={e.color} strokeWidth={1.5} />
+                    <rect x={e.x} y={e.y} width={e.w} height={4} rx={2} fill={e.color} />
+                    <text x={e.x + e.w / 2} y={e.y + 24} textAnchor="middle" fontSize="9" fontWeight="bold" fill="#F1F5F9" fontFamily={FONT.mono}>
+                      {e.name}
+                    </text>
+                  </g>
+                ))}
+
+                {/* Relationship lines */}
+                {[
+                  { x1: 110, y1: 48, x2: 160, y2: 48, label: "scores into" },
+                  { x1: 230, y1: 48, x2: 280, y2: 48, label: "maps to" },
+                  { x1: 360, y1: 48, x2: 410, y2: 48, label: "contains" },
+                  { x1: 195, y1: 66, x2: 195, y2: 130, label: "matches" },
+                  { x1: 452, y1: 66, x2: 452, y2: 130, label: "phases per tier" },
+                  { x1: 260, y1: 148, x2: 410, y2: 148, label: "drives" },
+                ].map((l, i) => (
+                  <g key={i}>
+                    <line x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#475569" strokeWidth={1} />
+                    <text
+                      x={(l.x1 + l.x2) / 2}
+                      y={(l.y1 + l.y2) / 2 - 6}
+                      textAnchor="middle"
+                      fontSize="7"
+                      fill="#94A3B8"
+                      fontFamily={FONT.mono}
+                    >
+                      {l.label}
+                    </text>
+                  </g>
+                ))}
+              </svg>
+            </div>
+
+            {/* Info cards */}
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "16px",
+              marginTop: "24px",
+            }}>
+              <div style={{
+                border: "1px solid #E2E8F0",
+                borderRadius: "8px",
+                background: "#fff",
+                padding: "20px",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+              }}>
+                <div style={{
+                  fontSize: "13px",
+                  fontWeight: 600,
+                  marginBottom: "8px",
+                  color: "#0F172A",
+                }}>
+                  Quick-Start Bypass
+                </div>
+                <div style={{
+                  fontSize: "12px",
+                  color: "#64748B",
+                  lineHeight: 1.6,
+                }}>
+                  4 pre-loaded answer sets (Merced, MiraCosta, LBCC, Calbright) skip the assessment entirely. Each injects hardcoded answers into the scoring engine, producing an instant profile. The same computeResults() function runs &mdash; the user just doesn't answer the questions manually.
+                </div>
+              </div>
+
+              <div style={{
+                border: "1px solid #E2E8F0",
+                borderRadius: "8px",
+                background: "#fff",
+                padding: "20px",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+              }}>
+                <div style={{
+                  fontSize: "13px",
+                  fontWeight: 600,
+                  marginBottom: "8px",
+                  color: "#0F172A",
+                }}>
+                  State Persistence
+                </div>
+                <div style={{
+                  fontSize: "12px",
+                  color: "#64748B",
+                  lineHeight: 1.6,
+                }}>
+                  The app saves state to localStorage after each computeResults() call. On reload, it restores answers and results. Browser history is managed via pushState/popstate for proper back-button navigation across all 8 views.
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <div style={{
+        borderTop: "1px solid #E2E8F0",
+        padding: "18px 36px",
+        fontSize: "11px",
+        color: "#94A3B8",
+        display: "flex",
+        justifyContent: "space-between",
+        background: "#fff",
+      }}>
+        <span>AI Governance Navigator Prototype &mdash; Wireframe v2</span>
+        <span style={{ fontWeight: 500 }}>AQL Labs / FutureObjects</span>
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<NavigatorWireframe />);
+</script>
+</body>
+</html>
