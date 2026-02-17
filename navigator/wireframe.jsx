@@ -856,18 +856,21 @@ export default function NavigatorWireframe() {
                     color: "#16A34A",
                     bg: "#F0FDF4",
                     steps: ["q1 (AI tools) + q2 (governance) → weighted ×2", "q6 (institution type) → add", "Total ≤4 → Tier 1 | ≤8 → Tier 2 | 9+ → Tier 3"],
+                    explanation: "The tier tells a college how mature their AI governance currently is. We weight the questions about AI tool adoption and existing governance structures most heavily (×2) because these two factors — how much AI is already being used and whether anyone is formally overseeing it — are the strongest indicators of where a college stands today. Institution type adds a small adjustment since multi-campus districts face more governance complexity. The result is a simple 1–2–3 scale: Tier 1 means \"just getting started,\" Tier 2 means \"building foundations,\" and Tier 3 means \"ready to formalize.\" Everything else in the Navigator — which templates surface, what the roadmap looks like, which pillars come first — flows from this tier.",
                   },
                   {
                     title: "Gap Prioritization",
                     color: "#DC2626",
                     bg: "#FEF2F2",
                     steps: ["Each gap has a base score (1-5)", "Questions add conditional bonuses (1-6 pts)", "Sort all 10 gaps desc → top 4 = priority"],
+                    explanation: "Every community college has governance gaps, but not all 10 gaps matter equally to every college. Each gap starts with a base importance score (1–5) reflecting how universally critical it is. Then, based on assessment answers, certain gaps earn bonus points. For example, if a college reports heavy AI tool use but no oversight committee, the \"governance structure\" gap scores much higher. If adjunct faculty make up most of the teaching staff, equity-related gaps get boosted. After all bonuses are tallied, the system sorts all 10 gaps from highest to lowest and surfaces the top 4 as that college's priorities. This ensures that the recommendations feel personalized rather than generic.",
                   },
                   {
                     title: "Pedagogical Level",
                     color: "#D97706",
                     bg: "#FFFBEB",
                     steps: ["q8 (course guidance) + q9 (measurement) + q10 (student AI gov)", "Sum ≤2 → Level 1 | ≤5 → Level 2 | 6+ → Level 3", "G10 bonus: q8 no-guidance +5, q9 no-measure +5"],
+                    explanation: "This measures how well a college governs AI specifically in teaching and learning — separate from overall institutional governance. Three questions feed into it: whether the college provides course-level guidance for AI use, whether they measure how AI affects learning outcomes, and whether students have any voice in AI governance decisions. Colleges that report no course guidance or no outcome measurement receive large bonus points toward Gap 10 (the pedagogical governance gap), which flags it as a high priority. The three levels map to: Level 1 = \"no pedagogical AI governance yet,\" Level 2 = \"some structures in place,\" and Level 3 = \"comprehensive approach to AI in the classroom.\"",
                   },
                 ].map((path, i) => (
                   <div
@@ -924,6 +927,31 @@ export default function NavigatorWireframe() {
                           <span>{step}</span>
                         </div>
                       ))}
+                    </div>
+                    <div style={{
+                      padding: "0 16px 16px",
+                      borderTop: "1px solid #F1F5F9",
+                      marginTop: "4px",
+                    }}>
+                      <div style={{
+                        fontSize: "10px",
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase",
+                        color: path.color,
+                        fontWeight: 700,
+                        fontFamily: FONT.mono,
+                        marginTop: "12px",
+                        marginBottom: "6px",
+                      }}>
+                        Why it works this way
+                      </div>
+                      <div style={{
+                        fontSize: "11px",
+                        color: "#475569",
+                        lineHeight: 1.65,
+                      }}>
+                        {path.explanation}
+                      </div>
                     </div>
                   </div>
                 ))}
