@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigator v2 &mdash; 59 Assessment Questions (Working Draft)</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    color: #333;
+  }
+  h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-size: 14pt;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    margin-top: 32px;
+    page-break-before: auto;
+  }
+  h3 {
+    font-size: 12pt;
+    margin-top: 20px;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+  }
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 24px 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .q-block {
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    page-break-inside: avoid;
+  }
+  .q-id {
+    font-weight: bold;
+    font-size: 10pt;
+    color: #555;
+  }
+  .q-text {
+    font-size: 11pt;
+    font-weight: bold;
+    margin: 4px 0 8px 0;
+  }
+  .q-rubric {
+    font-size: 9.5pt;
+    margin: 2px 0;
+  }
+  .q-rubric .score-3 { color: #155724; }
+  .q-rubric .score-2 { color: #856404; }
+  .q-rubric .score-1 { color: #721c24; }
+  .q-notes {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed #ddd;
+    font-size: 10pt;
+    color: #888;
+    font-style: italic;
+  }
+  .pillar-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .pillar-header .pillar-id {
+    font-size: 16pt;
+    font-weight: bold;
+  }
+  .pillar-hook {
+    font-style: italic;
+    color: #555;
+    font-size: 10pt;
+    margin-bottom: 12px;
+  }
+  .category-label {
+    font-size: 9pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin-top: 16px;
+    margin-bottom: 4px;
+  }
+  @media print {
+    body { padding: 0.5in; }
+    .q-block { page-break-inside: avoid; }
+    h2 { page-break-before: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 {
+          font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+          font-size: 130.25px;
+          font-style: italic;
+          font-weight: 600;
+        }
+        .cls-2 { letter-spacing: -.02em; }
+        .cls-3 { letter-spacing: -.04em; }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<h1>Navigator v2 &mdash; 59 Assessment Questions</h1>
+<p class="subtitle">Working Draft for Manual Revision</p>
+
+<p class="metadata">
+<strong>Date:</strong> February 23, 2026<br>
+<strong>Status:</strong> Working draft &mdash; questions extracted from Navigator v2 spec for team revision<br>
+<strong>Team:</strong> Amin, Mimi, Adam, Hyunjun<br>
+<strong>Source:</strong> navigator-v2-spec.md + navigator-v2-content.json (v2.1, Feb 22, 2026)
+</p>
+
+<div class="highlight-box">
+<strong>How to use this document:</strong> Each question has its current rubric (3/2/1) and a notes field for revision comments. Edit questions, reword rubrics, add/remove questions, flag ones that need discussion. The question IDs (e.g., 1.1, 2.3) match the Navigator v2 data model.
+</div>
+
+<hr>
+
+<h3>Question Count by Pillar</h3>
+
+<table>
+  <tr>
+    <th>Pillar</th>
+    <th>Name</th>
+    <th>Questions</th>
+    <th>Category</th>
+  </tr>
+  <tr>
+    <td style="color:#0066cc; font-weight:bold;">P1</td>
+    <td>Purpose &amp; Educational Legitimacy</td>
+    <td>5</td>
+    <td rowspan="2" style="background:#e7f3ff; text-align:center; vertical-align:middle;"><strong>WHY</strong><br>Does this belong here?</td>
+  </tr>
+  <tr>
+    <td style="color:#28a745; font-weight:bold;">P2</td>
+    <td>Equity &amp; Differential Impact</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td style="color:#6f42c1; font-weight:bold;">P3</td>
+    <td>Human Authority &amp; Decision Accountability</td>
+    <td>5</td>
+    <td rowspan="3" style="background:#fff3cd; text-align:center; vertical-align:middle;"><strong>WHO</strong><br>Who decides, who&rsquo;s affected?</td>
+  </tr>
+  <tr>
+    <td style="color:#fd7e14; font-weight:bold;">P4</td>
+    <td>Student &amp; Faculty Agency</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <td style="color:#dc3545; font-weight:bold;">P5</td>
+    <td>Risk Proportionality &amp; Harm Mitigation</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td style="color:#17a2b8; font-weight:bold;">P6</td>
+    <td>Data Stewardship &amp; System Integrity</td>
+    <td>8</td>
+    <td rowspan="2" style="background:#d4edda; text-align:center; vertical-align:middle;"><strong>HOW</strong><br>Technical &amp; data governance</td>
+  </tr>
+  <tr>
+    <td style="color:#e83e8c; font-weight:bold;">P7</td>
+    <td>Transparency &amp; Contestability</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td style="color:#6610f2; font-weight:bold;">P8</td>
+    <td>Vendor Accountability &amp; Institutional Sovereignty</td>
+    <td>7</td>
+    <td rowspan="2" style="background:#f3e8ff; text-align:center; vertical-align:middle;"><strong>SUSTAINABILITY</strong><br>Can we sustain this?</td>
+  </tr>
+  <tr>
+    <td style="color:#795548; font-weight:bold;">P9</td>
+    <td>Institutional Capacity &amp; Continuous Governance</td>
+    <td>6</td>
+  </tr>
+  <tr style="background: #f0f0f0;">
+    <td colspan="2"><strong>Total</strong></td>
+    <td><strong>59</strong></td>
+    <td></td>
+  </tr>
+</table>
+
+<!-- ============================================================ -->
+<!-- P1: PURPOSE & EDUCATIONAL LEGITIMACY -->
+<!-- ============================================================ -->
+
+<h2 style="color: #0066cc;">P1 &mdash; Purpose &amp; Educational Legitimacy</h2>
+<div class="pillar-hook">&ldquo;If it doesn&rsquo;t serve students, it doesn&rsquo;t belong here.&rdquo;</div>
+<p><strong>Principle:</strong> Every AI deployment must serve a genuine educational purpose and protect the meaning of credentials.<br>
+<strong>Questions:</strong> 5 &nbsp;|&nbsp; <strong>HUMANS:</strong> AQL-original</p>
+
+<div class="q-block" style="border-left-color: #0066cc;">
+  <div class="q-id">1.1</div>
+  <div class="q-text">What specific student outcome or educational purpose does this tool serve? Can you name it?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Concrete answer tied to learning, completion, transfer, or career readiness</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Purpose stated but not evidence-backed</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No clear educational purpose</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #0066cc;">
+  <div class="q-id">1.2</div>
+  <div class="q-text">Does this tool align with the institution&rsquo;s mission and strategic plan?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Connection to stated institutional priorities</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> General alignment with mission</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No connection to institutional priorities</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #0066cc;">
+  <div class="q-id">1.3</div>
+  <div class="q-text">Where on the student journey does this solve a problem? (enrollment, persistence, completion, transfer, career placement)</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Clear placement on guided pathway with local evidence of problem</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Journey placement reasonable but not validated locally</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Hypothetical problem, no institutional evidence</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #0066cc;">
+  <div class="q-id">1.4</div>
+  <div class="q-text">Does the tool protect credential integrity? Could AI-generated outputs substitute for competency demonstration?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Students still demonstrate mastery; credential integrity preserved</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Credential impact not fully assessed</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Credential integrity risk unaddressed</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #0066cc;">
+  <div class="q-id">1.5</div>
+  <div class="q-text">Has an industry advisory committee or CTE program review validated this tool&rsquo;s relevance? (for CTE-adjacent use cases)</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Employer and industry input documented; alignment with competencies</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some industry consultation</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No industry validation</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- P2: EQUITY & DIFFERENTIAL IMPACT -->
+<!-- ============================================================ -->
+
+<h2 style="color: #28a745;">P2 &mdash; Equity &amp; Differential Impact</h2>
+<div class="pillar-hook">&ldquo;If it doesn&rsquo;t work for all your students, it doesn&rsquo;t work.&rdquo;</div>
+<p><strong>Principle:</strong> AI governance must center equity and account for differential impacts on diverse CC student populations.<br>
+<strong>Questions:</strong> 7 &nbsp;|&nbsp; <strong>HUMANS:</strong> U, A</p>
+
+<div class="q-block" style="border-left-color: #28a745;">
+  <div class="q-id">2.1</div>
+  <div class="q-text">Has this tool been tested with student populations similar to ours? (Pell-eligible, first-gen, working adults, multilingual, students with disabilities)</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Disaggregated performance data for CC-like populations</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Equity acknowledged as priority but data limited</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No disaggregated data</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #28a745;">
+  <div class="q-id">2.2</div>
+  <div class="q-text">Are error rates, recommendation accuracy, or response quality consistent across student demographics?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Vendor provides disaggregated performance data</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Willing to conduct bias audit post-deployment</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No differential impact analysis</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #28a745;">
+  <div class="q-id">2.3</div>
+  <div class="q-text">Has a differential impact analysis been conducted? Who might be harmed by this tool&rsquo;s errors or limitations?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Specific harm scenarios articulated with mitigation</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Equity partially addressed in product design</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Equity not addressed in product design</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #28a745;">
+  <div class="q-id">2.4</div>
+  <div class="q-text">Does the tool work effectively for multilingual students? In what languages? Is it real-time or pre-translated?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Actual language coverage and quality tested with your student mix</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some language support with limitations</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No multilingual support or poor quality</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #28a745;">
+  <div class="q-id">2.5</div>
+  <div class="q-text">Does the tool meet accessibility standards? (WCAG 2.1 AA, screen reader compatibility, keyboard navigation)</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Documented accessibility compliance with VPAT</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Accessibility documented</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Accessibility unclear</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #28a745;">
+  <div class="q-id">2.6</div>
+  <div class="q-text">What is the cost model for students? Are there paywalls, premium tiers, or features that require devices/bandwidth some students lack?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> No paywall barriers; works on mobile; low bandwidth option</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Cost model reasonable but some barriers exist</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Cost barriers exist</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #28a745;">
+  <div class="q-id">2.7</div>
+  <div class="q-text">Does the tool serve all career pathways equitably, or is it optimized for specific programs?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> CTE pathways covered; all program catalog included</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Mostly transfer/STEM focus</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Only transfer pathways</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- P3: HUMAN AUTHORITY & DECISION ACCOUNTABILITY -->
+<!-- ============================================================ -->
+
+<h2 style="color: #6f42c1;">P3 &mdash; Human Authority &amp; Decision Accountability</h2>
+<div class="pillar-hook">&ldquo;Who is accountable when the AI is wrong?&rdquo;</div>
+<p><strong>Principle:</strong> Humans &mdash; not algorithms &mdash; make consequential decisions about students.<br>
+<strong>Questions:</strong> 5 &nbsp;|&nbsp; <strong>HUMANS:</strong> H</p>
+
+<div class="q-block" style="border-left-color: #6f42c1;">
+  <div class="q-id">3.1</div>
+  <div class="q-text">Does this tool make decisions that affect student access, standing, or progress &mdash; or does it recommend to a human who decides?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> AI recommends; humans decide; clear distinction</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> AI acts with human review possible but not required</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> AI makes consequential decisions autonomously</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6f42c1;">
+  <div class="q-id">3.2</div>
+  <div class="q-text">Can staff override, modify, or reject AI recommendations before they reach students?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Override built into workflow, not buried in admin settings</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Override exists but isn&rsquo;t default</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Override technically possible but impractical</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6f42c1;">
+  <div class="q-id">3.3</div>
+  <div class="q-text">For high-risk use cases: is there a defined escalation path when AI output is uncertain, contradictory, or flagged?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Defined thresholds with human routing on low-confidence cases</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some escalation path exists</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No escalation path defined</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6f42c1;">
+  <div class="q-id">3.4</div>
+  <div class="q-text">Does the tool create a decision audit trail? Can the institution document who approved what AI-influenced decision?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Full audit trail with timestamps, recommendations, and human actions</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some audit logging</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No audit trail</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6f42c1;">
+  <div class="q-id">3.5</div>
+  <div class="q-text">Who is accountable when the AI is wrong? Is that defined in the contract?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Clear liability allocation in contract</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Liability partially addressed</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Vendor disclaims all liability</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- P4: STUDENT & FACULTY AGENCY -->
+<!-- ============================================================ -->
+
+<h2 style="color: #fd7e14;">P4 &mdash; Student &amp; Faculty Agency</h2>
+<div class="pillar-hook">&ldquo;Your students are adults. Your faculty run the classroom. Respect both.&rdquo;</div>
+<p><strong>Principle:</strong> Students and faculty are empowered participants, not subjects.<br>
+<strong>Questions:</strong> 8 (4 student, 4 faculty) &nbsp;|&nbsp; <strong>HUMANS:</strong> H, U</p>
+
+<div class="category-label">Student Agency</div>
+
+<div class="q-block" style="border-left-color: #fd7e14;">
+  <div class="q-id">4.1</div>
+  <div class="q-text">Does the tool help students learn to navigate AI, or does it just deliver AI-generated answers?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Skill-building design: Socratic mode, guided problem-solving</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some skill-building features</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Pure output delivery</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #fd7e14;">
+  <div class="q-id">4.2</div>
+  <div class="q-text">Can students opt out of AI interaction and access a human alternative without penalty or delay?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Real opt-out with equally accessible human alternative</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Opt-out exists but inconvenient</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No meaningful opt-out</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #fd7e14;">
+  <div class="q-id">4.3</div>
+  <div class="q-text">Does the tool give students visibility into and control over their own data and AI profile?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Students can see system profile and contest it</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Limited visibility</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No student visibility</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #fd7e14;">
+  <div class="q-id">4.4</div>
+  <div class="q-text">Does the tool recognize prior AI experience that adult learners bring from their workplaces?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Acknowledges adult learner autonomy and workplace AI experience</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some recognition of adult learners</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Designed for traditional students only</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="category-label">Faculty Agency</div>
+
+<div class="q-block" style="border-left-color: #fd7e14;">
+  <div class="q-id">4.5</div>
+  <div class="q-text">Can faculty configure, restrict, or turn off AI features for their courses and advisees?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Granular faculty control, not admin-only settings</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Faculty configuration available</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Admin-only configuration</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #fd7e14;">
+  <div class="q-id">4.6</div>
+  <div class="q-text">Does the vendor provide training that is accessible to adjunct/part-time faculty? (async, under 30 minutes, no cost)</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Async training included; compensated governance participation</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Training provided but not adjunct-optimized</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No adjunct provisions</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #fd7e14;">
+  <div class="q-id">4.7</div>
+  <div class="q-text">Does the tool evaluate, score, or surveil faculty performance?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Faculty are users and configurers, not subjects</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Limited faculty surveillance</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Faculty performance tracked</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #fd7e14;">
+  <div class="q-id">4.8</div>
+  <div class="q-text">Does the tool&rsquo;s deployment plan respect the collegial consultation process and shared governance?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Academic senate consulted before deployment; shared governance respected</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some shared governance involvement</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Top-down IT rollout</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- P5: RISK PROPORTIONALITY & HARM MITIGATION -->
+<!-- ============================================================ -->
+
+<h2 style="color: #dc3545;">P5 &mdash; Risk Proportionality &amp; Harm Mitigation</h2>
+<div class="pillar-hook">&ldquo;What&rsquo;s the worst that happens to a student if this tool fails?&rdquo;</div>
+<p><strong>Principle:</strong> Governance intensity matches risk level.<br>
+<strong>Questions:</strong> 6 &nbsp;|&nbsp; <strong>HUMANS:</strong> S</p>
+
+<div class="q-block" style="border-left-color: #dc3545;">
+  <div class="q-id">5.1</div>
+  <div class="q-text">Has the tool been classified by risk tier (high / medium / lower)? Does governance intensity match?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Risk tier documented and agreed upon</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Risk tier acknowledged</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No risk classification</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #dc3545;">
+  <div class="q-id">5.2</div>
+  <div class="q-text">What are the autonomy limits? Is this tool informational, recommendatory, or consequential?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Autonomy limits defined: informational/recommendatory/consequential</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some autonomy limits defined</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No autonomy limits</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #dc3545;">
+  <div class="q-id">5.3</div>
+  <div class="q-text">If this is an agentic AI system, what bounds are placed on its autonomy?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Whitelisted actions only; logging; anomaly detection</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some bounds in place</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No bounds on autonomy</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #dc3545;">
+  <div class="q-id">5.4</div>
+  <div class="q-text">What is the harm scenario? If this tool fails, what is the worst realistic outcome for a student?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Worst case articulated with mitigation plans</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Harm scenarios partially explored</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Harm scenarios not considered</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #dc3545;">
+  <div class="q-id">5.5</div>
+  <div class="q-text">Are staff trained on automation bias?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Automation bias training planned</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some training considered</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No automation bias awareness</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #dc3545;">
+  <div class="q-id">5.6</div>
+  <div class="q-text">Is there a process for emerging technology review?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Vendor updates trigger risk reassessment; new capabilities don&rsquo;t auto-deploy</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> No formal emerging tech review</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Vendor features auto-deploy without review</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- P6: DATA STEWARDSHIP & SYSTEM INTEGRITY -->
+<!-- ============================================================ -->
+
+<h2 style="color: #17a2b8;">P6 &mdash; Data Stewardship &amp; System Integrity</h2>
+<div class="pillar-hook">&ldquo;Your data, your rules. Not the vendor&rsquo;s.&rdquo;</div>
+<p><strong>Principle:</strong> Student data is a public trust.<br>
+<strong>Questions:</strong> 8 &nbsp;|&nbsp; <strong>HUMANS:</strong> M</p>
+
+<div class="q-block" style="border-left-color: #17a2b8;">
+  <div class="q-id">6.1</div>
+  <div class="q-text">What student data does this tool collect, access, or generate? Provide a complete data inventory.</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Complete data inventory with specific fields</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Data inventory on request</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Data practices vague</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #17a2b8;">
+  <div class="q-id">6.2</div>
+  <div class="q-text">Is any student data used to train or improve the vendor&rsquo;s AI models?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Explicit contractual commitment: no training on student data</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Training opt-out available</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Student data may train models</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #17a2b8;">
+  <div class="q-id">6.3</div>
+  <div class="q-text">What happens to student data when the contract ends?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Defined deletion timeline; data export in standard format</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some portability considered</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No clear deletion terms</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #17a2b8;">
+  <div class="q-id">6.4</div>
+  <div class="q-text">Is the tool FERPA compliant? Does the vendor sign a FERPA-compliant data sharing agreement?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Written FERPA compliance; vendor defined as &ldquo;school official&rdquo;</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> FERPA compliant</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> FERPA undocumented</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #17a2b8;">
+  <div class="q-id">6.5</div>
+  <div class="q-text">What is the data provenance for the AI&rsquo;s training data?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Training data sources documented; no scraping without consent</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some provenance documented</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No provenance documented</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #17a2b8;">
+  <div class="q-id">6.6</div>
+  <div class="q-text">How does the tool handle data quality issues? (incomplete records, outdated SIS data, transfer students)</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Graceful handling; flags low-confidence recommendations</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some data quality handling</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No data quality handling</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #17a2b8;">
+  <div class="q-id">6.7</div>
+  <div class="q-text">Does the tool integrate with existing institutional systems through secure, documented protocols?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Standard methods (API, LTI, SAML/SSO); aligned with CCCCO standards</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Integration functional</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Integration undocumented or insecure</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #17a2b8;">
+  <div class="q-id">6.8</div>
+  <div class="q-text">Does the institution retain the right to audit the vendor&rsquo;s data practices?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Contractual audit rights not blocked by IP claims</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Audit possible but not contractual</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No audit rights</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- P7: TRANSPARENCY & CONTESTABILITY -->
+<!-- ============================================================ -->
+
+<h2 style="color: #e83e8c;">P7 &mdash; Transparency &amp; Contestability</h2>
+<div class="pillar-hook">&ldquo;Decisions without recourse are not governance.&rdquo;</div>
+<p><strong>Principle:</strong> Students and faculty have the right to know when AI influences decisions that affect them &mdash; and the right to contest those decisions.<br>
+<strong>Questions:</strong> 7 &nbsp;|&nbsp; <strong>HUMANS:</strong> N</p>
+
+<div class="q-block" style="border-left-color: #e83e8c;">
+  <div class="q-id">7.1</div>
+  <div class="q-text">Is it clear to students when they are interacting with AI vs. a human?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Visible, plain-language disclosure at point of interaction</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Disclosure present but not prominent</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No disclosure; AI operates invisibly</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #e83e8c;">
+  <div class="q-id">7.2</div>
+  <div class="q-text">Can students understand <em>why</em> the AI gave a particular recommendation?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Explainability at student-appropriate level</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some explainability available</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No explainability</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #e83e8c;">
+  <div class="q-id">7.3</div>
+  <div class="q-text">Does the vendor disclose what data the AI uses to generate recommendations?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Student can see what data informed the output</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Data sources partially visible</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No transparency on data sources</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #e83e8c;">
+  <div class="q-id">7.4</div>
+  <div class="q-text">Does the system support an appeals/contestability process?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Meaningful contestability; clear escalation pathway</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Appeals through existing processes</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No appeals pathway</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #e83e8c;">
+  <div class="q-id">7.5</div>
+  <div class="q-text">Is there documentation of how the AI model works accessible to non-technical staff?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Plain-language documentation for advisors and student services staff</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Documentation technical</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No documentation</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #e83e8c;">
+  <div class="q-id">7.6</div>
+  <div class="q-text">Does the vendor provide a &ldquo;model card&rdquo; or equivalent?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Standardized reporting on capability, limitations, and known biases</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Model card on request</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No model card</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #e83e8c;">
+  <div class="q-id">7.7</div>
+  <div class="q-text">Does the institution publicly disclose which AI systems are in use for Student Services?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Public-facing list of AI tools in student-facing processes</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Disclosure available but not prominent</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No public disclosure</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- P8: VENDOR ACCOUNTABILITY & INSTITUTIONAL SOVEREIGNTY -->
+<!-- ============================================================ -->
+
+<h2 style="color: #6610f2;">P8 &mdash; Vendor Accountability &amp; Institutional Sovereignty</h2>
+<div class="pillar-hook">&ldquo;You&rsquo;re signing the contract. Make sure it protects your students, not just the vendor.&rdquo;</div>
+<p><strong>Principle:</strong> Community colleges are buyers, not builders. Vendor relationships must protect institutional sovereignty.<br>
+<strong>Questions:</strong> 7 &nbsp;|&nbsp; <strong>HUMANS:</strong> S</p>
+
+<div class="q-block" style="border-left-color: #6610f2;">
+  <div class="q-id">8.1</div>
+  <div class="q-text">Does the contract include performance benchmarks and remedies for non-performance?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Defined SLAs with remedies for non-performance</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some performance terms</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No performance guarantees</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6610f2;">
+  <div class="q-id">8.2</div>
+  <div class="q-text">What is the exit strategy? Can the institution leave without losing data or paying punitive fees?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Data portability; transition support; no lock-in</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Exit possible but with challenges</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Punitive exit terms</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6610f2;">
+  <div class="q-id">8.3</div>
+  <div class="q-text">Can the institution conduct or require independent bias audits?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Vendor supports third-party audits; doesn&rsquo;t block with IP claims</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Audits on request</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Audits blocked</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6610f2;">
+  <div class="q-id">8.4</div>
+  <div class="q-text">How does the vendor handle model updates? Advance notice and testing ability?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Update notification; staging environment; no silent model changes</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Updates communicated</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Silent updates</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6610f2;">
+  <div class="q-id">8.5</div>
+  <div class="q-text">Is this tool available through FoundationCCC/CollegeBuys or other consortium contracts?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Collective bargaining power leveraged</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some consortium pricing</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No consortium leverage</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6610f2;">
+  <div class="q-id">8.6</div>
+  <div class="q-text">Does the vendor have an incident response process?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Defined timeline; root cause analysis; corrective action plan</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Incident reporting exists</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No incident process</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #6610f2;">
+  <div class="q-id">8.7</div>
+  <div class="q-text">What does total cost of ownership look like over 3 years?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Transparent pricing; no hidden fees</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Mostly transparent pricing</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Hidden costs</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- P9: INSTITUTIONAL CAPACITY & CONTINUOUS GOVERNANCE -->
+<!-- ============================================================ -->
+
+<h2 style="color: #795548;">P9 &mdash; Institutional Capacity &amp; Continuous Governance</h2>
+<div class="pillar-hook">&ldquo;Don&rsquo;t add tools to an ungoverned environment. Build the floor first.&rdquo;</div>
+<p><strong>Principle:</strong> Governance must be achievable at every institutional scale.<br>
+<strong>Questions:</strong> 6 &nbsp;|&nbsp; <strong>HUMANS:</strong> AQL-original (fills HUMANS gap)</p>
+
+<div class="q-block" style="border-left-color: #795548;">
+  <div class="q-id">9.1</div>
+  <div class="q-text">Does the institution have a governance structure that can oversee this tool?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Someone named; review cycle exists; governance process documented</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some governance exists</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No governance structure</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #795548;">
+  <div class="q-id">9.2</div>
+  <div class="q-text">Will this tool be included in the institution&rsquo;s annual AI inventory?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Inventory maintained with risk tiers and scorecard results</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Inventory planned</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No inventory</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #795548;">
+  <div class="q-id">9.3</div>
+  <div class="q-text">Is there a plan to rescore this tool on a regular cycle?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Annual for high-risk; bi-annual for medium/lower; trigger-based for changes</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Rescoring acknowledged</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No review cycle</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #795548;">
+  <div class="q-id">9.4</div>
+  <div class="q-text">Does the tool generate reporting that supports accreditation documentation?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Usage data, outcome data, and governance documentation exportable</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some reporting possible</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No accreditation planning</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #795548;">
+  <div class="q-id">9.5</div>
+  <div class="q-text">Does the institution have the staff capacity to implement and sustain this tool?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Implementation plan matches real institutional resources</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Capacity somewhat assessed</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> No capacity assessment</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+<div class="q-block" style="border-left-color: #795548;">
+  <div class="q-id">9.6</div>
+  <div class="q-text">Are there shared resources from consortia, the Chancellor&rsquo;s Office, or peer institutions?</div>
+  <div class="q-rubric"><span class="score-3"><strong>3 (Good):</strong></span> Not reinventing governance alone; shared resources leveraged</div>
+  <div class="q-rubric"><span class="score-2"><strong>2 (Partial):</strong></span> Some shared resources considered</div>
+  <div class="q-rubric"><span class="score-1"><strong>1 (Poor):</strong></span> Operating in isolation</div>
+  <div class="q-notes">Revision notes: </div>
+</div>
+
+</body>
+</html>

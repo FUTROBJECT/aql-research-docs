@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Governance Navigator v2 — Vendor Scorecard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --ink: #151515; --ink-soft: #3A3A3A; --ink-muted: #6B6B6B;
+  --mid: #A0A0A0; --border: #D4D4D4;
+  --surface: #F5F5F3; --warm-white: #FAFAF8; --white: #FFFFFF;
+  --signal: #0891B2; --signal-dark: #0E7490; --signal-deep: #155E75;
+  --signal-light: #E0F7FA; --signal-10: rgba(8,145,178,0.10);
+  --accent: #D97706; --accent-light: #FEF3C7;
+  --dark: #0C0C0C; --dark-surface: #1A1A1A; --dark-border: #2A2A2A; --dark-muted: #888888;
+  --live: #16A34A; --caution: #EAB308; --critical: #DC2626;
+  --p1: #0066cc; --p2: #28a745; --p3: #6f42c1; --p4: #fd7e14;
+  --p5: #dc3545; --p6: #17a2b8; --p7: #e83e8c; --p8: #6610f2; --p9: #795548;
+  --risk-high: #c00; --risk-high-bg: #f8d7da;
+  --risk-medium: #856404; --risk-medium-bg: #fff3cd;
+  --risk-lower: #28a745; --risk-lower-bg: #d4edda;
+  --display: 'Plus Jakarta Sans', sans-serif;
+  --body: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 62.5%; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(12,12,12,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--dark-border);
+  padding: 0 6rem; display: flex; align-items: center;
+  justify-content: space-between; height: 6rem;
+}
+.nav-logo {
+  font-family: var(--display); font-size: 1.6rem; font-weight: 800;
+  color: var(--white); letter-spacing: -0.01em;
+  display: flex; align-items: center; gap: 1rem; cursor: pointer;
+}
+.nav-right {
+  display: flex; align-items: center; gap: 2.4rem;
+}
+.nav-back {
+  font-family: var(--display); font-size: 1.3rem; font-weight: 600;
+  color: var(--dark-muted); cursor: pointer; text-decoration: none;
+  transition: color 0.15s; background: none; border: none;
+}
+.nav-back:hover { color: var(--white); }
+
+/* ============================================================
+   VIEW SYSTEM
+   ============================================================ */
+.view { display: none; min-height: 100vh; padding-top: 6rem; }
+.view.active { display: block; }
+.view-fade { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ============================================================
+   SECTION SYSTEM
+   ============================================================ */
+.section {
+  width: 100%; padding: 10rem 6rem; position: relative; overflow: hidden;
+}
+.section-dark { background: var(--dark); color: var(--white); }
+.section-surface { background: var(--surface); }
+.section-signal { background: var(--signal-deep); color: var(--white); }
+.section-inner { max-width: 120rem; margin: 0 auto; }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.display-xl {
+  font-family: var(--display); font-size: 7.2rem; font-weight: 800;
+  line-height: 1.0; letter-spacing: -0.03em;
+}
+.display-lg {
+  font-family: var(--display); font-size: 4.8rem; font-weight: 700;
+  line-height: 1.1; letter-spacing: -0.025em;
+}
+.display-md {
+  font-family: var(--display); font-size: 3.2rem; font-weight: 700;
+  line-height: 1.15; letter-spacing: -0.02em;
+}
+.display-sm {
+  font-family: var(--display); font-size: 2.4rem; font-weight: 700;
+  line-height: 1.2; letter-spacing: -0.01em;
+}
+.display-xs {
+  font-family: var(--display); font-size: 1.8rem; font-weight: 700;
+  line-height: 1.3;
+}
+.label {
+  font-family: var(--display); font-size: 1.2rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+}
+.body-lg {
+  font-family: var(--body); font-size: 1.8rem; line-height: 1.6;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  font-family: var(--display); font-weight: 600; font-size: 1.4rem;
+  line-height: 2rem; padding: 1.2rem 3.2rem; border: 2px solid transparent;
+  cursor: pointer; transition: all 0.2s; display: inline-flex;
+  align-items: center; gap: 0.8rem; text-decoration: none; border-radius: 0;
+}
+.btn-primary { background: var(--signal); color: var(--white); border-color: var(--signal); }
+.btn-primary:hover { background: var(--signal-dark); border-color: var(--signal-dark); }
+.btn-dark { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.btn-dark:hover { background: var(--ink-soft); }
+.btn-outline { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-outline:hover { background: var(--ink); color: var(--white); }
+.btn-outline-light { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.4); }
+.btn-outline-light:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+.btn-lg { padding: 1.6rem 4rem; font-size: 1.6rem; }
+.btn-text {
+  background: none; border: none; color: var(--signal);
+  padding: 0; font-family: var(--display); font-weight: 600; font-size: 1.4rem;
+  cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+}
+.btn-text:hover { color: var(--signal-dark); }
+
+/* ============================================================
+   SPEC GRID (stat strip)
+   ============================================================ */
+.spec-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.spec-item { padding: 4rem 3.2rem; background: var(--surface); }
+.spec-value {
+  font-family: var(--display); font-size: 4.8rem; font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1;
+}
+.spec-label {
+  font-family: var(--display); font-size: 1.2rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ink-muted); margin-top: 0.8rem;
+}
+.spec-item-dark { background: var(--dark-surface); }
+.spec-item-dark .spec-label { color: var(--dark-muted); }
+
+/* ============================================================
+   ARCHETYPE CARDS
+   ============================================================ */
+.arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.arch-card {
+  padding: 3.2rem; background: var(--dark-surface); cursor: pointer;
+  transition: background 0.2s; border: 2px solid transparent;
+}
+.arch-card:hover { background: #222; border-color: var(--signal); }
+.arch-card-name {
+  font-family: var(--display); font-size: 1.8rem; font-weight: 700;
+  color: var(--white); margin-bottom: 0.8rem;
+}
+.arch-card-desc {
+  font-size: 1.4rem; color: var(--dark-muted); line-height: 1.5;
+  margin-bottom: 1.6rem;
+}
+.arch-card-cta {
+  font-family: var(--display); font-size: 1.3rem; font-weight: 600;
+  color: var(--signal); text-decoration: underline; text-underline-offset: 3px;
+}
+
+/* ============================================================
+   ASSESSMENT CONTAINER
+   ============================================================ */
+.assess-container {
+  min-height: calc(100vh - 6rem); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; padding: 6rem;
+  background: var(--white);
+}
+.assess-inner { max-width: 64rem; width: 100%; }
+.assess-progress {
+  margin-bottom: 4.8rem; display: flex; align-items: center;
+  justify-content: space-between;
+}
+.assess-progress-bar {
+  height: 4px; background: var(--surface); width: 100%; margin-top: 1.2rem;
+}
+.assess-progress-fill {
+  height: 100%; background: var(--signal); transition: width 0.4s ease;
+}
+.assess-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 4.8rem;
+}
+
+/* ============================================================
+   LOADING
+   ============================================================ */
+.loading-container {
+  min-height: calc(100vh - 6rem); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; background: var(--dark);
+  color: var(--white); gap: 3.2rem;
+}
+.loading-spinner {
+  width: 4.8rem; height: 4.8rem; border: 3px solid var(--dark-border);
+  border-top-color: var(--signal); border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   SCORE BUTTONS
+   ============================================================ */
+.score-btn {
+  flex: 1; padding: 2.4rem; border: 2px solid var(--border); background: var(--white);
+  cursor: pointer; transition: all 0.15s; text-align: left;
+}
+.score-btn:hover { border-color: var(--signal); }
+.score-btn.selected { border-color: var(--signal); background: var(--signal-10); }
+.score-btn-num { font-family: var(--display); font-size: 3.2rem; font-weight: 800; }
+.score-btn-label { font-family: var(--display); font-size: 1.4rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.8rem; }
+.score-btn-text { font-size: 1.3rem; color: var(--ink-muted); line-height: 1.5; }
+
+/* ============================================================
+   RISK TIER CARDS
+   ============================================================ */
+.tier-card {
+  padding: 3.2rem; border: 2px solid var(--border); background: var(--white);
+  cursor: pointer; transition: all 0.15s;
+}
+.tier-card:hover { border-color: var(--signal); }
+.tier-card.active { border-width: 3px; }
+.tier-card.tier-high.active { border-color: var(--risk-high); }
+.tier-card.tier-medium.active { border-color: var(--risk-medium); }
+.tier-card.tier-lower.active { border-color: var(--risk-lower); }
+
+/* ============================================================
+   USE CASE CARDS
+   ============================================================ */
+.uc-card {
+  padding: 2.4rem; background: var(--white); border: 2px solid var(--border);
+  cursor: pointer; transition: all 0.15s;
+}
+.uc-card:hover { border-color: var(--signal); background: var(--signal-10); }
+
+/* ============================================================
+   RISK BADGES
+   ============================================================ */
+.risk-badge {
+  font-family: var(--display); font-size: 1.1rem; font-weight: 700;
+  padding: 0.4rem 1rem; letter-spacing: 0.06em; text-transform: uppercase;
+  display: inline-block;
+}
+.risk-badge-high { background: var(--risk-high-bg); color: var(--risk-high); }
+.risk-badge-medium { background: var(--risk-medium-bg); color: var(--risk-medium); }
+.risk-badge-lower { background: var(--risk-lower-bg); color: var(--risk-lower); }
+
+/* ============================================================
+   NO-GO ALERT
+   ============================================================ */
+.nogo-alert {
+  background: var(--risk-high-bg); border: 2px solid var(--risk-high);
+  padding: 3.2rem; margin-bottom: 3.2rem;
+}
+
+/* ============================================================
+   SUMMARY TABLE
+   ============================================================ */
+.summary-table { width: 100%; border-collapse: collapse; }
+.summary-table th, .summary-table td {
+  padding: 1.6rem 2rem; text-align: left; border-bottom: 1px solid var(--border);
+  font-size: 1.4rem;
+}
+.summary-table th {
+  font-family: var(--display); font-weight: 700; font-size: 1.2rem;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted);
+}
+
+/* ============================================================
+   TOGGLE SWITCH
+   ============================================================ */
+.toggle { position: relative; display: inline-block; width: 4.8rem; height: 2.4rem; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; cursor: pointer; inset: 0; background: var(--border);
+  transition: 0.3s; border-radius: 2.4rem;
+}
+.toggle-slider::before {
+  content: ''; position: absolute; height: 1.8rem; width: 1.8rem;
+  left: 0.3rem; bottom: 0.3rem; background: var(--white);
+  transition: 0.3s; border-radius: 50%;
+}
+.toggle input:checked + .toggle-slider { background: var(--signal); }
+.toggle input:checked + .toggle-slider::before { transform: translateX(2.4rem); }
+
+/* ============================================================
+   QUESTION LIST
+   ============================================================ */
+.q-item { padding: 2rem 0; border-bottom: 1px solid var(--border); }
+.q-number { font-family: var(--display); font-size: 1.3rem; font-weight: 700; color: var(--signal); }
+.q-text { font-family: var(--display); font-size: 1.6rem; font-weight: 600; margin: 0.4rem 0; }
+.q-guidance { font-size: 1.4rem; color: var(--ink-muted); line-height: 1.6; }
+
+/* ============================================================
+   NOTES TEXTAREA
+   ============================================================ */
+.notes-area {
+  width: 100%; min-height: 8rem; padding: 1.6rem; border: 2px solid var(--border);
+  font-family: var(--body); font-size: 1.4rem; resize: vertical;
+  transition: border-color 0.15s;
+}
+.notes-area:focus { outline: none; border-color: var(--signal); }
+
+/* ============================================================
+   NO-GO CHECKLIST
+   ============================================================ */
+.nogo-item {
+  padding: 2rem 0; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 1.6rem;
+}
+.nogo-check {
+  width: 2.4rem; height: 2.4rem; border: 2px solid var(--border);
+  flex-shrink: 0; cursor: pointer; display: flex; align-items: center;
+  justify-content: center; margin-top: 0.2rem;
+}
+.nogo-check.flagged { background: var(--risk-high); border-color: var(--risk-high); color: white; }
+
+/* ============================================================
+   HUMANS BADGES
+   ============================================================ */
+.humans-badge {
+  font-family: var(--display); font-size: 1rem; font-weight: 800;
+  padding: 0.2rem 0.6rem; background: var(--signal-10); color: var(--signal-dark);
+  display: inline-block; margin-left: 0.4rem; letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   PILLAR COLOR BAR
+   ============================================================ */
+.pillar-bar {
+  height: 6px; width: 100%; margin-bottom: 2.4rem;
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  .nav, .btn, .assess-nav, .no-print { display: none !important; }
+  .view { display: block !important; padding-top: 0; }
+  .section { padding: 2rem; }
+  body { font-size: 10pt; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav { padding: 0 2.4rem; }
+  .section { padding: 6rem 2.4rem; }
+  .display-xl { font-size: 4.2rem; }
+  .display-lg { font-size: 3.2rem; }
+  .display-md { font-size: 2.4rem; }
+  .spec-grid { grid-template-columns: 1fr !important; }
+  .arch-grid { grid-template-columns: 1fr; }
+  .assess-container { padding: 4rem 2.4rem; }
+  .assess-inner { max-width: 100%; }
+  .uc-grid { grid-template-columns: 1fr !important; }
+  .tier-card-grid { grid-template-columns: 1fr !important; }
+  .score-btn-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="nav" id="main-nav">
+  <div class="nav-logo" onclick="showView('landing')">
+    <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 32px; height: auto;">
+      <defs><style>.fo-cls-1 { font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif; font-size: 130.25px; font-style: italic; font-weight: 600; fill: currentColor; } .fo-cls-2 { letter-spacing: -.02em; } .fo-cls-3 { letter-spacing: -.04em; }</style></defs>
+      <text class="fo-cls-1" transform="translate(0 112.21)"><tspan class="fo-cls-3" x="0" y="0">F</tspan><tspan class="fo-cls-2" x="70.47" y="0">O</tspan></text>
+    </svg>
+    Navigator
+  </div>
+  <div class="nav-right" id="nav-right">
+    <button class="btn btn-primary" style="font-size:1.3rem; padding: 0.8rem 2.4rem;" onclick="startEvaluation()">Evaluate a Tool</button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     VIEW SHELLS
+     ============================================================ -->
+<div class="view active" id="view-landing"><div id="landing-content"></div></div>
+<div class="view" id="view-tool-name"><div id="tool-name-content"></div></div>
+<div class="view" id="view-use-case"><div id="use-case-content"></div></div>
+<div class="view" id="view-risk-tier"><div id="risk-tier-content"></div></div>
+<div class="view" id="view-score"><div id="score-content"></div></div>
+<div class="view" id="view-nogo-check"><div id="nogo-check-content"></div></div>
+<div class="view" id="view-loading">
+  <div class="loading-container">
+    <div class="loading-spinner"></div>
+    <div class="display-sm" style="text-align: center;" id="loading-headline"></div>
+    <div style="color: var(--dark-muted); font-size: 1.4rem;" id="loading-subtext"></div>
+  </div>
+</div>
+<div class="view" id="view-summary"><div id="summary-content"></div></div>
+<div class="view" id="view-pillar"><div id="pillar-content"></div></div>
+<div class="view" id="view-explore"><div id="explore-content"></div></div>
+<div class="view" id="view-annual"><div id="annual-content"></div></div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+// ============================================================
+// FALLBACK CONTENT (inlined from navigator-v2-content.json)
+// ============================================================
+var FALLBACK_CONTENT = {"meta":{"version":"2.0","date":"February 2026","status":"DRAFT","prepared_by":"AQL Labs / FutureObjects","commissioned_by":"College Futures Foundation"},"hero":{"label":"We reviewed 35+ frameworks so you don\u2019t have to","headline":"Know what to ask\nbefore you sign.","subhead":"The vendor scorecard built for Student Services AI. Pick your use case, score nine pillars, and walk into the next meeting knowing exactly where you stand.","cta_primary":"Evaluate a Tool","cta_secondary":"Explore the Scorecard"},"stat_strip":[{"value":"35+","label":"Frameworks Synthesized"},{"value":"9","label":"Pillars to Score"},{"value":"8","label":"Lines You Don\u2019t Cross"}],"how_to_use":{"heading":"Start here. We\u2019ll walk you through it.","body":"For any AI tool that touches Student Services, work through each pillar\u2019s questions with the vendor and your internal team. Score each pillar 1\u20133. A tool doesn\u2019t need to score 3 everywhere \u2014 but any pillar scoring 1 should trigger a governance conversation about whether to proceed, add safeguards, or walk away. This isn\u2019t pass/fail. It\u2019s a map of where the governance work needs to happen.","steps":["Name the tool and select your use case. We assign a risk tier \u2014 High, Medium, or Lower \u2014 so you know which pillars are mandatory and how high the bar is.","Work through each pillar with the vendor and your team. Read the questions, check the guidance, then give the pillar a single score: 3 (strong), 2 (partial), or 1 (failing).","Get your results. We check eight no-go criteria, read the pattern in your scores, and tell you plainly: proceed, add safeguards, or walk away."]},"archetypes":[{"id":"lightweight","name":"This Is Our First AI Tool","description":"No formal AI governance yet. You need the minimum viable process \u2014 five mandatory pillars, clear guidance, and a straightforward answer on whether this tool meets the basics.","cta":"Start with the essentials"},{"id":"building","name":"We\u2019re Buying Something Serious","description":"You have some governance in place and you\u2019re evaluating a medium- or high-risk tool \u2014 AI tutoring, advising, predictive analytics. You need all nine pillars, full rubrics, and the no-go criteria front and center.","cta":"Run the full scorecard"},{"id":"scaling","name":"We Have Tools. Now We Need to Manage Them.","description":"Multiple tools deployed. Mature governance. You need to rescore what you have, compare across the portfolio, and catch the patterns your individual evaluations missed.","cta":"Start annual review"}],"statement":{"headline":"The question isn\u2019t whether to use AI. It\u2019s whether the AI you\u2019re buying deserves your students\u2019 trust.","body":"We built this scorecard because no one else had. Thirty-five global frameworks, and not one was designed for the tools your Student Services team is actually buying \u2014 the advising engines, the early alert systems, the AI tutors. Every question here was written for advisors, VPSS offices, IT leads, and faculty governance committees. It complements the CCCCO AI Mobilization Framework. And it says what needs to be said: some tools aren\u2019t ready. Some vendors won\u2019t answer the hard questions. This scorecard helps you find out before you sign."},"use_cases":[{"id":"uc1","name":"Advising / Guided Pathways AI","default_tier":"high","risk_factor":"Recommendations affect student trajectory; errors compound","examples":"EAB Navigate, Civitas Illume, guided pathway recommendation engines"},{"id":"uc2","name":"Financial Aid AI","default_tier":"high","risk_factor":"Automated decisions on access to resources","examples":"Financial aid eligibility engines, scholarship matching, FAFSA verification tools"},{"id":"uc3","name":"Early Alert / Predictive Analytics","default_tier":"high","risk_factor":"Risk profiling; disparate impact; surveillance potential","examples":"Dropout prediction, risk flags, student success scores, early alert dashboards"},{"id":"uc4","name":"Placement / Prerequisite AI","default_tier":"high","risk_factor":"Determines course access; equity implications","examples":"Multiple measures placement, prerequisite override recommendations"},{"id":"uc5","name":"AI Tutoring","default_tier":"medium","risk_factor":"Faculty configuration matters; hallucination risk; Socratic vs. answer mode","examples":"Nectir, AI writing tutors, subject-specific tutoring bots"},{"id":"uc6","name":"Student Journey Analytics","default_tier":"medium","risk_factor":"PII; aggregation vs. individual tracking; who has access","examples":"Enrollment funnel analytics, persistence dashboards, student engagement scoring"},{"id":"uc7","name":"Career Services AI","default_tier":"medium","risk_factor":"Pathway bias; equity across career clusters","examples":"Resume builders, interview prep bots, career pathway recommendation engines"},{"id":"uc8","name":"Basic Needs Matching","default_tier":"medium","risk_factor":"Sensitive data (food insecurity, housing); stigma risk","examples":"Basic needs resource matching, CalFresh/housing referral tools"},{"id":"uc9","name":"FAQ Chatbot / Digital Front Door","default_tier":"lower","risk_factor":"Accuracy; escalation path; multilingual coverage","examples":"Enrollment Q&A bots, campus wayfinding, admissions chatbots"},{"id":"uc10","name":"Translation of Public Materials","default_tier":"lower","risk_factor":"Quality across languages; cultural appropriateness","examples":"Website translation, document translation, multilingual content generation"}],"risk_tiers":{"intro":"Every tool gets a risk tier before you score it. The tier sets the governance intensity \u2014 which pillars are mandatory, how high the bar is, and what happens if a pillar scores 1. Start here. The rest follows from this.","high":{"name":"High Risk","definition":"AI makes or materially influences decisions affecting student access, standing, or progress.","examples":"Financial aid eligibility, early alert/risk flags, academic standing, placement, advising recommendations on transfer pathways.","governance_requirement":"All 9 pillars must be scored. Any pillar scoring 1 requires a documented mitigation plan or no-go decision. Human-in-the-loop required. Appeals process required. Bias audit required before deployment and annually."},"medium":{"name":"Medium Risk","definition":"AI interacts directly with students or handles student data but doesn\u2019t make consequential decisions.","examples":"AI tutoring (Nectir), student journey analytics, career services (resume, interview prep), basic needs matching.","governance_requirement":"All 9 pillars scored. Pillars 2 (Equity) and 6 (Data Stewardship) must score 2 or higher. Faculty/staff configuration and override required."},"lower":{"name":"Lower Risk","definition":"AI handles general information, doesn\u2019t use individual student data, and has clear escalation to humans.","examples":"FAQ chatbot, digital front door/wayfinding, translation of public materials, IT helpdesk.","governance_requirement":"Score Pillars 1 (Purpose), 2 (Equity), 6 (Data Stewardship), 7 (Transparency), and 8 (Vendor Accountability) at minimum. Other pillars recommended but not required."},"source":"Risk tier approach adapted from: OMB M-25-21 (education as high-impact AI), NIST AI 600-1 (GenAI risk profile), HEAT-AI (higher ed risk classification from EU AI Act), Singapore Agentic AI Framework (task sensitivity / data criticality / action reversibility)."},"pillars":[{"id":"P1","name":"Purpose & Educational Legitimacy","color":"#0066cc","principle":"Every AI deployment must serve a genuine educational purpose and protect the meaning of credentials. AI use is justified by learning outcomes, not efficiency alone.","questions":[{"number":"1.1","question":"What specific student outcome or educational purpose does this tool serve? Can you name it?","guidance":"A concrete answer tied to learning, completion, transfer, or career readiness \u2014 not \"operational efficiency\" or \"innovation.\" If the team can\u2019t articulate the educational purpose in one sentence, the tool doesn\u2019t have one."},{"number":"1.2","question":"Does this tool align with the institution\u2019s mission and strategic plan?","guidance":"Connection to stated institutional priorities. Not a solution looking for a problem. Maps to existing student success initiatives."},{"number":"1.3","question":"Where on the student journey does this solve a problem? (enrollment, persistence, completion, transfer, career placement)","guidance":"Clear placement on the guided pathway. The tool addresses a known friction point, not a hypothetical one. Evidence that the problem exists at your institution."},{"number":"1.4","question":"Does the tool protect credential integrity? Could AI-generated outputs substitute for competency demonstration?","guidance":"For tutoring/learning tools: students still demonstrate mastery. For advising: recommendations support informed student choice, not automated credential assembly. For CTE: licensure competency requirements preserved."},{"number":"1.5","question":"Has an industry advisory committee or CTE program review validated this tool\u2019s relevance? (for CTE-adjacent use cases)","guidance":"Employer and industry input on whether the tool builds workforce-relevant skills. Alignment with career cluster competencies."}],"rubric":{"3":"Clear educational purpose tied to student outcomes. Aligned with institutional mission. Mapped to specific student journey stage. Credential integrity preserved. Industry validation where relevant.","2":"Educational purpose stated but not evidence-backed. General alignment with mission. Journey placement reasonable but not validated locally. Credential impact not fully assessed.","1":"No clear educational purpose \u2014 tool is efficiency-driven or vendor-pushed. No connection to institutional priorities. Credential integrity risk unaddressed."},"sources":"Informed by: IEAIED Req. 1 (achieving educational goals with evidence), ATD Action Area 1 (strategic leadership \u2014 integrating AI into broader goals), SACSCOC/C-RAC (AI use must support quality assurance), Advance CTE (career cluster alignment, Perkins V)."},{"id":"P2","name":"Equity & Differential Impact","color":"#28a745","principle":"AI governance must center equity and account for differential impacts on diverse CC student populations. Drawing on the Kapor Center justice lens, this pillar ensures AI does not create new barriers or reinforce existing ones.","questions":[{"number":"2.1","question":"Has this tool been tested with student populations similar to ours? (Pell-eligible, first-gen, working adults, multilingual, students with disabilities)","guidance":"Vendor can name specific institutions, student demographics, and outcomes. Not just \"we serve higher ed.\""},{"number":"2.2","question":"Are error rates, recommendation accuracy, or response quality consistent across student demographics?","guidance":"Vendor provides disaggregated performance data. If they can\u2019t, that\u2019s a red flag \u2014 they haven\u2019t measured it."},{"number":"2.3","question":"Has a differential impact analysis been conducted? Who might be harmed by this tool\u2019s errors or limitations?","guidance":"Vendor or internal team has identified which populations face higher risk from tool errors. Not just \"it works for everyone.\" Specific harm scenarios articulated."},{"number":"2.4","question":"Does the tool work effectively for multilingual students? In what languages? Is it real-time or pre-translated?","guidance":"Actual language coverage and quality, not just \"we support translation.\" Test with your student language mix."},{"number":"2.5","question":"Does the tool meet accessibility standards? (WCAG 2.1 AA, screen reader compatibility, keyboard navigation)","guidance":"Documented accessibility compliance. VPAT or equivalent. Tested with assistive technology users."},{"number":"2.6","question":"What is the cost model for students? Are there paywalls, premium tiers, or features that require devices/bandwidth some students lack?","guidance":"No paywall barriers. Works on mobile. Low bandwidth mode. No premium tier that creates a two-track system."},{"number":"2.7","question":"Does the tool serve all career pathways equitably, or is it optimized for specific programs?","guidance":"CTE pathways covered, not just transfer/STEM. If advising-focused, it should know your full program catalog."}],"rubric":{"3":"Disaggregated performance data for CC-like populations. Differential impact analysis conducted. Tested with multilingual, first-gen, Pell-eligible students. Accessible. No cost barriers. All pathways covered.","2":"Equity acknowledged as priority but data limited. Willing to conduct bias audit post-deployment. Accessibility documented. Cost model reasonable.","1":"No disaggregated data. No differential impact analysis. Equity not addressed in product design. Accessibility unclear. Cost barriers exist."},"sources":"Informed by: Kapor Foundation (racial/social justice lens \u2014 centering how AI disproportionately impacts marginalized communities), NAIC (bias definition \u2014 \"distortion or error that produces inaccurate results\"), OMB M-25-21 (civil rights safeguards for high-impact AI), ASCCC (equity-centered AI policy for CCC)."},{"id":"P3","name":"Human Authority & Decision Accountability","color":"#6f42c1","principle":"Humans \u2014 not algorithms \u2014 make consequential decisions about students. Formal governance structures ensure authority, documentation, and accountability for AI-influenced decisions.","questions":[{"number":"3.1","question":"Does this tool make decisions that affect student access, standing, or progress \u2014 or does it recommend to a human who decides?","guidance":"Clear distinction between AI-as-recommendation and AI-as-decision. If the tool auto-acts (flags a student, changes a pathway, sends an alert), that\u2019s a consequential decision even if a human could theoretically override."},{"number":"3.2","question":"Can staff override, modify, or reject AI recommendations before they reach students?","guidance":"Override built into workflow, not buried in admin settings. Staff see the AI recommendation and can approve, edit, or reject before action."},{"number":"3.3","question":"For high-risk use cases: is there a defined escalation path when AI output is uncertain, contradictory, or flagged?","guidance":"Defined thresholds. When confidence is low or the case is edge, the system routes to a human, not a default action."},{"number":"3.4","question":"Does the tool create a decision audit trail? Can the institution document who approved what AI-influenced decision?","guidance":"Logged decisions with timestamps, the AI recommendation, and the human action taken. Supports the \"institutional floor, faculty ceiling\" model \u2014 clear chain of accountability."},{"number":"3.5","question":"Who is accountable when the AI is wrong? Is that defined in the contract?","guidance":"Clear liability allocation. Not \"institution assumes all risk\" buried in Terms of Service. Vendor has defined responsibilities for failures in their system."}],"rubric":{"3":"AI recommends; humans decide. Override built into workflow. Escalation paths defined. Full audit trail. Liability allocated in contract.","2":"AI acts with human review possible but not required. Override exists but isn\u2019t default. Some audit logging. Liability partially addressed.","1":"AI makes consequential decisions autonomously. Override technically possible but impractical. No audit trail. Vendor disclaims all liability."},"sources":"Informed by: OMB M-25-21 (human oversight with intervention safeguards), Singapore Agentic AI (human approval checkpoints; automation bias risk), GAO (human supervision procedures; audit trail), SACSCOC/C-RAC (human judgment central to evaluation)."},{"id":"P4","name":"Student and Faculty Agency","color":"#fd7e14","principle":"Students and faculty are empowered participants in AI governance, not subjects of it. Faculty set academic AI policy; students exercise informed autonomy \u2014 with special provisions for the 70%+ adjunct workforce and adult learner populations.","questions":[{"number":"4.1","question":"Does the tool help students learn to navigate AI, or does it just deliver AI-generated answers?","guidance":"Skill-building design: Socratic mode, guided problem-solving, \"here\u2019s how I got this answer.\" Student learns the process, not just the result."},{"number":"4.2","question":"Can students opt out of AI interaction and access a human alternative without penalty or delay?","guidance":"Real opt-out, not a buried setting. Human alternative is accessible, not a worse experience. Student isn\u2019t punished for choosing human support."},{"number":"4.3","question":"Does the tool give students visibility into and control over their own data and AI profile?","guidance":"Students can see what the system \"thinks\" about them (risk profile, pathway recommendation, engagement score) and contest it."},{"number":"4.4","question":"Does the tool recognize prior AI experience that adult learners bring from their workplaces?","guidance":"Not a one-size-fits-all onboarding. Acknowledges that a 35-year-old returning student may use AI at work daily. Respects adult learner autonomy."},{"number":"4.5","question":"Can faculty configure, restrict, or turn off AI features for their courses and advisees?","guidance":"Granular faculty control. Not admin-only settings. Faculty set AI behavior (Socratic mode, answer restrictions, knowledge scope) per course or section."},{"number":"4.6","question":"Does the vendor provide training that is accessible to adjunct/part-time faculty? (async, under 30 minutes, no cost)","guidance":"Training included in contract. Async options that fit adjunct schedules. Not a full-day PD event that part-timers can\u2019t attend. Compensated governance participation addressed."},{"number":"4.7","question":"Does the tool evaluate, score, or surveil faculty performance?","guidance":"Faculty are users and configurers, not subjects. If the tool reports on \"faculty adoption rates,\" understand who sees that and how it\u2019s used. Faculty are not being measured by a vendor."},{"number":"4.8","question":"Does the tool\u2019s deployment plan respect the collegial consultation process and shared governance?","guidance":"Academic senate consulted before institution-wide deployment. Not a top-down IT rollout. Faculty governance has input on student-facing AI."}],"rubric":{"3":"Skill-building design for students. Real opt-out with human alternative. Adult learner autonomy respected. Granular faculty configuration. Adjunct-accessible training included. No faculty surveillance. Shared governance respected.","2":"Some skill-building features. Opt-out exists. Faculty configuration available. Training provided but not adjunct-optimized. Feedback mechanism exists.","1":"Pure output delivery. No meaningful opt-out. Admin-only configuration. No adjunct provisions. Faculty performance tracked. Top-down deployment assumed."},"sources":"Informed by: ASCCC (faculty primacy under Title 5 \"10+1\"), ATD Action Areas 4\u20135 (staff capability and faculty engagement), IEAIED Req. 5 (learner autonomy), Oregon State Bloom\u2019s Taxonomy (human skills), UNESCO Student/Teacher Competency Frameworks, ATD (AI agility)."},{"id":"P5","name":"Risk Proportionality & Harm Mitigation","color":"#dc3545","principle":"Governance intensity matches risk level. Low-impact AI gets lightweight review; high-impact AI (agentic systems, consequential decisions) gets full governance \u2014 with harm mitigation built into every deployment.","questions":[{"number":"5.1","question":"Has the tool been classified by risk tier (high / medium / lower) based on the use case table above? Does the governance intensity match?","guidance":"Risk tier is documented and agreed upon. High-risk tools get full governance; lower-risk tools get lightweight review. Not every tool gets the same treatment \u2014 and not every tool gets a pass."},{"number":"5.2","question":"What are the autonomy limits? Is this tool informational (provides data), recommendatory (suggests actions), or consequential (takes/triggers actions)?","guidance":"Clear classification. Informational = lowest governance. Recommendatory = moderate (human reviews before acting). Consequential = highest (human must approve before action)."},{"number":"5.3","question":"If this is an agentic AI system (acts autonomously, chains decisions, accesses multiple data sources), what bounds are placed on its autonomy?","guidance":"Whitelisted actions only. Logging of all tool usage. Unique agent identity linked to supervising entity. Anomaly detection. Threshold-based alerting. No unbounded autonomous action."},{"number":"5.4","question":"What is the harm scenario? If this tool fails, what is the worst realistic outcome for a student?","guidance":"Team has articulated the worst case: wrong transfer pathway, missed financial aid deadline, false early alert flag, incorrect basic needs referral. Severity is named and mitigation planned."},{"number":"5.5","question":"Are staff trained on automation bias \u2014 the risk of over-trusting AI recommendations because the system \"usually works\"?","guidance":"Training that addresses the specific danger of reliable systems: when AI is right 95% of the time, humans stop checking. Plan for maintaining critical review even when the tool performs well."},{"number":"5.6","question":"Is there a process for emerging technology review? How will the institution reassess risk if the vendor adds agentic capabilities or new AI features?","guidance":"Horizon scanning process. Vendor updates trigger risk reassessment. New capabilities don\u2019t auto-deploy \u2014 they go through governance review."}],"rubric":{"3":"Risk tier documented. Autonomy limits defined. Agentic bounds in place (if applicable). Harm scenarios articulated with mitigation plans. Automation bias training planned. Emerging tech review process exists.","2":"Risk tier acknowledged. Some autonomy limits. Harm scenarios partially explored. Training planned. No formal emerging tech review process.","1":"No risk classification. No autonomy limits. Harm scenarios not considered. No automation bias awareness. Vendor features auto-deploy without review."},"sources":"Informed by: Singapore Agentic AI Framework (autonomy bounding, automation bias, agent identity, checkpoint approach), NIST AI 600-1 (12-risk taxonomy, human-AI configuration), OMB M-25-21 (high-impact AI definition, minimum risk practices), HEAT-AI (EU AI Act risk tiers adapted for higher ed), GAO (performance monitoring, model drift detection)."},{"id":"P6","name":"Data Stewardship & System Integrity","color":"#17a2b8","principle":"Student data is a public trust. AI systems must meet data stewardship standards that protect privacy, ensure integrity, and maintain institutional control over how data is used.","questions":[{"number":"6.1","question":"What student data does this tool collect, access, or generate? Provide a complete data inventory.","guidance":"Specific data fields, not categories. \"Student engagement data\" isn\u2019t enough \u2014 what exactly? Clicks, time on page, login frequency, assignment submissions, chat transcripts?"},{"number":"6.2","question":"Is any student data used to train or improve the vendor\u2019s AI models?","guidance":"Explicit contractual commitment: no training on student data without consent. In writing, not just in marketing."},{"number":"6.3","question":"What happens to student data when the contract ends? Retention, deletion, and portability terms?","guidance":"Defined deletion timeline. Data export in standard format. No vendor retention after contract. No \"we keep anonymized data\" loopholes."},{"number":"6.4","question":"Is the tool FERPA compliant? Does the vendor sign a FERPA-compliant data sharing agreement?","guidance":"Written FERPA compliance. Data sharing agreement defining vendor as \"school official\" with legitimate educational interest. Not just a checkbox."},{"number":"6.5","question":"What is the data provenance for the AI\u2019s training data? Was it collected ethically and with appropriate consent?","guidance":"Vendor describes training data sources. No scraping of student data without consent. Public datasets assessed for bias."},{"number":"6.6","question":"How does the tool handle data quality issues? (incomplete records, outdated SIS data, transfer students with partial records)","guidance":"Graceful handling of messy real-world CC data. Flags low-confidence recommendations rather than guessing. Doesn\u2019t hallucinate when data is incomplete."},{"number":"6.7","question":"Does the tool integrate with existing institutional systems (SIS, LMS, CRM) through secure, documented protocols?","guidance":"Standard integration methods (API, LTI, SAML/SSO). No shadow data stores. Data flows documented and auditable. Aligned with CCCCO Data Governance Advisory Workgroup standards where applicable."},{"number":"6.8","question":"Does the institution retain the right to audit the vendor\u2019s data practices?","guidance":"Contractual audit rights. Not blocked by \"trade secret\" or IP claims. Institution can inspect how student data is processed and stored."}],"rubric":{"3":"Complete data inventory provided. No training on student data (contractual). Defined deletion/portability. FERPA agreement signed. Training data provenance documented. Secure system integration. Audit rights in contract.","2":"Data inventory available on request. Training opt-out available. FERPA compliant. Some provenance documentation. Integration functional. Audit possible but not contractual.","1":"Data practices vague. Student data may train models. No clear deletion terms. FERPA claimed but undocumented. No audit rights. Integration undocumented or insecure."},"sources":"Informed by: IEEE P7004 (data lifecycle: access, collect, store, use, share, destroy), NAIC (audit rights over vendor data; insurer responsible regardless of build/buy), NIST 600-1 (data privacy; training data provenance), GAO Principle 2 (data quality, reliability, representativeness), Alabama Template (vendor contract requirements)."},{"id":"P7","name":"Transparency & Contestability","color":"#e83e8c","principle":"Students and faculty have the right to know when AI influences decisions that affect them \u2014 and the right to contest those decisions through meaningful processes.","questions":[{"number":"7.1","question":"Is it clear to students when they are interacting with AI vs. a human?","guidance":"Visible, plain-language disclosure at point of interaction. Not a privacy policy link. The student knows in the moment that this is AI."},{"number":"7.2","question":"Can students understand why the AI gave a particular recommendation? (e.g., \"we recommended this pathway because...\")","guidance":"Explainability at student-appropriate level. Not a technical model explanation \u2014 a reason a first-gen student can understand and question."},{"number":"7.3","question":"Does the vendor disclose what data the AI uses to generate recommendations for a given student?","guidance":"Student can see (or request to see) what data about them informed the AI output. Aligns with FERPA right of access."},{"number":"7.4","question":"Does the system support an appeals/contestability process for students affected by AI-influenced decisions?","guidance":"Students can contest an AI-influenced recommendation through a meaningful process \u2014 not just a complaint form. Right to human review of any AI-influenced consequential decision. Clear escalation pathway."},{"number":"7.5","question":"Is there documentation of how the AI model works that is accessible to non-technical staff?","guidance":"Plain-language system documentation. Advisors and student services staff can explain the tool to students."},{"number":"7.6","question":"Does the vendor provide a \"model card\" or equivalent \u2014 a summary of what the AI does, its limitations, and known failure modes?","guidance":"Standardized reporting on capability, limitations, and known biases. Published, not just available on request."},{"number":"7.7","question":"Does the institution publicly disclose which AI systems are in use for Student Services?","guidance":"Internal team question: Is there a public-facing list of AI tools used in student-facing processes? Students and community can see what AI is operating."}],"rubric":{"3":"Clear student-facing disclosure. Explainable recommendations. Data sources visible. Meaningful appeals/contestability process. Plain-language documentation. Model card published. Public AI inventory.","2":"Disclosure present but not prominent. Some explainability. Appeals possible through existing institutional processes. Documentation technical. Model card available on request.","1":"No disclosure to students. AI operates invisibly. No explainability. No appeals pathway. No documentation. No model card. No public disclosure of AI use."},"sources":"Informed by: NAIC (consumer notification when AI in use), CHAI (Model Cards / \"nutrition labels\"), NIST 600-1 (content provenance), IEAIED Req. 7\u20138 (transparency and informed participation), ASCCC (transparent and widely communicated policies), OMB M-25-21 (public AI use case inventory; appeals and remedies)."},{"id":"P8","name":"Vendor Accountability & Institutional Sovereignty","color":"#6610f2","principle":"CCs are buyers, not builders, of AI. Vendor relationships must protect institutional sovereignty, ensure accountability, and leverage collective bargaining power across the system.","questions":[{"number":"8.1","question":"Does the contract include performance benchmarks and what happens if the vendor doesn\u2019t meet them?","guidance":"Defined SLAs for uptime, accuracy, response time. Remedies for non-performance (credit, exit clause). Not just \"best efforts.\""},{"number":"8.2","question":"What is the exit strategy? Can the institution leave without losing data, disrupting student services, or paying punitive fees?","guidance":"Reasonable exit terms. Data portability in standard formats. Transition support. No lock-in through proprietary data formats or integrations."},{"number":"8.3","question":"Can the institution conduct or require independent bias audits of the tool?","guidance":"Vendor supports third-party audits. Provides access to necessary data and system information. Doesn\u2019t block audits with IP claims."},{"number":"8.4","question":"How does the vendor handle model updates? Does the institution get advance notice and the ability to test before updates go live?","guidance":"Update notification in advance. Staging/testing environment. Institution can delay updates. No silent model changes."},{"number":"8.5","question":"Is this tool available through FoundationCCC/CollegeBuys or other consortium contracts? Has the CCC system already negotiated terms?","guidance":"Consortium pricing and terms leveraged where available. If not, institution negotiates with awareness of system-wide contracts. Collective bargaining power is used, not ignored."},{"number":"8.6","question":"Does the vendor have an incident response process? How are AI failures, errors, or breaches reported and resolved?","guidance":"Defined incident reporting timeline. Notification to institution (not just vendor\u2019s legal team). Root cause analysis. Corrective action plan."},{"number":"8.7","question":"What does total cost of ownership look like over 3 years? (licensing, integration, training, maintenance, scaling)","guidance":"Transparent pricing. No hidden fees. Integration costs upfront. Scaling costs predictable. Training included or costed separately."}],"rubric":{"3":"Performance SLAs with remedies. Clean exit terms with data portability. Independent audits supported. Advance update notification. Consortium terms leveraged. Incident response defined. Transparent total cost.","2":"Some performance terms. Exit possible with reasonable effort. Audits considered on request. Updates communicated. Consortium not explored. Incident reporting exists. Cost mostly transparent.","1":"No performance guarantees. Punitive exit terms or data lock-in. Audits blocked. Silent updates. No consortium awareness. No incident process. Hidden costs."},"sources":"Informed by: NAIC (written AIS program; third-party vendor accountability; audit rights; insurer responsible regardless of build/buy), GAO (auditor access rights protected against vendor IP), NIST 600-1 (incident disclosure), IEAIED (procurement checklist), SREB (total cost of ownership; exit strategy), NACUBO/E&I Cooperative (consortium procurement; Cal State shared services)."},{"id":"P9","name":"Institutional Capacity & Continuous Governance","color":"#795548","principle":"Governance must be achievable at every institutional scale. Tiered implementation ensures resource-constrained colleges can begin with minimum viable governance and grow over time.","questions":[{"number":"9.1","question":"Does the institution have a governance structure (committee, designated person, review process) that can oversee this tool?","guidance":"Doesn\u2019t need to be a full AI committee for a lower-risk tool. But someone is named, a review cycle exists, and there\u2019s a process for decisions. Minimum viable governance is in place."},{"number":"9.2","question":"Will this tool be included in the institution\u2019s annual AI inventory?","guidance":"The institution maintains (or will create) an inventory of AI tools in use, their risk tiers, and their scorecard results. This tool will be on it."},{"number":"9.3","question":"Is there a plan to rescore this tool on a regular cycle?","guidance":"Annual for high-risk tools. Every two years for medium/lower. Trigger-based if vendor changes, incidents occur, or new capabilities are added."},{"number":"9.4","question":"Does the tool generate reporting that supports accreditation documentation?","guidance":"Usage data, outcome data, and governance documentation exportable in formats useful for accreditation self-studies and compliance reports."},{"number":"9.5","question":"Does the institution have the staff capacity to implement and sustain this tool? (training, monitoring, override review, student support)","guidance":"Honest capacity assessment. A tool that requires 10 hours/week of advisor review isn\u2019t viable for a college with 2 advisors. Implementation plan matches real institutional resources."},{"number":"9.6","question":"Are there shared resources from consortia, the Chancellor\u2019s Office, or peer institutions that can support governance of this tool?","guidance":"Institution isn\u2019t reinventing governance alone. Using shared templates, participating in peer learning, leveraging system-wide resources where available."}],"rubric":{"3":"Governance structure in place. AI inventory maintained. Regular rescore cycle planned. Accreditation-ready reporting. Capacity assessed honestly. Shared resources leveraged.","2":"Some governance exists. Inventory planned. Rescoring acknowledged but not scheduled. Accreditation alignment partial. Capacity concerns identified. Aware of shared resources.","1":"No governance structure. No inventory. No review cycle. No accreditation planning. Capacity not assessed. Operating in isolation."},"sources":"Informed by: SACSCOC/C-RAC (documentation for accreditation), EDUCAUSE (four-level policy framework; \"digital AI divide\" for resource-constrained institutions), CHAI (tiered playbooks by organization size), WCET (cooperative model; \"framework fog\"), ATD (network-based implementation support), Local Government AI Handbook (resource-constrained governance model), OMB M-25-21 (annual AI use case inventory)."}],"no_go_criteria":[{"id":"ng1","condition":"No clear educational purpose \u2014 tool is efficiency-driven or vendor-pushed without connection to student outcomes","pillar":"P1","pillar_name":"Purpose & Educational Legitimacy","why":"If it doesn\u2019t serve students, it doesn\u2019t belong in Student Services"},{"id":"ng2","condition":"Vendor uses student data to train AI models and will not contractually commit otherwise","pillar":"P6","pillar_name":"Data Stewardship & System Integrity","why":"Students are not training data"},{"id":"ng3","condition":"No human override possible for consequential decisions (financial aid, placement, academic standing)","pillar":"P3","pillar_name":"Human Authority & Decision Accountability","why":"Algorithms don\u2019t get the final word on a student\u2019s future"},{"id":"ng4","condition":"Vendor blocks independent bias audits or claims IP protection over audit access","pillar":"P8","pillar_name":"Vendor Accountability & Institutional Sovereignty","why":"If you can\u2019t audit it, you can\u2019t govern it"},{"id":"ng5","condition":"No FERPA-compliant data sharing agreement","pillar":"P6","pillar_name":"Data Stewardship & System Integrity","why":"FERPA is the floor, not the ceiling"},{"id":"ng6","condition":"No way for students to know AI is being used in their interaction","pillar":"P7","pillar_name":"Transparency & Contestability","why":"Invisible AI is unaccountable AI"},{"id":"ng7","condition":"No contestability pathway \u2014 students cannot appeal AI-influenced decisions","pillar":"P7","pillar_name":"Transparency & Contestability","why":"Decisions without recourse are not governance"},{"id":"ng8","condition":"Exit terms require forfeiting student data or impose punitive switching costs","pillar":"P8","pillar_name":"Vendor Accountability & Institutional Sovereignty","why":"Your data is your sovereignty. Don\u2019t sign it away."}],"score_patterns":[{"pattern":"Any pillar = 1 on a High-Risk tool","meaning":"Full stop. A score of 1 on any pillar for a high-risk tool \u2014 advising, financial aid, early alerts \u2014 means do not deploy without a documented mitigation plan approved by your governance committee. A 1 on Pillars 2, 3, or 5 should be treated as a no-go unless the mitigations are substantial and specific.","action_class":"nogo"},{"pattern":"Pillar 1 = 1","meaning":"Stop. If you can\u2019t articulate the educational purpose, don\u2019t buy it. This is the threshold question. Everything else is secondary.","action_class":"nogo"},{"pattern":"Multiple pillars = 2","meaning":"You can proceed \u2014 with conditions. Document what your institution will do to fill the vendor\u2019s gaps: add your own disclosure process, conduct your own bias audit, provide the faculty training the vendor didn\u2019t include. The tool isn\u2019t bad. It\u2019s incomplete. You\u2019re completing it.","action_class":"caution"},{"pattern":"All pillars = 2 or 3","meaning":"Proceed with standard governance. Add this tool to your AI inventory and monitor on the risk tier schedule. This is what good looks like.","action_class":"proceed"},{"pattern":"Strong on P6 & P8 (data, vendor) but weak on P4 & P7 (agency, transparency)","meaning":"Common pattern. The vendor built a solid back end but didn\u2019t design the product with students as participants. The data governance is there; the student-facing layer isn\u2019t. Your institution will need to add the disclosure, opt-out, and skill-building that the vendor doesn\u2019t provide.","action_class":"insight"},{"pattern":"Strong on P4 & P7 (agency, transparency) but weak on P6 (data)","meaning":"The vendor markets well but hasn\u2019t done the data governance work. Attractive front end, uncertain foundation. Dig into the data practices before you commit.","action_class":"caution"},{"pattern":"Pillar 9 = 1","meaning":"This one isn\u2019t about the vendor. It\u2019s about whether your institution is ready. Build governance capacity before deploying this tool, not after. A good tool in an ungoverned environment still creates risk.","action_class":"insight"}],"annual_review":{"intro":"Buying the tool is step one. Governing it is the ongoing work. Rescore every deployed tool on a regular cycle \u2014 annually for high-risk, every two years for medium and lower. The nine review areas map directly to the nine pillars, so the framework you used to evaluate is the same one you use to monitor.","schedule":"High-risk tools: annually. Medium and lower-risk tools: every 2 years. Trigger-based rescore if the vendor changes hands, an incident occurs, or new capabilities are added.","areas":[{"name":"Educational outcomes","pillars":"P1","questions":"Is the tool still serving its stated educational purpose? Has the student outcome improved? Is it still aligned with institutional priorities?"},{"name":"Equity outcomes","pillars":"P2","questions":"Are usage rates and outcomes equitable across student cohorts? Demographic-disaggregated review conducted? Any cohort underserved or disproportionately flagged?"},{"name":"Decision quality","pillars":"P3","questions":"What is the override rate? Are staff using overrides frequently (signal of AI quality issues)? Any decision accountability failures?"},{"name":"Student/faculty experience","pillars":"P4","questions":"What do students report? Satisfaction, confusion, avoidance, trust? Is faculty finding the tool helpful or burdensome? Adjunct access working?"},{"name":"Risk reassessment","pillars":"P5","questions":"Has the vendor added new capabilities or agentic features? Should the risk tier be updated? Any near-miss incidents?"},{"name":"Data practices","pillars":"P6","questions":"Any changes to vendor data practices? Data quality issues surfaced? Privacy audit results?"},{"name":"Incidents & appeals","pillars":"P7","questions":"Were there AI failures, errors, or complaints? How were they resolved? Complaint/appeal volume? Any contestability process breakdowns?"},{"name":"Vendor performance","pillars":"P8","questions":"Are SLAs being met? Has the vendor been acquired or changed ownership? Cost tracking to projection? Exit still feasible?"},{"name":"Governance health","pillars":"P9","questions":"Is the governance structure still functioning? AI inventory current? Are shared resources being leveraged? Is the institution ready for the next tier of maturity?"}]},"humans_mapping":{"intro":"If you\u2019re a California community college, this is for you. The CCCCO AI Mobilization Framework organizes governance around six letters: HUMANS. The scorecard\u2019s nine pillars map directly to each one \u2014 so every pillar you score here is work that counts toward your system-level alignment. You don\u2019t have to do this twice.","letters":{"H":{"name":"Human-Centered Approach","pillars":["P3","P4"],"description":"HUMANS establishes the principle; P3 operationalizes it with governance structures ensuring humans \u2014 not algorithms \u2014 make consequential decisions. P4 extends it to faculty pedagogical authority and student participation. AB 2370 provides the legislative floor."},"U":{"name":"Universal Support","pillars":["P2","P4"],"description":"Opt-out rights and equitable access align with P2\u2019s differential impact analysis. P4 extends \"universal\" to faculty agency (including the 70%+ adjunct workforce) and adult learner autonomy."},"M":{"name":"Managed Privacy Controls","pillars":["P6"],"description":"User agency over data aligns directly. P6 extends to data lifecycle requirements, institutional data sovereignty, CCCCO DGAW alignment, and incident response protocols."},"A":{"name":"Algorithmic Discrimination","pillars":["P2","P5"],"description":"Direct alignment. HUMANS requires remediation; P2 adds disaggregated outcome measurement, bias audits, and differential impact analysis. P5 adds risk-proportionate governance ensuring high-impact AI receives rigorous oversight."},"N":{"name":"Notice & Explanation","pillars":["P7"],"description":"Direct alignment. P7 adds classroom-level disclosure, public-facing governance documentation, meaningful explanation of AI outputs, and the right to contest AI-influenced decisions through accessible processes."},"S":{"name":"Safety & Security","pillars":["P8","P9","P5"],"description":"Safety aligns with P8\u2019s vendor accountability (evaluation checklists, audit rights, contract addenda) and P9\u2019s institutional capacity (governance reporting, tiered implementation). P5 contributes through incident escalation and harm mitigation protocols."}}},"footer":{"sources_heading":"Sources and Grounding","sources_body":"This scorecard synthesizes governance criteria from 35+ AI frameworks analyzed in the AQL/FutureObjects Global AI Governance Research and Education Framework Inventory. Key source frameworks: IEAIED Ethical Framework for AI in Education (procurement checklist), NAIC Model Bulletin (vendor accountability), GAO AI Accountability Framework (audit and performance), OMB M-25-21 (high-impact AI and human oversight), NIST AI 600-1 (GenAI risk profile), Singapore Agentic AI Framework (agentic governance, autonomy bounding), IEEE P7004 (student data lifecycle), SACSCOC/C-RAC (accreditation alignment), SREB AI Rec 8 (procurement evaluation), ATD AI-Enabled Community College (CC-specific implementation), ASCCC AI Resources (California CC governance), Kapor Foundation (equity and justice lens), CHAI (model cards and network standards), HEAT-AI (risk tiers for higher ed), EDUCAUSE (digital AI divide), Advance CTE (career cluster alignment), WCET (cooperative governance), NACUBO/E&I (consortium procurement), Data Cooperatives Handbook (collective governance), Local Government AI Handbook (resource-constrained governance).","prepared_by":"Prepared by AQL Labs / FutureObjects","commissioned_by":"Commissioned by College Futures Foundation","status":"DRAFT \u2014 For internal team review"},"ui_labels":{"nav_logo":"Navigator","nav_cta":"Evaluate a Tool","back":"Back","next":"Next Pillar","skip":"Skip (not required at this tier)","save":"Save Assessment","export":"Export / Print","new_eval":"Evaluate Another Tool","annual_review_cta":"Start Annual Review","california_toggle":"California CC? Show HUMANS alignment","override_confirm":"You\u2019re overriding the default risk tier. This changes which pillars are required and how high the bar is.","no_go_alert_title":"No-Go Criteria Triggered","no_go_alert_body":"These conditions stop procurement regardless of total score. These are the lines.","summary_title":"Your Scorecard","total_label":"TOTAL","notes_placeholder":"Add notes about this pillar...","tool_name_prompt":"What tool are you evaluating?","tool_name_placeholder":"e.g., EAB Navigate, Nectir AI Tutor, Civitas Illume","explore_heading":"Explore the Scorecard","explore_subhead":"Browse all nine pillars, their questions, and scoring rubrics \u2014 without starting an evaluation. See what we ask and why.","use_case_heading":"What are you evaluating?","use_case_subhead":"Select the Student Services use case. We\u2019ll assign a risk tier based on the decisions this tool affects.","risk_tier_heading":"Your Risk Tier","risk_tier_subhead":"This sets the governance intensity. Higher risk means more pillars are mandatory and the bar is higher.","pillar_scoring_heading":"Score This Pillar","pillar_scoring_subhead":"Read the questions. Talk to the vendor. Give the pillar a single score.","nogo_checklist_heading":"The Lines You Don\u2019t Cross","nogo_checklist_subhead":"Eight conditions that stop procurement regardless of total score. Everything else, we can work with. These, we can\u2019t.","summary_heading":"Here\u2019s Where You Stand","summary_subhead":"Your tool scored across all nine pillars. The pattern matters more than the total.","pattern_heading":"What the Pattern Tells You","pattern_subhead":"The total score matters less than the shape. Look at where the strengths and gaps are.","annual_review_heading":"Annual Review","annual_review_subhead":"Governance doesn\u2019t end at procurement. Rescore deployed tools on a regular cycle.","loading_headline":"Checking the lines","loading_subtext":"Reviewing your scores against eight no-go criteria...","score_3_label":"Strong","score_2_label":"Partial","score_1_label":"Failing","tier_high_badge":"High Risk","tier_medium_badge":"Medium Risk","tier_lower_badge":"Lower Risk","required_badge":"Required at this tier","recommended_badge":"Recommended","mitigation_required":"Mitigation required before deployment","proceed_label":"Proceed with standard governance","caution_label":"Proceed with conditions","nogo_label":"Do not deploy","next_steps_heading":"What Comes Next","next_steps_proceed":"Add to your AI inventory. Monitor on the risk tier schedule. Put the annual review on the calendar.","next_steps_caution":"Document the safeguards your institution will add for each pillar below 3. Name who owns it and when it\u2019s done.","next_steps_nogo":"This tool does not meet minimum governance requirements. That doesn\u2019t mean never \u2014 it means not yet, not like this. Consider alternative tools, go back to the vendor with specific requirements, or build institutional capacity first."}};
+
+// ============================================================
+// CONTENT + STATE
+// ============================================================
+var CONTENT = {};
+
+var state = {
+  toolName: '',
+  useCase: null,
+  riskTier: null,
+  riskTierOverride: false,
+  currentPillar: 0,
+  pillarOrder: [],
+  scores: {},
+  notes: {},
+  noGoFlags: [],
+  isCaliforniaCC: false,
+  archetype: null,
+  timestamp: null
+};
+
+// ============================================================
+// VIEW MANAGEMENT + BROWSER HISTORY
+// ============================================================
+var _skipPush = false;
+
+function showView(id, detail) {
+  document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active', 'view-fade'); });
+  var el = document.getElementById('view-' + id);
+  if (!el) return;
+  el.classList.add('active', 'view-fade');
+  window.scrollTo(0, 0);
+  updateNav(id);
+  if (!_skipPush) {
+    var hs = { view: id };
+    if (detail) hs.detail = detail;
+    history.pushState(hs, '', '#' + id + (detail ? '/' + detail : ''));
+  }
+}
+
+window.addEventListener('popstate', function(e) {
+  _skipPush = true;
+  if (e.state && e.state.view) {
+    var view = e.state.view;
+    var detail = e.state.detail;
+    if (view === 'explore') { renderExplore(); showView('explore'); }
+    else if (view === 'pillar' && detail) { renderPillarDetail(detail); showView('pillar'); }
+    else if (view === 'annual') { renderAnnualReview(); showView('annual'); }
+    else if (view === 'summary' && state.toolName) { renderSummary(); showView('summary'); }
+    else if (view === 'score' && state.toolName) { renderPillarScore(); showView('score'); }
+    else { renderLanding(); showView('landing'); }
+  } else {
+    renderLanding(); showView('landing');
+  }
+  _skipPush = false;
+});
+
+function updateNav(viewId) {
+  var navRight = document.getElementById('nav-right');
+  var L = CONTENT.ui_labels || {};
+  if (viewId === 'landing') {
+    navRight.innerHTML = '<button class="btn btn-primary" style="font-size:1.3rem; padding: 0.8rem 2.4rem;" onclick="startEvaluation()">' + (L.nav_cta || 'Evaluate a Tool') + '</button>';
+  } else if (viewId === 'explore') {
+    navRight.innerHTML = '<button class="nav-back" onclick="showView(\'landing\')">\u2190 Back</button>' +
+      '<button class="btn btn-primary" style="font-size:1.3rem; padding: 0.8rem 2.4rem;" onclick="startEvaluation()">' + (L.nav_cta || 'Evaluate a Tool') + '</button>';
+  } else if (viewId === 'summary') {
+    navRight.innerHTML = '<button class="nav-back" onclick="showView(\'landing\')">\u2190 Home</button>' +
+      '<button class="btn btn-primary" style="font-size:1.3rem; padding: 0.8rem 2.4rem;" onclick="startEvaluation()">' + (L.new_eval || 'New Evaluation') + '</button>';
+  } else if (viewId === 'annual') {
+    navRight.innerHTML = '<button class="nav-back" onclick="showView(\'landing\')">\u2190 Back</button>';
+  } else if (viewId === 'pillar') {
+    navRight.innerHTML = '<button class="nav-back" onclick="history.back()">\u2190 Back</button>';
+  } else {
+    navRight.innerHTML = '<button class="nav-back" onclick="history.back()">\u2190 Exit</button>';
+  }
+}
+
+// ============================================================
+// HELPER FUNCTIONS
+// ============================================================
+function getRequiredPillars(tier) {
+  if (tier === 'lower') return ['P1', 'P2', 'P6', 'P7', 'P8'];
+  return ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9'];
+}
+function getAllPillars() {
+  return ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9'];
+}
+function getPillarById(id) {
+  var pillars = CONTENT.pillars || [];
+  for (var i = 0; i < pillars.length; i++) {
+    if (pillars[i].id === id) return pillars[i];
+  }
+  return null;
+}
+function getUseCaseById(id) {
+  var ucs = CONTENT.use_cases || [];
+  for (var i = 0; i < ucs.length; i++) {
+    if (ucs[i].id === id) return ucs[i];
+  }
+  return null;
+}
+function tierBadgeClass(tier) {
+  if (tier === 'high') return 'risk-badge-high';
+  if (tier === 'medium') return 'risk-badge-medium';
+  return 'risk-badge-lower';
+}
+function tierLabel(tier) {
+  var L = CONTENT.ui_labels || {};
+  if (tier === 'high') return L.tier_high_badge || 'High Risk';
+  if (tier === 'medium') return L.tier_medium_badge || 'Medium Risk';
+  return L.tier_lower_badge || 'Lower Risk';
+}
+function escHtml(str) {
+  var d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+function getHumansForPillar(pillarId) {
+  var mapping = CONTENT.humans_mapping;
+  if (!mapping || !mapping.letters) return [];
+  var result = [];
+  for (var letter in mapping.letters) {
+    if (mapping.letters[letter].pillars && mapping.letters[letter].pillars.indexOf(pillarId) !== -1) {
+      result.push(letter);
+    }
+  }
+  return result;
+}
+
+// ============================================================
+// RENDER: LANDING
+// ============================================================
+function renderLanding() {
+  var C = CONTENT;
+  var H = C.hero || {};
+  var L = C.ui_labels || {};
+  var html = '';
+
+  // Hero
+  html += '<div class="section section-dark" style="padding: 16rem 6rem 10rem;">';
+  html += '<div class="section-inner">';
+  html += '<div class="label" style="color: var(--signal); margin-bottom: 2.4rem;">' + escHtml(H.label) + '</div>';
+  html += '<div class="display-xl" style="max-width: 80rem; margin-bottom: 3.2rem; white-space: pre-line;">' + escHtml(H.headline) + '</div>';
+  html += '<div class="body-lg" style="color: var(--dark-muted); max-width: 48rem; margin-bottom: 4.8rem;">' + escHtml(H.subhead) + '</div>';
+  html += '<div style="display: flex; gap: 1.6rem; align-items: center; flex-wrap: wrap;">';
+  html += '<button class="btn btn-primary btn-lg" onclick="startEvaluation()">' + escHtml(H.cta_primary) + '</button>';
+  html += '<button class="btn btn-outline-light btn-lg" onclick="renderExplore(); showView(\'explore\')">' + escHtml(H.cta_secondary) + '</button>';
+  html += '</div></div></div>';
+
+  // Stat strip
+  if (C.stat_strip) {
+    html += '<div class="spec-grid">';
+    C.stat_strip.forEach(function(s) {
+      html += '<div class="spec-item"><div class="spec-value" style="color: var(--signal);">' + escHtml(s.value) + '</div>';
+      html += '<div class="spec-label">' + escHtml(s.label) + '</div></div>';
+    });
+    html += '</div>';
+  }
+
+  // How to use
+  if (C.how_to_use) {
+    var htu = C.how_to_use;
+    html += '<div class="section"><div class="section-inner">';
+    html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">' + escHtml(htu.heading) + '</div>';
+    html += '<div class="body-lg" style="color: var(--ink-soft); max-width: 72rem; margin-bottom: 4rem;">' + escHtml(htu.body) + '</div>';
+    if (htu.steps) {
+      html += '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem;" class="spec-grid">';
+      htu.steps.forEach(function(step, i) {
+        html += '<div style="background: none; padding: 0;">';
+        html += '<div class="spec-value" style="color: var(--signal); font-size: 3.2rem; margin-bottom: 1.2rem;">' + (i + 1) + '</div>';
+        html += '<div style="font-size: 1.5rem; color: var(--ink-soft); line-height: 1.6;">' + escHtml(step) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+
+  // Archetypes
+  if (C.archetypes) {
+    html += '<div class="section section-dark">';
+    html += '<div class="section-inner" style="margin-bottom: 4rem;">';
+    html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">Quick Start</div>';
+    html += '<div class="display-md" style="margin-bottom: 1.6rem;">Which sounds like your college?</div>';
+    html += '</div>';
+    html += '<div class="arch-grid">';
+    C.archetypes.forEach(function(a) {
+      html += '<div class="arch-card" onclick="selectArchetype(\'' + a.id + '\')">';
+      html += '<div class="arch-card-name">' + escHtml(a.name) + '</div>';
+      html += '<div class="arch-card-desc">' + escHtml(a.description) + '</div>';
+      html += '<div class="arch-card-cta">' + escHtml(a.cta) + ' &rarr;</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  }
+
+  // Statement
+  if (C.statement) {
+    html += '<div class="section section-surface" style="text-align: center;">';
+    html += '<div class="section-inner" style="max-width: 72rem;">';
+    html += '<div class="display-lg" style="margin-bottom: 3.2rem;">' + escHtml(C.statement.headline) + '</div>';
+    html += '<div class="body-lg" style="color: var(--ink-muted); max-width: 56rem; margin: 0 auto;">' + escHtml(C.statement.body) + '</div>';
+    html += '</div></div>';
+  }
+
+  // Footer
+  if (C.footer) {
+    html += '<div class="section section-dark" style="padding: 6rem;">';
+    html += '<div class="section-inner" style="text-align: center;">';
+    html += '<div style="font-size: 1.3rem; color: var(--dark-muted); line-height: 1.8;">';
+    html += escHtml(C.footer.prepared_by) + ' &middot; ' + escHtml(C.footer.commissioned_by);
+    html += '<br>' + escHtml(C.footer.status);
+    html += '</div></div></div>';
+  }
+
+  document.getElementById('landing-content').innerHTML = html;
+}
+
+// ============================================================
+// ARCHETYPE QUICK-START
+// ============================================================
+function selectArchetype(id) {
+  state.archetype = id;
+  if (id === 'scaling') {
+    renderAnnualReview();
+    showView('annual');
+  } else if (id === 'lightweight') {
+    // Express lane: tool name → 5 pillars → no-go → summary
+    // Skip use case selection and risk tier — auto-set to lower
+    state.toolName = '';
+    state.useCase = null;
+    state.riskTier = 'lower';
+    state.riskTierOverride = false;
+    state.currentPillar = 0;
+    state.pillarOrder = [];
+    state.scores = {};
+    state.notes = {};
+    state.noGoFlags = [];
+    state.timestamp = null;
+    renderToolName();
+    showView('tool-name');
+  } else {
+    startEvaluation();
+  }
+}
+
+// ============================================================
+// ASSESSMENT FLOW: START
+// ============================================================
+function startEvaluation() {
+  state.toolName = '';
+  state.useCase = null;
+  state.riskTier = null;
+  state.riskTierOverride = false;
+  state.currentPillar = 0;
+  state.pillarOrder = [];
+  state.scores = {};
+  state.notes = {};
+  state.noGoFlags = [];
+  state.timestamp = null;
+  renderToolName();
+  showView('tool-name');
+}
+
+// ============================================================
+// RENDER: TOOL NAME
+// ============================================================
+function renderToolName() {
+  var L = CONTENT.ui_labels || {};
+  var html = '';
+  html += '<div class="assess-container">';
+  html += '<div class="assess-inner">';
+  var isLightweight = state.archetype === 'lightweight';
+  var stepTotal = isLightweight ? 2 : 4;
+  html += '<div class="assess-progress"><span class="label" style="color: var(--ink-muted);">Step 1 of ' + stepTotal + '</span>';
+  if (isLightweight) html += '<span class="risk-badge risk-badge-lower" style="margin-left: 1.2rem;">Express Lane &middot; 5 Pillars</span>';
+  html += '</div>';
+  html += '<div class="assess-progress-bar"><div class="assess-progress-fill" style="width: ' + (isLightweight ? '25' : '10') + '%;"></div></div>';
+  html += '<div style="margin-top: 4.8rem;">';
+  html += '<div class="display-md" style="margin-bottom: 1.6rem;">' + escHtml(L.tool_name_prompt) + '</div>';
+  html += '<input type="text" id="tool-name-input" placeholder="' + escHtml(L.tool_name_placeholder) + '" style="width: 100%; padding: 1.6rem; border: 2px solid var(--border); font-family: var(--body); font-size: 1.6rem; border-radius: 0;" value="' + escHtml(state.toolName) + '">';
+  html += '</div>';
+  html += '<div class="assess-nav">';
+  html += '<button class="btn btn-outline" onclick="showView(\'landing\')">' + escHtml(L.back || 'Back') + '</button>';
+  html += '<button class="btn btn-primary btn-lg" onclick="submitToolName()">Continue</button>';
+  html += '</div>';
+  html += '</div></div>';
+  document.getElementById('tool-name-content').innerHTML = html;
+  setTimeout(function() {
+    var inp = document.getElementById('tool-name-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+
+function submitToolName() {
+  var inp = document.getElementById('tool-name-input');
+  var name = inp ? inp.value.trim() : '';
+  if (!name) { inp.style.borderColor = 'var(--critical)'; return; }
+  state.toolName = name;
+  if (state.archetype === 'lightweight') {
+    // Express lane: skip use case + risk tier, go straight to scoring
+    startScoring();
+    showView('score');
+  } else {
+    renderUseCases();
+    showView('use-case');
+  }
+}
+
+// ============================================================
+// RENDER: USE CASES
+// ============================================================
+function renderUseCases() {
+  var C = CONTENT;
+  var L = C.ui_labels || {};
+  var ucs = C.use_cases || [];
+  var html = '';
+  html += '<div class="section" style="padding-top: 10rem;">';
+  html += '<div class="section-inner">';
+  html += '<div class="assess-progress"><span class="label" style="color: var(--ink-muted);">Step 2 of 4</span><span class="label" style="color: var(--signal);">Evaluating: ' + escHtml(state.toolName) + '</span></div>';
+  html += '<div class="assess-progress-bar"><div class="assess-progress-fill" style="width: 25%;"></div></div>';
+  html += '<div style="margin-top: 4.8rem;">';
+  html += '<div class="display-md" style="margin-bottom: 1.2rem;">' + escHtml(L.use_case_heading) + '</div>';
+  html += '<div class="body-lg" style="color: var(--ink-muted); margin-bottom: 4rem;">' + escHtml(L.use_case_subhead) + '</div>';
+  html += '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem;" class="uc-grid">';
+  ucs.forEach(function(uc) {
+    html += '<div class="uc-card" onclick="selectUseCase(\'' + uc.id + '\')">';
+    html += '<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem;">';
+    html += '<div class="display-xs">' + escHtml(uc.name) + '</div>';
+    html += '<span class="risk-badge ' + tierBadgeClass(uc.default_tier) + '">' + tierLabel(uc.default_tier) + '</span>';
+    html += '</div>';
+    html += '<div style="font-size: 1.3rem; color: var(--ink-muted); line-height: 1.5;">' + escHtml(uc.risk_factor) + '</div>';
+    html += '<div style="font-size: 1.2rem; color: var(--mid); margin-top: 0.6rem;">' + escHtml(uc.examples) + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  html += '<div class="assess-nav no-print">';
+  html += '<button class="btn btn-outline" onclick="renderToolName(); showView(\'tool-name\')">' + escHtml(L.back || 'Back') + '</button>';
+  html += '</div>';
+  html += '</div></div></div>';
+  document.getElementById('use-case-content').innerHTML = html;
+}
+
+function selectUseCase(id) {
+  state.useCase = id;
+  var uc = getUseCaseById(id);
+  if (uc) {
+    state.riskTier = uc.default_tier;
+    state.riskTierOverride = false;
+  }
+  renderRiskTier();
+  showView('risk-tier');
+}
+
+// ============================================================
+// RENDER: RISK TIER
+// ============================================================
+function renderRiskTier() {
+  var C = CONTENT;
+  var L = C.ui_labels || {};
+  var RT = C.risk_tiers || {};
+  var uc = getUseCaseById(state.useCase);
+  var html = '';
+  html += '<div class="section" style="padding-top: 10rem;">';
+  html += '<div class="section-inner" style="max-width: 80rem;">';
+  html += '<div class="assess-progress"><span class="label" style="color: var(--ink-muted);">Step 3 of 4</span><span class="label" style="color: var(--signal);">Evaluating: ' + escHtml(state.toolName) + '</span></div>';
+  html += '<div class="assess-progress-bar"><div class="assess-progress-fill" style="width: 40%;"></div></div>';
+  html += '<div style="margin-top: 4.8rem;">';
+  html += '<div class="display-md" style="margin-bottom: 1.2rem;">' + escHtml(L.risk_tier_heading) + '</div>';
+  html += '<div class="body-lg" style="color: var(--ink-muted); margin-bottom: 2rem;">' + escHtml(L.risk_tier_subhead) + '</div>';
+
+  if (uc) {
+    html += '<div style="padding: 2.4rem; background: var(--surface); margin-bottom: 3.2rem;">';
+    html += '<div class="display-xs" style="margin-bottom: 0.4rem;">' + escHtml(uc.name) + '</div>';
+    html += '<div style="font-size: 1.4rem; color: var(--ink-muted);">' + escHtml(uc.risk_factor) + '</div>';
+    html += '<div style="margin-top: 1.2rem;"><span class="risk-badge ' + tierBadgeClass(uc.default_tier) + '">Default: ' + tierLabel(uc.default_tier) + '</span></div>';
+    html += '</div>';
+  }
+
+  // Tier cards
+  var tiers = ['high', 'medium', 'lower'];
+  html += '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;" class="tier-card-grid">';
+  tiers.forEach(function(t) {
+    var td = RT[t] || {};
+    var isActive = state.riskTier === t;
+    html += '<div class="tier-card tier-' + t + (isActive ? ' active' : '') + '" onclick="overrideRiskTier(\'' + t + '\')">';
+    html += '<div class="display-xs" style="margin-bottom: 0.8rem;">' + escHtml(td.name || t) + '</div>';
+    html += '<div style="font-size: 1.3rem; color: var(--ink-muted); line-height: 1.5; margin-bottom: 1.2rem;">' + escHtml(td.definition || '') + '</div>';
+    html += '<div style="font-size: 1.2rem; color: var(--ink-soft); line-height: 1.5;">' + escHtml(td.governance_requirement || '') + '</div>';
+    if (isActive) {
+      html += '<div style="margin-top: 1.2rem;"><span class="risk-badge ' + tierBadgeClass(t) + '">Selected</span></div>';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+
+  if (state.riskTierOverride) {
+    html += '<div style="margin-top: 1.6rem; padding: 1.6rem; background: var(--accent-light); border: 1px solid var(--accent); font-size: 1.4rem;">' + escHtml(L.override_confirm) + '</div>';
+  }
+
+  html += '<div class="assess-nav no-print">';
+  html += '<button class="btn btn-outline" onclick="renderUseCases(); showView(\'use-case\')">' + escHtml(L.back || 'Back') + '</button>';
+  html += '<button class="btn btn-primary btn-lg" onclick="startScoring()">Continue to Scoring</button>';
+  html += '</div>';
+  html += '</div></div></div>';
+  document.getElementById('risk-tier-content').innerHTML = html;
+}
+
+function overrideRiskTier(tier) {
+  var uc = getUseCaseById(state.useCase);
+  if (uc && tier !== uc.default_tier) {
+    state.riskTierOverride = true;
+  } else {
+    state.riskTierOverride = false;
+  }
+  state.riskTier = tier;
+  renderRiskTier();
+}
+
+// ============================================================
+// SCORING FLOW
+// ============================================================
+function startScoring() {
+  var pillars;
+  if (state.archetype === 'lightweight') {
+    // Express lane: only the 5 pillars required at lower risk tier
+    pillars = getRequiredPillars('lower');
+  } else {
+    pillars = getAllPillars();
+  }
+  state.pillarOrder = [];
+  pillars.forEach(function(p) {
+    state.pillarOrder.push(p);
+  });
+  state.currentPillar = 0;
+  renderPillarScore();
+}
+
+function renderPillarScore() {
+  var C = CONTENT;
+  var L = C.ui_labels || {};
+  var pId = state.pillarOrder[state.currentPillar];
+  var pillar = getPillarById(pId);
+  if (!pillar) return;
+  var required = getRequiredPillars(state.riskTier);
+  var isRequired = required.indexOf(pId) !== -1;
+  var total = state.pillarOrder.length;
+  var current = state.currentPillar + 1;
+  var pct = Math.round((current / total) * 100);
+  var currentScore = state.scores[pId];
+
+  var html = '';
+  html += '<div class="section" style="padding-top: 10rem;">';
+  html += '<div class="section-inner" style="max-width: 80rem;">';
+
+  // Progress
+  html += '<div class="assess-progress">';
+  html += '<span class="label" style="color: var(--ink-muted);">Pillar ' + current + ' of ' + total + '</span>';
+  html += '<span class="label" style="color: var(--signal);">' + escHtml(state.toolName) + '</span>';
+  html += '</div>';
+  html += '<div class="assess-progress-bar"><div class="assess-progress-fill" style="width: ' + pct + '%;"></div></div>';
+
+  html += '<div style="margin-top: 4.8rem;">';
+
+  // Pillar color bar
+  html += '<div class="pillar-bar" style="background: ' + pillar.color + ';"></div>';
+
+  // Pillar header
+  html += '<div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.2rem;">';
+  html += '<span class="label" style="color: ' + pillar.color + ';">' + pillar.id + '</span>';
+  html += '<span class="risk-badge ' + (isRequired ? tierBadgeClass(state.riskTier) : '') + '">' + (isRequired ? escHtml(L.required_badge) : escHtml(L.recommended_badge)) + '</span>';
+  html += '</div>';
+  html += '<div class="display-md" style="margin-bottom: 1.2rem;">' + escHtml(pillar.name) + '</div>';
+  html += '<div style="font-style: italic; font-size: 1.6rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 4rem;">' + escHtml(pillar.principle) + '</div>';
+
+  // Questions
+  html += '<div style="margin-bottom: 4rem;">';
+  pillar.questions.forEach(function(q) {
+    html += '<div class="q-item">';
+    html += '<div class="q-number">Question ' + escHtml(q.number) + '</div>';
+    html += '<div class="q-text">' + escHtml(q.question) + '</div>';
+    html += '<div class="q-guidance">' + escHtml(q.guidance) + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Score buttons
+  html += '<div class="display-xs" style="margin-bottom: 1.6rem;">' + escHtml(L.pillar_scoring_heading) + '</div>';
+  html += '<div style="display: flex; gap: 1.2rem; flex-wrap: wrap;" class="score-btn-row">';
+  var scores = [
+    { val: 3, label: L.score_3_label || 'Strong', text: pillar.rubric ? pillar.rubric['3'] : '' },
+    { val: 2, label: L.score_2_label || 'Partial', text: pillar.rubric ? pillar.rubric['2'] : '' },
+    { val: 1, label: L.score_1_label || 'Failing', text: pillar.rubric ? pillar.rubric['1'] : '' }
+  ];
+  scores.forEach(function(s) {
+    var sel = currentScore === s.val ? ' selected' : '';
+    html += '<div class="score-btn' + sel + '" onclick="scorePillar(' + s.val + ')">';
+    html += '<div class="score-btn-num" style="color: ' + (s.val === 1 ? 'var(--risk-high)' : s.val === 2 ? 'var(--risk-medium)' : 'var(--risk-lower)') + ';">' + s.val + '</div>';
+    html += '<div class="score-btn-label">' + escHtml(s.label) + '</div>';
+    html += '<div class="score-btn-text">' + escHtml(s.text) + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Notes
+  html += '<div style="margin-top: 3.2rem;">';
+  html += '<div class="label" style="color: var(--ink-muted); margin-bottom: 0.8rem;">Notes</div>';
+  html += '<textarea class="notes-area" id="pillar-notes" placeholder="' + escHtml(L.notes_placeholder) + '" onchange="saveNotes()">' + escHtml(state.notes[pId] || '') + '</textarea>';
+  html += '</div>';
+
+  // Sources
+  if (pillar.sources) {
+    html += '<div style="margin-top: 2.4rem; font-size: 1.2rem; color: var(--mid); line-height: 1.6;">' + escHtml(pillar.sources) + '</div>';
+  }
+
+  // Nav buttons
+  html += '<div class="assess-nav no-print">';
+  html += '<div>';
+  if (state.currentPillar > 0) {
+    html += '<button class="btn btn-outline" onclick="prevPillar()">' + escHtml(L.back || 'Back') + '</button>';
+  } else if (state.archetype === 'lightweight') {
+    html += '<button class="btn btn-outline" onclick="renderToolName(); showView(\'tool-name\')">' + escHtml(L.back || 'Back') + '</button>';
+  } else {
+    html += '<button class="btn btn-outline" onclick="renderRiskTier(); showView(\'risk-tier\')">' + escHtml(L.back || 'Back') + '</button>';
+  }
+  html += '</div>';
+  html += '<div style="display: flex; gap: 1.2rem;">';
+  if (!isRequired) {
+    html += '<button class="btn btn-text" onclick="skipPillar()">' + escHtml(L.skip) + '</button>';
+  }
+  html += '<button class="btn btn-primary btn-lg" onclick="nextPillar()">' + (state.currentPillar < total - 1 ? escHtml(L.next || 'Next Pillar') : 'Finish Scoring') + '</button>';
+  html += '</div>';
+  html += '</div>';
+
+  html += '</div></div></div>';
+  document.getElementById('score-content').innerHTML = html;
+}
+
+function scorePillar(score) {
+  var pId = state.pillarOrder[state.currentPillar];
+  state.scores[pId] = score;
+  renderPillarScore();
+}
+
+function saveNotes() {
+  var pId = state.pillarOrder[state.currentPillar];
+  var el = document.getElementById('pillar-notes');
+  if (el) state.notes[pId] = el.value;
+}
+
+function nextPillar() {
+  saveNotes();
+  var pId = state.pillarOrder[state.currentPillar];
+  var required = getRequiredPillars(state.riskTier);
+  var isRequired = required.indexOf(pId) !== -1;
+  if (isRequired && !state.scores[pId]) {
+    alert('This pillar is required. Please select a score before continuing.');
+    return;
+  }
+  if (state.currentPillar < state.pillarOrder.length - 1) {
+    state.currentPillar++;
+    renderPillarScore();
+    showView('score');
+  } else {
+    showLoadingThenNoGo();
+  }
+}
+
+function prevPillar() {
+  saveNotes();
+  if (state.currentPillar > 0) {
+    state.currentPillar--;
+    renderPillarScore();
+    showView('score');
+  }
+}
+
+function skipPillar() {
+  saveNotes();
+  if (state.currentPillar < state.pillarOrder.length - 1) {
+    state.currentPillar++;
+    renderPillarScore();
+    showView('score');
+  } else {
+    showLoadingThenNoGo();
+  }
+}
+
+// ============================================================
+// LOADING + NO-GO CHECK
+// ============================================================
+function showLoadingThenNoGo() {
+  var L = CONTENT.ui_labels || {};
+  document.getElementById('loading-headline').textContent = L.loading_headline || 'Checking the lines';
+  document.getElementById('loading-subtext').textContent = L.loading_subtext || 'Reviewing your scores against eight no-go criteria...';
+  showView('loading');
+  setTimeout(function() {
+    checkNoGoCriteria();
+    renderNoGoCheck();
+    showView('nogo-check');
+  }, 1800);
+}
+
+function checkNoGoCriteria() {
+  var flags = [];
+  var s = state.scores;
+  if (s.P1 === 1) flags.push('ng1');
+  if (s.P6 === 1) { flags.push('ng2'); flags.push('ng5'); }
+  if (s.P3 === 1) flags.push('ng3');
+  if (s.P8 === 1) { flags.push('ng4'); flags.push('ng8'); }
+  if (s.P7 === 1) { flags.push('ng6'); flags.push('ng7'); }
+  state.noGoFlags = flags;
+  return flags;
+}
+
+function renderNoGoCheck() {
+  var C = CONTENT;
+  var L = C.ui_labels || {};
+  var ngList = C.no_go_criteria || [];
+  var flags = state.noGoFlags;
+  var html = '';
+
+  html += '<div class="section" style="padding-top: 10rem;">';
+  html += '<div class="section-inner" style="max-width: 80rem;">';
+
+  html += '<div class="display-md" style="margin-bottom: 1.2rem;">' + escHtml(L.nogo_checklist_heading) + '</div>';
+  html += '<div class="body-lg" style="color: var(--ink-muted); margin-bottom: 4rem;">' + escHtml(L.nogo_checklist_subhead) + '</div>';
+
+  if (flags.length > 0) {
+    html += '<div class="nogo-alert">';
+    html += '<div class="display-xs" style="color: var(--risk-high); margin-bottom: 1.2rem;">' + escHtml(L.no_go_alert_title) + '</div>';
+    html += '<div style="font-size: 1.4rem; margin-bottom: 1.6rem;">' + escHtml(L.no_go_alert_body) + '</div>';
+    flags.forEach(function(fId) {
+      var ng = null;
+      ngList.forEach(function(n) { if (n.id === fId) ng = n; });
+      if (ng) {
+        html += '<div class="nogo-item">';
+        html += '<div class="nogo-check flagged">&#10007;</div>';
+        html += '<div>';
+        html += '<div style="font-weight: 700; margin-bottom: 0.4rem;">' + escHtml(ng.condition) + '</div>';
+        html += '<div style="font-size: 1.3rem; color: var(--ink-muted);">' + escHtml(ng.pillar_name) + ' &mdash; ' + escHtml(ng.why) + '</div>';
+        html += '</div></div>';
+      }
+    });
+    html += '</div>';
+  } else {
+    html += '<div style="padding: 3.2rem; background: var(--risk-lower-bg); border: 2px solid var(--risk-lower); margin-bottom: 3.2rem;">';
+    html += '<div class="display-xs" style="color: var(--risk-lower); margin-bottom: 0.8rem;">No Absolute No-Go Criteria Triggered</div>';
+    html += '<div style="font-size: 1.4rem;">All eight no-go conditions passed. Review your full scorecard below.</div>';
+    html += '</div>';
+  }
+
+  // Show all 8 criteria
+  html += '<div style="margin-top: 2.4rem;">';
+  ngList.forEach(function(ng) {
+    var isFlagged = flags.indexOf(ng.id) !== -1;
+    html += '<div class="nogo-item">';
+    html += '<div class="nogo-check' + (isFlagged ? ' flagged' : '') + '">' + (isFlagged ? '&#10007;' : '&#10003;') + '</div>';
+    html += '<div>';
+    html += '<div style="font-weight: 600; margin-bottom: 0.4rem;">' + escHtml(ng.condition) + '</div>';
+    html += '<div style="font-size: 1.3rem; color: var(--ink-muted);">' + escHtml(ng.pillar) + ': ' + escHtml(ng.pillar_name) + '</div>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+
+  html += '<div class="assess-nav no-print">';
+  html += '<button class="btn btn-outline" onclick="state.currentPillar = 0; renderPillarScore(); showView(\'score\')">Review Scores</button>';
+  html += '<button class="btn btn-primary btn-lg" onclick="renderSummary(); showView(\'summary\')">Continue to Summary</button>';
+  html += '</div>';
+  html += '</div></div>';
+
+  document.getElementById('nogo-check-content').innerHTML = html;
+}
+
+// ============================================================
+// RENDER: SUMMARY SCORECARD
+// ============================================================
+function renderSummary() {
+  var C = CONTENT;
+  var L = C.ui_labels || {};
+  var uc = getUseCaseById(state.useCase);
+  var html = '';
+
+  // Hero
+  html += '<div class="section section-dark" style="padding: 10rem 6rem 6rem;">';
+  html += '<div class="section-inner">';
+  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">' + escHtml(L.summary_heading) + '</div>';
+  html += '<div class="display-lg" style="margin-bottom: 1.6rem;">' + escHtml(state.toolName) + '</div>';
+  html += '<div style="display: flex; gap: 1.6rem; align-items: center; flex-wrap: wrap;">';
+  if (uc) html += '<span style="color: var(--dark-muted); font-size: 1.6rem;">' + escHtml(uc.name) + '</span>';
+  if (state.archetype === 'lightweight') html += '<span style="color: var(--dark-muted); font-size: 1.6rem;">Express Evaluation &middot; 5 Pillars</span>';
+  html += '<span class="risk-badge ' + tierBadgeClass(state.riskTier) + '">' + tierLabel(state.riskTier) + '</span>';
+  if (state.riskTierOverride) html += '<span style="color: var(--accent); font-size: 1.2rem;">(overridden)</span>';
+  html += '</div>';
+
+  // California toggle
+  html += '<div style="margin-top: 2.4rem; display: flex; align-items: center; gap: 1.2rem;">';
+  html += '<label class="toggle"><input type="checkbox" ' + (state.isCaliforniaCC ? 'checked' : '') + ' onchange="toggleCaliforniaCC(this.checked)"><span class="toggle-slider"></span></label>';
+  html += '<span style="color: var(--dark-muted); font-size: 1.3rem;">' + escHtml(L.california_toggle) + '</span>';
+  html += '</div>';
+  html += '</div></div>';
+
+  // No-go flags alert
+  if (state.noGoFlags.length > 0) {
+    html += '<div class="section" style="padding: 4rem 6rem 0;">';
+    html += '<div class="section-inner">';
+    html += '<div class="nogo-alert">';
+    html += '<div class="display-xs" style="color: var(--risk-high); margin-bottom: 1.2rem;">' + escHtml(L.no_go_alert_title) + ' (' + state.noGoFlags.length + ')</div>';
+    html += '<div style="font-size: 1.4rem;">' + escHtml(L.no_go_alert_body) + '</div>';
+    var ngList = C.no_go_criteria || [];
+    state.noGoFlags.forEach(function(fId) {
+      ngList.forEach(function(ng) {
+        if (ng.id === fId) {
+          html += '<div style="margin-top: 1.2rem; padding: 1rem 0; border-top: 1px solid rgba(220,38,38,0.3);">';
+          html += '<strong>' + escHtml(ng.condition) + '</strong>';
+          html += '<div style="font-size: 1.2rem; color: var(--ink-muted);">' + escHtml(ng.why) + '</div>';
+          html += '</div>';
+        }
+      });
+    });
+    html += '</div></div></div>';
+  }
+
+  // Score table
+  html += '<div class="section"><div class="section-inner">';
+  html += '<div class="display-sm" style="margin-bottom: 2.4rem;">' + escHtml(L.summary_title) + '</div>';
+  html += '<table class="summary-table">';
+  html += '<tr><th>Pillar</th><th>Name</th><th>Score</th>';
+  if (state.isCaliforniaCC) html += '<th>HUMANS</th>';
+  html += '<th>Notes</th></tr>';
+
+  var total = 0;
+  var scored = 0;
+  var required = getRequiredPillars(state.riskTier);
+  var pillars = C.pillars || [];
+  pillars.forEach(function(p) {
+    var score = state.scores[p.id];
+    var isReq = required.indexOf(p.id) !== -1;
+    var scoreDisplay = typeof score === 'number' ? score : '-';
+    if (typeof score === 'number') { total += score; scored++; }
+    var warn = score === 1 ? ' style="color: var(--risk-high); font-weight: 700;"' : '';
+    html += '<tr style="border-left: 4px solid ' + p.color + ';">';
+    html += '<td style="font-family: var(--display); font-weight: 700; color: ' + p.color + ';">' + p.id + '</td>';
+    html += '<td><a onclick="showPillarDetail(\'' + p.id + '\')" style="cursor:pointer; color: var(--signal); text-decoration: underline; text-underline-offset: 3px;">' + escHtml(p.name) + '</a>';
+    if (!isReq) html += ' <span style="font-size: 1.1rem; color: var(--mid);">(recommended)</span>';
+    html += '</td>';
+    html += '<td' + warn + '>' + scoreDisplay + (score === 1 ? ' &#9888;' : '') + '</td>';
+    if (state.isCaliforniaCC) {
+      var hLetters = getHumansForPillar(p.id);
+      html += '<td>';
+      hLetters.forEach(function(l) { html += '<span class="humans-badge">' + l + '</span>'; });
+      html += '</td>';
+    }
+    html += '<td style="font-size: 1.3rem; color: var(--ink-muted);">' + escHtml(state.notes[p.id] || '') + '</td>';
+    html += '</tr>';
+  });
+  html += '<tr style="font-weight: 700; background: var(--surface);">';
+  html += '<td></td><td>' + escHtml(L.total_label) + '</td>';
+  html += '<td>' + total + ' / ' + (scored * 3) + '</td>';
+  if (state.isCaliforniaCC) html += '<td></td>';
+  html += '<td></td></tr>';
+  html += '</table>';
+
+  // Pattern interpretation
+  var patterns = analyzePatterns();
+  if (patterns.length > 0) {
+    html += '<div style="margin-top: 4.8rem;">';
+    html += '<div class="display-sm" style="margin-bottom: 1.2rem;">' + escHtml(L.pattern_heading) + '</div>';
+    html += '<div style="font-size: 1.4rem; color: var(--ink-muted); margin-bottom: 2.4rem;">' + escHtml(L.pattern_subhead) + '</div>';
+    patterns.forEach(function(p) {
+      var bgColor = 'var(--surface)';
+      var borderColor = 'var(--border)';
+      if (p.action_class === 'nogo') { bgColor = 'var(--risk-high-bg)'; borderColor = 'var(--risk-high)'; }
+      else if (p.action_class === 'caution') { bgColor = 'var(--risk-medium-bg)'; borderColor = 'var(--risk-medium)'; }
+      else if (p.action_class === 'proceed') { bgColor = 'var(--risk-lower-bg)'; borderColor = 'var(--risk-lower)'; }
+      html += '<div style="padding: 2.4rem; margin-bottom: 1.2rem; background: ' + bgColor + '; border-left: 4px solid ' + borderColor + ';">';
+      html += '<div class="label" style="margin-bottom: 0.8rem; color: ' + borderColor + ';">' + escHtml(p.action_class) + '</div>';
+      html += '<div style="font-weight: 700; margin-bottom: 0.4rem;">' + escHtml(p.pattern) + '</div>';
+      html += '<div style="font-size: 1.4rem; color: var(--ink-soft); line-height: 1.6;">' + escHtml(p.meaning) + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+
+  // Next steps
+  html += '<div style="margin-top: 4.8rem;">';
+  html += '<div class="display-sm" style="margin-bottom: 1.2rem;">' + escHtml(L.next_steps_heading) + '</div>';
+  var overallClass = getOverallActionClass();
+  if (overallClass === 'nogo') {
+    html += '<div style="padding: 2.4rem; background: var(--risk-high-bg); border: 2px solid var(--risk-high); font-size: 1.5rem; line-height: 1.6;">';
+    html += '<strong>' + escHtml(L.nogo_label) + '</strong><br>' + escHtml(L.next_steps_nogo);
+    html += '</div>';
+  } else if (overallClass === 'caution') {
+    html += '<div style="padding: 2.4rem; background: var(--risk-medium-bg); border: 2px solid var(--risk-medium); font-size: 1.5rem; line-height: 1.6;">';
+    html += '<strong>' + escHtml(L.caution_label) + '</strong><br>' + escHtml(L.next_steps_caution);
+    html += '</div>';
+  } else {
+    html += '<div style="padding: 2.4rem; background: var(--risk-lower-bg); border: 2px solid var(--risk-lower); font-size: 1.5rem; line-height: 1.6;">';
+    html += '<strong>' + escHtml(L.proceed_label) + '</strong><br>' + escHtml(L.next_steps_proceed);
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // HUMANS mapping detail (if California CC)
+  if (state.isCaliforniaCC && CONTENT.humans_mapping) {
+    var hm = CONTENT.humans_mapping;
+    html += '<div style="margin-top: 4.8rem;">';
+    html += '<div class="display-sm" style="margin-bottom: 1.2rem;">HUMANS Framework Mapping</div>';
+    html += '<div style="font-size: 1.4rem; color: var(--ink-muted); margin-bottom: 2.4rem;">' + escHtml(hm.intro) + '</div>';
+    var letters = hm.letters;
+    for (var letter in letters) {
+      var ld = letters[letter];
+      html += '<div style="padding: 1.6rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 1.6rem; align-items: flex-start;">';
+      html += '<div style="width: 4rem; height: 4rem; background: var(--signal); color: white; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 2rem; font-weight: 800; flex-shrink: 0;">' + letter + '</div>';
+      html += '<div>';
+      html += '<div class="display-xs">' + escHtml(ld.name) + '</div>';
+      html += '<div style="font-size: 1.3rem; color: var(--ink-muted); margin-top: 0.4rem;">Pillars: ' + ld.pillars.join(', ') + '</div>';
+      html += '<div style="font-size: 1.3rem; color: var(--ink-soft); margin-top: 0.4rem;">' + escHtml(ld.description) + '</div>';
+      html += '</div></div>';
+    }
+    html += '</div>';
+  }
+
+  // Action buttons
+  html += '<div style="display: flex; gap: 1.6rem; flex-wrap: wrap; margin-top: 4.8rem;" class="no-print">';
+  html += '<button class="btn btn-primary btn-lg" onclick="saveAssessment()">' + escHtml(L.save) + '</button>';
+  html += '<button class="btn btn-outline btn-lg" onclick="window.print()">' + escHtml(L.export) + '</button>';
+  html += '<button class="btn btn-outline btn-lg" onclick="startEvaluation()">' + escHtml(L.new_eval) + '</button>';
+  html += '</div>';
+
+  html += '</div></div>';
+
+  document.getElementById('summary-content').innerHTML = html;
+}
+
+function toggleCaliforniaCC(checked) {
+  state.isCaliforniaCC = checked;
+  renderSummary();
+}
+
+function getOverallActionClass() {
+  if (state.noGoFlags.length > 0) return 'nogo';
+  var s = state.scores;
+  var hasOne = false;
+  var twos = 0;
+  for (var k in s) {
+    if (s[k] === 1) hasOne = true;
+    if (s[k] === 2) twos++;
+  }
+  if (hasOne && state.riskTier === 'high') return 'nogo';
+  if (hasOne || twos >= 3) return 'caution';
+  return 'proceed';
+}
+
+// ============================================================
+// PATTERN ANALYSIS
+// ============================================================
+function analyzePatterns() {
+  var matches = [];
+  var s = state.scores;
+  var tier = state.riskTier;
+  var patterns = CONTENT.score_patterns || [];
+
+  patterns.forEach(function(p) {
+    var match = false;
+    switch (p.action_class) {
+      case 'nogo':
+        if (p.pattern.indexOf('Pillar 1 = 1') !== -1 && s.P1 === 1) match = true;
+        if (p.pattern.indexOf('Any pillar = 1') !== -1 && tier === 'high') {
+          for (var k in s) { if (s[k] === 1) { match = true; break; } }
+        }
+        break;
+      case 'caution':
+        if (p.pattern.indexOf('Multiple pillars = 2') !== -1) {
+          var twos = 0;
+          for (var k in s) { if (s[k] === 2) twos++; }
+          if (twos >= 3) match = true;
+        }
+        if (p.pattern.indexOf('Strong on P4') !== -1 && s.P4 >= 2 && s.P7 >= 2 && s.P6 === 1) match = true;
+        break;
+      case 'proceed':
+        if (p.pattern.indexOf('All pillars = 2 or 3') !== -1) {
+          var allGood = true;
+          var hasScores = false;
+          for (var k in s) {
+            hasScores = true;
+            if (s[k] < 2) { allGood = false; break; }
+          }
+          if (allGood && hasScores) match = true;
+        }
+        break;
+      case 'insight':
+        if (p.pattern.indexOf('Strong on P6') !== -1 && s.P6 >= 2 && s.P8 >= 2 && (s.P4 === 1 || s.P7 === 1)) match = true;
+        if (p.pattern.indexOf('Pillar 9 = 1') !== -1 && s.P9 === 1) match = true;
+        break;
+    }
+    if (match) matches.push(p);
+  });
+  return matches;
+}
+
+// ============================================================
+// PILLAR DETAIL VIEW
+// ============================================================
+function showPillarDetail(id) {
+  renderPillarDetail(id);
+  showView('pillar', id);
+}
+
+function renderPillarDetail(id) {
+  var pillar = getPillarById(id);
+  if (!pillar) return;
+  var currentScore = state.scores[id];
+  var html = '';
+
+  // Hero
+  html += '<div class="section section-dark" style="padding: 10rem 6rem 6rem;">';
+  html += '<div class="section-inner">';
+  html += '<div class="pillar-bar" style="background: ' + pillar.color + ';"></div>';
+  html += '<div class="label" style="color: ' + pillar.color + '; margin-bottom: 1.2rem;">' + pillar.id + '</div>';
+  html += '<div class="display-lg" style="margin-bottom: 1.6rem;">' + escHtml(pillar.name) + '</div>';
+  html += '<div class="body-lg" style="color: var(--dark-muted); font-style: italic;">' + escHtml(pillar.principle) + '</div>';
+  if (typeof currentScore === 'number') {
+    html += '<div style="margin-top: 2rem;"><span class="risk-badge ' + (currentScore === 1 ? 'risk-badge-high' : currentScore === 2 ? 'risk-badge-medium' : 'risk-badge-lower') + '">Current Score: ' + currentScore + '</span></div>';
+  }
+  html += '</div></div>';
+
+  // Questions
+  html += '<div class="section"><div class="section-inner" style="max-width: 80rem;">';
+  html += '<div class="display-sm" style="margin-bottom: 2.4rem;">Questions</div>';
+  pillar.questions.forEach(function(q) {
+    html += '<div class="q-item">';
+    html += '<div class="q-number">Question ' + escHtml(q.number) + '</div>';
+    html += '<div class="q-text">' + escHtml(q.question) + '</div>';
+    html += '<div class="q-guidance">' + escHtml(q.guidance) + '</div>';
+    html += '</div>';
+  });
+
+  // Rubric
+  html += '<div style="margin-top: 4rem;">';
+  html += '<div class="display-sm" style="margin-bottom: 2.4rem;">Scoring Rubric</div>';
+  if (pillar.rubric) {
+    var rubricScores = [
+      { val: '3', label: 'Strong', color: 'var(--risk-lower)' },
+      { val: '2', label: 'Partial', color: 'var(--risk-medium)' },
+      { val: '1', label: 'Failing', color: 'var(--risk-high)' }
+    ];
+    rubricScores.forEach(function(rs) {
+      html += '<div style="padding: 2rem; margin-bottom: 1rem; border-left: 4px solid ' + rs.color + '; background: var(--surface);">';
+      html += '<div class="label" style="color: ' + rs.color + '; margin-bottom: 0.4rem;">' + rs.val + ' &mdash; ' + rs.label + '</div>';
+      html += '<div style="font-size: 1.4rem; line-height: 1.6;">' + escHtml(pillar.rubric[rs.val]) + '</div>';
+      html += '</div>';
+    });
+  }
+  html += '</div>';
+
+  // Sources
+  if (pillar.sources) {
+    html += '<div style="margin-top: 3.2rem; padding: 2rem; background: var(--surface);">';
+    html += '<div class="label" style="margin-bottom: 0.8rem; color: var(--ink-muted);">Sources</div>';
+    html += '<div style="font-size: 1.3rem; color: var(--ink-soft); line-height: 1.6;">' + escHtml(pillar.sources) + '</div>';
+    html += '</div>';
+  }
+
+  // Score from detail view
+  if (state.toolName) {
+    html += '<div style="margin-top: 4rem;" class="no-print">';
+    html += '<div class="display-xs" style="margin-bottom: 1.6rem;">Update Score</div>';
+    html += '<div style="display: flex; gap: 1.2rem; flex-wrap: wrap;">';
+    [3, 2, 1].forEach(function(v) {
+      var sel = currentScore === v ? ' selected' : '';
+      html += '<div class="score-btn' + sel + '" onclick="updateScoreFromDetail(\'' + id + '\', ' + v + ')" style="max-width: 20rem;">';
+      html += '<div class="score-btn-num" style="color: ' + (v === 1 ? 'var(--risk-high)' : v === 2 ? 'var(--risk-medium)' : 'var(--risk-lower)') + ';">' + v + '</div>';
+      html += '<div class="score-btn-label">' + (v === 3 ? 'Strong' : v === 2 ? 'Partial' : 'Failing') + '</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  }
+
+  html += '</div></div>';
+  document.getElementById('pillar-content').innerHTML = html;
+}
+
+function updateScoreFromDetail(pillarId, score) {
+  state.scores[pillarId] = score;
+  checkNoGoCriteria();
+  renderPillarDetail(pillarId);
+}
+
+// ============================================================
+// RENDER: EXPLORE (browse-only)
+// ============================================================
+function renderExplore() {
+  var C = CONTENT;
+  var L = C.ui_labels || {};
+  var html = '';
+
+  // Hero
+  html += '<div class="section section-dark" style="padding: 10rem 6rem 6rem;">';
+  html += '<div class="section-inner">';
+  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">Reference</div>';
+  html += '<div class="display-lg" style="margin-bottom: 1.6rem;">' + escHtml(L.explore_heading) + '</div>';
+  html += '<div class="body-lg" style="color: var(--dark-muted);">' + escHtml(L.explore_subhead) + '</div>';
+  html += '</div></div>';
+
+  // Pillars
+  html += '<div class="section"><div class="section-inner">';
+  html += '<div class="display-sm" style="margin-bottom: 2.4rem;">The Nine Pillars</div>';
+  var pillars = C.pillars || [];
+  pillars.forEach(function(p) {
+    html += '<div style="padding: 2.4rem; margin-bottom: 2px; background: var(--surface); border-left: 4px solid ' + p.color + '; cursor: pointer;" onclick="showPillarDetail(\'' + p.id + '\')">';
+    html += '<div style="display: flex; justify-content: space-between; align-items: center;">';
+    html += '<div>';
+    html += '<span class="label" style="color: ' + p.color + ';">' + p.id + '</span>';
+    html += '<span class="display-xs" style="margin-left: 1.2rem;">' + escHtml(p.name) + '</span>';
+    html += '</div>';
+    html += '<span style="font-size: 1.3rem; color: var(--ink-muted);">' + p.questions.length + ' questions &rarr;</span>';
+    html += '</div>';
+    html += '<div style="font-size: 1.4rem; color: var(--ink-soft); margin-top: 0.8rem; line-height: 1.5;">' + escHtml(p.principle) + '</div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+
+  // Risk tiers
+  if (C.risk_tiers) {
+    var RT = C.risk_tiers;
+    html += '<div class="section section-surface"><div class="section-inner">';
+    html += '<div class="display-sm" style="margin-bottom: 2.4rem;">Risk Tiers</div>';
+    html += '<div style="font-size: 1.5rem; color: var(--ink-soft); margin-bottom: 3.2rem; line-height: 1.6;">' + escHtml(RT.intro) + '</div>';
+    var tiers = ['high', 'medium', 'lower'];
+    html += '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;" class="tier-card-grid">';
+    tiers.forEach(function(t) {
+      var td = RT[t] || {};
+      html += '<div class="tier-card tier-' + t + '" style="cursor: default;">';
+      html += '<span class="risk-badge ' + tierBadgeClass(t) + '">' + tierLabel(t) + '</span>';
+      html += '<div class="display-xs" style="margin: 1.2rem 0 0.8rem;">' + escHtml(td.name || t) + '</div>';
+      html += '<div style="font-size: 1.3rem; color: var(--ink-muted); line-height: 1.5; margin-bottom: 1rem;">' + escHtml(td.definition || '') + '</div>';
+      html += '<div style="font-size: 1.2rem; color: var(--ink-soft); line-height: 1.5;">' + escHtml(td.governance_requirement || '') + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    if (RT.source) {
+      html += '<div style="margin-top: 2rem; font-size: 1.2rem; color: var(--mid);">' + escHtml(RT.source) + '</div>';
+    }
+    html += '</div></div>';
+  }
+
+  // Use cases
+  if (C.use_cases) {
+    html += '<div class="section"><div class="section-inner">';
+    html += '<div class="display-sm" style="margin-bottom: 2.4rem;">Use Cases & Default Risk Tiers</div>';
+    html += '<table class="summary-table">';
+    html += '<tr><th>Use Case</th><th>Default Tier</th><th>Risk Factor</th><th>Examples</th></tr>';
+    C.use_cases.forEach(function(uc) {
+      html += '<tr>';
+      html += '<td style="font-weight: 600;">' + escHtml(uc.name) + '</td>';
+      html += '<td><span class="risk-badge ' + tierBadgeClass(uc.default_tier) + '">' + tierLabel(uc.default_tier) + '</span></td>';
+      html += '<td style="font-size: 1.3rem;">' + escHtml(uc.risk_factor) + '</td>';
+      html += '<td style="font-size: 1.2rem; color: var(--ink-muted);">' + escHtml(uc.examples) + '</td>';
+      html += '</tr>';
+    });
+    html += '</table>';
+    html += '</div></div>';
+  }
+
+  // No-go criteria
+  if (C.no_go_criteria) {
+    html += '<div class="section section-surface"><div class="section-inner">';
+    html += '<div class="display-sm" style="margin-bottom: 2.4rem;">' + escHtml(L.nogo_checklist_heading || 'No-Go Criteria') + '</div>';
+    html += '<div style="font-size: 1.5rem; color: var(--ink-soft); margin-bottom: 2.4rem;">' + escHtml(L.nogo_checklist_subhead || 'Eight conditions that stop procurement regardless of total score.') + '</div>';
+    C.no_go_criteria.forEach(function(ng) {
+      html += '<div class="nogo-item">';
+      html += '<div class="nogo-check" style="cursor: default; background: var(--risk-high); border-color: var(--risk-high); color: white;">&#10007;</div>';
+      html += '<div>';
+      html += '<div style="font-weight: 600; margin-bottom: 0.4rem;">' + escHtml(ng.condition) + '</div>';
+      html += '<div style="font-size: 1.3rem; color: var(--ink-muted);">' + escHtml(ng.pillar) + ': ' + escHtml(ng.pillar_name) + ' &mdash; ' + escHtml(ng.why) + '</div>';
+      html += '</div></div>';
+    });
+    html += '</div></div>';
+  }
+
+  // Annual review areas
+  if (C.annual_review) {
+    html += '<div class="section"><div class="section-inner">';
+    html += '<div class="display-sm" style="margin-bottom: 1.2rem;">Annual Review Areas</div>';
+    html += '<div style="font-size: 1.4rem; color: var(--ink-muted); margin-bottom: 2.4rem;">' + escHtml(C.annual_review.schedule) + '</div>';
+    C.annual_review.areas.forEach(function(area, i) {
+      html += '<div style="padding: 2rem 0; border-bottom: 1px solid var(--border);">';
+      html += '<div style="display: flex; gap: 1.2rem; align-items: baseline;">';
+      html += '<span class="label" style="color: var(--signal);">' + (i + 1) + '</span>';
+      html += '<div>';
+      html += '<div class="display-xs">' + escHtml(area.name) + ' <span style="font-size: 1.2rem; color: var(--mid); font-weight: 400;">(' + area.pillars + ')</span></div>';
+      html += '<div style="font-size: 1.4rem; color: var(--ink-soft); margin-top: 0.4rem;">' + escHtml(area.questions) + '</div>';
+      html += '</div></div></div>';
+    });
+    html += '</div></div>';
+  }
+
+  document.getElementById('explore-content').innerHTML = html;
+}
+
+// ============================================================
+// RENDER: ANNUAL REVIEW
+// ============================================================
+function renderAnnualReview() {
+  var C = CONTENT;
+  var L = C.ui_labels || {};
+  var AR = C.annual_review || {};
+  var html = '';
+
+  // Hero
+  html += '<div class="section section-dark" style="padding: 10rem 6rem 6rem;">';
+  html += '<div class="section-inner">';
+  html += '<div class="label" style="color: var(--signal); margin-bottom: 1.6rem;">Governance Cycle</div>';
+  html += '<div class="display-lg" style="margin-bottom: 1.6rem;">' + escHtml(L.annual_review_heading) + '</div>';
+  html += '<div class="body-lg" style="color: var(--dark-muted);">' + escHtml(L.annual_review_subhead) + '</div>';
+  html += '</div></div>';
+
+  html += '<div class="section"><div class="section-inner" style="max-width: 80rem;">';
+  html += '<div style="font-size: 1.5rem; color: var(--ink-soft); margin-bottom: 2.4rem; line-height: 1.6;">' + escHtml(AR.intro || '') + '</div>';
+  html += '<div style="padding: 1.6rem; background: var(--signal-10); margin-bottom: 3.2rem; font-size: 1.4rem;">' + escHtml(AR.schedule || '') + '</div>';
+
+  // Saved assessments
+  var saved = loadAssessments();
+  if (saved.length > 0) {
+    html += '<div class="display-sm" style="margin-bottom: 2rem;">Saved Assessments</div>';
+    html += '<div style="margin-bottom: 4rem;">';
+    saved.forEach(function(a) {
+      var d = a.timestamp ? new Date(a.timestamp).toLocaleDateString() : 'Unknown date';
+      html += '<div style="padding: 2rem; border: 2px solid var(--border); margin-bottom: 1rem; cursor: pointer;" onclick="loadSavedAssessment(\'' + escHtml(a.timestamp) + '\')">';
+      html += '<div class="display-xs">' + escHtml(a.toolName) + '</div>';
+      html += '<div style="font-size: 1.3rem; color: var(--ink-muted);">' + d + ' &middot; <span class="risk-badge ' + tierBadgeClass(a.riskTier) + '">' + tierLabel(a.riskTier) + '</span></div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+
+  // Review areas checklist
+  html += '<div class="display-sm" style="margin-bottom: 2rem;">Review Checklist</div>';
+  var areas = AR.areas || [];
+  areas.forEach(function(area, i) {
+    var p = getPillarById(area.pillars);
+    var color = p ? p.color : 'var(--signal)';
+    html += '<div style="padding: 2.4rem; margin-bottom: 2px; background: var(--surface); border-left: 4px solid ' + color + ';">';
+    html += '<div style="display: flex; gap: 1.2rem; align-items: flex-start;">';
+    html += '<div class="nogo-check" style="cursor: default; margin-top: 0;">&#9744;</div>';
+    html += '<div>';
+    html += '<div class="display-xs">' + escHtml(area.name) + ' <span style="font-size: 1.2rem; color: var(--mid); font-weight: 400;">(' + area.pillars + ')</span></div>';
+    html += '<div style="font-size: 1.4rem; color: var(--ink-soft); margin-top: 0.4rem; line-height: 1.6;">' + escHtml(area.questions) + '</div>';
+    html += '</div></div></div>';
+  });
+
+  html += '<div style="margin-top: 4rem;" class="no-print">';
+  html += '<button class="btn btn-primary btn-lg" onclick="startEvaluation()">Start a New Evaluation</button>';
+  html += '</div>';
+
+  html += '</div></div>';
+  document.getElementById('annual-content').innerHTML = html;
+}
+
+// ============================================================
+// LOCALSTORAGE
+// ============================================================
+function saveAssessment() {
+  state.timestamp = new Date().toISOString();
+  var key = 'nav2_' + state.toolName.replace(/\s+/g, '_') + '_' + Date.now();
+  localStorage.setItem(key, JSON.stringify(state));
+  alert('Assessment saved: ' + state.toolName);
+}
+
+function loadAssessments() {
+  var assessments = [];
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+    if (key.indexOf('nav2_') === 0) {
+      try { assessments.push(JSON.parse(localStorage.getItem(key))); } catch(e) {}
+    }
+  }
+  return assessments;
+}
+
+function loadSavedAssessment(timestamp) {
+  var saved = loadAssessments();
+  for (var i = 0; i < saved.length; i++) {
+    if (saved[i].timestamp === timestamp) {
+      state = saved[i];
+      renderSummary();
+      showView('summary');
+      return;
+    }
+  }
+}
+
+// ============================================================
+// INIT + CONTENT LOADING
+// ============================================================
+function init() {
+  renderLanding();
+  showView('landing');
+  history.replaceState({ view: 'landing' }, '', '#landing');
+
+  // Handle initial hash
+  var hash = location.hash.replace('#', '');
+  if (hash && hash !== 'landing') {
+    if (hash === 'explore') { renderExplore(); showView('explore'); }
+    else if (hash === 'annual') { renderAnnualReview(); showView('annual'); }
+    else if (hash.indexOf('pillar/') === 0) {
+      var pId = hash.split('/')[1];
+      if (pId) { renderPillarDetail(pId); showView('pillar', pId); }
+    }
+  }
+}
+
+// Try to fetch external JSON, fall back to inline
+fetch('navigator-v2-content.json')
+  .then(function(r) { return r.json(); })
+  .then(function(data) { CONTENT = data; init(); })
+  .catch(function() { CONTENT = FALLBACK_CONTENT; init(); });
+
+</script>
+</body>
+</html>

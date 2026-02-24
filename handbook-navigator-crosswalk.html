@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handbook &times; Navigator v2 Crosswalk &mdash; Student Services Use Cases</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    color: #333;
+  }
+  h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-size: 14pt;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    margin-top: 28px;
+  }
+  h3 {
+    font-size: 12pt;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+    margin-top: 20px;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #444;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+  }
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .critical {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 24px 0;
+  }
+  ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+  .tag-high { background: #f8d7da; color: #721c24; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-med { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-low { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-gap { background: #e2e3e5; color: #383d41; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-validated { background: #cce5ff; color: #004085; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-proposed { background: #f5f5f5; color: #666; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .use-case-block {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .use-case-block h3 {
+    margin-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .uc-meta {
+    font-size: 9.5pt;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  /* Tab navigation */
+  .tab-nav {
+    display: flex;
+    border-bottom: 2px solid #0066cc;
+    margin: 24px 0 0 0;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    cursor: pointer;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #555;
+    border-radius: 4px 4px 0 0;
+    transition: background 0.2s;
+  }
+  .tab-btn:hover {
+    background: #e0e0e0;
+  }
+  .tab-btn.active {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+  }
+  .tab-panel {
+    display: none;
+    padding: 4px 0 0 0;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+  .pillar-card {
+    border: 1px solid #ddd;
+    border-left: 5px solid;
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 10px 0;
+  }
+  .pillar-card h4 {
+    margin: 0 0 4px 0;
+    font-size: 11pt;
+  }
+  .pillar-card .pillar-hook {
+    font-style: italic;
+    color: #555;
+    font-size: 10pt;
+    margin-bottom: 6px;
+  }
+  .pillar-card p {
+    font-size: 10pt;
+    margin: 4px 0;
+  }
+  .nogo-card {
+    border: 1px solid #ddd;
+    border-left: 4px solid #c00;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 10pt;
+  }
+  .nogo-card strong {
+    color: #c00;
+  }
+  @media print {
+    body { padding: 0.5in; }
+    .use-case-block { page-break-inside: avoid; }
+    .tab-nav { display: none; }
+    .tab-panel { display: block !important; page-break-before: always; }
+    .tab-panel:first-of-type { page-break-before: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 {
+          font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+          font-size: 130.25px;
+          font-style: italic;
+          font-weight: 600;
+        }
+        .cls-2 { letter-spacing: -.02em; }
+        .cls-3 { letter-spacing: -.04em; }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<h1>Handbook &times; Navigator v2 Crosswalk</h1>
+<p class="subtitle">AI Use Cases in Higher Education Handbook &mdash; Mapped to Navigator v2 Student Services Framework</p>
+
+<p class="metadata">
+<strong>Date:</strong> February 23, 2026<br>
+<strong>Source:</strong> Dr. Aviva Legatt / EdGenerative, <em>AI Use Cases in Higher Education: A Community Handbook</em> (Feb 11, 2026)<br>
+<strong>Target:</strong> Navigator v2 &mdash; AI Governance Navigator for Student Services, Community Colleges<br>
+<strong>Scope:</strong> All 75 handbook use cases reviewed; Student Services&ndash;relevant use cases extracted and mapped<br>
+<strong>Team:</strong> Amin, Mimi, Adam, Hyunjun
+</p>
+
+<!-- TAB NAVIGATION -->
+<div class="tab-nav">
+  <div class="tab-btn active" onclick="switchTab('crosswalk')">Crosswalk</div>
+  <div class="tab-btn" onclick="switchTab('framework')">Framework Reference</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 1: CROSSWALK (existing content) -->
+<!-- ============================================================ -->
+<div class="tab-panel active" id="tab-crosswalk">
+
+<hr>
+
+<h2>1. Source Data</h2>
+
+<p>The handbook (<em>"Use Cases"</em> sheet) contains <strong>75 use cases</strong> across 10 categories:</p>
+
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Row Range</th>
+    <th>Count</th>
+    <th>Student Services Relevant?</th>
+  </tr>
+  <tr>
+    <td>Teaching &amp; Instruction</td>
+    <td>#1&ndash;#12</td>
+    <td>12</td>
+    <td>Partially (tutoring overlaps)</td>
+  </tr>
+  <tr>
+    <td>Assessment &amp; Feedback</td>
+    <td>#13&ndash;#19</td>
+    <td>7</td>
+    <td>No (instruction-scoped)</td>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td><strong>Student Support Services</strong></td>
+    <td><strong>#20&ndash;#29</strong></td>
+    <td><strong>10</strong></td>
+    <td><strong>Yes &mdash; primary</strong></td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Administrative Operations</td>
+    <td>#30&ndash;#37</td>
+    <td>8</td>
+    <td>Partially (enrollment, dropout prediction)</td>
+  </tr>
+  <tr>
+    <td>Research &amp; Scholarship</td>
+    <td>#38&ndash;#43</td>
+    <td>6</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Curriculum Design</td>
+    <td>#44&ndash;#48</td>
+    <td>5</td>
+    <td>No</td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Accessibility &amp; Inclusion</td>
+    <td>#49&ndash;#53</td>
+    <td>5</td>
+    <td>Partially (disability services)</td>
+  </tr>
+  <tr>
+    <td>Library Services</td>
+    <td>#54&ndash;#58</td>
+    <td>5</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Writing &amp; Communication</td>
+    <td>#59&ndash;#63</td>
+    <td>5</td>
+    <td>No (instruction-scoped)</td>
+  </tr>
+  <tr>
+    <td>Governance &amp; Policy</td>
+    <td>#64&ndash;#66</td>
+    <td>3</td>
+    <td>No (institutional governance)</td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Workforce &amp; Career</td>
+    <td>#67&ndash;#70</td>
+    <td>4</td>
+    <td>Partially (career services)</td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Data Analytics &amp; IR</td>
+    <td>#71&ndash;#74</td>
+    <td>4</td>
+    <td>Partially (retention analytics, dashboards)</td>
+  </tr>
+  <tr>
+    <td>Accreditation</td>
+    <td>#75</td>
+    <td>1</td>
+    <td>No</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>2. Navigator v2 Use Cases (Reference)</h2>
+
+<table>
+  <tr>
+    <th style="width:7%">ID</th>
+    <th style="width:28%">Use Case</th>
+    <th style="width:10%">Default Tier</th>
+    <th style="width:15%">Key Pillars</th>
+    <th>Equity Flag</th>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>SS-01</td>
+    <td>AI Advising / Guided Pathways</td>
+    <td>Tier 3 (High)</td>
+    <td>P1, P2, P3, P5</td>
+    <td>Recommendations affect trajectory. Errors compound for first-gen and Pell-eligible.</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>SS-02</td>
+    <td>Early Alert / Student Risk System</td>
+    <td>Tier 3 (High)</td>
+    <td>P2, P3, P5, P7</td>
+    <td>Risk profiling creates surveillance dynamic. Disparate impact on students of color.</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>SS-03</td>
+    <td>Financial Aid Triage &amp; FAFSA</td>
+    <td>Tier 3 (High)</td>
+    <td>P3, P5, P6</td>
+    <td>Automated decisions on access to resources. Errors disproportionately affect low-income.</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td>SS-04</td>
+    <td>Student-Facing Chatbot</td>
+    <td>Tier 1 (Low)</td>
+    <td>P1, P7, P8</td>
+    <td>Multilingual coverage gaps. Accessibility barriers.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-05</td>
+    <td>AI Course Tutoring Assistant</td>
+    <td>Tier 2 (Med)</td>
+    <td>P1, P4, P5</td>
+    <td>Hallucination risk. Socratic vs. answer mode affects learning.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-06</td>
+    <td>Multilingual Support / Translation</td>
+    <td>Tier 2 (Med)</td>
+    <td>P2, P7</td>
+    <td>Quality varies by language. Cultural appropriateness.</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td>SS-07</td>
+    <td>Basic Needs Support</td>
+    <td>Tier 1 (Low)</td>
+    <td>P6, P7</td>
+    <td>Sensitive data (food insecurity, housing, immigration status). Privacy paramount.</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td>SS-08</td>
+    <td>Career Services AI</td>
+    <td>Tier 1 (Low)</td>
+    <td>P1, P2</td>
+    <td>Pathway bias across career clusters. Equity across CTE and transfer.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-09</td>
+    <td>Student Journey Mapping</td>
+    <td>Tier 2 (Med)</td>
+    <td>P5, P6, P7</td>
+    <td>PII. Aggregation vs. individual tracking. Surveillance risk.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-10</td>
+    <td>Registration &amp; Enrollment</td>
+    <td>Tier 2 (Med)</td>
+    <td>P1, P3, P5</td>
+    <td>Automated enrollment decisions affect access. Waitlist prioritization.</td>
+  </tr>
+  <tr>
+    <td>SS-XX</td>
+    <td>Custom / Other</td>
+    <td>User assigns</td>
+    <td>User describes</td>
+    <td>User describes equity considerations.</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>3. Detailed Crosswalk &mdash; Student Services&ndash;Relevant Use Cases</h2>
+
+<p>Each handbook use case is identified by its exact <strong>row number (#)</strong> from the "Use Cases" sheet, its <strong>category</strong>, its <strong>status</strong> (Validated or Proposed), and mapped to the Navigator v2 framework with specificity.</p>
+
+<!-- USE CASE #20 -->
+<div class="use-case-block" style="border-left: 4px solid #0066cc;">
+<h3>#20 &mdash; Sunny Chatbot &ndash; Student Emotional Support</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> Arizona State University &nbsp;|&nbsp;
+  <strong>Tool:</strong> Conversational AI chatbot
+</div>
+<p><strong>Description:</strong> AI chatbot designed to provide emotional support and help students adjust to college life; part of ASU&rsquo;s broader OpenAI partnership.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span><br>
+<strong>With tier override to:</strong> <span class="tag-med">Tier 2</span> or <span class="tag-high">Tier 3</span> depending on whether it collects mental health disclosures</p>
+
+<p><strong>Why this mapping:</strong> At surface level this is a student-facing chatbot (SS-04). However, the <em>emotional support</em> function means it likely processes sensitive mental health data, which the Navigator&rsquo;s tier override mechanism should catch. SS-04&rsquo;s screening questions would need to determine: Does this chatbot collect or respond to emotional/mental health disclosures? If yes, the risk tier escalates and additional pillars activate.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="tag-gap">Partial &mdash; emotional support gap</span>. SS-04 covers informational chatbots. SS-07 (Basic Needs) covers resource referrals. Neither addresses AI-delivered emotional support as a distinct function. This is an ambiguous middle ground.</p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P5 (Risk Proportionality):</strong> What happens if the chatbot gives harmful advice to a student in crisis?</li>
+  <li><strong>P6 (Data Stewardship):</strong> Emotional disclosures are sensitive data. FERPA intersects with potential HIPAA considerations.</li>
+  <li><strong>P7 (Transparency):</strong> Does the student know they are talking to an AI about their mental health?</li>
+  <li><strong>NG-06:</strong> Student disclosure of AI use is directly relevant.</li>
+</ul>
+</div>
+
+<!-- USE CASE #21 -->
+<div class="use-case-block" style="border-left: 4px solid #0066cc;">
+<h3>#21 &mdash; Pounce Chatbot &ndash; Enrollment &amp; Persistence</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> Georgia State University &nbsp;|&nbsp;
+  <strong>Tool:</strong> Pounce conversational AI
+</div>
+<p><strong>Description:</strong> Reduces friction in student support and improves persistence through AI-driven enrollment nudges, advising triage, and proactive outreach.</p>
+
+<h4>Navigator Mapping</h4>
+<p>This is a <strong>multi-function tool</strong>. It maps to multiple Navigator use cases simultaneously:</p>
+<ul>
+  <li><strong>SS-04</strong> (Student-Facing Chatbot) <span class="tag-low">Tier 1</span> &mdash; the chatbot interface itself</li>
+  <li><strong>SS-10</strong> (Registration &amp; Enrollment) <span class="tag-med">Tier 2</span> &mdash; enrollment nudges</li>
+  <li><strong>SS-01</strong> (AI Advising / Guided Pathways) <span class="tag-high">Tier 3</span> &mdash; advising triage</li>
+  <li><strong>SS-02</strong> (Early Alert) <span class="tag-high">Tier 3</span> &mdash; proactive outreach / flagging</li>
+</ul>
+
+<p><strong>Why this mapping:</strong> Pounce is described as doing three distinct things: enrollment nudges (SS-10), advising triage (SS-01), and proactive outreach (SS-02-adjacent). Each function carries a different risk tier. The Navigator&rsquo;s single-use-case-at-a-time design means Pounce would need to be assessed <em>multiple times</em> for its different functions &mdash; which is the correct governance approach.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="tag-gap">Covered across multiple use cases, but reveals a gap</span>. The Navigator does not yet have guidance for evaluating <strong>multi-function platforms</strong> that span multiple use cases. The highest-risk function (advising triage, Tier 3) should set the governance floor.</p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P2 (Equity):</strong> Enrollment nudges may have differential impact by demographics.</li>
+  <li><strong>P3 (Human Authority):</strong> Is a counselor reviewing advising triage recommendations?</li>
+  <li><strong>P7 (Contestability):</strong> Can a student contest being flagged or not flagged for outreach?</li>
+  <li><strong>NG-03:</strong> No human override for consequential decisions &mdash; does a human review before the nudge?</li>
+</ul>
+</div>
+
+<!-- USE CASE #22 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#22 &mdash; WoeBot &ndash; AI Mental Health Support</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> Stanford University &nbsp;|&nbsp;
+  <strong>Tool:</strong> CBT-based conversational AI
+</div>
+<p><strong>Description:</strong> AI chatbot using cognitive behavioral therapy techniques; 8 randomized control trials completed showing significant reduction in depression symptoms over 2 weeks.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> <span class="tag-gap">SS-XX (Custom)</span> &mdash; no existing Navigator use case covers AI-delivered therapeutic interventions<br>
+<strong>Recommended tier:</strong> <span class="tag-high">Tier 3 (High Risk)</span></p>
+
+<p><strong>Why this mapping:</strong> WoeBot goes well beyond a chatbot (SS-04) or basic needs referral (SS-07). It delivers CBT-based therapy &mdash; a clinical intervention. No Navigator use case addresses this. Closest is SS-07 (Basic Needs Support) for resource connection, but WoeBot is not connecting students to resources; it <em>is</em> the resource delivering the intervention.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="critical" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>GAP.</strong> No mental health/counseling AI use case exists.</span></p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P3 (Human Authority):</strong> Who is clinically responsible if the AI mishandles a crisis? Is there a licensed counselor overseeing the tool?</li>
+  <li><strong>P5 (Risk Proportionality):</strong> Worst case: a student in active crisis receiving harmful guidance.</li>
+  <li><strong>P6 (Data Stewardship):</strong> Mental health data may fall under HIPAA in addition to FERPA.</li>
+  <li><strong>P7 (Transparency):</strong> Does the student understand the limitations of AI-delivered therapy?</li>
+  <li><strong>NG-03:</strong> No human override for consequential decisions is directly relevant.</li>
+  <li><strong>NG-06:</strong> Student disclosure of AI use is critical &mdash; students must know it&rsquo;s AI.</li>
+</ul>
+</div>
+
+<!-- USE CASE #23 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#23 &mdash; AI Chatbot for Student Mental Wellness</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> University of Memphis &nbsp;|&nbsp;
+  <strong>Tool:</strong> Wysa, Woebot, Tess
+</div>
+<p><strong>Description:</strong> Digital mental health intervention helping college students manage anxiety and depression; open trial results published showing efficacy.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> <span class="tag-gap">SS-XX (Custom)</span> &mdash; same gap as #22<br>
+<strong>Recommended tier:</strong> <span class="tag-high">Tier 3 (High Risk)</span></p>
+
+<p><strong>Why this mapping:</strong> Same rationale as #22 (WoeBot). This use case reinforces the gap &mdash; multiple institutions are deploying AI mental health tools, and the Navigator has no dedicated use case for this category.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="critical" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>GAP.</strong> Same as #22.</span></p>
+
+<p><strong>Additional governance note:</strong> These are <em>third-party tools</em> (Wysa, Woebot, Tess) &mdash; <strong>P8 (Vendor Accountability)</strong> is critical. Are these vendors sharing student mental health data? <strong>NG-02</strong> (students are not training data) must be checked: are these vendors training models on student therapy conversations?</p>
+</div>
+
+<!-- USE CASE #24 -->
+<div class="use-case-block" style="border-left: 4px solid #0066cc;">
+<h3>#24 &mdash; University of Hawaii AI Chatbots (10 Campuses)</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> University of Hawaii System &nbsp;|&nbsp;
+  <strong>Tool:</strong> AI chatbot platform
+</div>
+<p><strong>Description:</strong> AI chatbots across all 10 campuses: 94% student opt-in rate; 4,294 questions answered without human intervention Aug&ndash;Dec 2025; saved 357 staff hours; flagged 2,533 students for follow-up.</p>
+
+<h4>Navigator Mapping</h4>
+<p>Another <strong>multi-function tool</strong>:</p>
+<ul>
+  <li><strong>SS-04</strong> (Student-Facing Chatbot) <span class="tag-low">Tier 1</span> &mdash; the FAQ/question-answering function (4,294 questions answered)</li>
+  <li><strong>SS-02</strong> (Early Alert / Student Risk System) <span class="tag-high">Tier 3</span> &mdash; the flagging function (2,533 students flagged for follow-up)</li>
+</ul>
+
+<p><strong>Why this mapping:</strong> The chatbot function is straightforward SS-04. But the stat &ldquo;flagged 2,533 students for follow-up&rdquo; is an early alert function &mdash; the tool is making risk determinations about students. That pushes the <em>flagging component</em> to Tier 3.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;">Covered across SS-04 + SS-02.</span> Multi-function guidance still needed.</p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P2 (Equity):</strong> 94% opt-in is high, but what about the 6% who did not? Are they disproportionately from specific demographics?</li>
+  <li><strong>P6 (Data Stewardship):</strong> 4,294 questions answered &mdash; where does that data live? Who controls it?</li>
+  <li><strong>P7 (Transparency):</strong> When a student is &ldquo;flagged for follow-up,&rdquo; do they know?</li>
+  <li><strong>NG-05:</strong> FERPA-compliant data sharing agreement &mdash; 10-campus system with external vendor.</li>
+  <li><strong>NG-07:</strong> Decisions without recourse &mdash; applies to the flagging function.</li>
+</ul>
+</div>
+
+<!-- USE CASE #25 -->
+<div class="use-case-block" style="border-left: 4px solid #28a745;">
+<h3>#25 &mdash; Indiana University ChatGPT Edu Rollout</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> Indiana University &nbsp;|&nbsp;
+  <strong>Tool:</strong> ChatGPT Edu
+</div>
+<p><strong>Description:</strong> Second-largest ChatGPT Edu rollout globally; 120,000 students, faculty, and staff get access; complements institution-wide GenAI 101 course.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span> for the student support function<br>
+<strong>Secondary:</strong> SS-05 (AI Course Tutoring Assistant) <span class="tag-med">Tier 2</span> for instructional use</p>
+
+<p><strong>Why this mapping:</strong> This is a campus-wide ChatGPT Edu deployment &mdash; a general-purpose AI tool, not a Student Services-specific tool. It maps to SS-04 when students use it for service navigation and SS-05 when used as a tutoring assistant. Unlike Pounce or Hawaii&rsquo;s chatbot, it does not appear to make decisions about students (no flagging, no advising triage).</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;">Covered.</span> Lower governance intensity needed.</p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P1 (Purpose):</strong> Is the educational purpose clearly defined, or is this &ldquo;give everyone ChatGPT&rdquo;?</li>
+  <li><strong>P8 (Vendor Accountability):</strong> OpenAI as vendor &mdash; data handling, training data policies, contract terms at 120K-user scale.</li>
+</ul>
+</div>
+
+<!-- USE CASE #26 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#26 &mdash; Penn State MyResource &ndash; AI Advising</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> Penn State University &nbsp;|&nbsp;
+  <strong>Tool:</strong> MyResource AI platform
+</div>
+<p><strong>Description:</strong> Helps students navigate advising and services 24/7; governed agent reducing bottlenecks in enrollment, learning support, and operational coordination.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-01 (AI Advising / Guided Pathways) <span class="tag-high">Tier 3</span></p>
+
+<p><strong>Why this mapping:</strong> This is a near-exact match for SS-01. The tool provides 24/7 advising navigation &mdash; a core guided pathways function. Penn State describes it as a &ldquo;governed agent,&rdquo; which aligns with the Navigator&rsquo;s P3 (Human Authority) pillar.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span> The Navigator&rsquo;s SS-01 screening questions, P1/P2/P3/P5 pillar focus, and equity flag (&ldquo;errors compound for first-gen and Pell-eligible&rdquo;) directly apply.</p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P3 (Human Authority):</strong> Penn State calls this a &ldquo;governed agent&rdquo; &mdash; what does that mean operationally? Who reviews its recommendations?</li>
+  <li><strong>P5 (Risk Proportionality):</strong> 24/7 availability means bad advice can happen at 2 AM with no human backup.</li>
+  <li><strong>P2 (Equity):</strong> Navigator&rsquo;s equity flag directly applies &mdash; first-gen students may over-rely on AI advising without calibrating it against human counselor input.</li>
+</ul>
+</div>
+
+<!-- USE CASE #27 -->
+<div class="use-case-block" style="border-left: 4px solid #fd7e14;">
+<h3>#27 &mdash; Michigan Ross AI Teaching Assistant</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> University of Michigan (Ross School) &nbsp;|&nbsp;
+  <strong>Tool:</strong> Custom AI TA
+</div>
+<p><strong>Description:</strong> AI teaching assistant that guides students through reasoning rather than providing answers directly; early evidence of governed agents improving learning outcomes.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-05 (AI Course Tutoring Assistant) <span class="tag-med">Tier 2</span></p>
+
+<p><strong>Why this mapping:</strong> This is an instructional tutoring tool with a Socratic mode (&ldquo;guides reasoning rather than providing answers&rdquo;). Maps directly to SS-05, whose equity flag specifically addresses &ldquo;Socratic vs. answer mode affects learning.&rdquo;</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P1 (Purpose):</strong> The Socratic design is a strong P1 signal &mdash; clear educational purpose.</li>
+  <li><strong>P4 (Agency):</strong> Can faculty configure the AI TA&rsquo;s behavior for their specific course?</li>
+  <li><strong>P5 (Risk):</strong> Hallucination risk in a business school context where factual accuracy matters.</li>
+</ul>
+</div>
+
+<!-- USE CASE #28 -->
+<div class="use-case-block" style="border-left: 4px solid #28a745;">
+<h3>#28 &mdash; AI Career Coaching and Resume Review</h3>
+<div class="uc-meta">
+  <span class="tag-proposed">Proposed</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> Multiple institutions (emerging) &nbsp;|&nbsp;
+  <strong>Tool:</strong> ChatGPT, custom LLM chatbots
+</div>
+<p><strong>Description:</strong> AI-powered career services chatbots that help students review resumes, explore career paths, practice interview skills, and match with internships.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-08 (Career Services AI) <span class="tag-low">Tier 1</span></p>
+
+<p><strong>Why this mapping:</strong> Direct match. The Navigator&rsquo;s SS-08 covers exactly this function. The equity flag (&ldquo;Pathway bias across career clusters. Equity across CTE and transfer.&rdquo;) directly applies.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P2 (Equity):</strong> Does the AI recommend different career paths based on student demographics? Does it steer CC students away from transfer-track careers?</li>
+  <li><strong>P1 (Purpose):</strong> Is it genuinely helping students or creating dependency on AI-generated resumes?</li>
+</ul>
+</div>
+
+<!-- USE CASE #29 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#29 &mdash; AI-Powered Financial Aid Advising</h3>
+<div class="uc-meta">
+  <span class="tag-proposed">Proposed</span> &nbsp;
+  <strong>Category:</strong> Student Support Services &nbsp;|&nbsp;
+  <strong>Institution:</strong> Multiple institutions (emerging) &nbsp;|&nbsp;
+  <strong>Tool:</strong> Custom chatbot platforms
+</div>
+<p><strong>Description:</strong> Chatbots guiding students through FAFSA completion, scholarship matching, and financial literacy education to reduce melt and improve financial wellness.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-03 (Financial Aid Triage &amp; FAFSA) <span class="tag-high">Tier 3</span></p>
+
+<p><strong>Why this mapping:</strong> Direct match. SS-03 is one of the Navigator&rsquo;s three Tier 3 (High Risk) use cases, specifically designed for this function.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P3 (Human Authority):</strong> AI cannot make final financial aid decisions.</li>
+  <li><strong>P5 (Risk):</strong> Errors disproportionately affect low-income students.</li>
+  <li><strong>P6 (Data):</strong> FAFSA data is highly sensitive (tax information, family income).</li>
+  <li><strong>NG-03:</strong> No human override for consequential decisions is a hard stop.</li>
+</ul>
+</div>
+
+<hr>
+
+<h3>Cross-Category Use Cases (from other handbook categories, relevant to Student Services)</h3>
+
+<!-- USE CASE #30 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#30 &mdash; Student Dropout Prediction via Card Swipe Data</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Administrative Operations &nbsp;|&nbsp;
+  <strong>Institution:</strong> University of Arizona &nbsp;|&nbsp;
+  <strong>Tool:</strong> ML, network science, big data analytics
+</div>
+<p><strong>Description:</strong> ML analysis of student ID card swipes for dropout prediction; 73% accuracy from first day, improving over time using social network and engagement patterns.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-02 (Early Alert / Student Risk System) <span class="tag-high">Tier 3</span><br>
+<strong>Secondary:</strong> SS-09 (Student Journey Mapping) <span class="tag-med">Tier 2</span></p>
+
+<p><strong>Why this mapping:</strong> This is an early alert / risk prediction system. The data source (card swipes = physical location tracking) adds a surveillance dimension that the Navigator&rsquo;s SS-02 equity flag directly addresses: &ldquo;Risk profiling creates surveillance dynamic. Disparate impact on students of color.&rdquo;</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span> SS-02 was designed for exactly this type of system.</p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P6 (Data Stewardship):</strong> Using physical location tracking for risk profiling is a significant privacy concern. Card swipe patterns reveal daily routines, social networks, and physical movements.</li>
+  <li><strong>P7 (Transparency):</strong> Do students know their card swipes are being analyzed for dropout prediction?</li>
+  <li><strong>P2 (Equity):</strong> Card swipe patterns correlate with commuter status, work schedules, and caregiving responsibilities &mdash; all disproportionately affecting CC students. 73% accuracy means 27% error rate &mdash; disaggregated by demographics?</li>
+  <li><strong>NG-04:</strong> Can the institution independently audit this model for bias?</li>
+</ul>
+</div>
+
+<!-- USE CASE #32 -->
+<div class="use-case-block" style="border-left: 4px solid #fd7e14;">
+<h3>#32 &mdash; Enrollment Yield Prediction</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Administrative Operations &nbsp;|&nbsp;
+  <strong>Institution:</strong> Multiple universities &nbsp;|&nbsp;
+  <strong>Tool:</strong> Othot, Element451
+</div>
+<p><strong>Description:</strong> AI analyzes historical enrollment patterns to optimize financial aid distribution and maximize enrollment yield from admitted students.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-10 (Registration &amp; Enrollment) <span class="tag-med">Tier 2</span><br>
+<strong>Secondary:</strong> SS-03 (Financial Aid Triage) <span class="tag-high">Tier 3</span> &mdash; because it optimizes financial aid distribution</p>
+
+<p><strong>Why this mapping:</strong> The enrollment prediction function maps to SS-10. But the &ldquo;optimize financial aid distribution&rdquo; component is an SS-03 function &mdash; AI is influencing how much aid students receive based on predicted enrollment likelihood. This is a consequential financial decision.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="highlight-box" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Partial &mdash; yield optimization gap.</strong></span> SS-10 covers enrollment decisions. SS-03 covers financial aid triage. But the specific practice of <em>using AI to determine aid amounts based on predicted enrollment probability</em> falls between them. A student predicted to enroll regardless may receive less aid &mdash; a systematic disadvantage for students with fewer alternatives (often low-income, first-gen).</p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P2 (Equity):</strong> Yield prediction models may systematically disadvantage students who are less likely to enroll regardless of aid &mdash; often the most vulnerable.</li>
+  <li><strong>P3 (Human Authority):</strong> Who reviews the AI&rsquo;s aid allocation recommendations before they reach students?</li>
+  <li><strong>NG-03:</strong> No human override for consequential decisions.</li>
+</ul>
+</div>
+
+<!-- USE CASE #33 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#33 &mdash; Purdue Smart Plan &ndash; AI Course Planning</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Administrative Operations &nbsp;|&nbsp;
+  <strong>Institution:</strong> Purdue University &nbsp;|&nbsp;
+  <strong>Tool:</strong> Ellucian Smart Plan
+</div>
+<p><strong>Description:</strong> AI-powered intelligent course planning; includes AI competency graduation requirement. Maps courses students need based on major, prerequisites, and optimal sequencing.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-01 (AI Advising / Guided Pathways) <span class="tag-high">Tier 3</span></p>
+
+<p><strong>Why this mapping:</strong> Course planning is a core advising/guided pathways function. AI-generated course sequences affect student trajectory &mdash; exactly what SS-01 governs.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P2 (Equity):</strong> Prerequisite sequencing recommendations may create barriers for part-time students or those with non-linear enrollment patterns &mdash; extremely common at CCs.</li>
+  <li><strong>P1 (Purpose):</strong> The AI competency graduation requirement at Purdue is an interesting institutional governance addition worth noting.</li>
+</ul>
+</div>
+
+<!-- USE CASE #49 -->
+<div class="use-case-block" style="border-left: 4px solid #6f42c1;">
+<h3>#49 &mdash; Grammar Lab &ndash; AI for Deaf Students (ASL/English)</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Accessibility &amp; Inclusion &nbsp;|&nbsp;
+  <strong>Institution:</strong> RIT/NTID &nbsp;|&nbsp;
+  <strong>Tool:</strong> Gemini AI models, custom learning system
+</div>
+<p><strong>Description:</strong> Bilingual (ASL/English) AI tutor with personalized learning paths and adaptive question generation; funded by Google.org.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Closest:</strong> SS-06 (Multilingual Support / Translation) <span class="tag-med">Tier 2</span><br>
+<strong>Better fit:</strong> <span class="tag-gap">SS-XX (Custom)</span> &mdash; Disability Services / Accessibility AI</p>
+
+<p><strong>Why this mapping:</strong> SS-06 covers multilingual support and translation, which is adjacent but not equivalent. ASL/English bilingual AI for Deaf students is a disability services function, not a general multilingual function. The governance considerations differ: disability data is ADA-protected, the population is small and identifiable, and tool failure has outsized impact on students with no alternative access pathway.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="critical" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Partial GAP.</strong> No dedicated disability services / accessibility AI use case.</span></p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P2 (Equity):</strong> By definition serves a vulnerable population.</li>
+  <li><strong>P6 (Data):</strong> Disability status data is protected under ADA.</li>
+  <li><strong>P8 (Vendor):</strong> Google.org funding &mdash; what happens to the tool after the grant ends?</li>
+</ul>
+</div>
+
+<!-- USE CASES #50, #52 -->
+<div class="use-case-block" style="border-left: 4px solid #6f42c1;">
+<h3>#50 &mdash; AI for Universal Design for Learning (UDL) &amp; #52 &mdash; AI-Powered Assistive Technologies</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Accessibility &amp; Inclusion &nbsp;|&nbsp;
+  <strong>Institutions:</strong> Cornell, UC Berkeley, Multiple &nbsp;|&nbsp;
+  <strong>Tools:</strong> Voice recognition, translation, AI design tools, speech recognition APIs
+</div>
+<p><strong>#50 Description:</strong> AI-powered flexible content design with multiple representation modalities, text-to-speech, automated captions, and real-time translation for inclusive learning.<br>
+<strong>#52 Description:</strong> Real-time speech-to-text, language translation, and content simplification tools helping students with disabilities access course materials equitably.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Closest:</strong> SS-06 (Multilingual Support / Translation) <span class="tag-med">Tier 2</span> for the translation/multilingual components<br>
+<strong>Better fit:</strong> <span class="tag-gap">SS-XX (Custom)</span> &mdash; same gap as #49</p>
+
+<p><strong>Why this mapping:</strong> These are disability services/accessibility tools deployed through DSPS offices and disability resource centers. SS-06 covers one slice (translation) but not the broader accessibility AI category (UDL automation, assistive tech, speech-to-text for d/Deaf students, content simplification for cognitive disabilities).</p>
+
+<p><strong>Coverage assessment:</strong> <span class="critical" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Partial GAP.</strong> Reinforces #49.</span></p>
+</div>
+
+<!-- USE CASE #67 -->
+<div class="use-case-block" style="border-left: 4px solid #28a745;">
+<h3>#67 &mdash; Georgetown CSET PATHWISE &ndash; AI Job Demand Mapping</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Workforce &amp; Career &nbsp;|&nbsp;
+  <strong>Institution:</strong> Georgetown University (CSET) &nbsp;|&nbsp;
+  <strong>Tool:</strong> PATHWISE labor market tool
+</div>
+<p><strong>Description:</strong> AI and cybersecurity job demand at the metro level, showing where opportunity and talent gaps exist; real-time labor-market intelligence for workforce alignment.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-08 (Career Services AI) <span class="tag-low">Tier 1</span></p>
+
+<p><strong>Why this mapping:</strong> Labor market intelligence for career services. SS-08 covers career services AI. Note: if this tool is used to inform <em>institutional program decisions</em> (which programs to offer), it shifts from Student Services to Administrative Operations and may be out of Navigator scope.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;">Covered for student-facing use.</span></p>
+</div>
+
+<!-- USE CASE #68 -->
+<div class="use-case-block" style="border-left: 4px solid #28a745;">
+<h3>#68 &mdash; Lightcast AI Career Pathway Analysis</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Workforce &amp; Career &nbsp;|&nbsp;
+  <strong>Institution:</strong> Lightcast (100M+ worker profiles) &nbsp;|&nbsp;
+  <strong>Tool:</strong> Lightcast analytics platform
+</div>
+<p><strong>Description:</strong> Analysis of 100M+ worker profiles showing formal education is no longer the sole on-ramp to AI careers; many arrive through nonlinear transitions and self-directed learning.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-08 (Career Services AI) <span class="tag-low">Tier 1</span></p>
+
+<p><strong>Why this mapping:</strong> Same as #67 &mdash; labor market intelligence tool used in career services. The finding about nonlinear career paths is particularly relevant to CC career counseling where students often take non-traditional paths.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;">Covered for student-facing use.</span></p>
+
+<p><strong>Key governance note:</strong> <strong>P2 (Equity):</strong> If Lightcast data shows nonlinear paths work for AI careers, career counselors should not steer CC students away from AI fields based on traditional credentialing assumptions.</p>
+</div>
+
+<!-- USE CASE #71 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#71 &mdash; Predictive Retention Analytics</h3>
+<div class="uc-meta">
+  <span class="tag-validated">Validated</span> &nbsp;
+  <strong>Category:</strong> Data Analytics &amp; IR &nbsp;|&nbsp;
+  <strong>Institution:</strong> Multiple universities &nbsp;|&nbsp;
+  <strong>Tool:</strong> ML predictive models
+</div>
+<p><strong>Description:</strong> Machine learning models achieving 93% accuracy for retention/dropout prediction; institutions report 3&ndash;15% increase in retention rates after implementation.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-02 (Early Alert / Student Risk System) <span class="tag-high">Tier 3</span></p>
+
+<p><strong>Why this mapping:</strong> This is the underlying technology behind early alert systems. It is the predictive model that feeds the intervention workflows SS-02 governs.</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P2 (Equity):</strong> 93% accuracy overall, but what is the accuracy disaggregated by race, Pell status, first-gen? Predictive models historically show disparate performance across demographics.</li>
+  <li><strong>P5 (Risk):</strong> The 7% error rate &mdash; are false negatives (students at risk who are not flagged) equally distributed?</li>
+  <li><strong>NG-04:</strong> Can the institution independently audit for bias?</li>
+</ul>
+</div>
+
+<!-- USE CASE #74 -->
+<div class="use-case-block" style="border-left: 4px solid #fd7e14;">
+<h3>#74 &mdash; AI-Powered Learning Analytics Dashboards</h3>
+<div class="uc-meta">
+  <span class="tag-proposed">Proposed</span> &nbsp;
+  <strong>Category:</strong> Data Analytics &amp; IR &nbsp;|&nbsp;
+  <strong>Institution:</strong> Multiple institutions (emerging) &nbsp;|&nbsp;
+  <strong>Tool:</strong> Custom analytics + LLM interfaces
+</div>
+<p><strong>Description:</strong> Real-time AI dashboards giving faculty and advisors early-warning signals about student engagement, performance trends, and intervention recommendations.</p>
+
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-02 (Early Alert) <span class="tag-high">Tier 3</span> &mdash; for the early-warning/intervention function<br>
+<strong>Secondary:</strong> SS-09 (Student Journey Mapping) <span class="tag-med">Tier 2</span> &mdash; for the tracking/visualization function</p>
+
+<p><strong>Why this mapping:</strong> The &ldquo;early-warning signals&rdquo; and &ldquo;intervention recommendations&rdquo; are early alert functions (SS-02). The engagement/performance tracking is student journey mapping (SS-09).</p>
+
+<p><strong>Coverage assessment:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;">Covered across SS-02 + SS-09.</span></p>
+
+<p><strong>Key governance considerations:</strong></p>
+<ul>
+  <li><strong>P7 (Transparency):</strong> Do students know their engagement data is being tracked and displayed on dashboards?</li>
+  <li><strong>P4 (Agency):</strong> Can faculty choose whether to use these dashboards, or are they mandatory?</li>
+  <li><strong>SS-09 equity flag:</strong> &ldquo;Aggregation vs. individual tracking. Surveillance risk.&rdquo;</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>4. Summary Mapping Table</h2>
+
+<table>
+  <tr>
+    <th style="width:4%">#</th>
+    <th style="width:20%">Handbook Use Case</th>
+    <th style="width:8%">Status</th>
+    <th style="width:16%">Navigator Use Case(s)</th>
+    <th style="width:10%">Risk Tier</th>
+    <th style="width:14%">Coverage</th>
+    <th style="width:28%">Key Governance Adds</th>
+  </tr>
+  <tr>
+    <td>20</td>
+    <td>Sunny Chatbot (ASU)</td>
+    <td>Validated</td>
+    <td>SS-04 + override</td>
+    <td><span class="tag-low">T1</span>&rarr;<span class="tag-med">T2</span></td>
+    <td>Partial</td>
+    <td>P5, P6, P7, NG-06</td>
+  </tr>
+  <tr>
+    <td>21</td>
+    <td>Pounce Chatbot (GSU)</td>
+    <td>Validated</td>
+    <td>SS-04 + SS-10 + SS-01 + SS-02</td>
+    <td><span class="tag-low">T1</span>&ndash;<span class="tag-high">T3</span></td>
+    <td>Covered (multi-function)</td>
+    <td>P2, P3, P7, NG-03</td>
+  </tr>
+  <tr style="background: #fff0f0;">
+    <td>22</td>
+    <td>WoeBot (Stanford)</td>
+    <td>Validated</td>
+    <td>SS-XX (Custom)</td>
+    <td><span class="tag-high">T3</span></td>
+    <td><strong>GAP</strong></td>
+    <td>P3, P5, P6, P7, NG-03, NG-06</td>
+  </tr>
+  <tr style="background: #fff0f0;">
+    <td>23</td>
+    <td>Mental Wellness Chatbots (Memphis)</td>
+    <td>Validated</td>
+    <td>SS-XX (Custom)</td>
+    <td><span class="tag-high">T3</span></td>
+    <td><strong>GAP</strong></td>
+    <td>P3, P5, P6, P7, P8, NG-02, NG-03</td>
+  </tr>
+  <tr>
+    <td>24</td>
+    <td>Hawaii Chatbots (10 campuses)</td>
+    <td>Validated</td>
+    <td>SS-04 + SS-02</td>
+    <td><span class="tag-low">T1</span>&ndash;<span class="tag-high">T3</span></td>
+    <td>Covered (multi-function)</td>
+    <td>P2, P6, P7, NG-05, NG-07</td>
+  </tr>
+  <tr>
+    <td>25</td>
+    <td>IU ChatGPT Edu</td>
+    <td>Validated</td>
+    <td>SS-04 + SS-05</td>
+    <td><span class="tag-low">T1</span>&ndash;<span class="tag-med">T2</span></td>
+    <td>Covered</td>
+    <td>P1, P8</td>
+  </tr>
+  <tr>
+    <td>26</td>
+    <td>Penn State MyResource</td>
+    <td>Validated</td>
+    <td>SS-01</td>
+    <td><span class="tag-high">T3</span></td>
+    <td><strong>Fully covered</strong></td>
+    <td>P2, P3, P5</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>Michigan Ross AI TA</td>
+    <td>Validated</td>
+    <td>SS-05</td>
+    <td><span class="tag-med">T2</span></td>
+    <td><strong>Fully covered</strong></td>
+    <td>P1, P4, P5</td>
+  </tr>
+  <tr>
+    <td>28</td>
+    <td>Career Coaching / Resume</td>
+    <td>Proposed</td>
+    <td>SS-08</td>
+    <td><span class="tag-low">T1</span></td>
+    <td><strong>Fully covered</strong></td>
+    <td>P1, P2</td>
+  </tr>
+  <tr>
+    <td>29</td>
+    <td>Financial Aid Advising</td>
+    <td>Proposed</td>
+    <td>SS-03</td>
+    <td><span class="tag-high">T3</span></td>
+    <td><strong>Fully covered</strong></td>
+    <td>P3, P5, P6, NG-03</td>
+  </tr>
+  <tr>
+    <td>30</td>
+    <td>Dropout Prediction (Arizona)</td>
+    <td>Validated</td>
+    <td>SS-02 + SS-09</td>
+    <td><span class="tag-high">T3</span></td>
+    <td><strong>Fully covered</strong></td>
+    <td>P2, P6, P7, NG-04</td>
+  </tr>
+  <tr>
+    <td>32</td>
+    <td>Enrollment Yield (Othot)</td>
+    <td>Validated</td>
+    <td>SS-10 + SS-03</td>
+    <td><span class="tag-med">T2</span>&ndash;<span class="tag-high">T3</span></td>
+    <td>Partial</td>
+    <td>P2, P3, NG-03</td>
+  </tr>
+  <tr>
+    <td>33</td>
+    <td>Purdue Smart Plan</td>
+    <td>Validated</td>
+    <td>SS-01</td>
+    <td><span class="tag-high">T3</span></td>
+    <td><strong>Fully covered</strong></td>
+    <td>P1, P2</td>
+  </tr>
+  <tr style="background: #fff0f0;">
+    <td>49</td>
+    <td>Grammar Lab (Deaf students)</td>
+    <td>Validated</td>
+    <td>SS-06 partial / SS-XX</td>
+    <td><span class="tag-med">T2</span></td>
+    <td><strong>Partial GAP</strong></td>
+    <td>P2, P6, P8</td>
+  </tr>
+  <tr style="background: #fff0f0;">
+    <td>50, 52</td>
+    <td>UDL + Assistive Tech</td>
+    <td>Validated</td>
+    <td>SS-06 partial / SS-XX</td>
+    <td><span class="tag-med">T2</span></td>
+    <td><strong>Partial GAP</strong></td>
+    <td>P2, P6</td>
+  </tr>
+  <tr>
+    <td>67</td>
+    <td>PATHWISE Job Demand</td>
+    <td>Validated</td>
+    <td>SS-08</td>
+    <td><span class="tag-low">T1</span></td>
+    <td>Covered</td>
+    <td>P2</td>
+  </tr>
+  <tr>
+    <td>68</td>
+    <td>Lightcast Career Pathways</td>
+    <td>Validated</td>
+    <td>SS-08</td>
+    <td><span class="tag-low">T1</span></td>
+    <td>Covered</td>
+    <td>P2</td>
+  </tr>
+  <tr>
+    <td>71</td>
+    <td>Predictive Retention</td>
+    <td>Validated</td>
+    <td>SS-02</td>
+    <td><span class="tag-high">T3</span></td>
+    <td><strong>Fully covered</strong></td>
+    <td>P2, P5, NG-04</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>Learning Analytics Dashboards</td>
+    <td>Proposed</td>
+    <td>SS-02 + SS-09</td>
+    <td><span class="tag-med">T2</span>&ndash;<span class="tag-high">T3</span></td>
+    <td>Covered</td>
+    <td>P4, P7</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>5. Gap Analysis</h2>
+
+<table>
+  <tr>
+    <th style="width:5%">#</th>
+    <th style="width:20%">Gap</th>
+    <th style="width:30%">Handbook Evidence</th>
+    <th style="width:25%">Recommended Action</th>
+    <th style="width:10%">Suggested Tier</th>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>1</td>
+    <td><strong>Mental Health / Counseling AI</strong></td>
+    <td>#22 WoeBot (Stanford), #23 Wysa/Woebot/Tess (Memphis), #20 Sunny (ASU &mdash; borderline). At least 3 validated deployments at major institutions. Rapidly growing area.</td>
+    <td>Add <strong>SS-11: AI Mental Health &amp; Counseling Support</strong>. Key pillars: P3, P5, P6, P7. No-go considerations: NG-03, NG-06. Crisis escalation protocol required.</td>
+    <td><span class="tag-high">Tier 3</span></td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>2</td>
+    <td><strong>Disability Services / Accessibility AI</strong></td>
+    <td>#49 Grammar Lab (RIT/NTID), #50 UDL tools (Cornell), #52 Assistive tech (multiple). 3 validated deployments. DSPS offices are active AI deployment sites at CCs.</td>
+    <td>Add <strong>SS-12: Accessibility &amp; Assistive AI</strong>. Key pillars: P2, P6, P7. ADA data protections. Equity flag: tool failure has outsized impact &mdash; no alternative pathway.</td>
+    <td><span class="tag-med">Tier 2</span></td>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td>3</td>
+    <td><strong>Multi-Function Platform Guidance</strong></td>
+    <td>#21 Pounce (4 functions), #24 Hawaii (2 functions), #25 IU ChatGPT Edu (2 functions). Multi-function tools are the norm, not the exception.</td>
+    <td>Add portfolio evaluation guidance to the Navigator. Recommended rule: <strong>assess highest-risk function first</strong>; tool&rsquo;s overall governance floor = highest tier among its functions.</td>
+    <td>N/A (process)</td>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td>4</td>
+    <td><strong>Yield Optimization as Financial Aid Function</strong></td>
+    <td>#32 Enrollment yield prediction (Othot, Element451). Using AI to determine aid amounts based on predicted enrollment probability.</td>
+    <td>Add screening question to SS-03: &ldquo;Is AI used to determine aid amounts based on predicted enrollment likelihood?&rdquo; If yes, P2 and NG-03 apply.</td>
+    <td>N/A (screening Q)</td>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td>5</td>
+    <td><strong>Emotional Support (non-clinical) Ambiguity</strong></td>
+    <td>#20 Sunny (ASU). Provides emotional support without claiming therapeutic function. Falls between SS-04 (chatbot) and mental health.</td>
+    <td>Add screening question to SS-04: &ldquo;Does this chatbot collect or respond to emotional/mental health disclosures?&rdquo; If yes, upgrade tier and add P5/P6.</td>
+    <td>N/A (screening Q)</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>6. Coverage Summary</h2>
+
+<p>Of the <strong>19 Student Services&ndash;relevant use cases</strong> identified from the 75 in the handbook:</p>
+
+<table>
+  <tr>
+    <th style="width:25%">Coverage Level</th>
+    <th style="width:8%">Count</th>
+    <th>Use Cases</th>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td><strong>Fully Covered</strong></td>
+    <td>8</td>
+    <td>#26 (Penn State), #27 (Michigan Ross), #28 (Career Coaching), #29 (Financial Aid), #30 (Dropout Prediction), #33 (Purdue Smart Plan), #71 (Retention Analytics), #67 (PATHWISE)</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td><strong>Covered via Multiple Use Cases</strong></td>
+    <td>5</td>
+    <td>#21 (Pounce), #24 (Hawaii), #25 (IU ChatGPT), #68 (Lightcast), #74 (Learning Dashboards)</td>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td><strong>Partially Covered</strong></td>
+    <td>2</td>
+    <td>#20 (Sunny &mdash; emotional support ambiguity), #32 (Yield optimization)</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td><strong>Gap &mdash; No Coverage</strong></td>
+    <td>2</td>
+    <td>#22 (WoeBot), #23 (Memphis Mental Wellness)</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td><strong>Partial Gap &mdash; Needs New Use Case</strong></td>
+    <td>2</td>
+    <td>#49 (Grammar Lab), #50/#52 (UDL/Assistive Tech)</td>
+  </tr>
+</table>
+
+<div class="success">
+<strong>Bottom line:</strong> The Navigator v2&rsquo;s 10 use cases cover 13 of 19 Student Services&ndash;relevant handbook entries fully or substantially. Adding SS-11 (Mental Health) and SS-12 (Accessibility) would bring coverage to 17 of 19. Adding the multi-function platform guidance and yield optimization screening question would close the remaining two partial gaps.
+</div>
+
+</div><!-- /tab-crosswalk -->
+
+<!-- ============================================================ -->
+<!-- TAB 2: FRAMEWORK REFERENCE -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-framework">
+
+<h2>Navigator v2 Framework Reference</h2>
+
+<p>This tab provides a quick reference to the Navigator v2 framework components referenced throughout the crosswalk. Use this to orient to the pillars, risk tiers, no-go criteria, and use cases before reviewing the detailed mappings.</p>
+
+<hr>
+
+<h2>Nine Governance Pillars</h2>
+
+<p>Each pillar has assessment questions, a 3-point scoring rubric (3 = Good, 2 = Partial, 1 = Poor), and remediation actions. Together they form the evaluation engine.</p>
+
+<div class="pillar-card" style="border-left-color: #0066cc;">
+  <h4><span style="color: #0066cc;">P1</span> &mdash; Purpose &amp; Educational Legitimacy</h4>
+  <div class="pillar-hook">&ldquo;If it doesn&rsquo;t serve students, it doesn&rsquo;t belong here.&rdquo;</div>
+  <p>Every AI deployment must serve a genuine educational purpose and protect the meaning of credentials. This pillar asks: Can you articulate <em>why</em> this tool exists in Student Services? Is the educational benefit clear and measurable, or is this technology for technology&rsquo;s sake?</p>
+  <p><strong>Questions:</strong> 5 &nbsp;|&nbsp; <strong>HUMANS mapping:</strong> AQL-original</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #28a745;">
+  <h4><span style="color: #28a745;">P2</span> &mdash; Equity &amp; Differential Impact</h4>
+  <div class="pillar-hook">&ldquo;If it doesn&rsquo;t work for all your students, it doesn&rsquo;t work.&rdquo;</div>
+  <p>AI governance must center equity and account for differential impacts on diverse CC student populations. This pillar asks: Has the tool been tested with the populations your college actually serves? Do you have disaggregated performance data across Pell-eligible, first-gen, multilingual, and racially diverse students?</p>
+  <p><strong>Questions:</strong> 7 &nbsp;|&nbsp; <strong>HUMANS mapping:</strong> U, A</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #6f42c1;">
+  <h4><span style="color: #6f42c1;">P3</span> &mdash; Human Authority &amp; Decision Accountability</h4>
+  <div class="pillar-hook">&ldquo;Who is accountable when the AI is wrong?&rdquo;</div>
+  <p>Humans &mdash; not algorithms &mdash; make consequential decisions about students. This pillar asks: Is there a named human who reviews AI outputs before they affect a student&rsquo;s enrollment, financial aid, or academic standing? What happens when the AI is wrong at 2 AM?</p>
+  <p><strong>Questions:</strong> 5 &nbsp;|&nbsp; <strong>HUMANS mapping:</strong> H</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #fd7e14;">
+  <h4><span style="color: #fd7e14;">P4</span> &mdash; Student &amp; Faculty Agency</h4>
+  <div class="pillar-hook">&ldquo;Your students are adults. Your faculty run the classroom. Respect both.&rdquo;</div>
+  <p>Students and faculty are empowered participants, not subjects. This pillar asks: Can students opt out? Can faculty configure the tool for their course? Were students and faculty involved in the procurement decision? Are adjuncts included in training?</p>
+  <p><strong>Questions:</strong> 8 &nbsp;|&nbsp; <strong>HUMANS mapping:</strong> H, U</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #dc3545;">
+  <h4><span style="color: #dc3545;">P5</span> &mdash; Risk Proportionality &amp; Harm Mitigation</h4>
+  <div class="pillar-hook">&ldquo;What&rsquo;s the worst that happens to a student if this tool fails?&rdquo;</div>
+  <p>Governance intensity matches risk level. This pillar asks: What is the failure mode? If the tool gives wrong advice, does a student miss a deadline, take the wrong class, or lose financial aid? The answer determines governance requirements.</p>
+  <p><strong>Questions:</strong> 6 &nbsp;|&nbsp; <strong>HUMANS mapping:</strong> S</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #17a2b8;">
+  <h4><span style="color: #17a2b8;">P6</span> &mdash; Data Stewardship &amp; System Integrity</h4>
+  <div class="pillar-hook">&ldquo;Your data, your rules. Not the vendor&rsquo;s.&rdquo;</div>
+  <p>Student data is a public trust. This pillar asks: Where does student data go? Who owns it? Is the data sharing agreement FERPA-compliant? Can the vendor use student data to train models? Can you get your data back if you leave?</p>
+  <p><strong>Questions:</strong> 8 &nbsp;|&nbsp; <strong>HUMANS mapping:</strong> M</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #e83e8c;">
+  <h4><span style="color: #e83e8c;">P7</span> &mdash; Transparency &amp; Contestability</h4>
+  <div class="pillar-hook">&ldquo;Decisions without recourse are not governance.&rdquo;</div>
+  <p>Students and faculty have the right to know when AI influences decisions that affect them &mdash; and the right to contest those decisions. This pillar asks: Does the student know AI was involved? Can they challenge the outcome? Is the decision-making process explainable?</p>
+  <p><strong>Questions:</strong> 7 &nbsp;|&nbsp; <strong>HUMANS mapping:</strong> N</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #6610f2;">
+  <h4><span style="color: #6610f2;">P8</span> &mdash; Vendor Accountability &amp; Institutional Sovereignty</h4>
+  <div class="pillar-hook">&ldquo;You&rsquo;re signing the contract. Make sure it protects your students, not just the vendor.&rdquo;</div>
+  <p>Community colleges are buyers, not builders. Vendor relationships must protect institutional sovereignty. This pillar asks: Does the contract allow independent bias audits? Can you exit without losing data? Are switching costs punitive? Does the vendor&rsquo;s business model depend on your students&rsquo; data?</p>
+  <p><strong>Questions:</strong> 7 &nbsp;|&nbsp; <strong>HUMANS mapping:</strong> S</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #795548;">
+  <h4><span style="color: #795548;">P9</span> &mdash; Institutional Capacity &amp; Continuous Governance</h4>
+  <div class="pillar-hook">&ldquo;Don&rsquo;t add tools to an ungoverned environment. Build the floor first.&rdquo;</div>
+  <p>Governance must be achievable at every institutional scale. This pillar asks: Does someone own this tool&rsquo;s governance? Is there a review cadence? Is there budget for training? This pillar is about the institution, not the tool &mdash; and it fills a gap the CCCCO HUMANS framework does not address.</p>
+  <p><strong>Questions:</strong> 6 &nbsp;|&nbsp; <strong>HUMANS mapping:</strong> AQL-original (HUMANS gap)</p>
+</div>
+
+<p style="font-size: 9pt; color: #888;">Total: 59 questions across 9 pillars. Source citations on every question.</p>
+
+<hr>
+
+<h2>Risk Tier System</h2>
+
+<table>
+  <tr>
+    <th style="width:12%">Tier</th>
+    <th style="width:15%">Risk Level</th>
+    <th style="width:38%">When It Applies</th>
+    <th>Governance Requirements</th>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td><strong>Tier 1</strong></td>
+    <td>Lower Risk</td>
+    <td>Informational only. No decisions affecting access. No sensitive data. (e.g., FAQ chatbot, career exploration tool)</td>
+    <td>Score P1, P2, P6, P7, P8 minimum. Others recommended.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td><strong>Tier 2</strong></td>
+    <td>Medium Risk</td>
+    <td>Touches advising or instructional core. Human reviews outputs. Accesses student records. (e.g., tutoring assistant, multilingual support)</td>
+    <td>All 9 pillars scored. P2 and P6 must score &ge; 2.</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td><strong>Tier 3</strong></td>
+    <td>High Risk</td>
+    <td>Affects enrollment, financial aid, academic standing. Automated or semi-automated decisions. Sensitive data. (e.g., early alert system, AI advising)</td>
+    <td>All 9 pillars mandatory. P2 and P6 &ge; 2. Full governance review required.</td>
+  </tr>
+</table>
+
+<div class="highlight-box">
+<strong>Override mechanism:</strong> Each use case has a default risk tier. Users can override (e.g., a chatbot that accesses student records upgrades from Tier 1 to Tier 2). Lowering the tier requires a documented reason.
+</div>
+
+<hr>
+
+<h2>Ten Use Cases</h2>
+
+<table>
+  <tr>
+    <th style="width:7%">ID</th>
+    <th style="width:22%">Use Case</th>
+    <th style="width:10%">Default Tier</th>
+    <th style="width:15%">Key Pillars</th>
+    <th>Equity Flag</th>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>SS-01</td>
+    <td>AI Advising / Guided Pathways</td>
+    <td><span class="tag-high">Tier 3</span></td>
+    <td>P1, P2, P3, P5</td>
+    <td>Recommendations affect trajectory. Errors compound for first-gen and Pell-eligible.</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>SS-02</td>
+    <td>Early Alert / Student Risk System</td>
+    <td><span class="tag-high">Tier 3</span></td>
+    <td>P2, P3, P5, P7</td>
+    <td>Risk profiling creates surveillance dynamic. Disparate impact on students of color.</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>SS-03</td>
+    <td>Financial Aid Triage &amp; FAFSA</td>
+    <td><span class="tag-high">Tier 3</span></td>
+    <td>P3, P5, P6</td>
+    <td>Automated decisions on access to resources. Errors disproportionately affect low-income.</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td>SS-04</td>
+    <td>Student-Facing Chatbot</td>
+    <td><span class="tag-low">Tier 1</span></td>
+    <td>P1, P7, P8</td>
+    <td>Multilingual coverage gaps. Accessibility barriers.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-05</td>
+    <td>AI Course Tutoring Assistant</td>
+    <td><span class="tag-med">Tier 2</span></td>
+    <td>P1, P4, P5</td>
+    <td>Hallucination risk. Socratic vs. answer mode affects learning.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-06</td>
+    <td>Multilingual Support / Translation</td>
+    <td><span class="tag-med">Tier 2</span></td>
+    <td>P2, P7</td>
+    <td>Quality varies by language. Cultural appropriateness.</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td>SS-07</td>
+    <td>Basic Needs Support</td>
+    <td><span class="tag-low">Tier 1</span></td>
+    <td>P6, P7</td>
+    <td>Sensitive data (food insecurity, housing, immigration status). Privacy paramount.</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td>SS-08</td>
+    <td>Career Services AI</td>
+    <td><span class="tag-low">Tier 1</span></td>
+    <td>P1, P2</td>
+    <td>Pathway bias across career clusters. Equity across CTE and transfer.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-09</td>
+    <td>Student Journey Mapping</td>
+    <td><span class="tag-med">Tier 2</span></td>
+    <td>P5, P6, P7</td>
+    <td>PII. Aggregation vs. individual tracking. Surveillance risk.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-10</td>
+    <td>Registration &amp; Enrollment</td>
+    <td><span class="tag-med">Tier 2</span></td>
+    <td>P1, P3, P5</td>
+    <td>Automated enrollment decisions affect access. Waitlist prioritization.</td>
+  </tr>
+  <tr>
+    <td>SS-XX</td>
+    <td>Custom / Other</td>
+    <td>User assigns</td>
+    <td>User describes</td>
+    <td>User describes equity considerations.</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Eight No-Go Criteria</h2>
+
+<p>Hard stops. If any condition is true, the tool should not deploy until resolved. Each has both a checklist detection path and a score-derived detection path.</p>
+
+<div class="nogo-card">
+<strong>NG-01: No clear educational purpose.</strong><br>
+<em>If you can&rsquo;t articulate the educational purpose, don&rsquo;t buy it.</em><br>
+<span style="color:#888; font-size:9pt;">Detection: P1 score = 1, OR screening indicates no educational purpose.</span>
+</div>
+
+<div class="nogo-card">
+<strong>NG-02: Students are not training data.</strong><br>
+<em>Vendors that train models on student data are extracting value from the most vulnerable populations in higher education.</em><br>
+<span style="color:#888; font-size:9pt;">Detection: Explicit yes/no in no-go checklist.</span>
+</div>
+
+<div class="nogo-card">
+<strong>NG-03: No human override for consequential decisions.</strong><br>
+<em>When AI makes decisions about financial aid, enrollment, or academic standing without human review, students lose recourse.</em><br>
+<span style="color:#888; font-size:9pt;">Detection: P3 score = 1 AND risk tier = High.</span>
+</div>
+
+<div class="nogo-card">
+<strong>NG-04: Vendor blocks independent bias audits.</strong><br>
+<em>Vendors who block audits behind IP claims are choosing their property over your students&rsquo; civil rights.</em><br>
+<span style="color:#888; font-size:9pt;">Detection: Explicit yes/no in no-go checklist.</span>
+</div>
+
+<div class="nogo-card">
+<strong>NG-05: No FERPA-compliant data sharing agreement.</strong><br>
+<em>This is a legal requirement, not a best practice.</em><br>
+<span style="color:#888; font-size:9pt;">Detection: Explicit yes/no in no-go checklist.</span>
+</div>
+
+<div class="nogo-card">
+<strong>NG-06: No student disclosure of AI use.</strong><br>
+<em>Students have a right to know when AI influences decisions that affect them. Period.</em><br>
+<span style="color:#888; font-size:9pt;">Detection: P7 score = 1 OR explicit no-go question.</span>
+</div>
+
+<div class="nogo-card">
+<strong>NG-07: Decisions without recourse are not governance.</strong><br>
+<em>If a student cannot contest an AI-influenced decision, you have automation, not governance.</em><br>
+<span style="color:#888; font-size:9pt;">Detection: P7 score = 1 OR explicit no-go question.</span>
+</div>
+
+<div class="nogo-card">
+<strong>NG-08: Vendor lock-in undermines institutional sovereignty.</strong><br>
+<em>If you can&rsquo;t leave without losing your students&rsquo; data or paying punitive switching costs, the vendor is governing you.</em><br>
+<span style="color:#888; font-size:9pt;">Detection: Explicit yes/no in no-go checklist.</span>
+</div>
+
+<hr>
+
+<h2>Three Archetypes</h2>
+
+<p>Archetypes determine the roadmap&rsquo;s depth, RACI structure, metric complexity, and governance intensity.</p>
+
+<table>
+  <tr>
+    <th style="width:15%">Archetype</th>
+    <th style="width:12%">Tagline</th>
+    <th style="width:35%">Profile</th>
+    <th>Roadmap Output</th>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td><strong>Lightweight</strong></td>
+    <td><em>Start small. Start now.</em></td>
+    <td>Small or rural. Limited IT. 1&ndash;2 people wearing many hats. Under 5,000 students. No formal AI governance yet.</td>
+    <td>~2 pages. One Tier 1 or 2 use case. Use templates directly. Quarterly review.</td>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td><strong>Building</strong></td>
+    <td><em>Structure enables innovation.</em></td>
+    <td>Mid-size with some analytics capacity. IT director and IR. AI committee forming.</td>
+    <td>~4 pages. 2&ndash;3 use cases across tiers. Cross-functional working group. All 9 pillars active. Disaggregated tracking.</td>
+  </tr>
+  <tr style="background: #f3e8ff;">
+    <td><strong>Scaling</strong></td>
+    <td><em>Govern the portfolio, not just the tool.</em></td>
+    <td>Large with dedicated staff. Data warehouse, analytics team, innovation office. Multiple AI tools deployed.</td>
+    <td>~6 pages. Portfolio approach. Formal governance with project owners. Bias audits for Tier 3.</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Three-Layer Architecture</h2>
+
+<table>
+  <tr>
+    <th style="width:15%">Layer</th>
+    <th style="width:12%">Scope</th>
+    <th>Contents</th>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td><strong>Layer 1</strong></td>
+    <td>Portable</td>
+    <td><strong>Four Ethical Criteria:</strong> (1) Equitable Student Outcomes, (2) Quality Data Governed Responsibly, (3) Ethics &amp; Safety Foundation, (4) Thoughtful Multi-Year Approach</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td><strong>Layer 2</strong></td>
+    <td>Portable</td>
+    <td><strong>Nine Operational Pillars (P1&ndash;P9):</strong> The evaluation structure. Each pillar has questions, a 3-point scoring rubric, and remediation actions. This is the assessment engine.</td>
+  </tr>
+  <tr style="background: #f3e8ff;">
+    <td><strong>Layer 3</strong></td>
+    <td>California Only</td>
+    <td><strong>CCCCO HUMANS Framework:</strong> Binding for all 116 CCC colleges. The Navigator maps pillars to HUMANS letters. Non-California colleges skip this and still have a complete framework.</td>
+  </tr>
+</table>
+
+<div class="callout">
+<strong>Portability:</strong> Layers 1 and 2 work for any community college system. Layer 3 adds California-specific CCCCO HUMANS alignment. A non-CA college using the Navigator sees the same pillars, same rubrics, same roadmap &mdash; minus the HUMANS column.
+</div>
+
+</div><!-- /tab-framework -->
+
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

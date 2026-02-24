@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step 0: Student Services Use Case Routing Questionnaire</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    color: #333;
+}
+h1 { font-size: 18pt; border-bottom: 2px solid #333; padding-bottom: 8px; margin-bottom: 4px; }
+h2 { font-size: 14pt; border-bottom: 1px solid #ccc; padding-bottom: 6px; margin-top: 28px; }
+h3 { font-size: 12pt; border-bottom: 1px solid #eee; padding-bottom: 4px; margin-top: 20px; }
+h4 { font-size: 11pt; color: #444; margin-top: 14px; margin-bottom: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 10pt; margin: 12px 0; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
+th { background-color: #f0f0f0; font-weight: bold; }
+.metadata { color: #666; font-size: 10pt; }
+.subtitle { font-size: 14pt; color: #666; margin-top: -8px; }
+.callout { background: #e7f3ff; border-left: 4px solid #0066cc; padding: 12px 16px; margin: 12px 0; font-size: 10pt; }
+.critical { background: #f8d7da; border-left: 4px solid #c00; padding: 12px 16px; margin: 12px 0; font-size: 10pt; }
+.success { background: #d4edda; border-left: 4px solid #28a745; padding: 12px 16px; margin: 12px 0; font-size: 10pt; }
+.highlight-box { background: #fff3cd; border: 1px solid #ffc107; padding: 12px 16px; margin: 12px 0; font-size: 10pt; }
+hr { border: none; border-top: 1px solid #ccc; margin: 24px 0; }
+ul, ol { margin: 8px 0; padding-left: 24px; }
+li { margin-bottom: 4px; }
+
+/* Tags */
+.tag-high { background: #f8d7da; color: #721c24; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+.tag-med { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+.tag-low { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+
+/* Tab navigation */
+.tab-nav {
+    display: flex;
+    border-bottom: 2px solid #0066cc;
+    margin: 24px 0 0 0;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+.tab-btn {
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    cursor: pointer;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #555;
+    border-radius: 4px 4px 0 0;
+    transition: background 0.2s;
+}
+.tab-btn:hover { background: #e0e0e0; }
+.tab-btn.active { background: #0066cc; color: white; border-color: #0066cc; }
+.tab-panel { display: none; padding: 4px 0 0 0; }
+.tab-panel.active { display: block; }
+
+.example-output {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-left: 4px solid #0066cc;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-size: 10pt;
+}
+.example-output h4 { margin-top: 0; }
+.example-output .eval-btn {
+    display: inline-block;
+    background: #0066cc;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 9pt;
+    text-decoration: none;
+    margin-top: 4px;
+}
+
+@media print {
+    body { padding: 0.5in; }
+    .tab-nav { display: none; }
+    .tab-panel { display: block !important; page-break-before: always; }
+    .tab-panel:first-of-type { page-break-before: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- Logo -->
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 { font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif; font-size: 130.25px; font-style: italic; font-weight: 600; }
+        .cls-2 { letter-spacing: -.02em; }
+        .cls-3 { letter-spacing: -.04em; }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<!-- Header -->
+<h1>Step 0: Student Services Use Case Routing Questionnaire</h1>
+<p class="subtitle">Navigator v2 &mdash; AI Governance Navigator for Student Services</p>
+<p class="metadata">
+<strong>Status:</strong> Draft for Review<br>
+<strong>Date:</strong> February 2026<br>
+<strong>Purpose:</strong> Route VPSSs and deans to 2&ndash;3 recommended use cases based on institutional context<br>
+<strong>Position:</strong> Precedes Step 1 (Use Case Selector), Step 2 (Screening), Step 3 (Scoring)<br>
+<strong>Team:</strong> Amin, Mimi, Adam, Hyunjun
+</p>
+
+<!-- What This Does -->
+<h2>What This Does</h2>
+<p>A VPSS or dean arrives at the Navigator and says: "We want to do something with AI in Student Services but we don't know where to start." These 8 questions identify their institutional context and route them to 2&ndash;3 recommended use cases, ranked by fit.</p>
+<p>Each question maps to specific use cases. The combination of answers produces a weighted recommendation: "Based on your answers, start here."</p>
+<p>This is <strong>Step 0</strong> &mdash; it comes before the use case selector (Step 1), screening (Step 2), and scoring (Step 3). Users who already know what they're evaluating can skip to Step 1. Users who need help figuring out where to start begin here.</p>
+
+<!-- Tab Navigation -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab(this, 'questionnaire')">Questionnaire</button>
+  <button class="tab-btn" onclick="switchTab(this, 'scoring')">Scoring Logic</button>
+  <button class="tab-btn" onclick="switchTab(this, 'mapping')">Mapping Logic</button>
+  <button class="tab-btn" onclick="switchTab(this, 'algorithm')">Formal Algorithm</button>
+</div>
+
+<!-- ==================== TAB 1: QUESTIONNAIRE ==================== -->
+<div id="tab-questionnaire" class="tab-panel active">
+
+<h2>The 8 Questions</h2>
+
+<!-- Q1 -->
+<h3>Q1: Where are students getting stuck?</h3>
+<p><em>Pick up to three. This tells us where AI could have the biggest impact for your students.</em></p>
+<ul style="list-style: none; padding-left: 12px;">
+  <li>&#9744; Students can't get advising appointments when they need them</li>
+  <li>&#9744; Students are falling off track and we don't catch it early enough</li>
+  <li>&#9744; Financial aid is confusing and students abandon applications</li>
+  <li>&#9744; Students can't get answers outside business hours</li>
+  <li>&#9744; Students need help in courses but tutoring isn't available or accessible</li>
+  <li>&#9744; Language barriers prevent students from accessing services</li>
+  <li>&#9744; Students don't know what support services exist or how to find them</li>
+  <li>&#9744; Career planning feels disconnected from what students are studying</li>
+</ul>
+
+<hr>
+
+<!-- Q2 -->
+<h3>Q2: How many students does your college serve?</h3>
+<p><em>This helps us calibrate recommendations to your scale.</em></p>
+<ul style="list-style: none; padding-left: 12px;">
+  <li>&#9675; Under 5,000 (headcount)</li>
+  <li>&#9675; 5,000 &ndash; 15,000</li>
+  <li>&#9675; 15,000 &ndash; 30,000</li>
+  <li>&#9675; Over 30,000</li>
+</ul>
+
+<hr>
+
+<!-- Q3 -->
+<h3>Q3: What does your data situation look like?</h3>
+<p><em>Be honest. This is the most common reason AI tools underperform &mdash; they need data you don't have or can't trust.</em></p>
+<ul style="list-style: none; padding-left: 12px;">
+  <li>&#9675; We have a functioning SIS and can pull clean enrollment and student demographic data</li>
+  <li>&#9675; We have that, plus advising records, financial aid data, and some learning analytics</li>
+  <li>&#9675; We have rich data across multiple systems but they don't talk to each other well</li>
+  <li>&#9675; We're still working on getting reliable data out of our core systems</li>
+</ul>
+
+<hr>
+
+<!-- Q4 -->
+<h3>Q4: What's your staffing reality for Student Services technology?</h3>
+<p><em>This determines how much governance infrastructure you can realistically maintain.</em></p>
+<ul style="list-style: none; padding-left: 12px;">
+  <li>&#9675; We have dedicated IT staff who support Student Services tools</li>
+  <li>&#9675; IT handles everything centrally; Student Services has no dedicated tech support</li>
+  <li>&#9675; We rely heavily on vendor support and system-level resources</li>
+  <li>&#9675; One or two people wear all the hats</li>
+</ul>
+
+<hr>
+
+<!-- Q5 -->
+<h3>Q5: What are your biggest equity gaps right now?</h3>
+<p><em>Pick up to two. This helps us recommend use cases that address your specific equity priorities.</em></p>
+<ul style="list-style: none; padding-left: 12px;">
+  <li>&#9744; Completion rates differ significantly by race/ethnicity</li>
+  <li>&#9744; First-generation students are less likely to persist</li>
+  <li>&#9744; Students working full-time or with caregiving responsibilities can't access services during business hours</li>
+  <li>&#9744; Multilingual students don't receive adequate support in their language</li>
+  <li>&#9744; Pell-eligible students have lower completion rates</li>
+  <li>&#9744; Students with disabilities face access barriers in current systems</li>
+  <li>&#9744; Transfer rates differ significantly across student populations</li>
+</ul>
+
+<hr>
+
+<!-- Q6 -->
+<h3>Q6: Is AI already being used informally in Student Services at your college?</h3>
+<p><em>This tells us whether governance needs to catch up to reality or get ahead of it.</em></p>
+<ul style="list-style: none; padding-left: 12px;">
+  <li>&#9675; Yes &mdash; staff and/or students are already using AI tools (ChatGPT, Copilot, vendor-embedded AI) without formal governance</li>
+  <li>&#9675; Somewhat &mdash; a few people are experimenting but it's not widespread</li>
+  <li>&#9675; No &mdash; AI isn't really being used in Student Services yet</li>
+  <li>&#9675; We don't know &mdash; and that's part of the problem</li>
+</ul>
+
+<hr>
+
+<!-- Q7 -->
+<h3>Q7: Does your college already have any AI governance in place?</h3>
+<p><em>Even informal structures count &mdash; an AI committee, a policy statement, a procurement checklist.</em></p>
+<ul style="list-style: none; padding-left: 12px;">
+  <li>&#9675; We have a formal AI governance committee or policy</li>
+  <li>&#9675; We have something informal &mdash; an ad hoc group, a dean who's paying attention, some guidelines</li>
+  <li>&#9675; Nothing specific to AI, but we have general technology governance processes</li>
+  <li>&#9675; No governance structure that addresses AI</li>
+</ul>
+
+<hr>
+
+<!-- Q8 -->
+<h3>Q8: What's driving this? Why are you looking at AI for Student Services now?</h3>
+<p><em>Understanding your motivation helps us recommend a starting point that builds momentum.</em></p>
+<ul style="list-style: none; padding-left: 12px;">
+  <li>&#9675; Leadership is asking for an AI strategy and we need to show progress</li>
+  <li>&#9675; We've seen a specific tool or heard about a peer institution's success</li>
+  <li>&#9675; Student demand &mdash; students expect AI-enabled services</li>
+  <li>&#9675; Enrollment/retention pressure &mdash; we need to do more with less</li>
+  <li>&#9675; Equity imperative &mdash; current approaches aren't reaching all students</li>
+  <li>&#9675; System-level directive &mdash; CCCCO or district is requiring AI governance</li>
+</ul>
+
+<hr>
+
+<!-- Output Section -->
+<h2>Output</h2>
+<p>After 8 questions, the user sees:</p>
+
+<h3>Your Recommended Starting Points</h3>
+<p>Ranked list of 2&ndash;3 use cases with:</p>
+<ul>
+  <li>Use case name and one-line description</li>
+  <li>Why it fits: "You told us [specific answers]. This use case addresses [connection]."</li>
+  <li>Risk tier badge</li>
+  <li>Data readiness flag (green/yellow/red based on Q3)</li>
+  <li>"Evaluate This Use Case &rarr;" button (routes to Step 1 with use case pre-selected)</li>
+</ul>
+
+<h3>Your Institutional Profile</h3>
+<ul>
+  <li><strong>Archetype:</strong> Lightweight / Building / Scaling (derived from Q2 + Q4 + Q7)</li>
+  <li><strong>Equity priority:</strong> [derived from Q5]</li>
+  <li><strong>Urgency level:</strong> [derived from Q6]</li>
+  <li><strong>Data readiness:</strong> [derived from Q3]</li>
+</ul>
+
+<h3>Example Output</h3>
+<div class="example-output">
+  <h4>Your Top Starting Points</h4>
+
+  <p><strong>1. Student-Facing Chatbot / Digital Front Door</strong> <span class="tag-low">Tier 1 &mdash; Low Risk</span></p>
+  <p>You said students can't get answers outside business hours and your working students can't access services during the day. A chatbot addresses both &mdash; and at Tier 1, it's governance-light enough to match your current capacity.</p>
+  <p><span class="eval-btn">Evaluate This Use Case &rarr;</span></p>
+
+  <p><strong>2. Multilingual Support / Translation Services</strong> <span class="tag-med">Tier 2 &mdash; Medium Risk</span></p>
+  <p>Language barriers showed up in both your bottleneck and equity responses. Your SIS data is clean enough to support this. Medium governance lift.</p>
+  <p><span class="eval-btn">Evaluate This Use Case &rarr;</span></p>
+
+  <p><strong>3. Consider Later: Early Alert System</strong> <span class="tag-high">Tier 3 &mdash; High Risk</span></p>
+  <p>Your completion gaps suggest this would have high impact, but your data situation and staffing point to starting with Tier 1&ndash;2 first. Revisit when your data systems are integrated and you've built governance capacity through your first use case.</p>
+</div>
+
+<hr>
+
+<!-- Design Notes -->
+<h2>Design Notes</h2>
+
+<p><strong>Why 8 questions, not 10:</strong> The v1 had 10 but several were about general institutional AI posture (detection policy, faculty AI use). Since we've narrowed to Student Services, some of those don't apply. 8 is enough to route accurately without feeling like a survey.</p>
+
+<p><strong>Why multi-select on Q1 and Q5:</strong> These are the questions where multiple answers produce the most useful signal. Limiting to single-select would force false choices.</p>
+
+<p><strong>Why "Consider Later" in the output:</strong> Some use cases are right for the institution but wrong for right now. Saying "not yet, and here's why" is more useful than hiding them. It also prevents the user from going straight to Tier 3 when they lack the infrastructure.</p>
+
+<p><strong>Connection to the Navigator flow:</strong> The "Evaluate This Use Case &rarr;" button pre-selects the use case in Step 1 and carries the archetype and institutional profile into the assessment. The user doesn't re-answer capacity questions &mdash; that context travels with them.</p>
+
+<p><strong>Skippable:</strong> Users who already know their use case bypass Step 0 entirely and go straight to Step 1 (use case selector) or the archetype quick-start.</p>
+
+</div>
+
+<!-- ==================== TAB 2: SCORING LOGIC ==================== -->
+<div id="tab-scoring" class="tab-panel">
+
+<h2>Algorithm Overview</h2>
+<p>The routing questionnaire processes answers through five phases. Each phase builds on the previous one to produce personalized recommendations.</p>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 760" style="width: 100%; height: auto; margin: 16px 0 20px 0; display: block;">
+  <defs>
+    <marker id="arrow-down" markerWidth="10" markerHeight="8" refX="5" refY="8" orient="0">
+      <polygon points="0 0, 10 0, 5 8" fill="#0066cc"/>
+    </marker>
+    <marker id="arrow-down-orange" markerWidth="10" markerHeight="8" refX="5" refY="8" orient="0">
+      <polygon points="0 0, 10 0, 5 8" fill="#E87722"/>
+    </marker>
+    <marker id="arrow-down-dark" markerWidth="10" markerHeight="8" refX="5" refY="8" orient="0">
+      <polygon points="0 0, 10 0, 5 8" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- ===== PHASE 1 ===== -->
+  <rect x="0" y="0" width="620" height="34" rx="4" fill="#0066cc"/>
+  <text x="14" y="23" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">PHASE 1: SIGNAL SCORING</text>
+  <text x="606" y="23" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">What&apos;s needed?</text>
+  <rect x="0" y="38" width="620" height="82" rx="4" fill="#e7f3ff" stroke="#ccd9e8" stroke-width="1"/>
+  <text x="24" y="62" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q1 Bottlenecks</text>
+  <text x="24" y="80" font-family="Arial, sans-serif" font-size="11" fill="#0066cc" font-weight="bold">+3 pts per mapped use case</text>
+  <text x="24" y="106" font-family="Arial, sans-serif" font-size="10" fill="#666" font-style="italic">&#x2192; Raw signal score per use case (SS-01 through SS-10)</text>
+  <line x1="222" y1="48" x2="222" y2="110" stroke="#ccd9e8" stroke-width="1"/>
+  <text x="236" y="62" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q5 Equity gaps</text>
+  <text x="236" y="80" font-family="Arial, sans-serif" font-size="11" fill="#0066cc" font-weight="bold">+2 pts per mapped use case</text>
+  <line x1="430" y1="48" x2="430" y2="110" stroke="#ccd9e8" stroke-width="1"/>
+  <text x="444" y="62" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q8 Motivation</text>
+  <text x="444" y="80" font-family="Arial, sans-serif" font-size="11" fill="#0066cc" font-weight="bold">+1 pt per mapped use case</text>
+
+  <!-- Arrow down 1→2 -->
+  <line x1="310" y1="126" x2="310" y2="158" stroke="#0066cc" stroke-width="2" marker-end="url(#arrow-down)"/>
+
+  <!-- ===== PHASE 2 ===== -->
+  <rect x="0" y="164" width="620" height="34" rx="4" fill="#0066cc"/>
+  <text x="14" y="187" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">PHASE 2: FEASIBILITY GATING</text>
+  <text x="606" y="187" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">What&apos;s realistic?</text>
+  <rect x="0" y="202" width="620" height="90" rx="4" fill="#e7f3ff" stroke="#ccd9e8" stroke-width="1"/>
+  <text x="24" y="228" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q3 Data readiness</text>
+  <text x="24" y="248" font-family="Arial, sans-serif" font-size="11" fill="#555">Each use case flagged:</text>
+  <rect x="24" y="256" width="52" height="18" rx="3" fill="#28a745"/>
+  <text x="50" y="269" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white" font-weight="bold">GREEN</text>
+  <rect x="82" y="256" width="58" height="18" rx="3" fill="#ffc107"/>
+  <text x="111" y="269" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333" font-weight="bold">YELLOW</text>
+  <rect x="146" y="256" width="42" height="18" rx="3" fill="#dc3545"/>
+  <text x="167" y="269" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white" font-weight="bold">RED</text>
+  <line x1="310" y1="212" x2="310" y2="282" stroke="#ccd9e8" stroke-width="1"/>
+  <text x="330" y="228" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q4 Staffing &#x2192; tier ceiling</text>
+  <text x="330" y="248" font-family="Arial, sans-serif" font-size="11" fill="#555">Dedicated tech = Tier 3 max</text>
+  <text x="330" y="264" font-family="Arial, sans-serif" font-size="11" fill="#555">Central IT = Tier 2 max</text>
+  <text x="330" y="280" font-family="Arial, sans-serif" font-size="11" fill="#555">Vendor-dep / 1&ndash;2 people = Tier 1 max</text>
+
+  <!-- Arrow down 2→3 -->
+  <line x1="310" y1="298" x2="310" y2="330" stroke="#0066cc" stroke-width="2" marker-end="url(#arrow-down)"/>
+
+  <!-- ===== PHASE 3 ===== -->
+  <rect x="0" y="336" width="620" height="34" rx="4" fill="#0066cc"/>
+  <text x="14" y="359" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">PHASE 3: ARCHETYPE DERIVATION</text>
+  <text x="606" y="359" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">Who is this college?</text>
+  <rect x="0" y="374" width="620" height="66" rx="4" fill="#e7f3ff" stroke="#ccd9e8" stroke-width="1"/>
+  <text x="24" y="398" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q4 Staffing</text>
+  <text x="24" y="417" font-family="Arial, sans-serif" font-size="11" fill="#555">Primary signal</text>
+  <line x1="222" y1="384" x2="222" y2="430" stroke="#ccd9e8" stroke-width="1"/>
+  <text x="236" y="398" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q7 Governance</text>
+  <text x="236" y="417" font-family="Arial, sans-serif" font-size="11" fill="#555">Adjusts &#xB1;1 step</text>
+  <line x1="430" y1="384" x2="430" y2="430" stroke="#ccd9e8" stroke-width="1"/>
+  <text x="444" y="398" font-family="Arial, sans-serif" font-size="12" fill="#999" font-weight="bold">Q2 Size</text>
+  <text x="444" y="417" font-family="Arial, sans-serif" font-size="11" fill="#999">Soft validation only</text>
+  <text x="310" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666" font-style="italic">&#x2192; Lightweight / Building / Scaling</text>
+
+  <!-- Arrow down 3→4 -->
+  <line x1="310" y1="446" x2="310" y2="478" stroke="#E87722" stroke-width="2" marker-end="url(#arrow-down-orange)"/>
+
+  <!-- ===== PHASE 4 ===== -->
+  <rect x="0" y="484" width="620" height="34" rx="4" fill="#E87722"/>
+  <text x="14" y="507" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">PHASE 4: CONTEXTUAL OVERRIDES</text>
+  <text x="606" y="507" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">Context adjustments</text>
+  <rect x="0" y="522" width="620" height="66" rx="4" fill="#fff3e0" stroke="#f0d4b0" stroke-width="1"/>
+  <text x="24" y="546" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q6 Current AI use</text>
+  <text x="24" y="565" font-family="Arial, sans-serif" font-size="11" fill="#555">Urgency adjustment; boost deployed tools</text>
+  <line x1="310" y1="532" x2="310" y2="578" stroke="#f0d4b0" stroke-width="1"/>
+  <text x="330" y="546" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q8 Motivation</text>
+  <text x="330" y="565" font-family="Arial, sans-serif" font-size="11" fill="#555">Political context weighting (+2 override)</text>
+
+  <!-- Arrow down 4→5 -->
+  <line x1="310" y1="594" x2="310" y2="626" stroke="#333" stroke-width="2" marker-end="url(#arrow-down-dark)"/>
+
+  <!-- ===== PHASE 5 ===== -->
+  <rect x="0" y="632" width="620" height="34" rx="4" fill="#333"/>
+  <text x="14" y="655" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">PHASE 5: OUTPUT</text>
+  <text x="606" y="655" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.6)">Ranked recommendations</text>
+  <rect x="0" y="670" width="620" height="50" rx="4" fill="#f9f9f9" stroke="#ddd" stroke-width="1"/>
+  <rect x="16" y="680" width="186" height="30" rx="4" fill="#d4edda" stroke="#28a745" stroke-width="1"/>
+  <text x="109" y="700" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#155724">Top 2&ndash;3 Recommended</text>
+  <rect x="218" y="680" width="186" height="30" rx="4" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+  <text x="311" y="700" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#856404">Possible (caveats)</text>
+  <rect x="420" y="680" width="186" height="30" rx="4" fill="#f8d7da" stroke="#dc3545" stroke-width="1"/>
+  <text x="513" y="700" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#721c24">Consider Later</text>
+</svg>
+
+<hr>
+
+<h2>How Scoring Works</h2>
+
+<p>Each use case accumulates points based on the user's answers across all 8 questions. The algorithm:</p>
+
+<ol>
+  <li><strong>Q1 (bottlenecks)</strong> provides the strongest signal &mdash; direct mapping to use cases, each selection = 3 points to the mapped use case(s)</li>
+  <li><strong>Q2 (size)</strong> modifies feasibility &mdash; filters out or boosts use cases based on scale</li>
+  <li><strong>Q3 (data)</strong> acts as a feasibility gate &mdash; use cases requiring rich data get flagged or downranked if data isn't ready</li>
+  <li><strong>Q4 (staffing)</strong> determines archetype and filters by tier appropriateness</li>
+  <li><strong>Q5 (equity gaps)</strong> adds 2 points to use cases that address the selected gaps</li>
+  <li><strong>Q6 (current AI use)</strong> adjusts urgency and may override ranking ("govern what's already happening first")</li>
+  <li><strong>Q7 (governance)</strong> confirms archetype and adjusts recommended starting complexity</li>
+  <li><strong>Q8 (motivation)</strong> provides final weighting toward use cases that match the institutional moment</li>
+</ol>
+
+<h3>Scoring Summary</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Signal Type</th>
+      <th>Weight</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Q1 Bottlenecks</td>
+      <td>Direct mapping</td>
+      <td>3 pts/selection</td>
+      <td>Primary use case signal</td>
+    </tr>
+    <tr>
+      <td>Q2 Size</td>
+      <td>Feasibility modifier</td>
+      <td>Filter</td>
+      <td>Adjusts tier appropriateness</td>
+    </tr>
+    <tr>
+      <td>Q3 Data</td>
+      <td>Feasibility gate</td>
+      <td>Filter</td>
+      <td>Flags/downranks data-dependent use cases</td>
+    </tr>
+    <tr>
+      <td>Q4 Staffing</td>
+      <td>Archetype</td>
+      <td>Filter</td>
+      <td>Determines governance tier</td>
+    </tr>
+    <tr>
+      <td>Q5 Equity</td>
+      <td>Boost</td>
+      <td>2 pts/selection</td>
+      <td>Adds weight to equity-aligned use cases</td>
+    </tr>
+    <tr>
+      <td>Q6 Current AI</td>
+      <td>Urgency override</td>
+      <td>Override</td>
+      <td>May override ranking</td>
+    </tr>
+    <tr>
+      <td>Q7 Governance</td>
+      <td>Archetype confirm</td>
+      <td>Filter</td>
+      <td>Adjusts starting complexity</td>
+    </tr>
+    <tr>
+      <td>Q8 Motivation</td>
+      <td>Final weight</td>
+      <td>Tiebreak</td>
+      <td>Matches institutional moment</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlight-box">
+  <strong>Archetype Determination:</strong> Archetypes (Lightweight / Building / Scaling) are derived from Q2 + Q4 + Q7 responses. These three questions together determine the institution's governance capacity and shape which tier of use cases are recommended as starting points.
+</div>
+
+</div>
+
+<!-- ==================== TAB 3: MAPPING LOGIC ==================== -->
+<div id="tab-mapping" class="tab-panel">
+
+<h2>Complete Mapping Logic</h2>
+
+<div class="callout">
+  This tab contains the complete mapping logic for all 8 routing questions. Each answer maps to specific use cases (SS-01 through SS-10) and institutional profile attributes.
+</div>
+
+<h3>Use Case Reference</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>SS-01</td><td>Advising/Pathways</td></tr>
+    <tr><td>SS-02</td><td>Early Alert</td></tr>
+    <tr><td>SS-03</td><td>Financial Aid</td></tr>
+    <tr><td>SS-04</td><td>Chatbot/Front Door</td></tr>
+    <tr><td>SS-05</td><td>Tutoring Assistant</td></tr>
+    <tr><td>SS-06</td><td>Multilingual Support</td></tr>
+    <tr><td>SS-07</td><td>Basic Needs</td></tr>
+    <tr><td>SS-08</td><td>Career Services</td></tr>
+    <tr><td>SS-10</td><td>Registration</td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- Q1 Mapping -->
+<h3>Q1: Where are students getting stuck?</h3>
+<p><em>Multi-select (up to 3). Each selection = 3 points to mapped use case(s).</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>Selection</th>
+      <th>Points toward</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Advising appointments</td>
+      <td>SS-01 (Advising/Pathways)</td>
+    </tr>
+    <tr>
+      <td>Falling off track</td>
+      <td>SS-02 (Early Alert)</td>
+    </tr>
+    <tr>
+      <td>Financial aid confusion</td>
+      <td>SS-03 (Financial Aid)</td>
+    </tr>
+    <tr>
+      <td>No answers after hours</td>
+      <td>SS-04 (Chatbot/Front Door)</td>
+    </tr>
+    <tr>
+      <td>Tutoring access</td>
+      <td>SS-05 (Tutoring Assistant)</td>
+    </tr>
+    <tr>
+      <td>Language barriers</td>
+      <td>SS-06 (Multilingual Support)</td>
+    </tr>
+    <tr>
+      <td>Don't know services exist</td>
+      <td>SS-07 (Basic Needs) + SS-04 (Chatbot)</td>
+    </tr>
+    <tr>
+      <td>Career disconnection</td>
+      <td>SS-08 (Career Services)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- Q2 Mapping -->
+<h3>Q2: How many students does your college serve?</h3>
+<p><em>Single-select. Modifies feasibility by institutional scale.</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>Selection</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Under 5,000</td>
+      <td>Weight toward Tier 1 use cases (SS-04, SS-07, SS-08). Flag that Tier 3 use cases may exceed capacity.</td>
+    </tr>
+    <tr>
+      <td>5,000 &ndash; 15,000</td>
+      <td>All use cases feasible. Weight toward medium-complexity.</td>
+    </tr>
+    <tr>
+      <td>15,000 &ndash; 30,000</td>
+      <td>Weight toward use cases with scale payoff (SS-01, SS-02, SS-04).</td>
+    </tr>
+    <tr>
+      <td>Over 30,000</td>
+      <td>Strong case for SS-02 (Early Alert) and SS-01 (Advising) where human-only isn't scaling.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- Q3 Mapping -->
+<h3>Q3: What does your data situation look like?</h3>
+<p><em>Single-select. Acts as a feasibility gate for data-dependent use cases.</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>Selection</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Functioning SIS, clean basics</td>
+      <td>Eligible for SS-04 (Chatbot), SS-06 (Multilingual), SS-07 (Basic Needs), SS-08 (Career). Flag data readiness risk for SS-01, SS-02, SS-03.</td>
+    </tr>
+    <tr>
+      <td>SIS + advising + financial aid</td>
+      <td>All use cases feasible. SS-01, SS-02, SS-03 become realistic.</td>
+    </tr>
+    <tr>
+      <td>Rich but siloed</td>
+      <td>Technical integration is the bottleneck, not data availability. Recommend starting with use cases that don't require cross-system data (SS-04, SS-05, SS-06).</td>
+    </tr>
+    <tr>
+      <td>Still working on basics</td>
+      <td>Strongly weight toward use cases with minimal data requirements (SS-04, SS-06, SS-07, SS-08). Flag that Tier 3 use cases are premature.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- Q4 Mapping -->
+<h3>Q4: What's your staffing reality for Student Services technology?</h3>
+<p><em>Single-select. Determines archetype and filters by tier appropriateness.</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>Selection</th>
+      <th>Archetype</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dedicated SS tech staff</td>
+      <td>Scaling</td>
+      <td>Can handle Tier 2&ndash;3 use cases with proper governance</td>
+    </tr>
+    <tr>
+      <td>Central IT only</td>
+      <td>Building</td>
+      <td>Can handle Tier 1&ndash;2; Tier 3 needs careful scoping</td>
+    </tr>
+    <tr>
+      <td>Vendor/system dependent</td>
+      <td>Lightweight</td>
+      <td>Start with Tier 1; strong vendor accountability needed</td>
+    </tr>
+    <tr>
+      <td>One or two people</td>
+      <td>Lightweight</td>
+      <td>Tier 1 only to start; templates over custom governance</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- Q5 Mapping -->
+<h3>Q5: What are your biggest equity gaps right now?</h3>
+<p><em>Multi-select (up to 2). Each selection = 2 points to mapped use case(s).</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>Selection</th>
+      <th>Points toward</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Completion gaps by race</td>
+      <td>SS-02 (Early Alert) &mdash; but flag equity audit requirement</td>
+    </tr>
+    <tr>
+      <td>First-gen persistence</td>
+      <td>SS-01 (Advising) + SS-07 (Basic Needs)</td>
+    </tr>
+    <tr>
+      <td>Working/caregiving access</td>
+      <td>SS-04 (Chatbot) + SS-06 (Multilingual) &mdash; after-hours access</td>
+    </tr>
+    <tr>
+      <td>Multilingual gaps</td>
+      <td>SS-06 (Multilingual) &mdash; strong signal</td>
+    </tr>
+    <tr>
+      <td>Pell completion gaps</td>
+      <td>SS-03 (Financial Aid) + SS-02 (Early Alert)</td>
+    </tr>
+    <tr>
+      <td>Disability access barriers</td>
+      <td>SS-04 (Chatbot) &mdash; if accessible; flag accessibility governance</td>
+    </tr>
+    <tr>
+      <td>Transfer rate gaps</td>
+      <td>SS-01 (Advising/Pathways) + SS-10 (Registration)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- Q6 Mapping -->
+<h3>Q6: Is AI already being used informally in Student Services at your college?</h3>
+<p><em>Single-select. Adjusts urgency and may override ranking.</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>Selection</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Yes, already happening</td>
+      <td>Urgency is high. Recommend starting with whatever's already in use &mdash; govern what exists before adding more. Prioritize SS-04 (Chatbot) if that's what's deployed.</td>
+    </tr>
+    <tr>
+      <td>Somewhat</td>
+      <td>Moderate urgency. Good moment to formalize around a specific use case.</td>
+    </tr>
+    <tr>
+      <td>Not yet</td>
+      <td>Opportunity to get governance right before deployment. Can be strategic about where to start.</td>
+    </tr>
+    <tr>
+      <td>Don't know</td>
+      <td>Start with an inventory. The Navigator assessment itself becomes the first governance act. Recommend low-risk SS-04 or SS-07 as the first formal use case.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- Q7 Mapping -->
+<h3>Q7: Does your college already have any AI governance in place?</h3>
+<p><em>Single-select. Confirms archetype and adjusts recommended starting complexity.</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>Selection</th>
+      <th>Archetype</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Formal governance</td>
+      <td>Scaling</td>
+      <td>Can pursue Tier 2&ndash;3 use cases. The Navigator adds operational tools to existing structure.</td>
+    </tr>
+    <tr>
+      <td>Informal</td>
+      <td>Building</td>
+      <td>The Navigator formalizes what they've started. Good fit for structured assessment.</td>
+    </tr>
+    <tr>
+      <td>General tech governance</td>
+      <td>Building</td>
+      <td>Existing processes provide foundation. Extend rather than build from scratch.</td>
+    </tr>
+    <tr>
+      <td>Nothing</td>
+      <td>Lightweight</td>
+      <td>The Navigator IS the starting point. Begin with Tier 1, use provided templates.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- Q8 Mapping -->
+<h3>Q8: What's driving this? Why are you looking at AI for Student Services now?</h3>
+<p><em>Single-select. Provides final weighting toward use cases that match the institutional moment.</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>Selection</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Leadership wants strategy</td>
+      <td>Recommend a visible, lower-risk win first (SS-04 Chatbot). Build governance credibility before tackling Tier 3.</td>
+    </tr>
+    <tr>
+      <td>Specific tool/peer success</td>
+      <td>Route directly to the relevant use case. They've already identified the starting point &mdash; validate it through the Navigator.</td>
+    </tr>
+    <tr>
+      <td>Student demand</td>
+      <td>Weight toward student-facing tools: SS-04, SS-05, SS-06.</td>
+    </tr>
+    <tr>
+      <td>Enrollment/retention</td>
+      <td>Weight toward SS-01 (Advising), SS-02 (Early Alert), SS-10 (Registration).</td>
+    </tr>
+    <tr>
+      <td>Equity imperative</td>
+      <td>Weight toward use cases addressing their Q5 equity gaps. Flag dependency profile importance.</td>
+    </tr>
+    <tr>
+      <td>System directive</td>
+      <td>Emphasize HUMANS alignment. California-specific path.</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+<!-- ==================== TAB 4: FORMAL ALGORITHM ==================== -->
+<div id="tab-algorithm" class="tab-panel">
+
+<h2>Formal Algorithm Specification</h2>
+
+<div class="callout">
+  <strong>What this tab is:</strong> This is the formalized version of the scoring logic from the previous tab. The five-phase structure makes the algorithm auditable &mdash; you can trace exactly why a use case was recommended or deferred. The Scoring Logic tab describes the intent; this tab specifies the implementation.
+</div>
+
+<hr>
+
+<!-- PHASE 1 -->
+<h3>Phase 1: Signal Scoring &mdash; What&rsquo;s Needed?</h3>
+
+<p>For each use case SS-01 through SS-10, initialize <code>score = 0</code>.</p>
+
+<h4>Q1 (Bottlenecks): +3 points per mapped use case</h4>
+<p>User selects up to 3. Each selection adds 3 points to the mapped use case(s):</p>
+
+<table>
+  <thead>
+    <tr><th>Selection</th><th>+3 to</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Advising appointments</td><td>SS-01</td></tr>
+    <tr><td>Falling off track</td><td>SS-02</td></tr>
+    <tr><td>Financial aid confusion</td><td>SS-03</td></tr>
+    <tr><td>No answers after hours</td><td>SS-04</td></tr>
+    <tr><td>Tutoring access</td><td>SS-05</td></tr>
+    <tr><td>Language barriers</td><td>SS-06</td></tr>
+    <tr><td>Don&rsquo;t know services exist</td><td>SS-07, SS-04</td></tr>
+    <tr><td>Career disconnection</td><td>SS-08</td></tr>
+  </tbody>
+</table>
+
+<h4>Q5 (Equity gaps): +2 points per mapped use case</h4>
+<p>User selects up to 2. Each selection adds 2 points to the mapped use case(s):</p>
+
+<table>
+  <thead>
+    <tr><th>Selection</th><th>+2 to</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Completion gaps by race</td><td>SS-02</td></tr>
+    <tr><td>First-gen persistence</td><td>SS-01, SS-07</td></tr>
+    <tr><td>Working/caregiving access</td><td>SS-04, SS-06</td></tr>
+    <tr><td>Multilingual gaps</td><td>SS-06</td></tr>
+    <tr><td>Pell completion gaps</td><td>SS-03, SS-02</td></tr>
+    <tr><td>Disability access barriers</td><td>SS-04</td></tr>
+    <tr><td>Transfer rate gaps</td><td>SS-01, SS-10</td></tr>
+  </tbody>
+</table>
+
+<h4>Q8 (Motivation): +1 point per mapped use case</h4>
+<p>User selects one. Adds contextual weight:</p>
+
+<table>
+  <thead>
+    <tr><th>Selection</th><th>+1 to</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Leadership wants strategy</td><td>SS-04</td><td>Prefer lowest risk tier among top scorers</td></tr>
+    <tr><td>Specific tool / peer success</td><td>&mdash;</td><td>Route directly to relevant use case</td></tr>
+    <tr><td>Student demand</td><td>SS-04, SS-05, SS-06</td><td>Student-facing tools</td></tr>
+    <tr><td>Enrollment/retention</td><td>SS-01, SS-02, SS-10</td><td>Retention-oriented tools</td></tr>
+    <tr><td>Equity imperative</td><td><em>(amplify Q5)</em></td><td>+1 additional to all Q5-selected use cases</td></tr>
+    <tr><td>System directive</td><td>&mdash;</td><td>Add HUMANS/California flag to output</td></tr>
+  </tbody>
+</table>
+
+<div class="success">
+  <strong>Phase 1 output:</strong> Each use case has a raw signal score. Maximum possible per use case depends on how many questions map to it. SS-04 (Chatbot) has the widest mapping surface; SS-09 (Journey Mapping) has no direct signal from Q1 or Q5.
+</div>
+
+<hr>
+
+<!-- PHASE 2 -->
+<h3>Phase 2: Feasibility Gating &mdash; What&rsquo;s Realistic?</h3>
+
+<h4>Q3 (Data readiness): Feasibility flag per use case</h4>
+<p>Each data level assigns a <span class="tag-low">GREEN</span>, <span class="tag-med">YELLOW</span>, or <span class="tag-high">RED</span> feasibility flag to every use case:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Use Case</th>
+      <th>Level 1<br><span style="font-weight:normal; font-size:8pt">Basic SIS only</span></th>
+      <th>Level 2<br><span style="font-weight:normal; font-size:8pt">SIS + advising + FA</span></th>
+      <th>Level 3<br><span style="font-weight:normal; font-size:8pt">Rich but siloed</span></th>
+      <th>Level 4<br><span style="font-weight:normal; font-size:8pt">Still working on basics</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>SS-01</strong> Advising</td><td><span class="tag-high">RED</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-med">YELLOW</span></td><td><span class="tag-high">RED</span></td></tr>
+    <tr><td><strong>SS-02</strong> Early Alert</td><td><span class="tag-high">RED</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-med">YELLOW</span></td><td><span class="tag-high">RED</span></td></tr>
+    <tr><td><strong>SS-03</strong> Financial Aid</td><td><span class="tag-high">RED</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-med">YELLOW</span></td><td><span class="tag-high">RED</span></td></tr>
+    <tr><td><strong>SS-04</strong> Chatbot</td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td></tr>
+    <tr><td><strong>SS-05</strong> Tutoring</td><td><span class="tag-med">YELLOW</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-med">YELLOW</span></td></tr>
+    <tr><td><strong>SS-06</strong> Multilingual</td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td></tr>
+    <tr><td><strong>SS-07</strong> Basic Needs</td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td></tr>
+    <tr><td><strong>SS-08</strong> Career</td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-low">GREEN</span></td></tr>
+    <tr><td><strong>SS-09</strong> Journey Map</td><td><span class="tag-med">YELLOW</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-med">YELLOW</span></td><td><span class="tag-high">RED</span></td></tr>
+    <tr><td><strong>SS-10</strong> Registration</td><td><span class="tag-med">YELLOW</span></td><td><span class="tag-low">GREEN</span></td><td><span class="tag-med">YELLOW</span></td><td><span class="tag-high">RED</span></td></tr>
+  </tbody>
+</table>
+
+<h4>Q4 (Staffing): Tier ceiling</h4>
+<p>Determines the maximum use case tier the institution can realistically govern:</p>
+
+<table>
+  <thead>
+    <tr><th>Q4 Answer</th><th>Tier Ceiling</th><th>Effect on Use Cases</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Dedicated SS tech staff</td><td><strong>Tier 3</strong></td><td>All tiers feasible</td></tr>
+    <tr><td>Central IT only</td><td><strong>Tier 2</strong></td><td>Tier 3 use cases &rarr; <span class="tag-med">YELLOW</span> (stretch)</td></tr>
+    <tr><td>Vendor/system dependent</td><td><strong>Tier 1</strong></td><td>Tier 2 &rarr; <span class="tag-med">YELLOW</span>; Tier 3 &rarr; <span class="tag-high">RED</span></td></tr>
+    <tr><td>One or two people</td><td><strong>Tier 1</strong></td><td>Tier 2 &rarr; <span class="tag-med">YELLOW</span>; Tier 3 &rarr; <span class="tag-high">RED</span></td></tr>
+  </tbody>
+</table>
+
+<div class="highlight-box">
+  <strong>Gating logic:</strong> A use case flagged <span class="tag-high">RED</span> by either Q3 (data) or Q4 (tier ceiling) moves to &ldquo;Consider Later&rdquo; regardless of signal score. <span class="tag-med">YELLOW</span> flags produce caveats but don&rsquo;t disqualify.
+</div>
+
+<hr>
+
+<!-- PHASE 3 -->
+<h3>Phase 3: Archetype Derivation</h3>
+
+<p>The institutional archetype determines governance intensity and shapes the &ldquo;Why it fits&rdquo; language in recommendations.</p>
+
+<div style="background: #f9f9f9; border: 1px solid #ddd; padding: 16px 20px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.7;">
+<strong>archetype</strong> = f(Q4, Q7) with Q2 validation<br><br>
+<strong>Step 1:</strong> Q4 provides primary signal<br>
+&nbsp;&nbsp;Dedicated SS tech &rarr; <code>Scaling</code><br>
+&nbsp;&nbsp;Central IT only &rarr; <code>Building</code><br>
+&nbsp;&nbsp;Vendor dependent &rarr; <code>Lightweight</code><br>
+&nbsp;&nbsp;One or two people &rarr; <code>Lightweight</code><br><br>
+<strong>Step 2:</strong> Q7 adjusts &plusmn;1 step<br>
+&nbsp;&nbsp;IF Q4 = Building AND Q7 = Formal governance &rarr; upgrade to <code>Scaling</code><br>
+&nbsp;&nbsp;IF Q4 = Building AND Q7 = Nothing &rarr; downgrade to <code>Lightweight</code><br>
+&nbsp;&nbsp;IF Q4 = Scaling AND Q7 = Nothing &rarr; downgrade to <code>Building</code><br>
+&nbsp;&nbsp;IF Q4 = Lightweight AND Q7 = Formal &rarr; upgrade to <code>Building</code><br>
+&nbsp;&nbsp;Otherwise &rarr; no change<br><br>
+<strong>Step 3:</strong> Q2 provides soft validation (flags only, no override)<br>
+&nbsp;&nbsp;IF Under 5,000 + Scaling &rarr; flag as unusual combination<br>
+&nbsp;&nbsp;IF Over 30,000 + Lightweight &rarr; flag capacity concern
+</div>
+
+<hr>
+
+<!-- PHASE 4 -->
+<h3>Phase 4: Contextual Overrides</h3>
+
+<h4>Q6 (Current AI use): Urgency adjustment</h4>
+
+<table>
+  <thead>
+    <tr><th>Q6 Answer</th><th>Override Action</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Yes, already happening</td><td>Boost any use case matching what&rsquo;s deployed to top of ranking. Add urgency flag: <em>&ldquo;Govern what exists before adding more.&rdquo;</em></td></tr>
+    <tr><td>Somewhat</td><td>No override. Moderate urgency noted in profile.</td></tr>
+    <tr><td>Not yet</td><td>No override. Low urgency &mdash; opportunity to be strategic.</td></tr>
+    <tr><td>Don&rsquo;t know</td><td>Boost SS-04 (+2). Add note: <em>&ldquo;Start with an AI inventory.&rdquo;</em></td></tr>
+  </tbody>
+</table>
+
+<h4>Q8 (Motivation): Political context weighting</h4>
+
+<table>
+  <thead>
+    <tr><th>Q8 Answer</th><th>Override Action</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Leadership wants strategy</td><td>Among top scorers, prefer lowest risk tier. Visible win matters more than optimal use case.</td></tr>
+    <tr><td>Specific tool / peer</td><td>Note: <em>&ldquo;Validate the tool you&rsquo;ve identified through the full assessment.&rdquo;</em></td></tr>
+    <tr><td>Student demand</td><td>+2 to SS-04, SS-05, SS-06 (student-facing tools)</td></tr>
+    <tr><td>Enrollment/retention</td><td>+2 to SS-01, SS-02, SS-10 (retention-oriented tools)</td></tr>
+    <tr><td>Equity imperative</td><td>+1 additional to all Q5-selected use cases (amplification)</td></tr>
+    <tr><td>System directive</td><td>Add California/HUMANS alignment flag to output</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>Design note:</strong> Q8 appears in both Phase 1 (signal scoring at +1 pt) and Phase 4 (contextual override at +2 pts). This is intentional. In Phase 1 it contributes a small base signal; in Phase 4 the override provides a stronger contextual boost after all other scoring is complete. Q8 = &ldquo;Equity imperative&rdquo; amplifies Q5 rather than adding new points &mdash; it says &ldquo;take my equity answers more seriously.&rdquo;
+</div>
+
+<hr>
+
+<!-- PHASE 5 -->
+<h3>Phase 5: Ranking and Output</h3>
+
+<h4>Classification rules</h4>
+
+<div style="background: #f9f9f9; border: 1px solid #ddd; padding: 16px 20px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.7;">
+FOR each use case (SS-01 through SS-10):<br>
+&nbsp;&nbsp;final_score = signal_score (Phase 1) + overrides (Phase 4)<br>
+&nbsp;&nbsp;data_flag = Q3 feasibility (Phase 2)<br>
+&nbsp;&nbsp;tier_flag = Q4 ceiling check (Phase 2)<br><br>
+SORT by final_score descending<br><br>
+CLASSIFY each use case:<br>
+&nbsp;&nbsp;IF data_flag = <span class="tag-low">GREEN</span> AND within tier ceiling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&rarr; <strong>RECOMMENDED</strong><br>
+&nbsp;&nbsp;IF data_flag = <span class="tag-med">YELLOW</span> OR at tier ceiling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&rarr; <strong>POSSIBLE</strong> (with caveats)<br>
+&nbsp;&nbsp;IF data_flag = <span class="tag-high">RED</span> OR above tier ceiling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&rarr; <strong>CONSIDER LATER</strong><br><br>
+OUTPUT:<br>
+&nbsp;&nbsp;Top 2&ndash;3 RECOMMENDED with:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- Use case name + one-liner<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- Risk tier badge<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- Data readiness indicator (green/yellow/red)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- &ldquo;Why it fits&rdquo; connecting specific Q1/Q5/Q8 answers<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- &ldquo;Evaluate This Use Case &rarr;&rdquo; button<br>
+&nbsp;&nbsp;Up to 2&ndash;3 CONSIDER LATER with:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- What needs to change before pursuing
+</div>
+
+<h4>&ldquo;Why it fits&rdquo; generation</h4>
+<p>The recommendation text is assembled from the user&rsquo;s specific answers, not generic descriptions:</p>
+
+<table>
+  <thead>
+    <tr><th>Source</th><th>Template</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Q1 match</td><td><em>&ldquo;You told us [bottleneck label].&rdquo;</em></td></tr>
+    <tr><td>Q5 match</td><td><em>&ldquo;Your equity priorities include [gap label].&rdquo;</em></td></tr>
+    <tr><td>Use case connection</td><td><em>&ldquo;This use case &mdash; [one-liner] &mdash; directly addresses these needs.&rdquo;</em></td></tr>
+    <tr><td>Tier/archetype fit</td><td><em>&ldquo;At Tier [N], it&rsquo;s governance-light enough to match your current capacity.&rdquo;</em> (when applicable)</td></tr>
+  </tbody>
+</table>
+
+<div class="highlight-box">
+  <strong>Key constraint:</strong> If no use case scores above 0 after all phases (possible if the user&rsquo;s Q1 selections don&rsquo;t map to any feasible use cases given their Q3/Q4 answers), the output should recommend SS-04 (Chatbot) as a default starting point &mdash; it is always GREEN across all data levels and is Tier 1.
+</div>
+
+<hr>
+
+<h3>Complete Question &rarr; Phase Mapping</h3>
+
+<table>
+  <thead>
+    <tr><th>Question</th><th>Phase(s)</th><th>Role</th><th>Weight</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Q1 Bottlenecks</td><td>Phase 1</td><td>Primary signal</td><td>+3 pts/selection</td></tr>
+    <tr><td>Q2 Size</td><td>Phase 3</td><td>Archetype validation</td><td>Flags only</td></tr>
+    <tr><td>Q3 Data</td><td>Phase 2</td><td>Feasibility gate</td><td>GREEN/YELLOW/RED</td></tr>
+    <tr><td>Q4 Staffing</td><td>Phase 2, Phase 3</td><td>Tier ceiling + archetype primary</td><td>Filter + archetype</td></tr>
+    <tr><td>Q5 Equity</td><td>Phase 1</td><td>Equity signal</td><td>+2 pts/selection</td></tr>
+    <tr><td>Q6 Current AI</td><td>Phase 4</td><td>Urgency override</td><td>Context boost</td></tr>
+    <tr><td>Q7 Governance</td><td>Phase 3</td><td>Archetype adjustment</td><td>&plusmn;1 step</td></tr>
+    <tr><td>Q8 Motivation</td><td>Phase 1, Phase 4</td><td>Signal + context override</td><td>+1 pt + context boost</td></tr>
+  </tbody>
+</table>
+
+</div>
+
+<!-- Footer -->
+<hr style="margin-top:3em">
+<p style="font-size:0.85em"><strong>AI Mode: Assisted</strong> &middot; AI used for document structuring and formatting; content, analysis, scoring logic, and design decisions human-directed</p>
+<p style="font-size:0.75em; color:#666"><sup>1</sup> <em>AI Learning Mode tracking: <strong>Explore</strong> = open AI discovery; <strong>Assisted</strong> = AI supports specific tasks, human directs analysis; <strong>Restricted</strong> = AI constrained, human leads; <strong>Human-Only</strong> = no AI. Details available on request.</em></p>
+
+<script>
+function switchTab(btn, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ND AI Forum &times; Navigator v2 Crosswalk &mdash; Student Services Use Cases</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    color: #333;
+  }
+  h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-size: 14pt;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    margin-top: 28px;
+  }
+  h3 {
+    font-size: 12pt;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+    margin-top: 20px;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #444;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+  }
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .critical {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 24px 0;
+  }
+  ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+  .tag-high { background: #f8d7da; color: #721c24; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-med { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-low { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-gap { background: #e2e3e5; color: #383d41; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-prod { background: #cce5ff; color: #004085; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-dev { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-idea { background: #f5f5f5; color: #666; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-maturity { background: #e8e0f0; color: #4a2d73; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .use-case-block {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .use-case-block h3 {
+    margin-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .uc-meta {
+    font-size: 9.5pt;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .coverage-covered { color: #155724; font-weight: bold; }
+  .coverage-partial { color: #856404; font-weight: bold; }
+  .coverage-gap { color: #721c24; font-weight: bold; }
+  .coverage-new { color: #383d41; font-weight: bold; }
+  @media print {
+    body { padding: 0.5in; }
+    .use-case-block { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 {
+          font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+          font-size: 130.25px;
+          font-style: italic;
+          font-weight: 600;
+        }
+        .cls-2 { letter-spacing: -.02em; }
+        .cls-3 { letter-spacing: -.04em; }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<h1>ND AI Forum &times; Navigator v2 Crosswalk</h1>
+<p class="subtitle">2025 ND AI Forum Use Case Repository &mdash; Mapped to Navigator v2 Student Services Framework</p>
+
+<p class="metadata">
+<strong>Date:</strong> February 23, 2026<br>
+<strong>Source:</strong> 2025 ND AI Forum Use Case Repository (Notre Dame, Nov 2025) &mdash; 48 practitioner-submitted use cases from 20+ institutions<br>
+<strong>Target:</strong> Navigator v2 &mdash; AI Governance Navigator for Student Services, Community Colleges<br>
+<strong>Scope:</strong> All 48 repository use cases reviewed; Student Services&ndash;relevant use cases extracted and mapped<br>
+<strong>Team:</strong> Amin, Mimi, Adam, Hyunjun
+</p>
+
+<div class="callout">
+<strong>Context note:</strong> Unlike the Legatt/EdGenerative Handbook (published, curated case studies), the ND AI Forum repository contains <strong>self-reported use cases</strong> from a practitioner community of higher education IT leaders. Many entries are at early stages ("Just an idea" or "Currently in development"). This gives us a window into <strong>emerging and aspirational</strong> AI deployments&mdash;what institutions are planning, not just what they've validated. Status breakdown: 14 In Production, 18 Currently in development, 16 Just an idea.
+</div>
+
+<hr>
+
+<h2>1. Source Data</h2>
+
+<p>The ND AI Forum Use Case Repository contains <strong>48 use cases</strong> from 20+ institutions. There are no formal categories&mdash;entries are self-reported with free-text descriptions. We classify relevance by analyzing each entry's description, users, and tools.</p>
+
+<table>
+  <tr>
+    <th>Functional Area (derived)</th>
+    <th>IDs</th>
+    <th>Count</th>
+    <th>Student Services Relevant?</th>
+  </tr>
+  <tr>
+    <td>IT Operations &amp; Infrastructure</td>
+    <td>#2, #5, #6, #7, #20, #23, #46, #48</td>
+    <td>8</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Finance &amp; Administration</td>
+    <td>#3, #4, #21, #22, #29, #40, #45</td>
+    <td>7</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Communications &amp; Marketing</td>
+    <td>#9, #38</td>
+    <td>2</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Teaching &amp; Instruction</td>
+    <td>#1, #10, #15, #37</td>
+    <td>4</td>
+    <td>Partially (tutoring overlaps)</td>
+  </tr>
+  <tr>
+    <td>Research &amp; Libraries</td>
+    <td>#14, #16, #24, #36</td>
+    <td>4</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>AI Literacy &amp; Training</td>
+    <td>#30, #31, #33, #34, #39</td>
+    <td>5</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Advancement &amp; Donor Relations</td>
+    <td>#35, #45</td>
+    <td>2</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Process Improvement</td>
+    <td>#32</td>
+    <td>1</td>
+    <td>No</td>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td><strong>Student Services (direct)</strong></td>
+    <td><strong>#8, #12, #25, #26, #41, #42, #43</strong></td>
+    <td><strong>7</strong></td>
+    <td><strong>Yes &mdash; primary</strong></td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Institutional AI Platforms (multi-function)</td>
+    <td>#11, #19, #28, #47</td>
+    <td>4</td>
+    <td>Partially (student-facing components)</td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Tutoring &amp; Learning Tools</td>
+    <td>#10, #15, #17, #18, #37</td>
+    <td>5</td>
+    <td>Partially (SS-05 scope)</td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Accessibility</td>
+    <td>#13, #27, #44</td>
+    <td>3</td>
+    <td>Partially (SS-12 proposed)</td>
+  </tr>
+</table>
+
+<p><strong>Result:</strong> <strong>19 of 48 use cases</strong> (40%) have Student Services relevance&mdash;organized into four groups below.</p>
+
+<hr>
+
+<h2>2. Navigator v2 Use Cases (Reference)</h2>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Use Case</th>
+    <th>Default Tier</th>
+    <th>Key Pillars</th>
+    <th>Equity Flag</th>
+  </tr>
+  <tr><td>SS-01</td><td>AI Advising / Guided Pathways</td><td><span class="tag-high">Tier 3</span></td><td>P1, P2, P3, P4, P5</td><td>P2 required</td></tr>
+  <tr><td>SS-02</td><td>Early Alert / Student Risk System</td><td><span class="tag-high">Tier 3</span></td><td>P1, P2, P5, P6, P7</td><td>P2 required</td></tr>
+  <tr><td>SS-03</td><td>Financial Aid Triage &amp; FAFSA</td><td><span class="tag-high">Tier 3</span></td><td>P1, P2, P3, P5, P6</td><td>P2 required</td></tr>
+  <tr><td>SS-04</td><td>Student-Facing Chatbot</td><td><span class="tag-low">Tier 1</span></td><td>P1, P3, P4</td><td>&mdash;</td></tr>
+  <tr><td>SS-05</td><td>AI Course Tutoring Assistant</td><td><span class="tag-med">Tier 2</span></td><td>P1, P3, P4, P5</td><td>&mdash;</td></tr>
+  <tr><td>SS-06</td><td>Multilingual Support / Translation</td><td><span class="tag-med">Tier 2</span></td><td>P1, P3, P6</td><td>&mdash;</td></tr>
+  <tr><td>SS-07</td><td>Basic Needs Support</td><td><span class="tag-low">Tier 1</span></td><td>P1, P3, P7</td><td>&mdash;</td></tr>
+  <tr><td>SS-08</td><td>Career Services AI</td><td><span class="tag-low">Tier 1</span></td><td>P1, P3, P8</td><td>&mdash;</td></tr>
+  <tr><td>SS-09</td><td>Student Journey Mapping</td><td><span class="tag-med">Tier 2</span></td><td>P1, P2, P5, P9</td><td>P2 required</td></tr>
+  <tr><td>SS-10</td><td>Registration &amp; Enrollment</td><td><span class="tag-med">Tier 2</span></td><td>P1, P3, P5</td><td>&mdash;</td></tr>
+  <tr><td>SS-XX</td><td>Custom / Other</td><td><em>User assigns</em></td><td><em>User selects</em></td><td>&mdash;</td></tr>
+</table>
+
+<hr>
+
+<h2>3. Detailed Crosswalk</h2>
+
+<h3>Group A: Direct Student Services Use Cases</h3>
+
+<div class="use-case-block">
+<h3>#8 &mdash; Residency Petition System</h3>
+<p class="uc-meta"><span class="tag-dev">In Development</span> <span class="tag-maturity">L3: Integrate</span> &nbsp; UMBC &bull; Jason Paluck &bull; Tools: AWS Bedrock, Textract, DynamoDB</p>
+<p>Self-service AI system that extracts and analyzes data from uploaded documents (lease agreements, driver's licenses, utility bills) to process in-state tuition residency petitions. Administrative interfaces present summarized application data with recommendations based on state policy.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-10 (Registration &amp; Enrollment) <span class="tag-med">Tier 2</span></li>
+  <li><strong>Secondary:</strong> SS-03 (Financial Aid Triage) <span class="tag-high">Tier 3</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> Residency classification directly determines tuition rates&mdash;a financial aid determination with major equity implications. The AI analyzes personal identity documents and makes recommendations that affect affordability. This maps to SS-10 for enrollment processing, but the financial impact triggers SS-03 governance requirements.</p>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; Navigator addresses enrollment and financial aid separately but has no explicit guidance for document-analysis-based tuition classification.</p>
+<p><strong>Key governance adds:</strong> P2 (equity&mdash;residency denials disproportionately affect immigrant and first-gen students), P5 (data handling of identity documents), P6 (transparency of classification logic), NG-03 (must not auto-deny without human review).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#25 &mdash; AI Degree Plan Builder</h3>
+<p class="uc-meta"><span class="tag-dev">In Development</span> <span class="tag-maturity">L1: Explore</span> &nbsp; University of New Mexico &bull; Elisha Allen &bull; Tools: AWS, Python, LLM</p>
+<p>Dynamically generates multi-year degree plans based on a student's academic and career interests, major/minor selections, completed credits, and FT/PT status. Supports advisors in generating personalized plans that optimize time to degree.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-01 (AI Advising / Guided Pathways) <span class="tag-high">Tier 3</span></li>
+  <li><strong>Secondary:</strong> SS-09 (Student Journey Mapping) <span class="tag-med">Tier 2</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> This is the paradigmatic SS-01 use case&mdash;AI generating academic pathways that directly shape a student's degree trajectory. An incorrect or biased plan could extend time-to-degree, increase costs, or narrow career options. Journey mapping applies because the tool considers the full multi-year arc.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> by SS-01.</p>
+<p><strong>Key governance adds:</strong> P2 (equity&mdash;does the optimizer disadvantage part-time or working students?), P4 (student agency&mdash;can students override AI suggestions?), P5 (what student data feeds the model?).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#26 &mdash; (New) Student Helper</h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> &nbsp; University of New Mexico &bull; Baset Haridy &bull; Tools: Google NotebookLM</p>
+<p>Chatbot for new students to ask questions about campus resources: housing, transportation, food, directions to classrooms. Also intended for new faculty.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span></li>
+  <li><strong>Secondary:</strong> SS-07 (Basic Needs Support) <span class="tag-low">Tier 1</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> Informational chatbot serving basic campus navigation and resource discovery. Squarely within SS-04's scope. The focus on housing, food, and transportation touches basic needs (SS-07), though in an informational-only capacity.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> by SS-04 + SS-07.</p>
+<p><strong>Key governance adds:</strong> P1 (institutional purpose&mdash;straightforward), P3 (human fallback for complex housing/food insecurity situations), P4 (student agency preserved&mdash;informational only).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#41 &mdash; Chatbot for Course Registration (AITF 54)</h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L1: Explore</span> &nbsp; University of Wisconsin&ndash;Milwaukee &bull; Scott Genung &bull; Tools: TBD</p>
+<p>Help students find classes, suggest classes, and sign up for individual classes to improve student experience and free up advisors' time.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-10 (Registration &amp; Enrollment) <span class="tag-med">Tier 2</span></li>
+  <li><strong>Secondary:</strong> SS-01 (AI Advising / Guided Pathways) <span class="tag-high">Tier 3</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> Combines registration mechanics (finding, enrolling) with advisory functions (suggesting courses). The registration component is SS-10; the suggestion/recommendation component is SS-01. If AI <em>suggests</em> courses, that's an advising function with Tier 3 governance requirements&mdash;suggestions can constrain perceived options.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> via SS-10 + SS-01. Multi-function platform guidance (Handbook Gap 3) applies: assess at highest-risk function.</p>
+<p><strong>Key governance adds:</strong> P2 (do suggestions reflect bias in course availability or section scheduling?), P4 (can students override suggestions and browse freely?), P3 (human advisor accessible if AI suggestions seem wrong).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#42 &mdash; Automated Transcript Scanning &amp; Summarization (AITF 32)</h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L1: Explore</span> &nbsp; University of Wisconsin&ndash;Milwaukee &bull; Scott Genung &bull; Tools: TBD</p>
+<p>Reduce time to assess high school transcripts for admissions, enabling faster response to students while reducing labor. Looking at Michigan's TTS model.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-10 (Registration &amp; Enrollment) <span class="tag-med">Tier 2</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> Admissions transcript evaluation is an enrollment-pipeline function. AI is accelerating document review, not making admit/deny decisions autonomously, but its summarization shapes the information admissions staff see. Errors could delay or derail a student's admission.</p>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; SS-10 covers enrollment broadly, but transcript evaluation introduces document-analysis governance concerns (accuracy of credit recognition, handling non-standard transcripts, international credentials) not explicitly addressed.</p>
+<p><strong>Key governance adds:</strong> P2 (equity&mdash;non-traditional transcripts, GED, international credentials), P5 (student academic records as sensitive data), P6 (transparency&mdash;can students see what the AI extracted?), NG-03 (AI must not auto-reject based on transcript analysis alone).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#43 &mdash; Chatbot for Navigation of UWM Services (AITF 16)</h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L1: Explore</span> &nbsp; University of Wisconsin&ndash;Milwaukee &bull; Scott Genung &bull; Tools: TBD</p>
+<p>Reduces time to find campus content, assists with questions, guides actions, and resolves problems for students, faculty, and staff. Reduces email and call volume.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span></li>
+  <li><strong>Secondary:</strong> SS-07 (Basic Needs Support) <span class="tag-low">Tier 1</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> General campus services navigation chatbot. Standard SS-04 use case with informational routing. If it "guides actions and resolves problems," it may take actions beyond information delivery&mdash;monitor for tier escalation.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> by SS-04.</p>
+<p><strong>Key governance adds:</strong> P1 (purpose clarity), P3 (human fallback for complex service requests), P4 (student can always reach a human).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#12 &mdash; RamGPT</h3>
+<p class="uc-meta"><span class="tag-dev">In Development</span> <span class="tag-maturity">L3: Integrate</span> &nbsp; Colorado State University &bull; David Edwards &bull; Tools: Cloudforce NebulaOne, Azure, MCP servers</p>
+<p>Student-focused chatbot agent making calls to other specialized agents for housing, dining, financial aid, Rec Center, health, campus events, etc. Aspirational goal: match UMich's "Go Blue" system.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span> with <strong>tier override</strong></li>
+  <li><strong>Secondary:</strong> SS-07 (Basic Needs) <span class="tag-low">Tier 1</span>, SS-03 (Financial Aid) <span class="tag-high">Tier 3</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> A multi-agent student services platform. The chatbot interface is SS-04, but its agent-to-agent architecture means it touches financial aid (SS-03, Tier 3), health services, and housing&mdash;each with different governance requirements. This is a clear instance of Handbook Gap 3 (multi-function platform): the tool's governance floor equals its highest-risk function.</p>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; Individual functions are covered by SS-04/SS-07/SS-03, but the multi-agent architecture (AI calling AI) raises governance questions not addressed in the current framework: which agent is accountable? How are inter-agent decisions audited?</p>
+<p><strong>Key governance adds:</strong> P2 (financial aid equity), P3 (human override at each agent boundary), P5 (data sharing across agents), P6 (transparency&mdash;student should know they're interacting with an agent chain), P7 (accountability for multi-agent outputs).</p>
+</div>
+
+<h3>Group B: Institutional AI Platforms (Multi-Function)</h3>
+
+<div class="use-case-block">
+<h3>#11 &mdash; CSU-GPT</h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L2: Share</span> &nbsp; Colorado State University &bull; David Edwards &bull; Tools: Cloudforce NebulaOne, Azure, GPT-4o</p>
+<p>Secure institutional LLM chat client for all students, faculty, and staff. Supports user-created and shared agents, including brand-compliant writing, social media posts, and course-specific Tutorbots.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span></li>
+  <li><strong>Secondary:</strong> SS-05 (AI Course Tutoring) <span class="tag-med">Tier 2</span> for Tutorbot functions</li>
+</ul>
+<p><strong>Why this mapping:</strong> Institutional LLM platform that is primarily a general chatbot (SS-04 Tier 1), but the Tutorbot capability elevates specific uses to SS-05 Tier 2. This is a platform-level deployment where the governance tier depends on how students use it.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> via SS-04 + SS-05. Multi-function platform guidance applies.</p>
+<p><strong>Key governance adds:</strong> P1 (purpose varies by agent), P4 (student/faculty agency in creating agents), P5 (what data do user-created agents access?).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#19 &mdash; Purple: AI for All</h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L3: Integrate</span> &nbsp; University of Washington &bull; Jared Reimer &bull; Tools: Azure AI Foundry, NebulaOne, GPT-4.1/GPT-5</p>
+<p>Agentic AI platform for all UW community members (except possibly UW Medicine).</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> Enterprise agentic AI platform. For students, this functions as an SS-04 chatbot, but the "agentic" label suggests it can take actions on behalf of users&mdash;a capability that may require tier elevation depending on what actions are delegated. At scale (all of UW), governance must account for diverse use contexts.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> as base chatbot. Agentic capabilities may require additional governance beyond SS-04's scope.</p>
+<p><strong>Key governance adds:</strong> P3 (human oversight for agentic actions), P4 (student consent for actions taken on their behalf), P5 (data scope of agentic access).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#28 &mdash; Help Desk</h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L5: Evolve</span> &nbsp; Juniata College &bull; Misty Andrade &bull; Tools: TBD</p>
+<p>AI-powered help desk that answers easy questions and takes actions in systems to complete tasks on behalf of students, faculty, and staff. Frees human staff for complex tasks.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span> with <strong>tier override to Tier 2</strong></li>
+</ul>
+<p><strong>Why this mapping:</strong> Starts as SS-04 FAQ chatbot, but the aspiration to "take actions in systems" makes this an agentic system&mdash;AI modifying student records, resetting accounts, or processing requests. Action-taking AI requires Tier 2+ governance due to irreversibility and accountability concerns.</p>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; SS-04 covers FAQ chatbots but does not explicitly address AI that takes system actions on behalf of students.</p>
+<p><strong>Key governance adds:</strong> P3 (human approval before irreversible actions), P5 (system access scope), P6 (transparency&mdash;student sees what actions were taken), P7 (audit trail for system modifications).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#47 &mdash; myUMBC Answers</h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L1: Explore</span> &nbsp; UMBC &bull; B. Collier Jones &bull; Tools: AWS Bedrock, Custom Integrations</p>
+<p>AI-powered search engine of university content with access to personal data to provide personalized answers for students, faculty, and staff.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span> with <strong>tier override to Tier 2</strong></li>
+</ul>
+<p><strong>Why this mapping:</strong> The personalized data access distinguishes this from a standard SS-04 chatbot. When AI accesses student records to personalize responses, it crosses from informational (Tier 1) into data-driven personalization (Tier 2), triggering P5 (data handling) and P6 (transparency) requirements.</p>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; SS-04 as base; personal data integration requires additional governance the current SS-04 rubric may not fully address.</p>
+<p><strong>Key governance adds:</strong> P5 (FERPA&mdash;what personal data is accessed?), P6 (can students see what data informed the response?), P4 (can students opt out of personalization?).</p>
+</div>
+
+<h3>Group C: Tutoring &amp; Learning Tools</h3>
+
+<div class="use-case-block">
+<h3>#10 &mdash; AI Exam Wrappers</h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L2: Share</span> &nbsp; Northwestern University &bull; Rachel Goc &bull; Tools: Copilot/ChatGPT</p>
+<p>AI prompts guide students through structured reflection after exams. Ongoing research project with faculty from Engineering, Chinese, and Physical Therapy programs.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-05 (AI Course Tutoring Assistant) <span class="tag-med">Tier 2</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> Post-exam metacognitive reflection facilitated by AI. This is a tutoring/learning support function that helps students develop study strategies based on exam performance.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> by SS-05.</p>
+<p><strong>Key governance adds:</strong> P4 (student agency&mdash;reflection should be student-directed, not AI-prescribed), P5 (does AI see exam results or just facilitate generic reflection?).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#15 &mdash; SmartyCards</h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L3: Integrate</span> &nbsp; University of Minnesota &bull; Colin McFadden &bull; Tools: Azure OpenAI, Laravel</p>
+<p>Platform for creating and sharing flash card decks. LLMs transform student-created decks into other learning activities. Students must create decks themselves&mdash;AI won't do that part&mdash;but provides alternate ways to study the content.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-05 (AI Course Tutoring Assistant) <span class="tag-med">Tier 2</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> AI-augmented study tool. The design intentionally preserves student agency (deck creation as learning task) while adding AI value (transformation into activities). Good model for P4 (student agency) compliance.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> by SS-05.</p>
+<p><strong>Key governance adds:</strong> P4 (exemplar&mdash;student does the thinking, AI adds value), P1 (clear institutional purpose as study tool).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#17 &mdash; PATHS (Process for Academic Transformation through Human-centric Systems)</h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L5: Evolve</span> &nbsp; University of Delaware &bull; Erin Sicuranza &bull; Tools: AWS Bedrock, Claude, Neo4j, custom pipelines</p>
+<p>AI + human oversight + Knowledge Graphs for managing academic knowledge. Enables adaptive curricula, contextual understanding, and transparency in AI. Human-verified data pipelines feeding structured knowledge ecosystems.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-01 (AI Advising / Guided Pathways) <span class="tag-high">Tier 3</span></li>
+  <li><strong>Secondary:</strong> SS-09 (Student Journey Mapping) <span class="tag-med">Tier 2</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> The adaptive curricula function directly maps to SS-01&mdash;AI shaping what academic content and pathways are available to students. The Knowledge Graph architecture makes this a sophisticated infrastructure for journey mapping (SS-09). Notably, the human-verification pipeline aligns with P3 and P6 governance expectations.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> by SS-01 + SS-09. The human-centric design philosophy actually exceeds Navigator governance requirements.</p>
+<p><strong>Key governance adds:</strong> P2 (equity in knowledge graph representation), P6 (transparency via knowledge graph auditability), P7 (accountability through human verification pipeline).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#18 &mdash; UD Study AiDE</h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L5: Evolve</span> &nbsp; University of Delaware &bull; Erin Sicuranza &bull; Tools: PATHS engine, custom UX/UI</p>
+<p>Transforms academic materials (lecture transcripts, PowerPoint presentations) into structured, verified study materials. Provides personalized learning metrics and AI-supported study sessions.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-05 (AI Course Tutoring Assistant) <span class="tag-med">Tier 2</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> AI study tool generating structured materials from course content. The personalized learning metrics component adds data-driven personalization that moves beyond basic tutoring.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> by SS-05.</p>
+<p><strong>Key governance adds:</strong> P4 (student agency in study sessions), P5 (learning metrics as student data), P6 (transparency of metric derivation).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#37 &mdash; Faculty Assistants</h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L2: Share</span> &nbsp; Ohio State University &bull; Dave Renner &bull; Tools: PostgreSQL-pgvector, Claude, Custom Code</p>
+<p>Canvas-integrated AI "GPTs" for simulation and reflection, created by faculty.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-05 (AI Course Tutoring Assistant) <span class="tag-med">Tier 2</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> Faculty-created AI assistants embedded in LMS (Canvas). Students interact with these for simulation and reflection exercises. This is SS-05 with the faculty as the governance owner of the AI's purpose and boundaries.</p>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> by SS-05.</p>
+<p><strong>Key governance adds:</strong> P1 (faculty defines purpose per assistant), P4 (student agency&mdash;simulations should support, not replace, student thinking), P3 (faculty as human-in-the-loop).</p>
+</div>
+
+<h3>Group D: Accessibility Use Cases</h3>
+
+<div class="use-case-block">
+<h3>#13 &mdash; Digital Accessibility Compliance</h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L1: Explore</span> &nbsp; University of Georgia &bull; Jessica Kissinger &bull; Tools: Claude, ChatGPT</p>
+<p>AI to help meet digital accessibility requirements for websites and instructional materials in a contextually aware manner. Faculty use it to make PPT lectures and journal images compliant.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-XX &rarr; <strong>proposed SS-12 (Accessibility &amp; Assistive AI)</strong> <span class="tag-gap">Needs new use case</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> No existing Navigator use case covers accessibility compliance. This is the third piece of evidence (alongside Handbook #49 Grammar Lab and #50 UDL tools) supporting the proposed SS-12 use case. Making instructional materials accessible directly affects students with disabilities.</p>
+<p><strong>Coverage:</strong> <span class="coverage-gap">Gap</span> &mdash; confirms Handbook crosswalk Gap 2.</p>
+<p><strong>Key governance adds:</strong> P2 (equity&mdash;ADA-protected population), P6 (transparency of accessibility remediation), P7 (accountability for compliance claims).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#27 &mdash; Accessibility Crawler</h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L4: Delegate</span> &nbsp; Juniata College &bull; Misty Andrade &bull; Tools: TBD</p>
+<p>AI crawls websites, identifies accessibility issues, creates reports, and automatically makes corrections in test environments.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-XX &rarr; <strong>proposed SS-12 (Accessibility &amp; Assistive AI)</strong> <span class="tag-gap">Needs new use case</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> Automated accessibility remediation. Fourth evidence point for SS-12. The auto-correction capability (L4: Delegate maturity) raises additional governance questions about AI-generated accessibility fixes.</p>
+<p><strong>Coverage:</strong> <span class="coverage-gap">Gap</span> &mdash; confirms Handbook crosswalk Gap 2.</p>
+<p><strong>Key governance adds:</strong> P3 (human review of auto-corrections before production), P6 (reporting transparency), P7 (institutional accountability for compliance).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#44 &mdash; Make PDFs Accessible (Title 2)</h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L4: Delegate</span> &nbsp; Ohio State University &bull; Dave Renner &bull; Tools: AWS Bedrock, Adobe PDF Services</p>
+<p>AI-powered PDF accessibility remediation for Title II compliance. Used by Library and College of Arts &amp; Sciences.</p>
+<h4>Navigator Mapping</h4>
+<ul>
+  <li><strong>Primary:</strong> SS-XX &rarr; <strong>proposed SS-12 (Accessibility &amp; Assistive AI)</strong> <span class="tag-gap">Needs new use case</span></li>
+</ul>
+<p><strong>Why this mapping:</strong> Fifth evidence point for SS-12, and the strongest&mdash;this is <em>in production</em> at a major R1 university for Title II federal compliance. PDF accessibility directly affects students with disabilities accessing course materials, library resources, and institutional documents.</p>
+<p><strong>Coverage:</strong> <span class="coverage-gap">Gap</span> &mdash; confirms Handbook crosswalk Gap 2. Ohio State's production deployment makes this the most mature SS-12 evidence across both sources.</p>
+<p><strong>Key governance adds:</strong> P2 (ADA-protected population), P6 (quality validation of AI-generated alt text, reading order), P7 (Title II compliance accountability).</p>
+</div>
+
+<hr>
+
+<h2>4. Summary Mapping Table</h2>
+
+<table>
+  <tr>
+    <th>#</th>
+    <th>Use Case Name</th>
+    <th>Institution</th>
+    <th>Status</th>
+    <th>Navigator Use Case(s)</th>
+    <th>Risk Tier</th>
+    <th>Coverage</th>
+  </tr>
+  <tr><td>8</td><td>Residency Petition System</td><td>UMBC</td><td><span class="tag-dev">Dev</span></td><td>SS-10 / SS-03</td><td><span class="tag-high">Tier 3</span></td><td><span class="coverage-partial">Partial</span></td></tr>
+  <tr><td>10</td><td>AI Exam Wrappers</td><td>Northwestern</td><td><span class="tag-prod">Prod</span></td><td>SS-05</td><td><span class="tag-med">Tier 2</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>11</td><td>CSU-GPT</td><td>Colorado State</td><td><span class="tag-prod">Prod</span></td><td>SS-04 / SS-05</td><td><span class="tag-med">Tier 2</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>12</td><td>RamGPT</td><td>Colorado State</td><td><span class="tag-dev">Dev</span></td><td>SS-04 / SS-07 / SS-03</td><td><span class="tag-high">Tier 3</span></td><td><span class="coverage-partial">Partial</span></td></tr>
+  <tr><td>13</td><td>Digital Accessibility Compliance</td><td>UGA</td><td><span class="tag-idea">Idea</span></td><td>SS-12 (proposed)</td><td><span class="tag-gap">Gap</span></td><td><span class="coverage-gap">Gap</span></td></tr>
+  <tr><td>15</td><td>SmartyCards</td><td>UMN</td><td><span class="tag-prod">Prod</span></td><td>SS-05</td><td><span class="tag-med">Tier 2</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>17</td><td>PATHS</td><td>UDel</td><td><span class="tag-prod">Prod</span></td><td>SS-01 / SS-09</td><td><span class="tag-high">Tier 3</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>18</td><td>UD Study AiDE</td><td>UDel</td><td><span class="tag-prod">Prod</span></td><td>SS-05</td><td><span class="tag-med">Tier 2</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>19</td><td>Purple: AI for All</td><td>UW</td><td><span class="tag-prod">Prod</span></td><td>SS-04</td><td><span class="tag-low">Tier 1+</span></td><td><span class="coverage-partial">Partial</span></td></tr>
+  <tr><td>25</td><td>AI Degree Plan Builder</td><td>UNM</td><td><span class="tag-dev">Dev</span></td><td>SS-01 / SS-09</td><td><span class="tag-high">Tier 3</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>26</td><td>(New) Student Helper</td><td>UNM</td><td><span class="tag-idea">Idea</span></td><td>SS-04 / SS-07</td><td><span class="tag-low">Tier 1</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>27</td><td>Accessibility Crawler</td><td>Juniata</td><td><span class="tag-idea">Idea</span></td><td>SS-12 (proposed)</td><td><span class="tag-gap">Gap</span></td><td><span class="coverage-gap">Gap</span></td></tr>
+  <tr><td>28</td><td>Help Desk</td><td>Juniata</td><td><span class="tag-idea">Idea</span></td><td>SS-04</td><td><span class="tag-med">Tier 2</span></td><td><span class="coverage-partial">Partial</span></td></tr>
+  <tr><td>37</td><td>Faculty Assistants</td><td>Ohio State</td><td><span class="tag-prod">Prod</span></td><td>SS-05</td><td><span class="tag-med">Tier 2</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>41</td><td>Chatbot for Course Registration</td><td>UWM</td><td><span class="tag-idea">Idea</span></td><td>SS-10 / SS-01</td><td><span class="tag-high">Tier 3</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>42</td><td>Automated Transcript Scanning</td><td>UWM</td><td><span class="tag-idea">Idea</span></td><td>SS-10</td><td><span class="tag-med">Tier 2</span></td><td><span class="coverage-partial">Partial</span></td></tr>
+  <tr><td>43</td><td>Chatbot for UWM Services</td><td>UWM</td><td><span class="tag-idea">Idea</span></td><td>SS-04 / SS-07</td><td><span class="tag-low">Tier 1</span></td><td><span class="coverage-covered">Covered</span></td></tr>
+  <tr><td>44</td><td>Make PDFs Accessible</td><td>Ohio State</td><td><span class="tag-prod">Prod</span></td><td>SS-12 (proposed)</td><td><span class="tag-gap">Gap</span></td><td><span class="coverage-gap">Gap</span></td></tr>
+  <tr><td>47</td><td>myUMBC Answers</td><td>UMBC</td><td><span class="tag-prod">Prod</span></td><td>SS-04</td><td><span class="tag-med">Tier 2</span></td><td><span class="coverage-partial">Partial</span></td></tr>
+</table>
+
+<hr>
+
+<h2>5. Gap Analysis</h2>
+
+<h3>5a. Gaps Confirmed from Handbook Crosswalk</h3>
+
+<table>
+  <tr>
+    <th>Gap</th>
+    <th>Original Evidence (Handbook)</th>
+    <th>New Evidence (ND Forum)</th>
+    <th>Recommendation</th>
+  </tr>
+  <tr>
+    <td><strong>Gap 2: Accessibility &amp; Assistive AI</strong></td>
+    <td>#49 Grammar Lab (RIT), #50 UDL (Cornell), #52 Assistive Tech</td>
+    <td><strong>#13</strong> UGA digital accessibility, <strong>#27</strong> Juniata accessibility crawler, <strong>#44</strong> Ohio State PDF accessibility (in production)</td>
+    <td><strong>Add SS-12.</strong> Now 6 evidence points across 2 sources. OSU's production deployment for Title II makes this urgent.</td>
+  </tr>
+  <tr>
+    <td><strong>Gap 3: Multi-Function Platform Guidance</strong></td>
+    <td>#21 Pounce (4 functions), #24 Hawaii (2 functions)</td>
+    <td><strong>#11</strong> CSU-GPT (chatbot + tutoring), <strong>#12</strong> RamGPT (chatbot + financial aid + housing + health), <strong>#19</strong> Purple (agentic platform)</td>
+    <td><strong>Add portfolio evaluation guidance.</strong> Multi-function platforms are the dominant pattern in both sources. The ND Forum data shows this is accelerating with agent-to-agent architectures.</td>
+  </tr>
+</table>
+
+<h3>5b. New Gaps Identified</h3>
+
+<table>
+  <tr>
+    <th>Gap</th>
+    <th>Evidence</th>
+    <th>Problem</th>
+    <th>Recommendation</th>
+  </tr>
+  <tr>
+    <td><strong>Gap 6: Agentic AI / AI-Takes-Actions</strong></td>
+    <td><strong>#12</strong> RamGPT (agent-to-agent calls), <strong>#19</strong> Purple (agentic AI), <strong>#28</strong> Help Desk (takes actions in systems), <strong>#47</strong> myUMBC (personalized data access)</td>
+    <td>Current Navigator assumes AI <em>informs</em> humans who then act. Multiple ND Forum use cases describe AI that <em>takes actions</em> in institutional systems&mdash;enrolling, resetting, modifying records. SS-04 governance for a chatbot that answers questions is insufficient for a chatbot that executes transactions.</td>
+    <td><strong>Add agentic AI screening question to SS-04 and SS-10:</strong> "Does this AI system take actions in institutional systems on behalf of students (e.g., enrolling, submitting, modifying records)?" If yes, auto-upgrade to Tier 2 minimum and add P3 (human approval for irreversible actions), P5 (system access audit), P7 (action audit trail).</td>
+  </tr>
+  <tr>
+    <td><strong>Gap 7: AI Document Analysis for Eligibility Determinations</strong></td>
+    <td><strong>#8</strong> UMBC residency petition (analyzes identity documents), <strong>#42</strong> UWM transcript scanning (evaluates HS transcripts)</td>
+    <td>AI analyzing personal documents (IDs, leases, transcripts) to make eligibility recommendations (tuition rate, admission). This combines sensitive document handling with consequential decision-making. Neither SS-03 nor SS-10 explicitly address document-analysis-based determination workflows.</td>
+    <td><strong>Add screening question to SS-03 and SS-10:</strong> "Does this AI analyze personal documents (transcripts, identity documents, financial records) to determine student eligibility for programs, tuition rates, or admissions?" If yes, add P2 (equity review for document bias), P5 (document retention/destruction policy), NG-03 (no auto-deny).</td>
+  </tr>
+</table>
+
+<h3>5c. Gaps Not Confirmed (No New Evidence)</h3>
+
+<div class="highlight-box">
+<strong>Gap 1 (Mental Health AI):</strong> No ND Forum use cases involve mental health AI (WoeBot, Wysa, etc.). This gap remains supported only by Handbook evidence. Recommendation to add SS-11 stands but is not strengthened by this source.<br><br>
+<strong>Gap 4 (Yield Optimization):</strong> No ND Forum use cases involve enrollment yield prediction. Recommendation for SS-03 screening question stands but is not strengthened.<br><br>
+<strong>Gap 5 (Emotional Support Ambiguity):</strong> No ND Forum use cases describe emotional support chatbots. SS-04 screening question recommendation stands but is not strengthened.
+</div>
+
+<hr>
+
+<h2>6. Coverage Summary</h2>
+
+<table>
+  <tr>
+    <th>Coverage Level</th>
+    <th>Count</th>
+    <th>Use Cases</th>
+  </tr>
+  <tr>
+    <td><strong style="color:#155724;">Fully Covered</strong></td>
+    <td>10</td>
+    <td>#10 Exam Wrappers, #11 CSU-GPT, #15 SmartyCards, #17 PATHS, #18 Study AiDE, #25 Degree Plan, #26 Student Helper, #37 Faculty Assistants, #41 Course Registration, #43 UWM Services</td>
+  </tr>
+  <tr>
+    <td><strong style="color:#856404;">Partially Covered</strong></td>
+    <td>6</td>
+    <td>#8 Residency Petition, #12 RamGPT, #19 Purple, #28 Help Desk, #42 Transcript Scanning, #47 myUMBC Answers</td>
+  </tr>
+  <tr>
+    <td><strong style="color:#721c24;">Gap &mdash; No Coverage</strong></td>
+    <td>3</td>
+    <td>#13 Digital Accessibility (UGA), #27 Accessibility Crawler (Juniata), #44 PDF Accessibility (OSU)</td>
+  </tr>
+</table>
+
+<div class="success">
+<strong>Bottom line:</strong> 10 of 19 Student Services&ndash;relevant use cases (53%) are fully covered by existing Navigator v2 use cases. 6 are partially covered and would benefit from the new screening questions (Gaps 6 and 7). 3 require the proposed SS-12 (Accessibility &amp; Assistive AI).<br><br>
+Adding SS-12 + the two new screening questions would bring coverage to <strong>19/19 (100%)</strong>.
+</div>
+
+<hr>
+
+<h2>7. Cross-Source Comparison</h2>
+
+<p>Comparing findings between the Legatt/EdGenerative Handbook and the ND AI Forum Repository:</p>
+
+<table>
+  <tr>
+    <th>Dimension</th>
+    <th>Handbook (Feb 2026)</th>
+    <th>ND Forum (Nov 2025)</th>
+  </tr>
+  <tr>
+    <td>Source type</td>
+    <td>Published, curated case studies</td>
+    <td>Self-reported by practitioners</td>
+  </tr>
+  <tr>
+    <td>Total use cases</td>
+    <td>75</td>
+    <td>48</td>
+  </tr>
+  <tr>
+    <td>Student Services relevant</td>
+    <td>19 (25%)</td>
+    <td>19 (40%)</td>
+  </tr>
+  <tr>
+    <td>Maturity</td>
+    <td>Primarily validated deployments</td>
+    <td>Mixed: 14 Production, 18 Dev, 16 Idea</td>
+  </tr>
+  <tr>
+    <td>Institution type</td>
+    <td>Diverse (R1, CC, liberal arts)</td>
+    <td>Predominantly R1/R2 universities</td>
+  </tr>
+  <tr>
+    <td>SS-12 evidence</td>
+    <td>3 use cases</td>
+    <td>3 use cases (6 total across sources)</td>
+  </tr>
+  <tr>
+    <td>Multi-function platforms</td>
+    <td>3 (Pounce, Hawaii, IU)</td>
+    <td>4 (CSU-GPT, RamGPT, Purple, myUMBC)</td>
+  </tr>
+  <tr>
+    <td>Unique pattern</td>
+    <td>Mental health AI (WoeBot, Wysa)</td>
+    <td>Agentic AI that takes system actions</td>
+  </tr>
+  <tr>
+    <td>Navigator coverage rate</td>
+    <td>68% fully covered</td>
+    <td>53% fully covered</td>
+  </tr>
+</table>
+
+<div class="callout">
+<strong>Key insight:</strong> The ND Forum data reveals an <strong>emerging pattern not visible in the Handbook</strong>: the shift from AI that <em>informs</em> to AI that <em>acts</em>. RamGPT, Purple, Help Desk, and myUMBC Answers all describe agentic capabilities where AI modifies institutional systems or personalizes using student records. The Navigator's current governance model assumes a human decision-maker between AI output and institutional action. <strong>Gap 6 (Agentic AI)</strong> is the most significant new finding from this crosswalk.
+</div>
+
+</body>
+</html>

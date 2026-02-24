@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Navigator v2 — 59 Assessment Questions (Working Draft)</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 0.5in;
+    color: #333;
+  }
+  h1 { font-size: 18pt; margin-bottom: 4px; }
+  h2 { font-size: 14pt; margin-top: 28px; margin-bottom: 4px; }
+  h3 { font-size: 12pt; margin-top: 20px; margin-bottom: 4px; }
+  p { margin: 4px 0; }
+  hr { border: none; border-top: 1px solid #ccc; margin: 20px 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 8px 0;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #f0f0f0; }
+  .subtitle { font-size: 13pt; color: #666; margin-top: 0; }
+  .meta { font-size: 10pt; color: #666; }
+  .pillar-title { margin-bottom: 2px; }
+  .hook { font-style: italic; color: #555; font-size: 10pt; margin-bottom: 8px; }
+  .q-num { font-size: 10pt; color: #888; }
+  .q-text { font-weight: bold; }
+  .rubric-3 { color: #155724; }
+  .rubric-2 { color: #856404; }
+  .rubric-1 { color: #721c24; }
+  .notes { color: #999; font-style: italic; font-size: 10pt; }
+  .category-tag { font-size: 9pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.06em; color: #888; margin-top: 12px; }
+</style>
+</head>
+<body>
+
+<h1>Navigator v2 — 59 Assessment Questions</h1>
+<p class="subtitle">Working Draft for Team Revision</p>
+<p class="meta">
+Date: February 23, 2026 | Team: Amin, Mimi, Adam, Hyunjun<br>
+Source: navigator-v2-spec.md + navigator-v2-content.json (v2.1, Feb 22, 2026)<br>
+Status: Working draft — edit questions, reword rubrics, flag items for discussion
+</p>
+
+<hr>
+
+<h2>Question Count by Pillar</h2>
+
+<table>
+<tr><th>Pillar</th><th>Name</th><th>Qs</th><th>Category</th></tr>
+<tr><td style="color:#0066cc;font-weight:bold;">P1</td><td>Purpose & Educational Legitimacy</td><td>5</td><td rowspan="2">WHY — Does this belong here?</td></tr>
+<tr><td style="color:#28a745;font-weight:bold;">P2</td><td>Equity & Differential Impact</td><td>7</td></tr>
+<tr><td style="color:#6f42c1;font-weight:bold;">P3</td><td>Human Authority & Decision Accountability</td><td>5</td><td rowspan="3">WHO — Who decides, who's affected?</td></tr>
+<tr><td style="color:#fd7e14;font-weight:bold;">P4</td><td>Student & Faculty Agency</td><td>8</td></tr>
+<tr><td style="color:#dc3545;font-weight:bold;">P5</td><td>Risk Proportionality & Harm Mitigation</td><td>6</td></tr>
+<tr><td style="color:#17a2b8;font-weight:bold;">P6</td><td>Data Stewardship & System Integrity</td><td>8</td><td rowspan="2">HOW — Technical & data governance</td></tr>
+<tr><td style="color:#e83e8c;font-weight:bold;">P7</td><td>Transparency & Contestability</td><td>7</td></tr>
+<tr><td style="color:#6610f2;font-weight:bold;">P8</td><td>Vendor Accountability & Institutional Sovereignty</td><td>7</td><td rowspan="2">SUSTAINABILITY — Can we sustain this?</td></tr>
+<tr><td style="color:#795548;font-weight:bold;">P9</td><td>Institutional Capacity & Continuous Governance</td><td>6</td></tr>
+<tr style="background:#f0f0f0;"><td colspan="2"><strong>Total</strong></td><td><strong>59</strong></td><td></td></tr>
+</table>
+
+<hr>
+
+<!-- P1 -->
+<h2 style="color:#0066cc;">P1 — Purpose & Educational Legitimacy (5 questions)</h2>
+<p class="hook">"If it doesn't serve students, it doesn't belong here."</p>
+<p>Principle: Every AI deployment must serve a genuine educational purpose and protect the meaning of credentials.<br>HUMANS mapping: AQL-original</p>
+
+<p><span class="q-num">1.1</span></p>
+<p><span class="q-text">What specific student outcome or educational purpose does this tool serve? Can you name it?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Concrete answer tied to learning, completion, transfer, or career readiness</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Purpose stated but not evidence-backed</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No clear educational purpose</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">1.2</span></p>
+<p><span class="q-text">Does this tool align with the institution's mission and strategic plan?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Connection to stated institutional priorities</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> General alignment with mission</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No connection to institutional priorities</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">1.3</span></p>
+<p><span class="q-text">Where on the student journey does this solve a problem? (enrollment, persistence, completion, transfer, career placement)</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Clear placement on guided pathway with local evidence of problem</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Journey placement reasonable but not validated locally</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Hypothetical problem, no institutional evidence</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">1.4</span></p>
+<p><span class="q-text">Does the tool protect credential integrity? Could AI-generated outputs substitute for competency demonstration?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Students still demonstrate mastery; credential integrity preserved</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Credential impact not fully assessed</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Credential integrity risk unaddressed</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">1.5</span></p>
+<p><span class="q-text">Has an industry advisory committee or CTE program review validated this tool's relevance? (for CTE-adjacent use cases)</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Employer and industry input documented; alignment with competencies</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some industry consultation</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No industry validation</p>
+<p class="notes">Revision notes:</p>
+
+<hr>
+
+<!-- P2 -->
+<h2 style="color:#28a745;">P2 — Equity & Differential Impact (7 questions)</h2>
+<p class="hook">"If it doesn't work for all your students, it doesn't work."</p>
+<p>Principle: AI governance must center equity and account for differential impacts on diverse CC student populations.<br>HUMANS mapping: U, A</p>
+
+<p><span class="q-num">2.1</span></p>
+<p><span class="q-text">Has this tool been tested with student populations similar to ours? (Pell-eligible, first-gen, working adults, multilingual, students with disabilities)</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Disaggregated performance data for CC-like populations</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Equity acknowledged as priority but data limited</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No disaggregated data</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">2.2</span></p>
+<p><span class="q-text">Are error rates, recommendation accuracy, or response quality consistent across student demographics?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Vendor provides disaggregated performance data</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Willing to conduct bias audit post-deployment</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No differential impact analysis</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">2.3</span></p>
+<p><span class="q-text">Has a differential impact analysis been conducted? Who might be harmed by this tool's errors or limitations?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Specific harm scenarios articulated with mitigation</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Equity partially addressed in product design</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Equity not addressed in product design</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">2.4</span></p>
+<p><span class="q-text">Does the tool work effectively for multilingual students? In what languages? Is it real-time or pre-translated?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Actual language coverage and quality tested with your student mix</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some language support with limitations</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No multilingual support or poor quality</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">2.5</span></p>
+<p><span class="q-text">Does the tool meet accessibility standards? (WCAG 2.1 AA, screen reader compatibility, keyboard navigation)</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Documented accessibility compliance with VPAT</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Accessibility documented</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Accessibility unclear</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">2.6</span></p>
+<p><span class="q-text">What is the cost model for students? Are there paywalls, premium tiers, or features that require devices/bandwidth some students lack?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> No paywall barriers; works on mobile; low bandwidth option</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Cost model reasonable but some barriers exist</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Cost barriers exist</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">2.7</span></p>
+<p><span class="q-text">Does the tool serve all career pathways equitably, or is it optimized for specific programs?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> CTE pathways covered; all program catalog included</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Mostly transfer/STEM focus</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Only transfer pathways</p>
+<p class="notes">Revision notes:</p>
+
+<hr>
+
+<!-- P3 -->
+<h2 style="color:#6f42c1;">P3 — Human Authority & Decision Accountability (5 questions)</h2>
+<p class="hook">"Who is accountable when the AI is wrong?"</p>
+<p>Principle: Humans — not algorithms — make consequential decisions about students.<br>HUMANS mapping: H</p>
+
+<p><span class="q-num">3.1</span></p>
+<p><span class="q-text">Does this tool make decisions that affect student access, standing, or progress — or does it recommend to a human who decides?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> AI recommends; humans decide; clear distinction</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> AI acts with human review possible but not required</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> AI makes consequential decisions autonomously</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">3.2</span></p>
+<p><span class="q-text">Can staff override, modify, or reject AI recommendations before they reach students?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Override built into workflow, not buried in admin settings</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Override exists but isn't default</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Override technically possible but impractical</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">3.3</span></p>
+<p><span class="q-text">For high-risk use cases: is there a defined escalation path when AI output is uncertain, contradictory, or flagged?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Defined thresholds with human routing on low-confidence cases</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some escalation path exists</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No escalation path defined</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">3.4</span></p>
+<p><span class="q-text">Does the tool create a decision audit trail? Can the institution document who approved what AI-influenced decision?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Full audit trail with timestamps, recommendations, and human actions</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some audit logging</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No audit trail</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">3.5</span></p>
+<p><span class="q-text">Who is accountable when the AI is wrong? Is that defined in the contract?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Clear liability allocation in contract</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Liability partially addressed</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Vendor disclaims all liability</p>
+<p class="notes">Revision notes:</p>
+
+<hr>
+
+<!-- P4 -->
+<h2 style="color:#fd7e14;">P4 — Student & Faculty Agency (8 questions)</h2>
+<p class="hook">"Your students are adults. Your faculty run the classroom. Respect both."</p>
+<p>Principle: Students and faculty are empowered participants, not subjects.<br>HUMANS mapping: H, U</p>
+
+<p class="category-tag">STUDENT AGENCY (4.1–4.4)</p>
+
+<p><span class="q-num">4.1</span></p>
+<p><span class="q-text">Does the tool help students learn to navigate AI, or does it just deliver AI-generated answers?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Skill-building design: Socratic mode, guided problem-solving</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some skill-building features</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Pure output delivery</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">4.2</span></p>
+<p><span class="q-text">Can students opt out of AI interaction and access a human alternative without penalty or delay?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Real opt-out with equally accessible human alternative</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Opt-out exists but inconvenient</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No meaningful opt-out</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">4.3</span></p>
+<p><span class="q-text">Does the tool give students visibility into and control over their own data and AI profile?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Students can see system profile and contest it</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Limited visibility</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No student visibility</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">4.4</span></p>
+<p><span class="q-text">Does the tool recognize prior AI experience that adult learners bring from their workplaces?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Acknowledges adult learner autonomy and workplace AI experience</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some recognition of adult learners</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Designed for traditional students only</p>
+<p class="notes">Revision notes:</p>
+
+<p class="category-tag">FACULTY AGENCY (4.5–4.8)</p>
+
+<p><span class="q-num">4.5</span></p>
+<p><span class="q-text">Can faculty configure, restrict, or turn off AI features for their courses and advisees?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Granular faculty control, not admin-only settings</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Faculty configuration available</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Admin-only configuration</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">4.6</span></p>
+<p><span class="q-text">Does the vendor provide training that is accessible to adjunct/part-time faculty? (async, under 30 minutes, no cost)</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Async training included; compensated governance participation</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Training provided but not adjunct-optimized</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No adjunct provisions</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">4.7</span></p>
+<p><span class="q-text">Does the tool evaluate, score, or surveil faculty performance?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Faculty are users and configurers, not subjects</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Limited faculty surveillance</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Faculty performance tracked</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">4.8</span></p>
+<p><span class="q-text">Does the tool's deployment plan respect the collegial consultation process and shared governance?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Academic senate consulted before deployment; shared governance respected</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some shared governance involvement</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Top-down IT rollout</p>
+<p class="notes">Revision notes:</p>
+
+<hr>
+
+<!-- P5 -->
+<h2 style="color:#dc3545;">P5 — Risk Proportionality & Harm Mitigation (6 questions)</h2>
+<p class="hook">"What's the worst that happens to a student if this tool fails?"</p>
+<p>Principle: Governance intensity matches risk level.<br>HUMANS mapping: S</p>
+
+<p><span class="q-num">5.1</span></p>
+<p><span class="q-text">Has the tool been classified by risk tier (high / medium / lower)? Does governance intensity match?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Risk tier documented and agreed upon</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Risk tier acknowledged</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No risk classification</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">5.2</span></p>
+<p><span class="q-text">What are the autonomy limits? Is this tool informational, recommendatory, or consequential?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Autonomy limits defined: informational/recommendatory/consequential</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some autonomy limits defined</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No autonomy limits</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">5.3</span></p>
+<p><span class="q-text">If this is an agentic AI system, what bounds are placed on its autonomy?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Whitelisted actions only; logging; anomaly detection</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some bounds in place</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No bounds on autonomy</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">5.4</span></p>
+<p><span class="q-text">What is the harm scenario? If this tool fails, what is the worst realistic outcome for a student?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Worst case articulated with mitigation plans</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Harm scenarios partially explored</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Harm scenarios not considered</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">5.5</span></p>
+<p><span class="q-text">Are staff trained on automation bias?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Automation bias training planned</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some training considered</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No automation bias awareness</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">5.6</span></p>
+<p><span class="q-text">Is there a process for emerging technology review?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Vendor updates trigger risk reassessment; new capabilities don't auto-deploy</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> No formal emerging tech review</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Vendor features auto-deploy without review</p>
+<p class="notes">Revision notes:</p>
+
+<hr>
+
+<!-- P6 -->
+<h2 style="color:#17a2b8;">P6 — Data Stewardship & System Integrity (8 questions)</h2>
+<p class="hook">"Your data, your rules. Not the vendor's."</p>
+<p>Principle: Student data is a public trust.<br>HUMANS mapping: M</p>
+
+<p><span class="q-num">6.1</span></p>
+<p><span class="q-text">What student data does this tool collect, access, or generate? Provide a complete data inventory.</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Complete data inventory with specific fields</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Data inventory on request</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Data practices vague</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">6.2</span></p>
+<p><span class="q-text">Is any student data used to train or improve the vendor's AI models?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Explicit contractual commitment: no training on student data</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Training opt-out available</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Student data may train models</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">6.3</span></p>
+<p><span class="q-text">What happens to student data when the contract ends?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Defined deletion timeline; data export in standard format</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some portability considered</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No clear deletion terms</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">6.4</span></p>
+<p><span class="q-text">Is the tool FERPA compliant? Does the vendor sign a FERPA-compliant data sharing agreement?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Written FERPA compliance; vendor defined as "school official"</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> FERPA compliant</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> FERPA undocumented</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">6.5</span></p>
+<p><span class="q-text">What is the data provenance for the AI's training data?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Training data sources documented; no scraping without consent</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some provenance documented</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No provenance documented</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">6.6</span></p>
+<p><span class="q-text">How does the tool handle data quality issues? (incomplete records, outdated SIS data, transfer students)</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Graceful handling; flags low-confidence recommendations</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some data quality handling</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No data quality handling</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">6.7</span></p>
+<p><span class="q-text">Does the tool integrate with existing institutional systems through secure, documented protocols?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Standard methods (API, LTI, SAML/SSO); aligned with CCCCO standards</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Integration functional</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Integration undocumented or insecure</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">6.8</span></p>
+<p><span class="q-text">Does the institution retain the right to audit the vendor's data practices?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Contractual audit rights not blocked by IP claims</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Audit possible but not contractual</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No audit rights</p>
+<p class="notes">Revision notes:</p>
+
+<hr>
+
+<!-- P7 -->
+<h2 style="color:#e83e8c;">P7 — Transparency & Contestability (7 questions)</h2>
+<p class="hook">"Decisions without recourse are not governance."</p>
+<p>Principle: Students and faculty have the right to know when AI influences decisions that affect them — and the right to contest those decisions.<br>HUMANS mapping: N</p>
+
+<p><span class="q-num">7.1</span></p>
+<p><span class="q-text">Is it clear to students when they are interacting with AI vs. a human?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Visible, plain-language disclosure at point of interaction</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Disclosure present but not prominent</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No disclosure; AI operates invisibly</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">7.2</span></p>
+<p><span class="q-text">Can students understand why the AI gave a particular recommendation?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Explainability at student-appropriate level</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some explainability available</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No explainability</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">7.3</span></p>
+<p><span class="q-text">Does the vendor disclose what data the AI uses to generate recommendations?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Student can see what data informed the output</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Data sources partially visible</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No transparency on data sources</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">7.4</span></p>
+<p><span class="q-text">Does the system support an appeals/contestability process?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Meaningful contestability; clear escalation pathway</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Appeals through existing processes</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No appeals pathway</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">7.5</span></p>
+<p><span class="q-text">Is there documentation of how the AI model works accessible to non-technical staff?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Plain-language documentation for advisors and student services staff</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Documentation technical</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No documentation</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">7.6</span></p>
+<p><span class="q-text">Does the vendor provide a "model card" or equivalent?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Standardized reporting on capability, limitations, and known biases</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Model card on request</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No model card</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">7.7</span></p>
+<p><span class="q-text">Does the institution publicly disclose which AI systems are in use for Student Services?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Public-facing list of AI tools in student-facing processes</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Disclosure available but not prominent</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No public disclosure</p>
+<p class="notes">Revision notes:</p>
+
+<hr>
+
+<!-- P8 -->
+<h2 style="color:#6610f2;">P8 — Vendor Accountability & Institutional Sovereignty (7 questions)</h2>
+<p class="hook">"You're signing the contract. Make sure it protects your students, not just the vendor."</p>
+<p>Principle: Community colleges are buyers, not builders. Vendor relationships must protect institutional sovereignty.<br>HUMANS mapping: S</p>
+
+<p><span class="q-num">8.1</span></p>
+<p><span class="q-text">Does the contract include performance benchmarks and remedies for non-performance?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Defined SLAs with remedies for non-performance</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some performance terms</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No performance guarantees</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">8.2</span></p>
+<p><span class="q-text">What is the exit strategy? Can the institution leave without losing data or paying punitive fees?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Data portability; transition support; no lock-in</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Exit possible but with challenges</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Punitive exit terms</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">8.3</span></p>
+<p><span class="q-text">Can the institution conduct or require independent bias audits?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Vendor supports third-party audits; doesn't block with IP claims</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Audits on request</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Audits blocked</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">8.4</span></p>
+<p><span class="q-text">How does the vendor handle model updates? Advance notice and testing ability?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Update notification; staging environment; no silent model changes</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Updates communicated</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Silent updates</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">8.5</span></p>
+<p><span class="q-text">Is this tool available through FoundationCCC/CollegeBuys or other consortium contracts?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Collective bargaining power leveraged</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some consortium pricing</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No consortium leverage</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">8.6</span></p>
+<p><span class="q-text">Does the vendor have an incident response process?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Defined timeline; root cause analysis; corrective action plan</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Incident reporting exists</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No incident process</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">8.7</span></p>
+<p><span class="q-text">What does total cost of ownership look like over 3 years?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Transparent pricing; no hidden fees</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Mostly transparent pricing</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Hidden costs</p>
+<p class="notes">Revision notes:</p>
+
+<hr>
+
+<!-- P9 -->
+<h2 style="color:#795548;">P9 — Institutional Capacity & Continuous Governance (6 questions)</h2>
+<p class="hook">"Don't add tools to an ungoverned environment. Build the floor first."</p>
+<p>Principle: Governance must be achievable at every institutional scale.<br>HUMANS mapping: AQL-original (fills HUMANS gap)</p>
+
+<p><span class="q-num">9.1</span></p>
+<p><span class="q-text">Does the institution have a governance structure that can oversee this tool?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Someone named; review cycle exists; governance process documented</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some governance exists</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No governance structure</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">9.2</span></p>
+<p><span class="q-text">Will this tool be included in the institution's annual AI inventory?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Inventory maintained with risk tiers and scorecard results</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Inventory planned</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No inventory</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">9.3</span></p>
+<p><span class="q-text">Is there a plan to rescore this tool on a regular cycle?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Annual for high-risk; bi-annual for medium/lower; trigger-based for changes</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Rescoring acknowledged</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No review cycle</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">9.4</span></p>
+<p><span class="q-text">Does the tool generate reporting that supports accreditation documentation?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Usage data, outcome data, and governance documentation exportable</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some reporting possible</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No accreditation planning</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">9.5</span></p>
+<p><span class="q-text">Does the institution have the staff capacity to implement and sustain this tool?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Implementation plan matches real institutional resources</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Capacity somewhat assessed</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> No capacity assessment</p>
+<p class="notes">Revision notes:</p>
+
+<p><span class="q-num">9.6</span></p>
+<p><span class="q-text">Are there shared resources from consortia, the Chancellor's Office, or peer institutions?</span></p>
+<p><span class="rubric-3"><b>3 (Good):</b></span> Not reinventing governance alone; shared resources leveraged</p>
+<p><span class="rubric-2"><b>2 (Partial):</b></span> Some shared resources considered</p>
+<p><span class="rubric-1"><b>1 (Poor):</b></span> Operating in isolation</p>
+<p class="notes">Revision notes:</p>
+
+</body>
+</html>

@@ -1,0 +1,1761 @@
+{
+  "meta": {
+    "version": "2.0",
+    "scope": "Student Services",
+    "last_updated": "2026-02-22"
+  },
+
+  "landing": {
+    "hero_headline": "Navigate AI governance.\nBuilt for Student Services.",
+    "hero_subhead": "The first AI governance tool designed for community colleges. Answer a few questions about the AI tool you're considering — in a few minutes, you'll have a governance roadmap tailored to your institution.",
+    "cta_routing": "Help Me Choose",
+    "cta_full_path": "I Know What I Need",
+    "cta_quick_path": "I Know My Institution",
+    "how_it_works": {
+      "headline": "How It Works",
+      "steps": [
+        { "number": 1, "label": "Tell Us About Your College", "description": "Answer 8 questions about your institution. We'll recommend 2–3 use cases ranked by fit for your context." },
+        { "number": 2, "label": "Screen Your Use Case", "description": "A few screening questions check whether the basics are in place. Get a GO, PAUSE, or NO-GO recommendation." },
+        { "number": 3, "label": "Evaluate Governance", "description": "Score your tool against nine governance pillars and eight hard-stop no-go criteria." },
+        { "number": 4, "label": "Get Your Profile", "description": "Your governance profile shows score patterns, risk flags, and what they mean for your institution." },
+        { "number": 5, "label": "Get Your Roadmap", "description": "A step-by-step governance plan — pre-deployment requirements, who's involved, what to measure, when to review." }
+      ]
+    },
+    "stat_strip": [
+      { "number": "224+", "label": "Frameworks Scanned" },
+      { "number": "14", "label": "Deeply Analyzed" },
+      { "number": "10", "label": "Student Services Use Cases" },
+      { "number": "9", "label": "Governance Pillars" },
+      { "number": "3", "label": "Implementation Paths" }
+    ],
+    "credibility_statement": "We scanned 224+ AI governance frameworks so you don't have to. 14 made the cut for deep analysis. Every recommendation traces back to specific provisions, cross-referenced and tested for community college feasibility. Designed to complement the CCCCO HUMANS Framework. Scoped exclusively to Student Services."
+  },
+
+  "use_cases": [
+    {
+      "id": "SS-01",
+      "name": "AI Advising / Guided Pathways Assistant",
+      "one_liner": "AI that recommends courses, pathways, or programs to students.",
+      "description": "Tools like EAB Navigate, Civitas, or institutional guided pathways assistants that recommend academic plans, flag pathway misalignment, or suggest course sequences. These directly influence student trajectory.",
+      "default_risk_tier": 3,
+      "key_pillars": ["P1", "P2", "P3", "P5"],
+      "equity_flag": "Recommendations affect student trajectory. Errors compound for first-gen and Pell-eligible students. Pathway bias across career clusters.",
+      "screening_questions": [
+        {
+          "question": "Does this tool make or influence decisions about which courses, pathways, or programs a student should pursue?",
+          "options": [
+            { "label": "Yes — it recommends or auto-assigns pathways", "value": "consequential", "logic": "go" },
+            { "label": "No — it provides general information only", "value": "informational", "logic": "go" }
+          ],
+          "go_nogo_logic": "Yes confirms High risk tier"
+        },
+        {
+          "question": "Has your institution identified a specific student journey friction point this tool addresses?",
+          "options": [
+            { "label": "Yes, with institutional data", "value": "data_backed", "logic": "go" },
+            { "label": "Yes, anecdotally", "value": "anecdotal", "logic": "go" },
+            { "label": "No", "value": "none", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE (no evidence of need)"
+        },
+        {
+          "question": "Will a human counselor review AI pathway recommendations before they reach students?",
+          "options": [
+            { "label": "Always", "value": "always", "logic": "go" },
+            { "label": "Sometimes", "value": "sometimes", "logic": "pause" },
+            { "label": "Never", "value": "never", "logic": "nogo" }
+          ],
+          "go_nogo_logic": "Never → NO-GO"
+        },
+        {
+          "question": "Has the vendor provided disaggregated accuracy data across student demographics (Pell, first-gen, multilingual)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Partial", "value": "partial", "logic": "pause" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE (equity risk unassessed)"
+        },
+        {
+          "question": "Does the tool cover your full program catalog including CTE pathways, or is it optimized for transfer?",
+          "options": [
+            { "label": "Full catalog", "value": "full", "logic": "go" },
+            { "label": "Transfer-focused", "value": "transfer", "logic": "pause" },
+            { "label": "Unknown", "value": "unknown", "logic": "pause" }
+          ],
+          "go_nogo_logic": "Transfer-focused or Unknown → PAUSE"
+        }
+      ],
+      "governance_requirements_summary": "All 9 pillars scored. Human-in-the-loop required. Appeals process required. Bias audit before deployment and annually. Any pillar scoring 1 = documented mitigation or no-go."
+    },
+    {
+      "id": "SS-02",
+      "name": "Early Alert / Student Risk System",
+      "one_liner": "AI that flags students as 'at risk' and triggers interventions.",
+      "description": "Systems like Starfish, EAB Navigate risk models, or institutional early alert tools that profile student risk and auto-trigger counselor outreach, hold alerts, or intervention workflows.",
+      "default_risk_tier": 3,
+      "key_pillars": ["P2", "P3", "P5", "P7"],
+      "equity_flag": "Risk profiling creates surveillance dynamic. Disparate impact on students of color. Stigma from false positives.",
+      "screening_questions": [
+        {
+          "question": "Does this system flag individual students as 'at risk' and trigger interventions?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "go" }
+          ],
+          "go_nogo_logic": "Yes confirms High risk tier"
+        },
+        {
+          "question": "Can students see their own risk profile and contest it?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "pause" },
+            { "label": "Unknown", "value": "unknown", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE (transparency gap)"
+        },
+        {
+          "question": "Has a differential impact analysis been done for false positive rates across demographics?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Planned", "value": "planned", "logic": "pause" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE (15–30% false positive rates disproportionately flag ESL and disability populations)"
+        },
+        {
+          "question": "Is there a defined escalation path when the system flags a student? Who contacts them? How?",
+          "options": [
+            { "label": "Defined", "value": "defined", "logic": "go" },
+            { "label": "Informal", "value": "informal", "logic": "pause" },
+            { "label": "None", "value": "none", "logic": "nogo" }
+          ],
+          "go_nogo_logic": "None → NO-GO"
+        },
+        {
+          "question": "Does your institution have the counseling capacity to follow up on system-generated alerts?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Strained", "value": "strained", "logic": "pause" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE (tool without capacity creates false accountability)"
+        }
+      ],
+      "governance_requirements_summary": "All 9 pillars scored. Disaggregated false-positive analysis required. Student notification and contestability mandatory."
+    },
+    {
+      "id": "SS-03",
+      "name": "Financial Aid Triage & FAFSA Support",
+      "one_liner": "AI that assists with financial aid decisions or FAFSA guidance.",
+      "description": "Tools that triage financial aid applications, auto-verify eligibility, assist students with FAFSA completion, or prioritize aid distribution. Touches students' most sensitive financial data.",
+      "default_risk_tier": 3,
+      "key_pillars": ["P3", "P5", "P6"],
+      "equity_flag": "Automated decisions on access to resources. Errors disproportionately affect low-income students. Undocumented student data sensitivity.",
+      "screening_questions": [
+        {
+          "question": "Does this tool make decisions that affect whether a student receives financial aid?",
+          "options": [
+            { "label": "Yes — it makes automated decisions", "value": "automated", "logic": "nogo" },
+            { "label": "It recommends; humans decide", "value": "recommends", "logic": "go" },
+            { "label": "No — information and guidance only", "value": "info_only", "logic": "go" }
+          ],
+          "go_nogo_logic": "Automated decisions → NO-GO without human-in-the-loop"
+        },
+        {
+          "question": "Does the tool access sensitive financial data (FAFSA, tax information, income verification)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "go" }
+          ],
+          "go_nogo_logic": "Yes confirms High risk, mandatory P6 emphasis"
+        },
+        {
+          "question": "Is there a FERPA-compliant data sharing agreement with the vendor?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "In progress", "value": "in_progress", "logic": "pause" },
+            { "label": "No", "value": "no", "logic": "nogo" }
+          ],
+          "go_nogo_logic": "No → NO-GO"
+        },
+        {
+          "question": "Can the tool handle the complexity of California financial aid (Cal Grant, AB 540, BOG waivers)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Partially", "value": "partial", "logic": "pause" },
+            { "label": "No", "value": "no", "logic": "pause" },
+            { "label": "Not applicable (non-California)", "value": "na", "logic": "go" }
+          ],
+          "go_nogo_logic": "Partially or No (for CA colleges) → PAUSE"
+        },
+        {
+          "question": "If a student is incorrectly denied or delayed aid due to the system, is there a clear appeal process?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "nogo" }
+          ],
+          "go_nogo_logic": "No → NO-GO"
+        }
+      ],
+      "governance_requirements_summary": "All 9 pillars scored. No automated denial without human review. FERPA + state data privacy compliance."
+    },
+    {
+      "id": "SS-04",
+      "name": "Student-Facing Chatbot / Digital Front Door",
+      "one_liner": "AI chatbot that answers student questions about the college.",
+      "description": "Chatbots, virtual assistants, or digital front doors that handle student inquiries — admissions, registration, hours, campus resources. The first AI interaction many students will have with your institution.",
+      "default_risk_tier": 1,
+      "key_pillars": ["P1", "P7", "P8"],
+      "equity_flag": "Multilingual coverage gaps. Accessibility barriers. Students may not know they're interacting with AI.",
+      "screening_questions": [
+        {
+          "question": "Does this chatbot provide general information only, or does it access individual student records?",
+          "options": [
+            { "label": "General information only", "value": "general", "logic": "go" },
+            { "label": "Accesses student records", "value": "records", "logic": "go" }
+          ],
+          "go_nogo_logic": "Accesses records → upgrade to Tier 2"
+        },
+        {
+          "question": "Is there a clear escalation path to a human when the chatbot can't answer?",
+          "options": [
+            { "label": "Yes, prominent", "value": "prominent", "logic": "go" },
+            { "label": "Buried in menus", "value": "buried", "logic": "pause" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE"
+        },
+        {
+          "question": "In how many languages does the chatbot operate?",
+          "options": [
+            { "label": "1 (English only)", "value": "english_only", "logic": "pause" },
+            { "label": "2–3", "value": "few", "logic": "go" },
+            { "label": "4+", "value": "many", "logic": "go" }
+          ],
+          "go_nogo_logic": "English only → PAUSE (equity gap for CC populations)"
+        },
+        {
+          "question": "Does the chatbot clearly identify itself as AI to the student?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "nogo" },
+            { "label": "Unclear", "value": "unclear", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → NO-GO (transparency requirement)"
+        }
+      ],
+      "governance_requirements_summary": "Score P1, P2, P6, P7, P8 minimum. Others recommended. Escalation to human required."
+    },
+    {
+      "id": "SS-05",
+      "name": "AI Course Tutoring Assistant",
+      "one_liner": "AI tutor that helps students learn course material.",
+      "description": "Tools like Nectir, Khan Academy AI, or course-embedded tutoring assistants that interact directly with students during learning. The critical question: does the tutor build capability or create dependency?",
+      "default_risk_tier": 2,
+      "key_pillars": ["P1", "P4", "P5"],
+      "equity_flag": "Hallucination risk. Socratic vs. answer mode affects learning. Faculty configuration critical. Accessibility.",
+      "screening_questions": [
+        {
+          "question": "Can faculty configure the tutor's behavior (Socratic mode, answer restrictions, knowledge scope) per course?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Limited", "value": "limited", "logic": "pause" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE (faculty agency gap)"
+        },
+        {
+          "question": "What happens when the tutor doesn't know the answer?",
+          "options": [
+            { "label": "Acknowledges limitation", "value": "acknowledges", "logic": "go" },
+            { "label": "Hallucinates a plausible answer", "value": "hallucinates", "logic": "pause" },
+            { "label": "Unknown", "value": "unknown", "logic": "pause" }
+          ],
+          "go_nogo_logic": "Hallucinates → PAUSE (harm risk)"
+        },
+        {
+          "question": "Does the tool help students build capability, or does it just deliver answers?",
+          "options": [
+            { "label": "Skill-building design", "value": "skill_building", "logic": "go" },
+            { "label": "Answer delivery", "value": "answer_delivery", "logic": "pause" },
+            { "label": "Mixed", "value": "mixed", "logic": "go" }
+          ],
+          "go_nogo_logic": "Answer delivery → PAUSE (capability dependency risk)"
+        },
+        {
+          "question": "Is the tutor accessible to students with disabilities (screen reader, keyboard navigation)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Partial", "value": "partial", "logic": "pause" },
+            { "label": "No", "value": "no", "logic": "pause" },
+            { "label": "Unknown", "value": "unknown", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE"
+        },
+        {
+          "question": "Does the vendor use student interaction data to train their AI models?",
+          "options": [
+            { "label": "No (contractual commitment)", "value": "no_contractual", "logic": "go" },
+            { "label": "Yes", "value": "yes", "logic": "nogo" },
+            { "label": "Unknown", "value": "unknown", "logic": "pause" }
+          ],
+          "go_nogo_logic": "Yes → NO-GO (Students are not training data)"
+        }
+      ],
+      "governance_requirements_summary": "All 9 pillars scored. P2 and P6 must score ≥ 2. Faculty configuration and override required."
+    },
+    {
+      "id": "SS-06",
+      "name": "Multilingual Support / Translation Services",
+      "one_liner": "AI that translates institutional materials or student communications.",
+      "description": "Translation tools for student communications, website content, or real-time multilingual support. Quality varies dramatically by language — what works for Spanish may fail for Hmong or Tagalog.",
+      "default_risk_tier": 2,
+      "key_pillars": ["P2", "P7"],
+      "equity_flag": "Quality varies by language. Cultural appropriateness. May create false confidence in accuracy.",
+      "screening_questions": [
+        {
+          "question": "Is this tool translating general institutional materials, or student-specific communications?",
+          "options": [
+            { "label": "General materials", "value": "general", "logic": "go" },
+            { "label": "Student-specific communications", "value": "student_specific", "logic": "go" }
+          ],
+          "go_nogo_logic": "Student-specific → upgrade to Tier 2 or 3 depending on content"
+        },
+        {
+          "question": "Has the translation quality been validated by native speakers for your top 5 student languages?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Partially", "value": "partial", "logic": "pause" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE"
+        },
+        {
+          "question": "Does the tool handle culturally sensitive content appropriately (not just literal translation)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Unknown", "value": "unknown", "logic": "pause" }
+          ],
+          "go_nogo_logic": "Unknown → PAUSE"
+        },
+        {
+          "question": "Is there a human review process for high-stakes translated content (financial aid, academic standing)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "nogo" }
+          ],
+          "go_nogo_logic": "No for high-stakes → NO-GO"
+        }
+      ],
+      "governance_requirements_summary": "All 9 pillars scored. P2 and P6 must score ≥ 2."
+    },
+    {
+      "id": "SS-07",
+      "name": "Basic Needs Support & Resource Navigation",
+      "one_liner": "AI that connects students to food, housing, and emergency resources.",
+      "description": "Tools that help students navigate basic needs support — food pantries, emergency housing, mental health, childcare, transportation. Touches the most sensitive personal data students share.",
+      "default_risk_tier": 1,
+      "key_pillars": ["P6", "P7"],
+      "equity_flag": "Sensitive data (food insecurity, housing, immigration status). Stigma risk. Privacy paramount.",
+      "screening_questions": [
+        {
+          "question": "Does the tool collect data about students' basic needs (food insecurity, housing, immigration status)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "go" }
+          ],
+          "go_nogo_logic": "Yes → P6 emphasis regardless of tier"
+        },
+        {
+          "question": "Is this data shared with any external parties (other agencies, vendors)?",
+          "options": [
+            { "label": "No", "value": "no", "logic": "go" },
+            { "label": "Yes, with student consent", "value": "with_consent", "logic": "go" },
+            { "label": "Yes, without explicit consent", "value": "without_consent", "logic": "nogo" }
+          ],
+          "go_nogo_logic": "Without consent → NO-GO"
+        },
+        {
+          "question": "Can students access resources without disclosing personal hardship details to the AI?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE (stigma risk)"
+        },
+        {
+          "question": "Does the tool connect to local resources that are actually available at your institution?",
+          "options": [
+            { "label": "Yes, locally configured", "value": "local", "logic": "go" },
+            { "label": "Generic national database", "value": "generic", "logic": "pause" }
+          ],
+          "go_nogo_logic": "Generic → PAUSE (referrals to non-existent services harm trust)"
+        }
+      ],
+      "governance_requirements_summary": "Score P1, P2, P6, P7, P8 minimum. Data sensitivity demands P6 emphasis regardless of tier."
+    },
+    {
+      "id": "SS-08",
+      "name": "Career Services AI",
+      "one_liner": "AI that helps students with resumes, interview prep, or career exploration.",
+      "description": "Resume builders, interview practice tools, career path explorers, or job matching systems. Lower risk when focused on job readiness skills; higher risk when recommending career pathways.",
+      "default_risk_tier": 1,
+      "key_pillars": ["P1", "P2"],
+      "equity_flag": "Pathway bias across career clusters. Equity across CTE and transfer. Accessibility.",
+      "screening_questions": [
+        {
+          "question": "Does the tool recommend career pathways, or help with job readiness skills (resume, interview)?",
+          "options": [
+            { "label": "Pathway recommendations", "value": "pathways", "logic": "go" },
+            { "label": "Job readiness skills", "value": "readiness", "logic": "go" },
+            { "label": "Both", "value": "both", "logic": "go" }
+          ],
+          "go_nogo_logic": "Pathway recommendations → consider upgrading to Tier 2"
+        },
+        {
+          "question": "Does the tool serve CTE pathways and trade careers as well as transfer/professional careers?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Mostly professional/transfer", "value": "professional", "logic": "pause" },
+            { "label": "Unknown", "value": "unknown", "logic": "pause" }
+          ],
+          "go_nogo_logic": "Mostly professional → PAUSE (equity across pathways)"
+        },
+        {
+          "question": "Does the tool steer students toward specific employers or programs?",
+          "options": [
+            { "label": "No", "value": "no", "logic": "go" },
+            { "label": "Yes, disclosed", "value": "yes_disclosed", "logic": "go" },
+            { "label": "Yes, undisclosed", "value": "yes_undisclosed", "logic": "nogo" }
+          ],
+          "go_nogo_logic": "Undisclosed → NO-GO (hidden commercial interests)"
+        },
+        {
+          "question": "Is the resume/interview content culturally responsive?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Generic", "value": "generic", "logic": "pause" },
+            { "label": "Unknown", "value": "unknown", "logic": "pause" }
+          ],
+          "go_nogo_logic": "Generic or Unknown → PAUSE"
+        }
+      ],
+      "governance_requirements_summary": "Score P1, P2, P6, P7, P8 minimum."
+    },
+    {
+      "id": "SS-09",
+      "name": "Student Journey Mapping / Friction Detection",
+      "one_liner": "AI that analyzes student pathways to find where students get stuck.",
+      "description": "Analytics tools that map student journeys, identify friction points (excess units, bottleneck courses, drop-off patterns), and surface intervention opportunities. Powerful for institutional improvement — but individual tracking raises surveillance concerns.",
+      "default_risk_tier": 2,
+      "key_pillars": ["P5", "P6", "P7"],
+      "equity_flag": "PII. Aggregation vs. individual tracking. Who has access to journey data. Surveillance risk.",
+      "screening_questions": [
+        {
+          "question": "Does this tool track individual students or analyze aggregate patterns?",
+          "options": [
+            { "label": "Individual tracking", "value": "individual", "logic": "go" },
+            { "label": "Aggregate only", "value": "aggregate", "logic": "go" },
+            { "label": "Both", "value": "both", "logic": "go" }
+          ],
+          "go_nogo_logic": "Individual → confirms Tier 2; both → consider Tier 3"
+        },
+        {
+          "question": "Who has access to the journey data?",
+          "options": [
+            { "label": "Counselors only", "value": "counselors", "logic": "go" },
+            { "label": "Administrators", "value": "admins", "logic": "go" },
+            { "label": "Faculty", "value": "faculty", "logic": "go" },
+            { "label": "Vendors", "value": "vendors", "logic": "pause" }
+          ],
+          "go_nogo_logic": "Vendors → PAUSE (data governance concern)"
+        },
+        {
+          "question": "Can students see their own journey data and understand how it's being used?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE"
+        },
+        {
+          "question": "Are the analytics used to make decisions about individual students (intervention, advising)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "go" }
+          ],
+          "go_nogo_logic": "Yes → upgrade to Tier 3"
+        },
+        {
+          "question": "Does the institution have clear data retention policies for journey data?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE"
+        }
+      ],
+      "governance_requirements_summary": "All 9 pillars scored. P2 and P6 must score ≥ 2."
+    },
+    {
+      "id": "SS-10",
+      "name": "Registration & Enrollment Support",
+      "one_liner": "AI that assists with course registration, waitlists, or enrollment processes.",
+      "description": "Tools that support registration workflows — course recommendations, waitlist management, enrollment nudges, or schedule optimization. When AI errors affect whether a student can register, the stakes rise quickly.",
+      "default_risk_tier": 2,
+      "key_pillars": ["P1", "P3", "P5"],
+      "equity_flag": "Automated enrollment decisions affect access. Waitlist prioritization. Equity across program availability.",
+      "screening_questions": [
+        {
+          "question": "Does this tool make decisions about course enrollment, waitlist priority, or registration access?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "It recommends; humans decide", "value": "recommends", "logic": "go" },
+            { "label": "Information only", "value": "info_only", "logic": "go" }
+          ],
+          "go_nogo_logic": "Yes → upgrade to Tier 3"
+        },
+        {
+          "question": "Could AI errors result in a student being enrolled in the wrong course or missing a registration window?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Low likelihood", "value": "low", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "go" }
+          ],
+          "go_nogo_logic": "Yes → confirms Tier 2+"
+        },
+        {
+          "question": "Is there a human override when the system encounters edge cases (prerequisite exceptions, special admits)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE"
+        },
+        {
+          "question": "Does the tool work for all registration scenarios (late registration, concurrent enrollment, non-credit)?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "Most", "value": "most", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE"
+        }
+      ],
+      "governance_requirements_summary": "All 9 pillars scored. P2 and P6 must score ≥ 2."
+    },
+    {
+      "id": "SS-XX",
+      "name": "Custom / Other",
+      "one_liner": "A Student Services AI use case not listed above.",
+      "description": "Describe your use case and assign a risk tier. The Navigator will walk you through the same governance evaluation using a generic screening set.",
+      "default_risk_tier": null,
+      "key_pillars": [],
+      "equity_flag": "User describes equity considerations for their custom use case.",
+      "screening_questions": [
+        {
+          "question": "Does this tool make or influence decisions that affect student access, standing, or progress?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "go" }
+          ],
+          "go_nogo_logic": "Yes → High risk tier indicator"
+        },
+        {
+          "question": "Does this tool access individual student records or sensitive data?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "go" }
+          ],
+          "go_nogo_logic": "Yes → P6 emphasis"
+        },
+        {
+          "question": "Is there a clear educational purpose tied to student outcomes?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE"
+        },
+        {
+          "question": "Will a human review AI outputs before they reach students?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE for high-risk use cases"
+        },
+        {
+          "question": "Has the vendor provided information about how the tool performs across diverse student populations?",
+          "options": [
+            { "label": "Yes", "value": "yes", "logic": "go" },
+            { "label": "No", "value": "no", "logic": "pause" }
+          ],
+          "go_nogo_logic": "No → PAUSE"
+        }
+      ],
+      "governance_requirements_summary": "Based on assigned tier. Tier 1: score 5 mandatory pillars. Tier 2: all 9 pillars, P2 and P6 ≥ 2. Tier 3: all 9 pillars, full governance."
+    }
+  ],
+
+  "archetypes": [
+    {
+      "id": "lightweight",
+      "name": "Lightweight",
+      "tagline": "Start small. Start now.",
+      "characteristics": [
+        "Small or rural institution",
+        "Limited IT staff — 1-2 people wearing many hats",
+        "Under 5,000 students",
+        "No formal AI governance yet",
+        "High reliance on external support and shared resources"
+      ],
+      "starting_recommendation": "Start with one Tier 1 or Tier 2 use case. Use the templates directly — no customization needed. Quarterly review cycle. Focus scoring on 5 mandatory lower-risk pillars.",
+      "you_might_be_this_if": [
+        "You don't have a dedicated IT director",
+        "This is your first AI tool evaluation",
+        "You need minimum viable governance, not a comprehensive program",
+        "Your team has big ambitions and a small budget"
+      ]
+    },
+    {
+      "id": "building",
+      "name": "Building",
+      "tagline": "Structure enables innovation.",
+      "characteristics": [
+        "Mid-size institution with some analytics/data capability",
+        "IT director and institutional research capacity",
+        "AI committee or task force forming",
+        "Evaluating medium- or high-risk tools",
+        "Emerging AI interest across departments"
+      ],
+      "starting_recommendation": "2–3 use cases across risk tiers. Cross-functional AI working group meets quarterly. Begin disaggregated tracking. All 9 pillars active, full scoring rubrics.",
+      "you_might_be_this_if": [
+        "AI is happening at your institution but governance hasn't caught up",
+        "You have some governance but it's informal or inconsistent",
+        "Faculty are interested but need guardrails and training",
+        "You're ready for comprehensive evaluation with guidance"
+      ]
+    },
+    {
+      "id": "scaling",
+      "name": "Scaling",
+      "tagline": "Govern the portfolio, not just the tool.",
+      "characteristics": [
+        "Large institution with dedicated technical staff",
+        "Data warehouse, analytics team, or innovation office",
+        "Multiple AI tools already deployed",
+        "Mature governance needing portfolio-level analysis",
+        "Standing committee with reporting structure"
+      ],
+      "starting_recommendation": "Portfolio approach across risk tiers. Formal AI governance with project owners. Bias audits for Tier 3 use cases. Annual review mode as primary entry point. Comparative scoring and export for governance committee.",
+      "you_might_be_this_if": [
+        "You have multiple AI tools deployed across Student Services",
+        "You need annual review and portfolio-level coordination",
+        "You're ready for cross-tool data governance analysis",
+        "You want to contribute to system-level best practices"
+      ]
+    }
+  ],
+
+  "screening": {
+    "intro_text": "A few quick questions about this use case. We're checking whether the basics are in place — not auditing you. Your answers help us tailor the evaluation ahead.",
+    "go_message": "This use case looks viable for evaluation. No red flags in your screening answers. Let's move to the full governance assessment.",
+    "pause_message": "We flagged some concerns — not deal-breakers, but things to address. You can proceed to the full evaluation (concerns carry forward), or select a different use case to start with.",
+    "nogo_message": "This use case hit a hard stop. The condition below must be resolved before this tool should be deployed. This isn't a permanent no — it's a 'not yet.' Here's what needs to change."
+  },
+
+  "dependency_profile": {
+    "section_intro": "These four questions help you understand whether this tool builds capability or creates dependency. There are no wrong answers — but there are answers you should know before you deploy.",
+    "questions": [
+      {
+        "id": "D1",
+        "label": "Disappearance Test",
+        "question": "What happens if this tool disappears tomorrow?",
+        "options": [
+          {
+            "score": 1,
+            "label": "Convenience lost",
+            "description": "Students and staff lose a convenience but can still complete the task.",
+            "what_youre_looking_for": "The task can be done without the tool. The tool speeds it up, reduces friction, or improves quality — but the underlying capability remains. Example: a chatbot that answers FAQs; staff can answer the same questions."
+          },
+          {
+            "score": 2,
+            "label": "Significant disruption",
+            "description": "Students and staff would struggle significantly and need time to rebuild.",
+            "what_youre_looking_for": "Some processes have been restructured around the tool. Removing it would require rebuilding workflows, retraining staff, or manually replicating what the tool automated. Doable, but disruptive. Example: an early alert system that replaced manual advisor check-ins."
+          },
+          {
+            "score": 3,
+            "label": "Unable to perform",
+            "description": "Students and staff would be unable to perform the task at all.",
+            "what_youre_looking_for": "The tool is the process. Without it, the institution lacks the knowledge, staff, or infrastructure to perform the function. Some tools become essential infrastructure. That's not wrong — but you should know it before you commit."
+          }
+        ]
+      },
+      {
+        "id": "D2",
+        "label": "Capability Trajectory",
+        "question": "After a year of use, will users be better at this task without the tool, about the same, or less capable?",
+        "options": [
+          {
+            "score": 1,
+            "label": "Better — capability building",
+            "description": "The tool teaches the process or builds transferable skills.",
+            "what_youre_looking_for": "Socratic tutoring that builds problem-solving skills. Guided pathways assistant that teaches students to read degree audits. The tool is a scaffold, not a crutch."
+          },
+          {
+            "score": 2,
+            "label": "About the same — neutral",
+            "description": "The tool handles a task without changing underlying ability.",
+            "what_youre_looking_for": "Translation service that handles communications without teaching staff the language. Neither builds nor erodes capability. The tool does its job; users do theirs."
+          },
+          {
+            "score": 3,
+            "label": "Less capable — erosion risk",
+            "description": "The tool replaces practice or judgment that would otherwise develop.",
+            "what_youre_looking_for": "Advisors who stop learning degree requirements because the system handles it. Students who can't navigate FAFSA because the tool always did it for them. Capability erosion is a real risk with tools that do the thinking. It doesn't mean don't use it — it means track it."
+          }
+        ]
+      },
+      {
+        "id": "D3",
+        "label": "Navigate-With vs. Navigate-For",
+        "question": "Does the tool show users how to navigate this process, or does it navigate for them?",
+        "options": [
+          {
+            "score": 1,
+            "label": "Shows how — navigate-with",
+            "description": "Walks through steps, builds ability to do it independently.",
+            "what_youre_looking_for": "Tool explains why a course is recommended, walks through degree requirements, teaches the student to evaluate options. Transparency by design. The user learns the process, not just the result."
+          },
+          {
+            "score": 2,
+            "label": "Mix — configurable",
+            "description": "Some features explain, some execute, or it depends on configuration.",
+            "what_youre_looking_for": "Tool has both guided mode and auto-pilot mode. Faculty or admin can configure which mode is default. Some interactions explain, others just execute. The key question: which mode is actually deployed?"
+          },
+          {
+            "score": 3,
+            "label": "Navigates for them",
+            "description": "Users input need, tool produces outcome directly.",
+            "what_youre_looking_for": "Student enters 'I need financial aid help' and receives a completed application plan. No visibility into the process, logic, or alternatives. Navigate-for tools are efficient. But they also mean users never learn the process. Name that trade-off."
+          }
+        ]
+      },
+      {
+        "id": "D4",
+        "label": "Exit Design",
+        "question": "Is there a point where users are expected to do this without the tool?",
+        "options": [
+          {
+            "score": 1,
+            "label": "Yes — independence designed",
+            "description": "Explicit milestone or transition where tool is removed or reduced.",
+            "what_youre_looking_for": "After two semesters, students are expected to navigate degree audits independently. Tool use decreases as student progresses. Deliberate fade. The tool is temporary by design."
+          },
+          {
+            "score": 2,
+            "label": "Not explicitly — parallel systems",
+            "description": "Tool supplements rather than replaces existing process.",
+            "what_youre_looking_for": "Advisors still do manual advising; the tool is an additional resource. If the tool disappeared, the original process still exists. No formal exit plan, but also no full replacement."
+          },
+          {
+            "score": 3,
+            "label": "No — permanent infrastructure",
+            "description": "The tool is the process now. No plan for users to perform without it.",
+            "what_youre_looking_for": "The institution eliminated the manual process when they deployed the tool. There is no 'without the tool' plan. Permanent infrastructure is a valid choice. Translation for a Mixtec speaker is permanent and appropriate. What matters is that the choice is conscious."
+          }
+        ]
+      }
+    ],
+    "scoring": {
+      "range": "4-12",
+      "calculation": "Sum of D1 + D2 + D3 + D4"
+    },
+    "profiles": {
+      "low": {
+        "label": "Low Dependency",
+        "badge_color": "green",
+        "score_range": "4-5",
+        "interpretation": "This tool builds or preserves capability. Standard governance applies.",
+        "what_this_means": "The tool augments human capacity without replacing it. Users can still do the work without it. Standard review cadence — no additional dependency governance requirements. At annual review, re-ask the capability trajectory question (D2). If the answer shifts toward 'less capable,' reassess."
+      },
+      "medium": {
+        "label": "Medium Dependency",
+        "badge_color": "yellow",
+        "score_range": "6-8",
+        "interpretation": "This tool has mixed characteristics — some capability-building, some replacement. Your roadmap will include capability checks at key review points.",
+        "what_this_means": "Some processes may have been restructured around this tool. Removing it would be disruptive but not impossible. Your governance roadmap adds three requirements: verify the tool is deployed in its most capability-building mode, test whether users can still perform the task at 6 months, and maintain a documented non-AI alternative."
+      },
+      "high": {
+        "label": "High Dependency",
+        "badge_color": "red",
+        "score_range": "9-12",
+        "interpretation": "This tool replaces capability. That's not a failure — but it is a consequential decision that requires specific protections. Your roadmap will include dependency governance requirements.",
+        "what_this_means": "The institution is making a consequential decision about how work gets done. Your governance roadmap adds four requirements: document the dependency decision and who made it, assess vendor lock-in and exit viability, conduct a 12-month sunset evaluation, and — for high-risk tools — track whether staff capability has declined. High dependency is a finding, not a failure. Some tools are permanent infrastructure and that's appropriate. What matters is that the choice is conscious."
+      }
+    },
+    "governance_requirements": {
+      "low": [],
+      "medium": [
+        {
+          "id": "DEP-M1",
+          "requirement": "Configuration review",
+          "timing": "Before deployment and at 6-month mark",
+          "description": "Verify the tool is deployed in its most capability-building mode. If it has a Socratic/guided mode and an auto-pilot mode, document which is the default and why. Review configuration at the 6-month mark."
+        },
+        {
+          "id": "DEP-M2",
+          "requirement": "6-month capability check",
+          "timing": "6 months post-deployment",
+          "description": "Can users still perform the core task with reduced AI support? Test this — don't assume. Reduce AI availability for a cohort or a period and observe. If users cannot perform, escalate to governance committee."
+        },
+        {
+          "id": "DEP-M3",
+          "requirement": "Alternative maintenance",
+          "timing": "Ongoing, tested annually",
+          "description": "The non-AI process must remain documented and periodically tested. If the tool disappeared tomorrow, there is a written process that staff can follow. Test the process at least annually — a walkthrough, not just words on paper."
+        }
+      ],
+      "high": [
+        {
+          "id": "DEP-H1",
+          "requirement": "Dependency acknowledgment",
+          "timing": "Before deployment",
+          "description": "Document the decision to deploy a high-dependency tool. Record: who made the decision, the rationale, the alternatives considered, and why dependency is accepted. This becomes part of the governance record. This is not a gate — it is a mirror."
+        },
+        {
+          "id": "DEP-H2",
+          "requirement": "Vendor lock-in assessment",
+          "timing": "Before deployment",
+          "description": "Evaluate data portability, exit costs, and what happens if the vendor disappears or is acquired. For high-dependency tools, vendor lock-in is institutional vulnerability. Document: Can student data be exported in a standard format? What is the exit timeline? What would replacement cost?"
+        },
+        {
+          "id": "DEP-H3",
+          "requirement": "12-month sunset evaluation",
+          "timing": "12 months post-deployment",
+          "description": "Answer: Is the dependency justified by outcomes? Has the dependency widened or narrowed? Are there equity implications — do some student populations experience more dependency than others? Is the cost-benefit still favorable? Document findings and present to governance committee."
+        },
+        {
+          "id": "DEP-H4",
+          "requirement": "Capability impact tracking",
+          "timing": "Ongoing from deployment",
+          "description": "For high-risk, high-dependency tools: measure whether staff/advisor capability has declined since deployment. Compare decision quality, advising accuracy, or process knowledge against pre-deployment baseline. If capability has declined significantly, governance committee must decide: accept the dependency, invest in capability rebuilding, or reconsider the tool.",
+          "conditional": "tier_3_only"
+        }
+      ]
+    },
+    "interaction_with_risk_tiers": {
+      "note": "Dependency is orthogonal to risk. A tool can be low-risk and high-dependency, or high-risk and low-dependency. The combination determines governance intensity.",
+      "maximum_combination": "Tier 3 (High Risk) + High Dependency = maximum governance. All high-dependency protections plus capability impact tracking.",
+      "examples": [
+        { "use_case": "SS-04: FAQ Chatbot", "risk_tier": "Tier 1", "likely_dependency": "Low (4-5)", "why": "Informational only. Staff can answer the same questions." },
+        { "use_case": "SS-05: Nectir Tutoring (Socratic mode)", "risk_tier": "Tier 2", "likely_dependency": "Low (4-5)", "why": "Builds student capability by design." },
+        { "use_case": "SS-06: Translation Services", "risk_tier": "Tier 2", "likely_dependency": "High (9-12)", "why": "Permanent infrastructure for Mixtec speakers. Valid and appropriate dependency." },
+        { "use_case": "SS-01: AI Advising (auto-pathways)", "risk_tier": "Tier 3", "likely_dependency": "High (9-12)", "why": "Consequential decisions + replaces advisor judgment over time." },
+        { "use_case": "SS-02: Early Alert (with human follow-up)", "risk_tier": "Tier 3", "likely_dependency": "Medium (6-8)", "why": "High-stakes flagging but counselors still do the advising." }
+      ]
+    },
+    "design_principles": [
+      "These are not gates. The four questions produce a profile, not a GO/NO-GO. Profiles incentivize awareness; gates incentivize dishonesty.",
+      "'Permanent infrastructure' is valid. A translation tool for a Mixtec speaker is permanent and appropriate. The framework requires the choice to be conscious, not the choice to be temporary.",
+      "'What you're looking for' text legitimizes every answer. No answer is punished. The user should never feel judged for selecting '3.'",
+      "Patterns emerge through use. After profiling 3-4 tools, leaders notice: 'all our AI tools are navigate-for, not navigate-with.' That observation is worth more than any individual score.",
+      "Dependency is not risk. A high-dependency, low-risk tool requires different governance than a high-risk, low-dependency tool. The framework treats these as independent dimensions that combine, not collapse."
+    ]
+  },
+
+  "pillars": [
+    {
+      "id": "P1",
+      "name": "Purpose & Educational Legitimacy",
+      "color": "#0066cc",
+      "principle_statement": "Every AI deployment must serve a genuine educational purpose and protect the meaning of credentials.",
+      "hook": "If it doesn't serve students, it doesn't belong here.",
+      "criteria_mapping": "All four ethical criteria (operational pillar)",
+      "humans_mapping": "Not directly mapped (AQL-original)",
+      "questions": [
+        {
+          "id": "1.1",
+          "text": "What specific student outcome or educational purpose does this tool serve? Can you name it?",
+          "what_youre_looking_for": "A concrete answer tied to learning, completion, transfer, or career readiness — not 'operational efficiency' or 'innovation.' If the team can't articulate the educational purpose in one sentence, the tool doesn't have one.",
+          "source_note": "IEAIED Req. 1, ATD Action Area 1, SACSCOC/C-RAC, Advance CTE (Perkins V)"
+        },
+        {
+          "id": "1.2",
+          "text": "Does this tool align with the institution's mission and strategic plan?",
+          "what_youre_looking_for": "Connection to stated institutional priorities. Not a solution looking for a problem. Maps to existing student success initiatives.",
+          "source_note": "IEAIED Req. 1, ATD Action Area 1"
+        },
+        {
+          "id": "1.3",
+          "text": "Where on the student journey does this solve a problem? (enrollment, persistence, completion, transfer, career placement)",
+          "what_youre_looking_for": "Clear placement on the guided pathway. The tool addresses a known friction point, not a hypothetical one. Evidence that the problem exists at your institution.",
+          "source_note": "ATD Action Area 1, SACSCOC/C-RAC"
+        },
+        {
+          "id": "1.4",
+          "text": "Does the tool protect credential integrity? Could AI-generated outputs substitute for competency demonstration?",
+          "what_youre_looking_for": "For tutoring/learning tools: students still demonstrate mastery. For advising: recommendations support informed student choice, not automated credential assembly. For CTE: licensure competency requirements preserved.",
+          "source_note": "SACSCOC/C-RAC, Advance CTE (Perkins V)"
+        },
+        {
+          "id": "1.5",
+          "text": "Has an industry advisory committee or CTE program review validated this tool's relevance? (for CTE-adjacent use cases)",
+          "what_youre_looking_for": "Employer and industry input on whether the tool builds workforce-relevant skills. Alignment with career cluster competencies.",
+          "source_note": "Advance CTE (Perkins V)"
+        }
+      ],
+      "scoring": {
+        "3": "Clear educational purpose tied to student outcomes. Aligned with institutional mission. Mapped to specific student journey stage. Credential integrity preserved. Industry validation where relevant.",
+        "2": "Educational purpose stated but not evidence-backed. General alignment with mission. Journey placement reasonable but not validated locally. Credential impact not fully assessed.",
+        "1": "No clear educational purpose — tool is efficiency-driven or vendor-pushed. No connection to institutional priorities. Credential integrity risk unaddressed."
+      }
+    },
+    {
+      "id": "P2",
+      "name": "Equity & Differential Impact",
+      "color": "#28a745",
+      "principle_statement": "AI governance must center equity and account for differential impacts on diverse community college student populations.",
+      "hook": "If it doesn't work for all your students, it doesn't work.",
+      "criteria_mapping": "Criterion 1: Equitable Student Outcomes (primary)",
+      "humans_mapping": "U (Universal Support), A (Algorithmic Discrimination)",
+      "questions": [
+        {
+          "id": "2.1",
+          "text": "Has this tool been tested with student populations similar to yours? (Pell-eligible, first-gen, working adults, multilingual, students with disabilities)",
+          "what_youre_looking_for": "Vendor can name specific institutions, student demographics, and outcomes. Not just 'we serve higher ed.'",
+          "source_note": "Kapor Foundation, NAIC, OMB M-25-21"
+        },
+        {
+          "id": "2.2",
+          "text": "Are error rates, recommendation accuracy, or response quality consistent across student demographics?",
+          "what_youre_looking_for": "Vendor provides disaggregated performance data. If they can't, that's a red flag — they haven't measured it.",
+          "source_note": "NAIC, OMB M-25-21"
+        },
+        {
+          "id": "2.3",
+          "text": "Has a differential impact analysis been conducted? Who might be harmed by this tool's errors or limitations?",
+          "what_youre_looking_for": "Vendor or internal team has identified which populations face higher risk from tool errors. Not just 'it works for everyone.' Specific harm scenarios articulated.",
+          "source_note": "Kapor Foundation, OMB M-25-21"
+        },
+        {
+          "id": "2.4",
+          "text": "Does the tool work effectively for multilingual students? In what languages? Is it real-time or pre-translated?",
+          "what_youre_looking_for": "Actual language coverage and quality, not just 'we support translation.' Test with your student language mix.",
+          "source_note": "ASCCC"
+        },
+        {
+          "id": "2.5",
+          "text": "Does the tool meet accessibility standards? (WCAG 2.1 AA, screen reader compatibility, keyboard navigation)",
+          "what_youre_looking_for": "Documented accessibility compliance. VPAT or equivalent. Tested with assistive technology users.",
+          "source_note": "NAIC"
+        },
+        {
+          "id": "2.6",
+          "text": "What is the cost model for students? Are there paywalls, premium tiers, or features that require devices/bandwidth some students lack?",
+          "what_youre_looking_for": "No paywall barriers. Works on mobile. Low bandwidth mode. No premium tier that creates a two-track system.",
+          "source_note": "Kapor Foundation"
+        },
+        {
+          "id": "2.7",
+          "text": "Does the tool serve all career pathways equitably, or is it optimized for specific programs?",
+          "what_youre_looking_for": "CTE pathways covered, not just transfer/STEM. If advising-focused, it should know your full program catalog.",
+          "source_note": "Advance CTE (Perkins V)"
+        }
+      ],
+      "scoring": {
+        "3": "Disaggregated performance data for CC-like populations. Differential impact analysis conducted. Tested with multilingual, first-gen, Pell-eligible students. Accessible. No cost barriers. All pathways covered.",
+        "2": "Equity acknowledged as priority but data limited. Willing to conduct bias audit post-deployment. Accessibility documented. Cost model reasonable.",
+        "1": "No disaggregated data. No differential impact analysis. Equity not addressed in product design. Accessibility unclear. Cost barriers exist."
+      }
+    },
+    {
+      "id": "P3",
+      "name": "Human Authority & Decision Accountability",
+      "color": "#6f42c1",
+      "principle_statement": "Humans — not algorithms — make consequential decisions about students. Formal governance structures ensure authority, documentation, and accountability.",
+      "hook": "Who is accountable when the AI is wrong?",
+      "criteria_mapping": "Criterion 3: Ethics & Safety Foundation (primary)",
+      "humans_mapping": "H (Human-Centered)",
+      "questions": [
+        {
+          "id": "3.1",
+          "text": "Does this tool make decisions that affect student access, standing, or progress — or does it recommend to a human who decides?",
+          "what_youre_looking_for": "Clear distinction between AI-as-recommendation and AI-as-decision. If the tool auto-acts (flags a student, changes a pathway, sends an alert), that's a consequential decision even if a human could theoretically override.",
+          "source_note": "OMB M-25-21, Singapore Agentic AI, GAO"
+        },
+        {
+          "id": "3.2",
+          "text": "Can staff override, modify, or reject AI recommendations before they reach students?",
+          "what_youre_looking_for": "Override built into workflow, not buried in admin settings. Staff see the AI recommendation and can approve, edit, or reject before action.",
+          "source_note": "OMB M-25-21, SACSCOC/C-RAC"
+        },
+        {
+          "id": "3.3",
+          "text": "For high-risk use cases: is there a defined escalation path when AI output is uncertain, contradictory, or flagged?",
+          "what_youre_looking_for": "Defined thresholds. When confidence is low or the case is edge, the system routes to a human, not a default action.",
+          "source_note": "Singapore Agentic AI Framework"
+        },
+        {
+          "id": "3.4",
+          "text": "Does the tool create a decision audit trail? Can the institution document who approved what AI-influenced decision?",
+          "what_youre_looking_for": "Logged decisions with timestamps, the AI recommendation, and the human action taken.",
+          "source_note": "GAO, OMB M-25-21"
+        },
+        {
+          "id": "3.5",
+          "text": "Who is accountable when the AI is wrong? Is that defined in the contract?",
+          "what_youre_looking_for": "Clear liability allocation. Not 'institution assumes all risk' buried in Terms of Service.",
+          "source_note": "GAO, NIST AI 600-1"
+        }
+      ],
+      "scoring": {
+        "3": "AI recommends; humans decide. Override built into workflow. Escalation paths defined. Full audit trail. Liability allocated in contract.",
+        "2": "AI acts with human review possible but not required. Override exists but isn't default. Some audit logging. Liability partially addressed.",
+        "1": "AI makes consequential decisions autonomously. Override technically possible but impractical. No audit trail. Vendor disclaims all liability."
+      }
+    },
+    {
+      "id": "P4",
+      "name": "Student & Faculty Agency",
+      "color": "#fd7e14",
+      "principle_statement": "Students and faculty are empowered participants in AI governance, not subjects of it.",
+      "hook": "Your students are adults. Your faculty run the classroom. Respect both.",
+      "criteria_mapping": "Criterion 3: Ethics & Safety Foundation",
+      "humans_mapping": "H (Human-Centered), U (Universal Support)",
+      "questions": [
+        {
+          "id": "4.1",
+          "text": "Does the tool help students learn to navigate AI, or does it just deliver AI-generated answers?",
+          "what_youre_looking_for": "Skill-building design: Socratic mode, guided problem-solving. Student learns the process, not just the result.",
+          "source_note": "Oregon State Bloom's Taxonomy, UNESCO Competency Frameworks"
+        },
+        {
+          "id": "4.2",
+          "text": "Can students opt out of AI interaction and access a human alternative without penalty or delay?",
+          "what_youre_looking_for": "Real opt-out, not a buried setting. Human alternative is accessible, not a worse experience.",
+          "source_note": "IEAIED Req. 5"
+        },
+        {
+          "id": "4.3",
+          "text": "Does the tool give students visibility into and control over their own data and AI profile?",
+          "what_youre_looking_for": "Students can see what the system 'thinks' about them and contest it.",
+          "source_note": "IEAIED Req. 5, ASCCC"
+        },
+        {
+          "id": "4.4",
+          "text": "Does the tool recognize prior AI experience that adult learners bring from their workplaces?",
+          "what_youre_looking_for": "Acknowledges that a 35-year-old returning student may use AI at work daily. Respects adult learner autonomy.",
+          "source_note": "ATD Action Areas 4-5"
+        },
+        {
+          "id": "4.5",
+          "text": "Can faculty configure, restrict, or turn off AI features for their courses and advisees?",
+          "what_youre_looking_for": "Granular faculty control. Not admin-only settings. Faculty set AI behavior per course or section.",
+          "source_note": "ASCCC (Title 5 '10+1')"
+        },
+        {
+          "id": "4.6",
+          "text": "Does the vendor provide training that is accessible to adjunct/part-time faculty? (async, under 30 minutes, no cost)",
+          "what_youre_looking_for": "Training included in contract. Async options that fit adjunct schedules. Compensated governance participation addressed.",
+          "source_note": "ASCCC, ATD"
+        },
+        {
+          "id": "4.7",
+          "text": "Does the tool evaluate, score, or surveil faculty performance?",
+          "what_youre_looking_for": "Faculty are users and configurers, not subjects.",
+          "source_note": "ASCCC (Title 5 '10+1')"
+        },
+        {
+          "id": "4.8",
+          "text": "Does the tool's deployment plan respect the collegial consultation process and shared governance?",
+          "what_youre_looking_for": "Academic senate consulted before institution-wide deployment. Not a top-down IT rollout.",
+          "source_note": "ASCCC (Title 5 '10+1')"
+        }
+      ],
+      "scoring": {
+        "3": "Skill-building design for students. Real opt-out with human alternative. Adult learner autonomy respected. Granular faculty configuration. Adjunct-accessible training included. No faculty surveillance. Shared governance respected.",
+        "2": "Some skill-building features. Opt-out exists. Faculty configuration available. Training provided but not adjunct-optimized.",
+        "1": "Pure output delivery. No meaningful opt-out. Admin-only configuration. No adjunct provisions. Faculty performance tracked. Top-down deployment assumed."
+      }
+    },
+    {
+      "id": "P5",
+      "name": "Risk Proportionality & Harm Mitigation",
+      "color": "#dc3545",
+      "principle_statement": "Governance intensity matches risk level. Low-impact AI gets lightweight review; high-impact AI gets full governance — with harm mitigation built into every deployment.",
+      "hook": "What's the worst that happens to a student if this tool fails?",
+      "criteria_mapping": "All four ethical criteria (operational pillar)",
+      "humans_mapping": "S (Safety & Security)",
+      "questions": [
+        {
+          "id": "5.1",
+          "text": "Has the tool been classified by risk tier (high / medium / lower)? Does governance intensity match?",
+          "what_youre_looking_for": "Risk tier is documented and agreed upon. High-risk tools get full governance; lower-risk tools get lightweight review.",
+          "source_note": "Singapore Agentic AI Framework, NIST AI 600-1"
+        },
+        {
+          "id": "5.2",
+          "text": "What are the autonomy limits? Is this tool informational, recommendatory, or consequential?",
+          "what_youre_looking_for": "Informational = lowest governance. Recommendatory = moderate (human reviews). Consequential = highest (human must approve).",
+          "source_note": "Singapore Agentic AI Framework"
+        },
+        {
+          "id": "5.3",
+          "text": "If this is an agentic AI system, what bounds are placed on its autonomy?",
+          "what_youre_looking_for": "Whitelisted actions only. Logging of all tool usage. Anomaly detection. No unbounded autonomous action.",
+          "source_note": "Singapore Agentic AI Framework, NIST AI 600-1"
+        },
+        {
+          "id": "5.4",
+          "text": "What is the harm scenario? If this tool fails, what is the worst realistic outcome for a student?",
+          "what_youre_looking_for": "Team has articulated the worst case and mitigation is planned.",
+          "source_note": "HEAT-AI, GAO"
+        },
+        {
+          "id": "5.5",
+          "text": "Are staff trained on automation bias?",
+          "what_youre_looking_for": "Plan for maintaining critical review even when the tool performs well.",
+          "source_note": "OMB M-25-21"
+        },
+        {
+          "id": "5.6",
+          "text": "Is there a process for emerging technology review?",
+          "what_youre_looking_for": "Vendor updates trigger risk reassessment. New capabilities don't auto-deploy.",
+          "source_note": "NIST AI 600-1"
+        }
+      ],
+      "scoring": {
+        "3": "Risk tier documented. Autonomy limits defined. Agentic bounds in place. Harm scenarios articulated with mitigation plans. Automation bias training planned. Emerging tech review process exists.",
+        "2": "Risk tier acknowledged. Some autonomy limits. Harm scenarios partially explored. Training planned. No formal emerging tech review.",
+        "1": "No risk classification. No autonomy limits. Harm scenarios not considered. No automation bias awareness. Vendor features auto-deploy without review."
+      }
+    },
+    {
+      "id": "P6",
+      "name": "Data Stewardship & System Integrity",
+      "color": "#17a2b8",
+      "principle_statement": "Student data is a public trust. AI systems must meet data stewardship standards that protect privacy, ensure integrity, and maintain institutional control.",
+      "hook": "Your data, your rules. Not the vendor's.",
+      "criteria_mapping": "Criterion 2: Quality Data, Governed Responsibly (primary)",
+      "humans_mapping": "M (Managed Privacy)",
+      "questions": [
+        {
+          "id": "6.1",
+          "text": "What student data does this tool collect, access, or generate? Provide a complete data inventory.",
+          "what_youre_looking_for": "Specific data fields, not categories.",
+          "source_note": "IEEE P7004, NIST 600-1"
+        },
+        {
+          "id": "6.2",
+          "text": "Is any student data used to train or improve the vendor's AI models?",
+          "what_youre_looking_for": "Explicit contractual commitment: no training on student data without consent.",
+          "source_note": "NAIC, GAO Principle 2"
+        },
+        {
+          "id": "6.3",
+          "text": "What happens to student data when the contract ends?",
+          "what_youre_looking_for": "Defined deletion timeline. Data export in standard format. No vendor retention.",
+          "source_note": "Alabama Template, NIST 600-1"
+        },
+        {
+          "id": "6.4",
+          "text": "Is the tool FERPA compliant? Does the vendor sign a FERPA-compliant data sharing agreement?",
+          "what_youre_looking_for": "Written FERPA compliance. Vendor defined as 'school official' with legitimate educational interest.",
+          "source_note": "NAIC, GAO Principle 2"
+        },
+        {
+          "id": "6.5",
+          "text": "What is the data provenance for the AI's training data?",
+          "what_youre_looking_for": "Vendor describes training data sources. No scraping of student data without consent.",
+          "source_note": "IEEE P7004"
+        },
+        {
+          "id": "6.6",
+          "text": "How does the tool handle data quality issues? (incomplete records, outdated SIS data, transfer students)",
+          "what_youre_looking_for": "Graceful handling of messy real-world CC data. Flags low-confidence recommendations.",
+          "source_note": "NIST 600-1"
+        },
+        {
+          "id": "6.7",
+          "text": "Does the tool integrate with existing institutional systems through secure, documented protocols?",
+          "what_youre_looking_for": "Standard integration methods (API, LTI, SAML/SSO). No shadow data stores. Aligned with CCCCO DGAW standards.",
+          "source_note": "NIST 600-1, CCCCO DGAW"
+        },
+        {
+          "id": "6.8",
+          "text": "Does the institution retain the right to audit the vendor's data practices?",
+          "what_youre_looking_for": "Contractual audit rights not blocked by IP claims.",
+          "source_note": "GAO Principle 2, Alabama Template"
+        }
+      ],
+      "scoring": {
+        "3": "Complete data inventory. No training on student data (contractual). Defined deletion/portability. FERPA agreement signed. Provenance documented. Secure integration. Audit rights in contract.",
+        "2": "Data inventory on request. Training opt-out available. FERPA compliant. Some provenance. Integration functional. Audit possible but not contractual.",
+        "1": "Data practices vague. Student data may train models. No clear deletion terms. FERPA undocumented. No audit rights. Integration undocumented or insecure."
+      }
+    },
+    {
+      "id": "P7",
+      "name": "Transparency & Contestability",
+      "color": "#e83e8c",
+      "principle_statement": "Students and faculty have the right to know when AI influences decisions that affect them — and the right to contest those decisions through meaningful processes.",
+      "hook": "Decisions without recourse are not governance.",
+      "criteria_mapping": "Criterion 3: Ethics & Safety Foundation",
+      "humans_mapping": "N (Notice & Explanation)",
+      "questions": [
+        {
+          "id": "7.1",
+          "text": "Is it clear to students when they are interacting with AI vs. a human?",
+          "what_youre_looking_for": "Visible, plain-language disclosure at point of interaction.",
+          "source_note": "NAIC, IEAIED Req. 7-8"
+        },
+        {
+          "id": "7.2",
+          "text": "Can students understand why the AI gave a particular recommendation?",
+          "what_youre_looking_for": "Explainability at student-appropriate level.",
+          "source_note": "NAIC, NIST 600-1"
+        },
+        {
+          "id": "7.3",
+          "text": "Does the vendor disclose what data the AI uses to generate recommendations?",
+          "what_youre_looking_for": "Student can see what data informed the AI output.",
+          "source_note": "CHAI (Model Cards)"
+        },
+        {
+          "id": "7.4",
+          "text": "Does the system support an appeals/contestability process?",
+          "what_youre_looking_for": "Right to human review of any AI-influenced consequential decision. Clear escalation pathway.",
+          "source_note": "OMB M-25-21, ASCCC"
+        },
+        {
+          "id": "7.5",
+          "text": "Is there documentation of how the AI model works accessible to non-technical staff?",
+          "what_youre_looking_for": "Advisors and student services staff can explain the tool to students.",
+          "source_note": "IEAIED Req. 7-8"
+        },
+        {
+          "id": "7.6",
+          "text": "Does the vendor provide a 'model card' or equivalent?",
+          "what_youre_looking_for": "Standardized reporting on capability, limitations, and known biases.",
+          "source_note": "CHAI (Model Cards)"
+        },
+        {
+          "id": "7.7",
+          "text": "Does the institution publicly disclose which AI systems are in use for Student Services?",
+          "what_youre_looking_for": "Public-facing list of AI tools in student-facing processes.",
+          "source_note": "ASCCC, OMB M-25-21"
+        }
+      ],
+      "scoring": {
+        "3": "Clear disclosure. Explainable recommendations. Data sources visible. Meaningful contestability. Plain-language documentation. Model card published. Public AI inventory.",
+        "2": "Disclosure present but not prominent. Some explainability. Appeals through existing processes. Documentation technical. Model card on request.",
+        "1": "No disclosure. AI operates invisibly. No explainability. No appeals pathway. No documentation. No model card. No public disclosure."
+      }
+    },
+    {
+      "id": "P8",
+      "name": "Vendor Accountability & Institutional Sovereignty",
+      "color": "#6610f2",
+      "principle_statement": "Community colleges are buyers, not builders, of AI. Vendor relationships must protect institutional sovereignty, ensure accountability, and leverage collective bargaining power.",
+      "hook": "You're signing the contract. Make sure it protects your students, not just the vendor.",
+      "criteria_mapping": "All four ethical criteria (operational pillar)",
+      "humans_mapping": "S (Safety & Security)",
+      "questions": [
+        {
+          "id": "8.1",
+          "text": "Does the contract include performance benchmarks and remedies for non-performance?",
+          "what_youre_looking_for": "Defined SLAs. Remedies for non-performance.",
+          "source_note": "NAIC, GAO"
+        },
+        {
+          "id": "8.2",
+          "text": "What is the exit strategy? Can the institution leave without losing data or paying punitive fees?",
+          "what_youre_looking_for": "Data portability. Transition support. No lock-in.",
+          "source_note": "NAIC, NIST 600-1"
+        },
+        {
+          "id": "8.3",
+          "text": "Can the institution conduct or require independent bias audits?",
+          "what_youre_looking_for": "Vendor supports third-party audits. Doesn't block with IP claims.",
+          "source_note": "GAO, IEAIED"
+        },
+        {
+          "id": "8.4",
+          "text": "How does the vendor handle model updates? Advance notice and testing ability?",
+          "what_youre_looking_for": "Update notification. Staging environment. No silent model changes.",
+          "source_note": "NIST 600-1, SREB"
+        },
+        {
+          "id": "8.5",
+          "text": "Is this tool available through FoundationCCC/CollegeBuys or other consortium contracts?",
+          "what_youre_looking_for": "Collective bargaining power leveraged.",
+          "source_note": "NACUBO/E&I Cooperative"
+        },
+        {
+          "id": "8.6",
+          "text": "Does the vendor have an incident response process?",
+          "what_youre_looking_for": "Defined timeline. Root cause analysis. Corrective action plan.",
+          "source_note": "NIST 600-1, SREB"
+        },
+        {
+          "id": "8.7",
+          "text": "What does total cost of ownership look like over 3 years?",
+          "what_youre_looking_for": "Transparent pricing. No hidden fees.",
+          "source_note": "NACUBO/E&I Cooperative"
+        }
+      ],
+      "scoring": {
+        "3": "Performance SLAs with remedies. Clean exit. Independent audits supported. Advance update notification. Consortium terms leveraged. Incident response defined. Transparent cost.",
+        "2": "Some performance terms. Exit possible. Audits on request. Updates communicated. Incident reporting exists.",
+        "1": "No performance guarantees. Punitive exit terms. Audits blocked. Silent updates. No incident process. Hidden costs."
+      }
+    },
+    {
+      "id": "P9",
+      "name": "Institutional Capacity & Continuous Governance",
+      "color": "#795548",
+      "principle_statement": "Governance must be achievable at every institutional scale. Tiered implementation ensures resource-constrained colleges can begin with minimum viable governance and grow over time.",
+      "hook": "Don't add tools to an ungoverned environment. Build the floor first.",
+      "criteria_mapping": "Criterion 4: Thoughtful, Multi-Year Approach (primary)",
+      "humans_mapping": "Not directly mapped (AQL-original — identified gap in HUMANS)",
+      "questions": [
+        {
+          "id": "9.1",
+          "text": "Does the institution have a governance structure that can oversee this tool?",
+          "what_youre_looking_for": "Someone is named, a review cycle exists, a process for decisions. Minimum viable governance.",
+          "source_note": "SACSCOC/C-RAC, EDUCAUSE"
+        },
+        {
+          "id": "9.2",
+          "text": "Will this tool be included in the institution's annual AI inventory?",
+          "what_youre_looking_for": "Inventory maintained with risk tiers and scorecard results.",
+          "source_note": "CHAI, WCET"
+        },
+        {
+          "id": "9.3",
+          "text": "Is there a plan to rescore this tool on a regular cycle?",
+          "what_youre_looking_for": "Annual for high-risk. Every two years for medium/lower. Trigger-based for changes.",
+          "source_note": "OMB M-25-21"
+        },
+        {
+          "id": "9.4",
+          "text": "Does the tool generate reporting that supports accreditation documentation?",
+          "what_youre_looking_for": "Usage data, outcome data, and governance documentation exportable.",
+          "source_note": "SACSCOC/C-RAC"
+        },
+        {
+          "id": "9.5",
+          "text": "Does the institution have the staff capacity to implement and sustain this tool?",
+          "what_youre_looking_for": "Implementation plan matches real institutional resources.",
+          "source_note": "Local Government AI Handbook"
+        },
+        {
+          "id": "9.6",
+          "text": "Are there shared resources from consortia, the Chancellor's Office, or peer institutions?",
+          "what_youre_looking_for": "Not reinventing governance alone.",
+          "source_note": "ATD, EDUCAUSE"
+        }
+      ],
+      "scoring": {
+        "3": "Governance structure in place. AI inventory maintained. Regular rescore cycle. Accreditation-ready reporting. Capacity assessed honestly. Shared resources leveraged.",
+        "2": "Some governance exists. Inventory planned. Rescoring acknowledged but not scheduled.",
+        "1": "No governance structure. No inventory. No review cycle. No accreditation planning. Operating in isolation."
+      }
+    }
+  ],
+
+  "nogo_criteria": [
+    {
+      "id": "NG-01",
+      "statement": "No clear educational purpose.",
+      "pillar": "P1",
+      "why": "If you can't articulate the educational purpose, don't buy it. AI in Student Services is justified by student outcomes, not operational efficiency.",
+      "what_to_do": "Before proceeding, the team must articulate one sentence: 'This tool serves [specific student outcome] by [specific mechanism].' If no one can write that sentence, the tool doesn't have an educational purpose.",
+      "detection": "P1 score = 1, OR screening question indicates no educational purpose"
+    },
+    {
+      "id": "NG-02",
+      "statement": "Students are not training data.",
+      "pillar": "P6",
+      "why": "Vendors that train their models on your students' data are extracting value from the most vulnerable populations in higher education. This is non-negotiable.",
+      "what_to_do": "Require contractual prohibition on training with student data. The contract must explicitly state: vendor will not use student data to train, fine-tune, or improve AI models. If the vendor won't agree, walk away.",
+      "detection": "Explicit yes/no question in no-go checklist"
+    },
+    {
+      "id": "NG-03",
+      "statement": "No human override for consequential decisions.",
+      "pillar": "P3",
+      "why": "When AI makes decisions about financial aid, enrollment, or academic standing without human review, students lose recourse. This violates OMB requirements for high-impact AI and accreditation expectations.",
+      "what_to_do": "Build human override into the workflow — not as an admin setting, but as a required step. For high-risk tools, define who reviews, when, and document the decision. Every consequential AI decision needs a named human accountable for the outcome.",
+      "detection": "P3 score = 1 AND risk tier = High"
+    },
+    {
+      "id": "NG-04",
+      "statement": "Vendor blocks independent bias audits.",
+      "pillar": "P8",
+      "why": "Independent verification is the only way to verify AI is not biased. Vendors who block audits behind IP claims are choosing their intellectual property over your students' civil rights.",
+      "what_to_do": "Require contractual right to conduct or commission independent bias audits. If the vendor blocks with IP claims, trade secret arguments, or NDA restrictions on audit findings — that tells you what you need to know.",
+      "detection": "Explicit yes/no question in no-go checklist"
+    },
+    {
+      "id": "NG-05",
+      "statement": "No FERPA-compliant data sharing agreement.",
+      "pillar": "P6",
+      "why": "This is a legal requirement, not a best practice. Student data shared without a FERPA-compliant agreement exposes the institution to federal compliance risk and violates students' privacy rights.",
+      "what_to_do": "Do not deploy until a FERPA-compliant data sharing agreement is signed. The vendor must be designated as a 'school official' with legitimate educational interest. If the vendor doesn't understand why this matters, they're not ready for higher education.",
+      "detection": "Explicit yes/no question in no-go checklist"
+    },
+    {
+      "id": "NG-06",
+      "statement": "No student disclosure of AI use.",
+      "pillar": "P7",
+      "why": "Students have a right to know when AI influences decisions that affect them. Period. Invisible AI is unaccountable AI.",
+      "what_to_do": "Implement plain-language AI disclosure at the point of interaction. Not buried in a terms-of-service page. Not a campus-wide announcement. At the moment AI is part of the student's experience, they know it.",
+      "detection": "P7 score = 1 OR explicit no-go question"
+    },
+    {
+      "id": "NG-07",
+      "statement": "Decisions without recourse are not governance.",
+      "pillar": "P7",
+      "why": "If a student cannot contest an AI-influenced decision about their enrollment, financial aid, or academic standing, you don't have governance — you have automation.",
+      "what_to_do": "Establish a contestability process students can actually use. Not a form that goes nowhere. A defined process: who reviews, what timeline, what outcome. Publish it. If the system doesn't support appeals, build the process around the system.",
+      "detection": "P7 score = 1 OR explicit no-go question"
+    },
+    {
+      "id": "NG-08",
+      "statement": "Vendor lock-in undermines institutional sovereignty.",
+      "pillar": "P8",
+      "why": "If you can't leave without losing your students' data or paying punitive switching costs, you've given away your sovereignty. You're not governing AI — the vendor is governing you.",
+      "what_to_do": "Before signing, negotiate: data portability in standard format, defined deletion timeline, no punitive termination fees, transition support. Check FoundationCCC/CollegeBuys for consortium contracts with better terms. If the vendor won't negotiate exit terms, that's your answer.",
+      "detection": "Explicit yes/no question in no-go checklist"
+    }
+  ],
+
+  "scoring_interpretation": {
+    "overall_patterns": [
+      {
+        "pattern": "Any pillar = 1 on a High-Risk tool",
+        "interpretation": "A score of 1 on any pillar for a high-risk tool means a critical governance gap exists. For P2, P3, or P5, this is effectively a no-go unless mitigations are substantial and documented.",
+        "action": "Do not deploy without a documented mitigation plan approved by the governance committee."
+      },
+      {
+        "pattern": "P1 = 1",
+        "interpretation": "The team cannot articulate a clear educational purpose for this tool. It may be efficiency-driven or vendor-pushed rather than student-centered.",
+        "action": "No-go. If you can't articulate the educational purpose, don't buy it."
+      },
+      {
+        "pattern": "Multiple pillars = 2",
+        "interpretation": "The tool meets the basics but has gaps the institution will need to compensate for. Common pattern for newer vendors or tools not designed specifically for community colleges.",
+        "action": "Proceed with conditions. Document what the institution will do to compensate for vendor gaps."
+      },
+      {
+        "pattern": "All pillars ≥ 2",
+        "interpretation": "Solid baseline. The tool and the institution's governance are aligned well enough to move forward with standard oversight.",
+        "action": "Proceed with standard governance. Include in annual AI inventory. Monitor per risk tier schedule."
+      },
+      {
+        "pattern": "Strong P6 & P8, weak P4 & P7",
+        "interpretation": "Vendor is technically sound — good data practices, solid contracts — but the product wasn't designed with students as participants. The back end is strong; the front end is missing the student voice.",
+        "action": "Institution must build the student-facing layer: disclosure, contestability, opt-out, faculty configuration. These can't be outsourced to the vendor."
+      },
+      {
+        "pattern": "Strong P4 & P7, weak P6",
+        "interpretation": "Vendor markets well — student-friendly interface, good transparency features — but hasn't done the data governance work. Attractive front end, uncertain foundation.",
+        "action": "Investigate data practices deeply before proceeding. Request full data inventory, training data provenance, and FERPA documentation."
+      },
+      {
+        "pattern": "P9 = 1",
+        "interpretation": "This isn't about the vendor or the tool — it's about institutional readiness. No governance structure, no inventory, no review cycle. Adding a tool to this environment adds risk without accountability.",
+        "action": "Build governance capacity first. Designate a person, create an AI inventory, establish a review cycle. Then evaluate tools."
+      },
+      {
+        "pattern": "High Dependency + Tier 3",
+        "interpretation": "Maximum governance combination. The tool replaces capability and makes consequential decisions affecting students. This requires every high-dependency protection plus capability impact tracking.",
+        "action": "Full dependency governance: dependency acknowledgment, vendor lock-in assessment, 12-month sunset evaluation, and capability impact tracking. Monitor whether staff/advisor capability has declined since deployment."
+      },
+      {
+        "pattern": "High Dependency + weak P4",
+        "interpretation": "The tool replaces capability and doesn't empower students or faculty. Double dependency risk: institutional dependency on the tool, individual dependency on the output. Users never learn the process and have no agency over the interaction.",
+        "action": "Investigate whether a navigate-with configuration exists. If the tool only operates in navigate-for mode, the dependency is structural and requires explicit governance committee acknowledgment."
+      },
+      {
+        "pattern": "Medium/High Dependency + P8 = 1",
+        "interpretation": "The institution is becoming dependent on a vendor that doesn't meet basic accountability standards — no performance SLAs, punitive exit terms, blocked audits. Institutional vulnerability.",
+        "action": "Resolve vendor accountability gaps before deepening dependency. Negotiate exit terms, data portability, and audit rights. If the vendor won't agree, the dependency risk is unacceptable."
+      }
+    ],
+    "tier_benchmarks": {
+      "lightweight": {
+        "minimum_viable": "5 mandatory pillars scored. No no-go criteria triggered. P1 ≥ 2.",
+        "good": "5 mandatory pillars all ≥ 2. Recommended pillars reviewed even if not scored.",
+        "strong": "All pillars scored ≥ 2 including recommended ones."
+      },
+      "building": {
+        "minimum_viable": "All 9 pillars scored. P2 and P6 ≥ 2. No no-go criteria triggered.",
+        "good": "All pillars ≥ 2. Governance committee has reviewed assessment.",
+        "strong": "Most pillars at 3. Documented mitigation plans for any pillar at 2."
+      },
+      "scaling": {
+        "minimum_viable": "All 9 pillars scored. No pillar at 1. P2 and P6 ≥ 2. No no-go criteria triggered.",
+        "good": "Most pillars at 3. Portfolio-level analysis complete. Annual review cycle active.",
+        "strong": "All pillars at 3. Cross-tool governance coordinated. Contributing to system-level best practices."
+      }
+    }
+  },
+
+  "roadmap_content": {
+    "intro_text": "Your governance roadmap is built from five inputs: your institutional archetype, the use case you selected, the risk tier, your pillar scores, and your dependency profile. Every section below is tailored to your specific situation. This is your starting point — not a compliance checklist.",
+    "executive_summary_template": "This assessment evaluated [TOOL_NAME] ([USE_CASE]) at [INSTITUTION_NAME] on [DATE]. The tool was classified as Risk Tier [TIER] with a [DEPENDENCY_PROFILE] dependency profile, and evaluated by a [ARCHETYPE] institution. Total governance score: [SCORE]/[POSSIBLE] across [SCORED_COUNT] pillars. Dependency score: [DEPENDENCY_SCORE]/12. [NO_GO_COUNT] no-go criteria triggered. Recommendation: [RECOMMENDATION].",
+    "before_deployment": {
+      "tier_1": [
+        "Designate a person responsible for this tool (can be added to existing role)",
+        "Complete the basic vendor evaluation checklist",
+        "Add tool to AI inventory (or create inventory starting with this tool)",
+        "Post student-facing AI disclosure notice",
+        "Confirm tool does not use student data for model training"
+      ],
+      "tier_2": [
+        "All Tier 1 requirements, plus:",
+        "Score all 9 pillars (P2 and P6 must score ≥ 2)",
+        "Confirm faculty can configure/override AI features",
+        "Establish escalation path for AI errors",
+        "Plan adjunct faculty orientation (≤ 30 minutes)"
+      ],
+      "tier_3": [
+        "All Tier 1 and Tier 2 requirements, plus:",
+        "Full governance committee review and approval",
+        "Bias audit completed before deployment",
+        "Human-in-the-loop workflow documented and tested",
+        "Appeals/contestability process established and published",
+        "Staff training on automation bias",
+        "Student notification and opt-out mechanisms in place"
+      ]
+    },
+    "raci_sketches": {
+      "lightweight": {
+        "description": "Minimum viable roles. One person can wear multiple hats.",
+        "roles": [
+          { "role": "Tool oversight", "responsible": "Designated staff member", "accountable": "IT Director or VPSS", "consulted": "Academic Senate rep", "informed": "Faculty using tool" },
+          { "role": "Student disclosure", "responsible": "Student Services lead", "accountable": "VPSS", "consulted": "Equity officer", "informed": "Students" },
+          { "role": "Vendor relationship", "responsible": "IT or procurement", "accountable": "CIO/designee", "consulted": "—", "informed": "Governance body" }
+        ]
+      },
+      "building": {
+        "description": "Cross-functional structure with named project owners.",
+        "roles": [
+          { "role": "Governance review", "responsible": "AI working group chair", "accountable": "VPSS or CIO", "consulted": "Academic Senate, equity officer", "informed": "Board" },
+          { "role": "Tool oversight", "responsible": "Project owner (named)", "accountable": "AI working group", "consulted": "Faculty reps, IT, IR", "informed": "Affected departments" },
+          { "role": "Student disclosure", "responsible": "Student Services lead", "accountable": "VPSS", "consulted": "Student government", "informed": "Students" },
+          { "role": "Faculty onboarding", "responsible": "Faculty development lead", "accountable": "Academic Senate rep", "consulted": "Vendor, IT", "informed": "All affected faculty" },
+          { "role": "Data governance", "responsible": "IR/Data officer", "accountable": "CIO", "consulted": "Legal, DGAW (CA)", "informed": "Vendor" },
+          { "role": "Equity monitoring", "responsible": "IR/Equity officer", "accountable": "AI working group", "consulted": "Faculty, student reps", "informed": "Board" }
+        ]
+      },
+      "scaling": {
+        "description": "Standing committee with portfolio-level oversight and system coordination.",
+        "roles": [
+          { "role": "Portfolio governance", "responsible": "AI governance committee (standing)", "accountable": "VP Academic Affairs + VPSS", "consulted": "All VPs, Senate, CIO", "informed": "Board, system office" },
+          { "role": "Human oversight", "responsible": "Dedicated oversight lead", "accountable": "VPSS", "consulted": "Counseling dept, faculty", "informed": "Students" },
+          { "role": "Bias audit", "responsible": "External auditor (contracted)", "accountable": "AI committee", "consulted": "Vendor, IR, equity", "informed": "Board, public (published)" },
+          { "role": "Student voice", "responsible": "Student advisory panel", "accountable": "Student government", "consulted": "Dean of Students", "informed": "All students" },
+          { "role": "Cross-tool coordination", "responsible": "CIO/Data officer", "accountable": "AI committee", "consulted": "All tool project owners", "informed": "IT staff" },
+          { "role": "System coordination", "responsible": "Designated liaison", "accountable": "VP or designee", "consulted": "CCCCO, consortia", "informed": "AI committee" }
+        ]
+      }
+    },
+    "ninety_day_metrics": {
+      "tier_1": [
+        "Usage data: how many students interacted, frequency, drop-off points",
+        "Student satisfaction: brief survey at 30 and 90 days",
+        "Escalation tracking: how many queries escalated to human, resolution rate",
+        "Accessibility: any reported access barriers"
+      ],
+      "tier_2": [
+        "All Tier 1 metrics, plus:",
+        "Disaggregated usage by student demographics (Pell, first-gen, multilingual)",
+        "Faculty configuration uptake: how many faculty customized settings",
+        "Override rate: how often staff override AI recommendations",
+        "Error rate tracking with demographic breakdowns"
+      ],
+      "tier_3": [
+        "All Tier 2 metrics, plus:",
+        "Appeal/contestability: number of student appeals, resolution time, outcomes",
+        "Human override quality: sample review of overridden decisions",
+        "Bias audit findings: initial audit results with action plan",
+        "Automation bias indicators: staff override rate trends (declining = potential concern)",
+        "Student opt-out rate: how many students choose human alternative"
+      ]
+    },
+    "review_cadence": {
+      "tier_1": "Every 2 years (or trigger-based: vendor changes, incidents, new capabilities)",
+      "tier_2": "Annual with quarterly check-ins",
+      "tier_3": "Annual comprehensive review with quarterly monitoring and monthly governance meetings"
+    },
+    "escalation_triggers": [
+      "Student complaint volume exceeds baseline",
+      "Tool accuracy falls below vendor SLA",
+      "Vendor changes data practices or adds features without notice",
+      "Disaggregated outcomes show differential impact",
+      "Override rate > 30% (suggests AI quality issues)",
+      "Faculty report tool is burdensome rather than helpful",
+      "Student appeal volume exceeds established threshold",
+      "Bias audit reveals systematic disparate impact",
+      "Human override rate drops below 5% (possible automation bias)",
+      "Vendor acquired or changes ownership"
+    ],
+    "decision_rules": {
+      "pause_when": [
+        "3+ student complaints about accuracy or accessibility in a 30-day period",
+        "P2 (Equity) or P6 (Data) conditions deteriorate post-deployment",
+        "Committee identifies unresolved equity concern",
+        "Vendor misses SLA",
+        "Bias audit findings require remediation",
+        "Portfolio analysis reveals tool conflict or data governance gap across systems"
+      ],
+      "investigate_when": [
+        "Vendor announces model update or new capability",
+        "Differential outcomes emerge across student demographics",
+        "Override rate drops significantly",
+        "New demographic data reveals previously undetected disparity",
+        "Cross-tool patterns emerge (students flagged by multiple AI systems)"
+      ],
+      "stop_when": [
+        "Any no-go criterion becomes true post-deployment",
+        "Bias audit reveals unremediated discriminatory impact",
+        "Vendor fails to maintain contractual commitments",
+        "Accreditation concern raised",
+        "System-level policy change conflicts with deployment"
+      ]
+    },
+    "pillar_specific_actions": {
+      "P1_low": "Before deploying, articulate the specific educational purpose in one sentence tied to a student outcome. If you cannot, this tool does not belong in Student Services. Document the student journey friction point it addresses with institutional data.",
+      "P2_low": "Before deploying, conduct a disaggregated impact analysis across Pell, first-gen, undocumented, and multilingual populations. Request vendor performance data broken down by demographics. If vendor cannot provide it, plan a post-deployment bias audit within the first semester.",
+      "P3_low": "Before deploying, build human override into the workflow — not as an admin setting, but as a required step before AI recommendations reach students. For high-risk tools: define who reviews, when, and document the decision. Require a named human accountable for every AI-influenced consequential decision.",
+      "P4_low": "Before deploying, ensure faculty can configure AI features per course. Plan a 30-minute adjunct orientation. Confirm students can opt out and access a human alternative without penalty. If the tool surveys or tracks faculty behavior, negotiate removal of those features.",
+      "P5_low": "Before deploying, articulate the worst-case harm scenario for a student. Define autonomy limits (informational / recommendatory / consequential). Plan automation bias training for all staff who use the tool. Set up a horizon-scanning process so vendor updates trigger governance review.",
+      "P6_low": "Before deploying, get the vendor to sign a FERPA-compliant data sharing agreement. Require contractual prohibition on training with student data. Document the complete data inventory (every field collected). Define data deletion timeline for contract end. Secure audit rights in the contract.",
+      "P7_low": "Before deploying, implement student-facing AI disclosure at the point of interaction. Build a contestability process students can actually use. Publish a plain-language description of the tool. Add this tool to the institution's public AI inventory.",
+      "P8_low": "Before deploying, negotiate: performance SLAs with remedies, data portability on exit, advance notice of model updates, incident reporting timeline. Check FoundationCCC/CollegeBuys for existing contracts. If the vendor blocks audits or imposes punitive exit terms, consider alternatives.",
+      "P9_low": "Before deploying this tool, build minimum viable governance: designate a person responsible, create an AI inventory, establish a review cycle. If the institution doesn't have governance capacity, build it first — don't add tools to an ungoverned environment."
+    },
+    "toolkit_references": {
+      "tier_1": [
+        "AI Inventory Template",
+        "AI Tool Evaluation Checklist",
+        "Student AI Rights Notice"
+      ],
+      "tier_2": [
+        "All Tier 1 templates, plus:",
+        "Faculty AI Training Outline (with 30-min adjunct orientation)",
+        "Vendor Contract AI Addendum",
+        "High-Impact AI Assessment Protocol (adapted for medium risk)"
+      ],
+      "tier_3": [
+        "All Tier 2 templates, plus:",
+        "AI Governance Committee Charter",
+        "AI Incident Response Protocol",
+        "Annual AI Governance Report",
+        "Student AI Documentation Form",
+        "Student Capability Assessment Protocol"
+      ]
+    },
+    "humans_alignment": {
+      "H": "Human-Centered: Maps to P3 (Human Authority) and P4 (Student & Faculty Agency). Ensures humans maintain authority over AI-influenced decisions and that students and faculty are empowered participants.",
+      "U": "Universal Support: Maps to P2 (Equity) and P4 (Agency). AI tools must serve all student populations equitably and build capability rather than dependency.",
+      "M": "Managed Privacy: Maps to P6 (Data Stewardship). Student data is a public trust. FERPA compliance, no training on student data, institutional audit rights.",
+      "A": "Algorithmic Discrimination: Maps to P2 (Equity). Disaggregated impact analysis, bias audits, differential performance monitoring across demographics.",
+      "N": "Notice & Explanation: Maps to P7 (Transparency & Contestability). Students know when AI is used, understand why recommendations are made, and can contest decisions.",
+      "S": "Safety & Security: Maps to P5 (Risk Proportionality) and P8 (Vendor Accountability). Governance intensity matches risk. Vendors meet security, incident response, and accountability standards."
+    },
+    "humans_gap_note": "The CCCCO HUMANS framework does not address institutional capacity building (Criterion 4 / P9). The Navigator fills this gap. Non-California colleges skip HUMANS mapping and still have a complete framework.",
+    "next_steps_checklist_template": "Based on your assessment, here are your immediate next steps:\n\n☐ Address any no-go conditions before proceeding\n☐ Complete pre-deployment governance requirements for your risk tier\n☐ Assign roles per the RACI structure\n☐ Set up 90-day measurement baseline\n☐ Schedule first review per your cadence\n☐ Download relevant templates from the Governance Toolkit\n☐ Share this assessment with your governance body\n\nYour roadmap, scores, and profile are saved in your browser. Come back anytime to update or start a new assessment."
+  },
+
+  "annual_review": {
+    "headline": "Annual Review: Is This Tool Still Working for Your Students?",
+    "description": "Once deployed, rescore each tool on a regular cycle: annually for high-risk, every two years for medium/lower. Trigger-based rescoring for vendor changes, incidents, or new capabilities. The annual review checks whether the tool is still serving its purpose — and whether anything has changed that shifts the governance calculus.",
+    "checklist_items": [
+      {
+        "area": "Educational outcomes",
+        "pillar": "P1",
+        "questions": "Is the tool still serving its stated educational purpose? Has the student outcome improved? Still aligned with institutional priorities?"
+      },
+      {
+        "area": "Equity outcomes",
+        "pillar": "P2",
+        "questions": "Usage rates and outcomes equitable across student cohorts? Demographic-disaggregated review conducted? Any cohort underserved or disproportionately flagged?"
+      },
+      {
+        "area": "Decision quality",
+        "pillar": "P3",
+        "questions": "Override rate? Staff using overrides frequently? Any decision accountability failures?"
+      },
+      {
+        "area": "Student/faculty experience",
+        "pillar": "P4",
+        "questions": "Student satisfaction, confusion, avoidance, trust? Faculty finding tool helpful or burdensome? Adjunct access working?"
+      },
+      {
+        "area": "Risk reassessment",
+        "pillar": "P5",
+        "questions": "Vendor added new capabilities or agentic features? Risk tier update needed? Near-miss incidents?"
+      },
+      {
+        "area": "Data practices",
+        "pillar": "P6",
+        "questions": "Changes to vendor data practices? Data quality issues? Privacy audit results?"
+      },
+      {
+        "area": "Incidents & appeals",
+        "pillar": "P7",
+        "questions": "AI failures, errors, complaints? Resolution quality? Complaint/appeal volume? Contestability process breakdowns?"
+      },
+      {
+        "area": "Vendor performance",
+        "pillar": "P8",
+        "questions": "SLAs being met? Vendor acquired or ownership changed? Cost tracking to projection? Exit still feasible?"
+      },
+      {
+        "area": "Governance health",
+        "pillar": "P9",
+        "questions": "Governance structure still functioning? AI inventory current? Shared resources leveraged? Ready for next tier of maturity?"
+      }
+    ]
+  },
+
+  "about": {
+    "framework_description": "The AI Governance Navigator is built on a three-layer framework architecture designed specifically for community colleges:\n\nLayer 1: Four Ethical Criteria — portable principles that apply to any community college system. AI implementation is ethical when it produces equitable student outcomes, governs data responsibly, maintains an ethics and safety foundation, and takes a thoughtful multi-year approach.\n\nLayer 2: Nine Operational Pillars — the evaluation structure. Each pillar has questions, scoring rubrics, and remediation actions. Portable across any CC system.\n\nLayer 3: CCCCO HUMANS Framework — California's binding framework for all 116 community colleges. The Navigator maps pillars to HUMANS letters. Non-California colleges skip this layer and still have a complete framework.",
+    "research_base": "We scanned 224+ AI governance frameworks across 12 global domains — from the African Union's Continental AI Strategy to Singapore's Agentic AI Addendum. 62 made the first cut. 14 got deeply analyzed for community college applicability. Every recommendation traces back to specific provisions in those 14, cross-referenced and tested for CC feasibility.\n\nOf those 224+ frameworks, only 2 directly address community colleges — despite CCs serving nearly half of all US undergraduates, disproportionately serving historically marginalized populations, and operating as the primary workforce training pipeline.\n\nThe Navigator addresses 6 governance gaps with zero coverage from any framework globally, including adjunct faculty realities (70%+ of CC faculty), adult learner contexts (average CC student age 28+), Student Services-specific use cases, and institutional capacity building for resource-constrained colleges. 42 novel provisions were developed to fill gaps no existing framework addresses.",
+    "source_citations": [
+      "CCCCO AI Mobilization Framework (HUMANS)",
+      "ASCCC Equity-Centered AI Policy",
+      "OMB M-25-21 (Federal AI Governance)",
+      "Singapore Agentic AI Framework",
+      "NIST AI 600-1",
+      "Kapor Foundation Justice Lens",
+      "NAIC AI Governance Standards",
+      "IEEE P7004",
+      "GAO AI Accountability Framework",
+      "SACSCOC/C-RAC Accreditation Standards",
+      "ATD Achieving the Dream Action Areas",
+      "IEAIED (International Educational AI Ethical Design)",
+      "CHAI Model Cards",
+      "HEAT-AI Framework",
+      "SREB AI Governance",
+      "Alabama AI Template",
+      "Local Government AI Handbook",
+      "Advance CTE / Perkins V",
+      "UNESCO AI Competency Frameworks",
+      "Oregon State Bloom's Taxonomy for AI",
+      "WCET AI Governance",
+      "EDUCAUSE AI Resources",
+      "NACUBO/E&I Cooperative Procurement"
+    ],
+    "built_by": "AQL Labs / FutureObjects Research, commissioned by College Futures Foundation.",
+    "footer_text": "Generated by the AI Governance Navigator — AQL Labs / FutureObjects Research / College Futures Foundation"
+  }
+}

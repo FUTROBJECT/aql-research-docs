@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What 224 Frameworks Told Us (That Nobody Else Is Saying)</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    color: #333;
+  }
+  h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-size: 14pt;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    margin-top: 28px;
+  }
+  h3 {
+    font-size: 12pt;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+    margin-top: 20px;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #444;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+  }
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .critical {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .about-box {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 16px;
+    font-size: 10pt;
+    font-style: italic;
+    margin: 24px 0;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 24px 0;
+  }
+  ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+  .big-quote {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #0066cc;
+    text-align: center;
+    padding: 20px;
+    margin: 24px 0;
+    border-top: 2px solid #0066cc;
+    border-bottom: 2px solid #0066cc;
+  }
+  blockquote {
+    border-left: 3px solid #ccc;
+    margin: 8px 0;
+    padding: 4px 12px;
+    color: #666;
+    font-size: 9.5pt;
+    font-style: italic;
+  }
+  .finding-num {
+    display: inline-block;
+    background: #0066cc;
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .logo {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  @media print {
+    body { padding: 0.5in; }
+    .callout, .critical, .success, .highlight-box { break-inside: avoid; }
+    table { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FO Research Logo -->
+<div class="logo">
+  <svg width="160" height="32" viewBox="0 0 160 32" xmlns="http://www.w3.org/2000/svg">
+    <rect width="160" height="32" rx="4" fill="#1a1a2e"/>
+    <text x="12" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">FO</text>
+    <text x="40" y="22" font-family="Arial, sans-serif" font-size="11" fill="#8888aa">RESEARCH</text>
+    <circle cx="148" cy="16" r="6" fill="none" stroke="#4a9eff" stroke-width="1.5"/>
+    <circle cx="148" cy="16" r="2" fill="#4a9eff"/>
+  </svg>
+</div>
+
+<h1>What 224 Frameworks Told Us</h1>
+<p class="subtitle">(That Nobody Else Is Saying)</p>
+
+<div class="metadata">
+  <strong>For:</strong> AQL Team (Amin, Hyunjun, Mimi)<br>
+  <strong>From:</strong> Adam<br>
+  <strong>Date:</strong> February 2026<br>
+  <strong>Read time:</strong> 4 minutes
+</div>
+
+<hr>
+
+<h2>How the Research Worked</h2>
+
+<p>We scanned 224 AI governance frameworks across 12 global domains &mdash; from the African Union&rsquo;s Continental AI Strategy to Singapore&rsquo;s Agentic AI Addendum to the National Association of Insurance Commissioners&rsquo; model bulletin. From that scan, we identified 62 high-priority candidates, then deeply analyzed 14 frameworks that had the most to offer community colleges. Every recommendation below traces back to specific provisions in those 14 frameworks, cross-referenced against each other and tested for CC feasibility.</p>
+
+<div class="callout">
+<strong>This research practiced what we preach.</strong> Using the AI Learning Mode framework:
+<ul>
+  <li><strong>EXPLORE mode</strong> &mdash; AI-assisted discovery across all 12 global domains, identifying 224 candidate frameworks. AI did the scanning; I directed where to look and what to flag.</li>
+  <li><strong>ASSISTED mode</strong> &mdash; AI-assisted extraction and structuring of 14 priority frameworks, with explicit tagging of what AI retrieved versus what I evaluated for CC relevance.</li>
+  <li><strong>RESTRICTED/HUMAN-ONLY</strong> &mdash; All prioritization decisions, gap identification, conflict resolution, and provision development. The judgment calls &mdash; what matters for community colleges, what to adopt vs. reject, where the real gaps are &mdash; are mine.</li>
+</ul>
+This is exactly the kind of transparent AI collaboration our framework recommends. The full research corpus is available if you want to dig into any specific claim. This document gives you the conclusions and tells you where to look if you want the evidence.
+</div>
+
+<hr>
+
+<h2>6 Findings That Should Change How We Build This</h2>
+
+<!-- Finding 1 -->
+<h3><span class="finding-num">1</span> Community Colleges Are Invisible</h3>
+
+<p>Of the 14 priority frameworks we analyzed, only 2 address community colleges at all (ASCCC and ATD). Federal frameworks like OMB M-25-21 mention &ldquo;education&rdquo; but mean research universities. International frameworks assume institutional resources CCs don&rsquo;t have. This isn&rsquo;t a gap we&rsquo;re filling &mdash; it&rsquo;s an entire market that doesn&rsquo;t exist yet.</p>
+
+<div class="critical">
+<strong>We are not competing with existing CC governance frameworks. There aren&rsquo;t any.</strong>
+</div>
+
+<blockquote>Dig deeper: discovery-summary.md, project-final-summary.md (Finding 1)</blockquote>
+
+<!-- Finding 2 -->
+<h3><span class="finding-num">2</span> Six Problems No Framework on Earth Addresses</h3>
+
+<p>We mapped all 14 frameworks against 9 CC-specific governance needs. Six of those nine have <strong>zero coverage</strong> from any framework globally: adult learner contexts, dual enrollment, non-credit programs, adjunct faculty provisions, transfer student AI, and accessibility/disability. We developed 42 novel provisions to fill these gaps. This is where our genuine novelty lives &mdash; not in scanning 224 frameworks, but in building what none of them built.</p>
+
+<blockquote>Dig deeper: gap-coverage-matrix.md, cc-provision-mapping.md</blockquote>
+
+<!-- Finding 3 -->
+<h3><span class="finding-num">3</span> Adjunct Faculty Are the Binding Constraint</h3>
+
+<p>This came through in framework after framework, by absence: no one accounts for the fact that 70%+ of CC instruction is delivered by adjunct faculty who lack equitable access to tools, training, and governance participation. Any AI framework that ignores adjunct realities will fail at the implementation stage. Our framework must include equitable AI tool access, compensated training, and governance voice for adjuncts.</p>
+
+<div class="highlight-box">
+<strong>This is non-negotiable.</strong> A governance framework that doesn&rsquo;t account for adjunct faculty realities is a governance framework that doesn&rsquo;t work at community colleges.
+</div>
+
+<blockquote>Dig deeper: best-fit-elements.md (Gap 5), aql-development-recommendations.md</blockquote>
+
+<!-- Finding 4 -->
+<h3><span class="finding-num">4</span> Detection vs. Documentation: The Research Is Clear</h3>
+
+<p>This is the most contentious question in educational AI governance, and the global evidence strongly favors documentation-forward approaches over AI detection tools. The reasons: 15&ndash;30% false positive rates in detection tools, disproportionate impact on ESL students and students with disabilities, and the workforce preparation value of teaching students to document their AI use transparently.</p>
+
+<div class="success">
+<strong>Recommendation:</strong> A documentation-forward position with detection tools informing (but never determining) academic integrity decisions.
+</div>
+
+<blockquote>Dig deeper: aql-development-recommendations.md (Risk Considerations), analysis-summary.md</blockquote>
+
+<!-- Finding 5 -->
+<h3><span class="finding-num">5</span> The Insurance Industry Has the Best Operational Model</h3>
+
+<p>This was the biggest surprise. The National Association of Insurance Commissioners (NAIC) model bulletin provides the clearest operational template for what a &ldquo;written AI governance program&rdquo; should look like &mdash; documentation standards, cross-functional governance committees, consumer/student notification requirements, third-party vendor accountability, and audit rights. We adapted their lifecycle model (policy &rarr; underwriting &rarr; claims &rarr; customer service) to education (enrollment &rarr; advising &rarr; assessment &rarr; completion). Singapore&rsquo;s framework gave us the best model for agentic AI governance &mdash; autonomy limits, human checkpoints, escalation requirements.</p>
+
+<blockquote>Dig deeper: best-fit-elements.md (Framework 13: NAIC, Framework 7: Singapore)</blockquote>
+
+<!-- Finding 6 -->
+<h3><span class="finding-num">6</span> Agentic AI Governance Is Urgent &mdash; and Almost Nobody Has It</h3>
+
+<p>Tutoring agents and advising bots are already deploying in colleges. Only Singapore&rsquo;s Agentic AI Addendum addresses governance for autonomous AI systems. We need provisions for autonomy limits by decision type, human accountability checkpoints, escalation requirements, and accuracy standards &mdash; and we need them before these systems proliferate further.</p>
+
+<div class="critical">
+<strong>This is a &ldquo;build it now or play catch-up for years&rdquo; situation.</strong>
+</div>
+
+<blockquote>Dig deeper: analysis-summary.md (Gap 6), best-fit-elements.md (Singapore framework)</blockquote>
+
+<hr>
+
+<h2>5 Decisions the Research Supports</h2>
+
+<p>These aren&rsquo;t open questions &mdash; the research points clearly in one direction for each.</p>
+
+<table>
+  <tr>
+    <th style="width:22%">Decision</th>
+    <th style="width:25%">Recommendation</th>
+    <th style="width:12%">Confidence</th>
+    <th>Why</th>
+  </tr>
+  <tr>
+    <td>Detection or documentation?</td>
+    <td><strong>Documentation-forward</strong></td>
+    <td style="color: #28a745; font-weight: bold;">High</td>
+    <td>Equity evidence, false positive rates, workforce value</td>
+  </tr>
+  <tr>
+    <td>Dedicated Chief AI Officer?</td>
+    <td><strong>No</strong> &mdash; use existing committee structure</td>
+    <td style="color: #28a745; font-weight: bold;">High</td>
+    <td>Budget-unrealistic; adapted OMB board model works</td>
+  </tr>
+  <tr>
+    <td>Which framework foundation?</td>
+    <td><strong>ASCCC 5 principles + ATD &ldquo;AI Agility&rdquo; + GAO 4 principles</strong></td>
+    <td style="color: #28a745; font-weight: bold;">High</td>
+    <td>CC-developed, equity-centered, structurally sound</td>
+  </tr>
+  <tr>
+    <td>Vendor contract language?</td>
+    <td><strong>Adopt NAIC audit rights + IEEE 7004 RFP language</strong></td>
+    <td style="color: #28a745; font-weight: bold;">High</td>
+    <td>Immediately usable, tested in regulated industries</td>
+  </tr>
+  <tr>
+    <td>Tiered or one-size-fits-all?</td>
+    <td><strong>Tiered</strong> (3 levels based on institutional maturity)</td>
+    <td style="color: #28a745; font-weight: bold;">High</td>
+    <td>EDUCAUSE model adapted for CC resource variation</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>The 30-Second Version</h2>
+
+<div class="big-quote">
+Community colleges are invisible in global AI governance. Nobody has built what we&rsquo;re building.
+</div>
+
+<p>The research gives us a rock-solid foundation from 14 deeply analyzed frameworks, fills 6 gaps that no framework on earth addresses, and resolves the key contested questions (detection vs. documentation, governance structure, vendor accountability) with clear evidence. The 42 novel provisions we developed aren&rsquo;t opinions &mdash; they&rsquo;re grounded in cross-sector analysis of what works.</p>
+
+<p>The research isn&rsquo;t background reading. It&rsquo;s the foundation. But you don&rsquo;t need to read all of it &mdash; you need to know where to look when a specific question comes up. This document is your map.</p>
+
+<hr>
+
+<h2>Quick Reference: Where to Find What</h2>
+
+<table>
+  <tr>
+    <th style="width:40%">If you need&hellip;</th>
+    <th>Look at&hellip;</th>
+  </tr>
+  <tr>
+    <td>Full methodology and project overview</td>
+    <td><strong>project-final-summary.md</strong></td>
+  </tr>
+  <tr>
+    <td>What we found in each domain</td>
+    <td><strong>discovery-summary.md</strong></td>
+  </tr>
+  <tr>
+    <td>What to adopt, adapt, or reject from each framework</td>
+    <td><strong>best-fit-elements.md</strong></td>
+  </tr>
+  <tr>
+    <td>How frameworks conflict and how we resolved it</td>
+    <td><strong>conflict-analysis.md</strong></td>
+  </tr>
+  <tr>
+    <td>Which framework combinations work best together</td>
+    <td><strong>framework-synergies.md</strong></td>
+  </tr>
+  <tr>
+    <td>The 12 ready-to-use templates</td>
+    <td><strong>implementation-toolkit.md</strong></td>
+  </tr>
+  <tr>
+    <td>Next steps and development recommendations</td>
+    <td><strong>aql-development-recommendations.md</strong></td>
+  </tr>
+  <tr>
+    <td>The Navigator + AI Learning Mode integration</td>
+    <td><strong>alm-navigator-integration.html</strong></td>
+  </tr>
+</table>
+
+<div class="about-box">
+  AQL Labs &mdash; Ethical AI Framework for California Community Colleges<br>
+  Commissioned by College Futures Foundation &bull; February 2026
+</div>
+
+</body>
+</html>

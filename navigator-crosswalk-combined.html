@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AQL Framework/Navigator v2 Use Case Crosswalks &mdash; Combined Analysis</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    color: #333;
+  }
+  h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-size: 14pt;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    margin-top: 28px;
+  }
+  h3 {
+    font-size: 12pt;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+    margin-top: 20px;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #444;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+  }
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .critical {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 24px 0;
+  }
+  ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+  .tag-high { background: #f8d7da; color: #721c24; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-med { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-low { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-gap { background: #e2e3e5; color: #383d41; padding: 2px 6px; border-radius: 3px; font-size: 9pt; font-weight: bold; }
+  .tag-validated { background: #cce5ff; color: #004085; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-proposed { background: #f5f5f5; color: #666; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-prod { background: #cce5ff; color: #004085; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-dev { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-idea { background: #f5f5f5; color: #666; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-maturity { background: #e8e0f0; color: #4a2d73; padding: 2px 6px; border-radius: 3px; font-size: 9pt; }
+  .tag-cc-direct { background: #28a745; color: white; padding: 2px 8px; border-radius: 3px; font-size: 8.5pt; font-weight: bold; letter-spacing: 0.02em; }
+  .tag-cc-adapt { background: #fd7e14; color: white; padding: 2px 8px; border-radius: 3px; font-size: 8.5pt; font-weight: bold; letter-spacing: 0.02em; }
+  .tag-cc-difficult { background: #dc3545; color: white; padding: 2px 8px; border-radius: 3px; font-size: 8.5pt; font-weight: bold; letter-spacing: 0.02em; }
+  .use-case-block {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .use-case-block h3 {
+    margin-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .uc-meta {
+    font-size: 9.5pt;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .coverage-covered { color: #155724; font-weight: bold; }
+  .coverage-partial { color: #856404; font-weight: bold; }
+  .coverage-gap { color: #721c24; font-weight: bold; }
+  /* Tab navigation */
+  .tab-nav {
+    display: flex;
+    border-bottom: 2px solid #0066cc;
+    margin: 24px 0 0 0;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    cursor: pointer;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #555;
+    border-radius: 4px 4px 0 0;
+    transition: background 0.2s;
+  }
+  .tab-btn:hover {
+    background: #e0e0e0;
+  }
+  .tab-btn.active {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+  }
+  .tab-panel {
+    display: none;
+    padding: 4px 0 0 0;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+  .pillar-card {
+    border: 1px solid #ddd;
+    border-left: 5px solid;
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 10px 0;
+  }
+  .pillar-card h4 {
+    margin: 0 0 4px 0;
+    font-size: 11pt;
+  }
+  .pillar-card .pillar-hook {
+    font-style: italic;
+    color: #555;
+    font-size: 10pt;
+    margin-bottom: 6px;
+  }
+  .pillar-card p {
+    font-size: 10pt;
+    margin: 4px 0;
+  }
+  .nogo-card {
+    border: 1px solid #ddd;
+    border-left: 4px solid #c00;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 10pt;
+  }
+  .nogo-card strong {
+    color: #c00;
+  }
+  @media print {
+    body { padding: 0.5in; }
+    .use-case-block { page-break-inside: avoid; }
+    .tab-nav { display: none; }
+    .tab-panel { display: block !important; page-break-before: always; }
+    .tab-panel:first-of-type { page-break-before: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 {
+          font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+          font-size: 130.25px;
+          font-style: italic;
+          font-weight: 600;
+        }
+        .cls-2 { letter-spacing: -.02em; }
+        .cls-3 { letter-spacing: -.04em; }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<h1>Navigator v2 &times; Use Case Crosswalks</h1>
+<p class="subtitle">Two Source Repositories Mapped to AQL Framework / Navigator v2 Student Services Framework</p>
+
+<p class="metadata">
+<strong>Date:</strong> February 23, 2026<br>
+<strong>Sources:</strong> (1) Dr. Aviva Legatt / EdGenerative Handbook &mdash; 75 published use cases; (2) 2025 ND AI Forum Repository &mdash; 48 practitioner-submitted use cases<br>
+<strong>Target:</strong> Navigator v2 &mdash; AI Governance Navigator for Student Services, Community Colleges<br>
+<strong>Combined scope:</strong> 123 use cases reviewed; 38 Student Services&ndash;relevant mappings across both sources; CC adaptability assessed for all 38<br>
+<strong>Team:</strong> Amin, Mimi, Adam, Hyunjun
+</p>
+
+<!-- TAB NAVIGATION -->
+<div class="tab-nav">
+  <div class="tab-btn active" onclick="switchTab(this, 'handbook')">Handbook Crosswalk</div>
+  <div class="tab-btn" onclick="switchTab(this, 'ndforum')">ND Forum Crosswalk</div>
+  <div class="tab-btn" onclick="switchTab(this, 'framework')">Framework Reference</div>
+  <div class="tab-btn" onclick="switchTab(this, 'ccadopt')">CC Adaptability</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 1: HANDBOOK CROSSWALK -->
+<!-- ============================================================ -->
+<div class="tab-panel active" id="tab-handbook">
+
+<div class="callout">
+<strong>Source:</strong> Dr. Aviva Legatt / EdGenerative, <em>AI Use Cases in Higher Education: A Community Handbook</em> (Feb 11, 2026). Published, curated case studies. 75 use cases across 10 categories. 19 Student Services&ndash;relevant.
+</div>
+
+<hr>
+
+<h2>1. Source Data</h2>
+
+<p>The handbook (<em>"Use Cases"</em> sheet) contains <strong>75 use cases</strong> across 10 categories:</p>
+
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Row Range</th>
+    <th>Count</th>
+    <th>Student Services Relevant?</th>
+  </tr>
+  <tr>
+    <td>Teaching &amp; Instruction</td>
+    <td>#1&ndash;#12</td>
+    <td>12</td>
+    <td>Partially (tutoring overlaps)</td>
+  </tr>
+  <tr>
+    <td>Assessment &amp; Feedback</td>
+    <td>#13&ndash;#19</td>
+    <td>7</td>
+    <td>No (instruction-scoped)</td>
+  </tr>
+  <tr style="background: #e7f3ff;">
+    <td><strong>Student Support Services</strong></td>
+    <td><strong>#20&ndash;#29</strong></td>
+    <td><strong>10</strong></td>
+    <td><strong>Yes &mdash; primary</strong></td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Administrative Operations</td>
+    <td>#30&ndash;#37</td>
+    <td>8</td>
+    <td>Partially (enrollment, dropout prediction)</td>
+  </tr>
+  <tr>
+    <td>Research &amp; Scholarship</td>
+    <td>#38&ndash;#43</td>
+    <td>6</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Curriculum Design</td>
+    <td>#44&ndash;#48</td>
+    <td>5</td>
+    <td>No</td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Accessibility &amp; Inclusion</td>
+    <td>#49&ndash;#53</td>
+    <td>5</td>
+    <td>Partially (disability services)</td>
+  </tr>
+  <tr>
+    <td>Library Services</td>
+    <td>#54&ndash;#58</td>
+    <td>5</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Writing &amp; Communication</td>
+    <td>#59&ndash;#63</td>
+    <td>5</td>
+    <td>No (instruction-scoped)</td>
+  </tr>
+  <tr>
+    <td>Governance &amp; Policy</td>
+    <td>#64&ndash;#66</td>
+    <td>3</td>
+    <td>No (institutional governance)</td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Workforce &amp; Career</td>
+    <td>#67&ndash;#70</td>
+    <td>4</td>
+    <td>Partially (career services)</td>
+  </tr>
+  <tr style="background: #f0f7ff;">
+    <td>Data Analytics &amp; IR</td>
+    <td>#71&ndash;#74</td>
+    <td>4</td>
+    <td>Partially (retention analytics, dashboards)</td>
+  </tr>
+  <tr>
+    <td>Accreditation</td>
+    <td>#75</td>
+    <td>1</td>
+    <td>No</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>2. Navigator v2 Use Cases (Reference)</h2>
+
+<table>
+  <tr>
+    <th style="width:7%">ID</th>
+    <th style="width:28%">Use Case</th>
+    <th style="width:10%">Default Tier</th>
+    <th style="width:15%">Key Pillars</th>
+    <th>Equity Flag</th>
+  </tr>
+  <tr style="background: #f8d7da;"><td>SS-01</td><td>AI Advising / Guided Pathways</td><td>Tier 3 (High)</td><td>P1, P2, P3, P5</td><td>Recommendations affect trajectory. Errors compound for first-gen and Pell-eligible.</td></tr>
+  <tr style="background: #f8d7da;"><td>SS-02</td><td>Early Alert / Student Risk System</td><td>Tier 3 (High)</td><td>P2, P3, P5, P7</td><td>Risk profiling creates surveillance dynamic. Disparate impact on students of color.</td></tr>
+  <tr style="background: #f8d7da;"><td>SS-03</td><td>Financial Aid Triage &amp; FAFSA</td><td>Tier 3 (High)</td><td>P3, P5, P6</td><td>Automated decisions on access to resources. Errors disproportionately affect low-income.</td></tr>
+  <tr style="background: #d4edda;"><td>SS-04</td><td>Student-Facing Chatbot</td><td>Tier 1 (Low)</td><td>P1, P7, P8</td><td>Multilingual coverage gaps. Accessibility barriers.</td></tr>
+  <tr style="background: #fff3cd;"><td>SS-05</td><td>AI Course Tutoring Assistant</td><td>Tier 2 (Med)</td><td>P1, P4, P5</td><td>Hallucination risk. Socratic vs. answer mode affects learning.</td></tr>
+  <tr style="background: #fff3cd;"><td>SS-06</td><td>Multilingual Support / Translation</td><td>Tier 2 (Med)</td><td>P2, P7</td><td>Quality varies by language. Cultural appropriateness.</td></tr>
+  <tr style="background: #d4edda;"><td>SS-07</td><td>Basic Needs Support</td><td>Tier 1 (Low)</td><td>P6, P7</td><td>Sensitive data (food insecurity, housing, immigration status). Privacy paramount.</td></tr>
+  <tr style="background: #d4edda;"><td>SS-08</td><td>Career Services AI</td><td>Tier 1 (Low)</td><td>P1, P2</td><td>Pathway bias across career clusters. Equity across CTE and transfer.</td></tr>
+  <tr style="background: #fff3cd;"><td>SS-09</td><td>Student Journey Mapping</td><td>Tier 2 (Med)</td><td>P5, P6, P7</td><td>PII. Aggregation vs. individual tracking. Surveillance risk.</td></tr>
+  <tr style="background: #fff3cd;"><td>SS-10</td><td>Registration &amp; Enrollment</td><td>Tier 2 (Med)</td><td>P1, P3, P5</td><td>Automated enrollment decisions affect access. Waitlist prioritization.</td></tr>
+  <tr><td>SS-XX</td><td>Custom / Other</td><td>User assigns</td><td>User describes</td><td>User describes equity considerations.</td></tr>
+</table>
+
+<hr>
+
+<h2>3. Detailed Crosswalk &mdash; Student Services&ndash;Relevant Use Cases</h2>
+
+<p>Each handbook use case is identified by its exact <strong>row number (#)</strong> from the "Use Cases" sheet.</p>
+
+<!-- USE CASE #20 -->
+<div class="use-case-block" style="border-left: 4px solid #0066cc;">
+<h3>#20 &mdash; Sunny Chatbot &ndash; Student Emotional Support <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> Arizona State University &nbsp;|&nbsp; <strong>Tool:</strong> Conversational AI chatbot</div>
+<p><strong>Description:</strong> AI chatbot designed to provide emotional support and help students adjust to college life; part of ASU&rsquo;s broader OpenAI partnership.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-04 (Student-Facing Chatbot) <span class="tag-low">Tier 1</span><br>
+<strong>With tier override to:</strong> <span class="tag-med">Tier 2</span> or <span class="tag-high">Tier 3</span> depending on whether it collects mental health disclosures</p>
+<p><strong>Why this mapping:</strong> At surface level this is a student-facing chatbot (SS-04). However, the <em>emotional support</em> function means it likely processes sensitive mental health data. SS-04&rsquo;s screening questions would need to determine: Does this chatbot collect or respond to emotional/mental health disclosures? If yes, the risk tier escalates.</p>
+<p><strong>Coverage:</strong> <span class="tag-gap">Partial &mdash; emotional support gap</span>. SS-04 covers informational chatbots. Neither SS-04 nor SS-07 addresses AI-delivered emotional support as a distinct function.</p>
+<p><strong>Key governance:</strong> P5 (harm from bad crisis advice), P6 (emotional disclosures as sensitive data), P7 (student knows it&rsquo;s AI?), NG-06.</p>
+</div>
+
+<!-- USE CASE #21 -->
+<div class="use-case-block" style="border-left: 4px solid #0066cc;">
+<h3>#21 &mdash; Pounce Chatbot &ndash; Enrollment &amp; Persistence <span class="tag-cc-direct">CC: Direct</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> Georgia State University &nbsp;|&nbsp; <strong>Tool:</strong> Pounce conversational AI</div>
+<p><strong>Description:</strong> Reduces friction in student support and improves persistence through AI-driven enrollment nudges, advising triage, and proactive outreach.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Multi-function tool</strong> mapping to: SS-04 <span class="tag-low">T1</span> (chatbot), SS-10 <span class="tag-med">T2</span> (enrollment nudges), SS-01 <span class="tag-high">T3</span> (advising triage), SS-02 <span class="tag-high">T3</span> (proactive outreach/flagging).</p>
+<p><strong>Coverage:</strong> <span class="tag-gap">Covered across multiple use cases, but reveals multi-function platform gap</span>. Governance floor = highest-risk function (Tier 3).</p>
+<p><strong>Key governance:</strong> P2 (demographic impact of nudges), P3 (counselor reviewing triage?), P7 (contestability of flagging), NG-03.</p>
+</div>
+
+<!-- USE CASE #22 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#22 &mdash; WoeBot &ndash; AI Mental Health Support <span class="tag-cc-difficult">CC: Difficult</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> Stanford University &nbsp;|&nbsp; <strong>Tool:</strong> CBT-based conversational AI</div>
+<p><strong>Description:</strong> AI chatbot using cognitive behavioral therapy techniques; 8 RCTs completed showing significant reduction in depression symptoms.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> <span class="tag-gap">SS-XX (Custom)</span> &mdash; no existing use case covers AI-delivered therapeutic interventions. <strong>Recommended:</strong> <span class="tag-high">Tier 3</span></p>
+<p><strong>Coverage:</strong> <span class="critical" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>GAP.</strong> No mental health/counseling AI use case exists.</span></p>
+<p><strong>Key governance:</strong> P3 (clinical responsibility), P5 (crisis mishandling), P6 (HIPAA intersection), P7 (AI transparency), NG-03, NG-06.</p>
+</div>
+
+<!-- USE CASE #23 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#23 &mdash; AI Chatbot for Student Mental Wellness <span class="tag-cc-difficult">CC: Difficult</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> University of Memphis &nbsp;|&nbsp; <strong>Tool:</strong> Wysa, Woebot, Tess</div>
+<p><strong>Description:</strong> Digital mental health intervention helping college students manage anxiety and depression; open trial results published.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> <span class="tag-gap">SS-XX (Custom)</span> &mdash; same gap as #22. <strong>Recommended:</strong> <span class="tag-high">Tier 3</span></p>
+<p><strong>Coverage:</strong> <span class="critical" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>GAP.</strong> Same as #22.</span></p>
+<p><strong>Additional:</strong> Third-party tools &mdash; P8 (Vendor Accountability) critical. NG-02 (students not training data) must be checked.</p>
+</div>
+
+<!-- USE CASE #24 -->
+<div class="use-case-block" style="border-left: 4px solid #0066cc;">
+<h3>#24 &mdash; University of Hawaii AI Chatbots (10 Campuses) <span class="tag-cc-direct">CC: Direct</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> U of Hawaii System &nbsp;|&nbsp; <strong>Tool:</strong> AI chatbot platform</div>
+<p><strong>Description:</strong> AI chatbots across 10 campuses: 94% opt-in; 4,294 questions answered without human intervention; flagged 2,533 students for follow-up.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Multi-function:</strong> SS-04 <span class="tag-low">T1</span> (FAQ) + SS-02 <span class="tag-high">T3</span> (flagging 2,533 students = early alert).</p>
+<p><strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;">Covered across SS-04 + SS-02.</span> Multi-function guidance needed.</p>
+<p><strong>Key governance:</strong> P2 (6% non-opt-in demographics?), P6 (data from 4,294 questions), P7 (students know they&rsquo;re flagged?), NG-05, NG-07.</p>
+</div>
+
+<!-- USE CASE #25 -->
+<div class="use-case-block" style="border-left: 4px solid #28a745;">
+<h3>#25 &mdash; Indiana University ChatGPT Edu Rollout <span class="tag-cc-direct">CC: Direct</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> Indiana University &nbsp;|&nbsp; <strong>Tool:</strong> ChatGPT Edu</div>
+<p><strong>Description:</strong> Second-largest ChatGPT Edu rollout globally; 120,000 users; complements GenAI 101 course.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-04 <span class="tag-low">T1</span> &nbsp; <strong>Secondary:</strong> SS-05 <span class="tag-med">T2</span> for instructional use.</p>
+<p><strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;">Covered.</span></p>
+<p><strong>Key governance:</strong> P1 (clear educational purpose?), P8 (OpenAI vendor terms at 120K scale).</p>
+</div>
+
+<!-- USE CASE #26 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#26 &mdash; Penn State MyResource &ndash; AI Advising <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> Penn State University &nbsp;|&nbsp; <strong>Tool:</strong> MyResource AI</div>
+<p><strong>Description:</strong> 24/7 advising navigation; governed agent reducing bottlenecks in enrollment, learning support, and operational coordination.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-01 (AI Advising / Guided Pathways) <span class="tag-high">Tier 3</span></p>
+<p><strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+<p><strong>Key governance:</strong> P3 (what does &ldquo;governed agent&rdquo; mean operationally?), P5 (bad advice at 2 AM), P2 (first-gen over-reliance).</p>
+</div>
+
+<!-- USE CASE #27 -->
+<div class="use-case-block" style="border-left: 4px solid #fd7e14;">
+<h3>#27 &mdash; Michigan Ross AI Teaching Assistant <span class="tag-cc-direct">CC: Direct</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> U of Michigan (Ross) &nbsp;|&nbsp; <strong>Tool:</strong> Custom AI TA</div>
+<p><strong>Description:</strong> AI TA guides reasoning rather than providing answers directly; Socratic mode.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-05 <span class="tag-med">Tier 2</span>. <strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+<p><strong>Key governance:</strong> P1 (Socratic = strong purpose signal), P4 (faculty configures?), P5 (hallucination risk).</p>
+</div>
+
+<!-- USE CASE #28 -->
+<div class="use-case-block" style="border-left: 4px solid #28a745;">
+<h3>#28 &mdash; AI Career Coaching and Resume Review <span class="tag-cc-direct">CC: Direct</span></h3>
+<div class="uc-meta"><span class="tag-proposed">Proposed</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> Multiple &nbsp;|&nbsp; <strong>Tool:</strong> ChatGPT, custom LLM chatbots</div>
+<p><strong>Description:</strong> AI-powered career services: resume review, career exploration, interview practice, internship matching.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-08 <span class="tag-low">Tier 1</span>. <strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+<p><strong>Key governance:</strong> P2 (pathway bias for CC students?), P1 (genuine help vs. dependency?).</p>
+</div>
+
+<!-- USE CASE #29 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#29 &mdash; AI-Powered Financial Aid Advising <span class="tag-cc-direct">CC: Direct</span></h3>
+<div class="uc-meta"><span class="tag-proposed">Proposed</span> &nbsp; <strong>Category:</strong> Student Support Services &nbsp;|&nbsp; <strong>Institution:</strong> Multiple &nbsp;|&nbsp; <strong>Tool:</strong> Custom chatbots</div>
+<p><strong>Description:</strong> FAFSA completion guidance, scholarship matching, financial literacy to reduce melt.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-03 <span class="tag-high">Tier 3</span>. <strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+<p><strong>Key governance:</strong> P3 (no final AI decisions), P5 (errors hit low-income hardest), P6 (FAFSA = tax data), NG-03.</p>
+</div>
+
+<hr>
+<h3>Cross-Category Use Cases</h3>
+
+<!-- USE CASE #30 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#30 &mdash; Student Dropout Prediction via Card Swipe Data <span class="tag-cc-difficult">CC: Difficult</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Administrative Operations &nbsp;|&nbsp; <strong>Institution:</strong> University of Arizona &nbsp;|&nbsp; <strong>Tool:</strong> ML/network science</div>
+<p><strong>Description:</strong> ML analysis of student ID card swipes for dropout prediction; 73% accuracy from first day.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-02 <span class="tag-high">T3</span> &nbsp; <strong>Secondary:</strong> SS-09 <span class="tag-med">T2</span>. <strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+<p><strong>Key governance:</strong> P6 (location tracking = privacy), P7 (students know?), P2 (27% error rate demographics?), NG-04.</p>
+</div>
+
+<!-- USE CASE #32 -->
+<div class="use-case-block" style="border-left: 4px solid #fd7e14;">
+<h3>#32 &mdash; Enrollment Yield Prediction <span class="tag-cc-difficult">CC: Difficult</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Administrative Operations &nbsp;|&nbsp; <strong>Institution:</strong> Multiple &nbsp;|&nbsp; <strong>Tool:</strong> Othot, Element451</div>
+<p><strong>Description:</strong> AI optimizes financial aid distribution to maximize enrollment yield from admitted students.</p>
+<h4>Navigator Mapping</h4>
+<p><strong>Primary:</strong> SS-10 <span class="tag-med">T2</span> &nbsp; <strong>Secondary:</strong> SS-03 <span class="tag-high">T3</span> (optimizes aid amounts).</p>
+<p><strong>Coverage:</strong> <span class="highlight-box" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Partial &mdash; yield optimization gap.</strong></span></p>
+<p><strong>Key governance:</strong> P2 (systematically disadvantages students with fewer alternatives), P3, NG-03.</p>
+</div>
+
+<!-- USE CASE #33 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#33 &mdash; Purdue Smart Plan &ndash; AI Course Planning <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Admin Ops &nbsp;|&nbsp; <strong>Institution:</strong> Purdue &nbsp;|&nbsp; <strong>Tool:</strong> Ellucian Smart Plan</div>
+<p><strong>Primary:</strong> SS-01 <span class="tag-high">T3</span>. <strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+</div>
+
+<!-- USE CASE #49 -->
+<div class="use-case-block" style="border-left: 4px solid #6f42c1;">
+<h3>#49 &mdash; Grammar Lab &ndash; AI for Deaf Students (ASL/English) <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Accessibility &nbsp;|&nbsp; <strong>Institution:</strong> RIT/NTID &nbsp;|&nbsp; <strong>Tool:</strong> Gemini AI, custom system</div>
+<p><strong>Description:</strong> Bilingual ASL/English AI tutor with personalized learning paths; Google.org funded.</p>
+<p><strong>Mapping:</strong> SS-06 partial / <span class="tag-gap">SS-XX &rarr; proposed SS-12</span>. <strong>Coverage:</strong> <span class="critical" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Partial GAP.</strong> Disability services/accessibility AI not covered.</span></p>
+</div>
+
+<!-- USE CASES #50, #52 -->
+<div class="use-case-block" style="border-left: 4px solid #6f42c1;">
+<h3>#50 &mdash; AI for UDL &amp; #52 &mdash; AI Assistive Technologies <span class="tag-cc-direct">CC: Direct</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Accessibility &nbsp;|&nbsp; <strong>Institutions:</strong> Cornell, UC Berkeley, Multiple</div>
+<p>UDL automation, speech-to-text, content simplification for students with disabilities.</p>
+<p><strong>Mapping:</strong> SS-06 partial / <span class="tag-gap">SS-XX &rarr; proposed SS-12</span>. <strong>Coverage:</strong> <span class="critical" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Partial GAP.</strong> Reinforces #49.</span></p>
+</div>
+
+<!-- USE CASES #67, #68 -->
+<div class="use-case-block" style="border-left: 4px solid #28a745;">
+<h3>#67 &mdash; PATHWISE Job Demand &amp; #68 &mdash; Lightcast Career Pathways <span class="tag-cc-direct">CC: Direct</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Workforce &amp; Career &nbsp;|&nbsp; <strong>Institutions:</strong> Georgetown CSET, Lightcast</div>
+<p>Labor market intelligence and career pathway analysis for career services.</p>
+<p><strong>Primary:</strong> SS-08 <span class="tag-low">T1</span>. <strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;">Covered.</span></p>
+</div>
+
+<!-- USE CASE #71 -->
+<div class="use-case-block" style="border-left: 4px solid #c00;">
+<h3>#71 &mdash; Predictive Retention Analytics <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<div class="uc-meta"><span class="tag-validated">Validated</span> &nbsp; <strong>Category:</strong> Data Analytics &nbsp;|&nbsp; <strong>Institutions:</strong> Multiple &nbsp;|&nbsp; <strong>Tool:</strong> ML models (93% accuracy)</div>
+<p><strong>Primary:</strong> SS-02 <span class="tag-high">T3</span>. <strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;"><strong>Fully covered.</strong></span></p>
+</div>
+
+<!-- USE CASE #74 -->
+<div class="use-case-block" style="border-left: 4px solid #fd7e14;">
+<h3>#74 &mdash; AI-Powered Learning Analytics Dashboards <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<div class="uc-meta"><span class="tag-proposed">Proposed</span> &nbsp; <strong>Category:</strong> Data Analytics &nbsp;|&nbsp; <strong>Institutions:</strong> Multiple</div>
+<p>Real-time dashboards with early-warning signals and intervention recommendations.</p>
+<p><strong>Primary:</strong> SS-02 <span class="tag-high">T3</span> + SS-09 <span class="tag-med">T2</span>. <strong>Coverage:</strong> <span class="success" style="display:inline-block; margin:0; padding: 4px 8px;">Covered.</span></p>
+</div>
+
+<hr>
+
+<h2>4. Summary Mapping Table</h2>
+
+<table>
+  <tr><th>#</th><th>Handbook Use Case</th><th>Status</th><th>Navigator UC(s)</th><th>Tier</th><th>Coverage</th><th>CC Adoption</th></tr>
+  <tr><td>20</td><td>Sunny Chatbot (ASU)</td><td>Validated</td><td>SS-04 + override</td><td><span class="tag-low">T1</span>&rarr;<span class="tag-med">T2</span></td><td>Partial</td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>21</td><td>Pounce Chatbot (GSU)</td><td>Validated</td><td>SS-04/10/01/02</td><td><span class="tag-low">T1</span>&ndash;<span class="tag-high">T3</span></td><td>Covered (multi)</td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr style="background:#fff0f0;"><td>22</td><td>WoeBot (Stanford)</td><td>Validated</td><td>SS-XX</td><td><span class="tag-high">T3</span></td><td><strong>GAP</strong></td><td><span class="tag-cc-difficult">Difficult</span></td></tr>
+  <tr style="background:#fff0f0;"><td>23</td><td>Mental Wellness (Memphis)</td><td>Validated</td><td>SS-XX</td><td><span class="tag-high">T3</span></td><td><strong>GAP</strong></td><td><span class="tag-cc-difficult">Difficult</span></td></tr>
+  <tr><td>24</td><td>Hawaii Chatbots</td><td>Validated</td><td>SS-04 + SS-02</td><td><span class="tag-low">T1</span>&ndash;<span class="tag-high">T3</span></td><td>Covered (multi)</td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>25</td><td>IU ChatGPT Edu</td><td>Validated</td><td>SS-04 + SS-05</td><td><span class="tag-low">T1</span>&ndash;<span class="tag-med">T2</span></td><td>Covered</td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>26</td><td>Penn State MyResource</td><td>Validated</td><td>SS-01</td><td><span class="tag-high">T3</span></td><td><strong>Fully covered</strong></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>27</td><td>Michigan Ross AI TA</td><td>Validated</td><td>SS-05</td><td><span class="tag-med">T2</span></td><td><strong>Fully covered</strong></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>28</td><td>Career Coaching</td><td>Proposed</td><td>SS-08</td><td><span class="tag-low">T1</span></td><td><strong>Fully covered</strong></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>29</td><td>Financial Aid Advising</td><td>Proposed</td><td>SS-03</td><td><span class="tag-high">T3</span></td><td><strong>Fully covered</strong></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>30</td><td>Dropout Prediction</td><td>Validated</td><td>SS-02 + SS-09</td><td><span class="tag-high">T3</span></td><td><strong>Fully covered</strong></td><td><span class="tag-cc-difficult">Difficult</span></td></tr>
+  <tr><td>32</td><td>Enrollment Yield</td><td>Validated</td><td>SS-10 + SS-03</td><td><span class="tag-med">T2</span>&ndash;<span class="tag-high">T3</span></td><td>Partial</td><td><span class="tag-cc-difficult">Difficult</span></td></tr>
+  <tr><td>33</td><td>Purdue Smart Plan</td><td>Validated</td><td>SS-01</td><td><span class="tag-high">T3</span></td><td><strong>Fully covered</strong></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr style="background:#fff0f0;"><td>49</td><td>Grammar Lab (Deaf)</td><td>Validated</td><td>SS-06/SS-XX</td><td><span class="tag-med">T2</span></td><td><strong>Partial GAP</strong></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr style="background:#fff0f0;"><td>50,52</td><td>UDL + Assistive Tech</td><td>Validated</td><td>SS-06/SS-XX</td><td><span class="tag-med">T2</span></td><td><strong>Partial GAP</strong></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>67</td><td>PATHWISE</td><td>Validated</td><td>SS-08</td><td><span class="tag-low">T1</span></td><td>Covered</td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>68</td><td>Lightcast</td><td>Validated</td><td>SS-08</td><td><span class="tag-low">T1</span></td><td>Covered</td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>71</td><td>Predictive Retention</td><td>Validated</td><td>SS-02</td><td><span class="tag-high">T3</span></td><td><strong>Fully covered</strong></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>74</td><td>Learning Dashboards</td><td>Proposed</td><td>SS-02 + SS-09</td><td><span class="tag-med">T2</span>&ndash;<span class="tag-high">T3</span></td><td>Covered</td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+</table>
+
+<hr>
+
+<h2>5. Gap Analysis</h2>
+
+<table>
+  <tr><th>#</th><th>Gap</th><th>Handbook Evidence</th><th>Recommended Action</th><th>Tier</th></tr>
+  <tr style="background: #f8d7da;"><td>1</td><td><strong>Mental Health / Counseling AI</strong></td><td>#22 WoeBot, #23 Memphis, #20 Sunny (borderline). 3 validated.</td><td>Add <strong>SS-11</strong>. Key pillars: P3, P5, P6, P7. Crisis escalation required.</td><td><span class="tag-high">T3</span></td></tr>
+  <tr style="background: #fff3cd;"><td>2</td><td><strong>Disability Services / Accessibility AI</strong></td><td>#49 Grammar Lab, #50 UDL, #52 Assistive. 3 validated.</td><td>Add <strong>SS-12</strong>. Key pillars: P2, P6, P7. ADA data protections.</td><td><span class="tag-med">T2</span></td></tr>
+  <tr style="background: #e7f3ff;"><td>3</td><td><strong>Multi-Function Platform</strong></td><td>#21 Pounce (4 functions), #24 Hawaii (2), #25 IU (2).</td><td>Portfolio evaluation guidance. Governance floor = highest-risk function.</td><td>N/A</td></tr>
+  <tr style="background: #e7f3ff;"><td>4</td><td><strong>Yield Optimization</strong></td><td>#32 Enrollment yield (Othot, Element451).</td><td>Screening Q on SS-03: &ldquo;AI determines aid based on enrollment likelihood?&rdquo;</td><td>N/A</td></tr>
+  <tr style="background: #e7f3ff;"><td>5</td><td><strong>Emotional Support Ambiguity</strong></td><td>#20 Sunny (ASU). Non-clinical emotional support.</td><td>Screening Q on SS-04: &ldquo;Chatbot responds to mental health disclosures?&rdquo;</td><td>N/A</td></tr>
+</table>
+
+<hr>
+
+<h2>6. Coverage Summary</h2>
+
+<table>
+  <tr><th>Coverage Level</th><th>Count</th><th>Use Cases</th></tr>
+  <tr style="background: #d4edda;"><td><strong>Fully Covered</strong></td><td>8</td><td>#26, #27, #28, #29, #30, #33, #71, #67</td></tr>
+  <tr style="background: #fff3cd;"><td><strong>Covered via Multiple</strong></td><td>5</td><td>#21, #24, #25, #68, #74</td></tr>
+  <tr style="background: #e7f3ff;"><td><strong>Partially Covered</strong></td><td>2</td><td>#20 (emotional support), #32 (yield optimization)</td></tr>
+  <tr style="background: #f8d7da;"><td><strong>Gap</strong></td><td>2</td><td>#22 (WoeBot), #23 (Memphis)</td></tr>
+  <tr style="background: #f8d7da;"><td><strong>Partial Gap</strong></td><td>2</td><td>#49 (Grammar Lab), #50/#52 (UDL/Assistive)</td></tr>
+</table>
+
+<div class="success">
+<strong>Bottom line:</strong> 13/19 fully or substantially covered. Adding SS-11 + SS-12 &rarr; 17/19. Adding screening questions &rarr; 19/19.
+</div>
+
+</div><!-- /tab-handbook -->
+
+<!-- ============================================================ -->
+<!-- TAB 2: ND FORUM CROSSWALK -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-ndforum">
+
+<div class="callout">
+<strong>Source:</strong> 2025 ND AI Forum Use Case Repository (Notre Dame, Nov 2025). Practitioner-submitted use cases from 20+ institutions. 48 total use cases. 19 Student Services&ndash;relevant. Unlike the Handbook (published, curated), these are <strong>self-reported</strong>&mdash;many at early stages. Status: 14 In Production, 18 In Development, 16 Just an Idea.
+</div>
+
+<hr>
+
+<h2>1. Source Data</h2>
+
+<p>The ND AI Forum repository contains <strong>48 use cases</strong> from 20+ institutions, classified by relevance:</p>
+
+<table>
+  <tr><th>Functional Area (derived)</th><th>IDs</th><th>Count</th><th>SS Relevant?</th></tr>
+  <tr><td>IT Ops &amp; Infrastructure</td><td>#2, #5, #6, #7, #20, #23, #46, #48</td><td>8</td><td>No</td></tr>
+  <tr><td>Finance &amp; Administration</td><td>#3, #4, #21, #22, #29, #40, #45</td><td>7</td><td>No</td></tr>
+  <tr><td>Communications &amp; Marketing</td><td>#9, #38</td><td>2</td><td>No</td></tr>
+  <tr><td>Teaching &amp; Instruction</td><td>#1, #10, #15, #37</td><td>4</td><td>Partially</td></tr>
+  <tr><td>Research &amp; Libraries</td><td>#14, #16, #24, #36</td><td>4</td><td>No</td></tr>
+  <tr><td>AI Literacy &amp; Training</td><td>#30, #31, #33, #34, #39</td><td>5</td><td>No</td></tr>
+  <tr><td>Advancement</td><td>#35, #45</td><td>2</td><td>No</td></tr>
+  <tr><td>Process Improvement</td><td>#32</td><td>1</td><td>No</td></tr>
+  <tr style="background: #e7f3ff;"><td><strong>Student Services (direct)</strong></td><td><strong>#8, #12, #25, #26, #41, #42, #43</strong></td><td><strong>7</strong></td><td><strong>Yes</strong></td></tr>
+  <tr style="background: #f0f7ff;"><td>Institutional AI Platforms</td><td>#11, #19, #28, #47</td><td>4</td><td>Partially</td></tr>
+  <tr style="background: #f0f7ff;"><td>Tutoring &amp; Learning Tools</td><td>#10, #15, #17, #18, #37</td><td>5</td><td>Partially</td></tr>
+  <tr style="background: #f0f7ff;"><td>Accessibility</td><td>#13, #27, #44</td><td>3</td><td>Partially</td></tr>
+</table>
+
+<p><strong>Result:</strong> <strong>19 of 48</strong> (40%) have Student Services relevance.</p>
+
+<hr>
+
+<h2>2. Detailed Crosswalk</h2>
+
+<h3>Group A: Direct Student Services</h3>
+
+<div class="use-case-block">
+<h3>#8 &mdash; Residency Petition System <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<p class="uc-meta"><span class="tag-dev">In Development</span> <span class="tag-maturity">L3: Integrate</span> &nbsp; UMBC &bull; Tools: AWS Bedrock, Textract, DynamoDB</p>
+<p>Self-service AI extracting data from uploaded documents (leases, IDs, bills) for in-state tuition residency petitions. Admin interfaces present summarized data with policy-based recommendations.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-10 <span class="tag-med">T2</span> &nbsp; <strong>Secondary:</strong> SS-03 <span class="tag-high">T3</span></li></ul>
+<p><strong>Why:</strong> Residency classification determines tuition rates&mdash;a financial determination with equity implications. AI analyzes personal identity documents and makes recommendations that affect affordability.</p>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; no explicit guidance for document-analysis-based tuition classification.</p>
+<p><strong>Governance:</strong> P2 (immigrant/first-gen impact), P5 (identity document handling), P6 (classification logic transparency), NG-03 (no auto-deny).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#25 &mdash; AI Degree Plan Builder <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<p class="uc-meta"><span class="tag-dev">In Development</span> <span class="tag-maturity">L1: Explore</span> &nbsp; UNM &bull; Tools: AWS, Python, LLM</p>
+<p>Dynamically generates multi-year degree plans based on academic/career interests, completed credits, FT/PT status. Supports advisors.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-01 <span class="tag-high">T3</span> &nbsp; <strong>Secondary:</strong> SS-09 <span class="tag-med">T2</span></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> by SS-01.</p>
+<p><strong>Governance:</strong> P2 (part-time/working student disadvantage?), P4 (can students override?), P5 (what data feeds the model?).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#26 &mdash; (New) Student Helper <span class="tag-cc-direct">CC: Direct</span></h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> &nbsp; UNM &bull; Tools: Google NotebookLM</p>
+<p>Chatbot for new students: housing, transportation, food, directions. Also for new faculty.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-04 <span class="tag-low">T1</span> &nbsp; <strong>Secondary:</strong> SS-07 <span class="tag-low">T1</span></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span>.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#12 &mdash; RamGPT <span class="tag-cc-difficult">CC: Difficult</span></h3>
+<p class="uc-meta"><span class="tag-dev">In Development</span> <span class="tag-maturity">L3: Integrate</span> &nbsp; Colorado State &bull; Tools: NebulaOne, Azure, MCP servers</p>
+<p>Student-focused chatbot making calls to specialized agents: housing, dining, financial aid, health, events. Agent-to-agent architecture.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-04 <span class="tag-low">T1</span> with <strong>tier override</strong> &nbsp; <strong>Secondary:</strong> SS-07 <span class="tag-low">T1</span>, SS-03 <span class="tag-high">T3</span></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; multi-agent architecture (AI calling AI) raises accountability questions not addressed: which agent is accountable? How are inter-agent decisions audited?</p>
+<p><strong>Governance:</strong> P2 (financial aid equity), P3 (human override at each agent boundary), P5 (data sharing across agents), P6 (student knows it&rsquo;s an agent chain?), P7.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#41 &mdash; Chatbot for Course Registration (AITF 54) <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L1: Explore</span> &nbsp; UW&ndash;Milwaukee &bull; Tools: TBD</p>
+<p>Help students find, suggest, and sign up for classes.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-10 <span class="tag-med">T2</span> &nbsp; <strong>Secondary:</strong> SS-01 <span class="tag-high">T3</span></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> via SS-10 + SS-01. Multi-function guidance applies.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#42 &mdash; Automated Transcript Scanning (AITF 32) <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L1: Explore</span> &nbsp; UW&ndash;Milwaukee &bull; Tools: TBD</p>
+<p>AI assesses HS transcripts for admissions, reducing time and labor.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-10 <span class="tag-med">T2</span></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; transcript evaluation introduces document-analysis governance not explicitly addressed (non-standard transcripts, international credentials).</p>
+<p><strong>Governance:</strong> P2 (GED, international creds), P5 (academic records), P6 (student sees what AI extracted?), NG-03 (no auto-reject).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#43 &mdash; Chatbot for Navigation of UWM Services (AITF 16) <span class="tag-cc-direct">CC: Direct</span></h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L1: Explore</span> &nbsp; UW&ndash;Milwaukee &bull; Tools: TBD</p>
+<p>Reduces time to find campus content; guides actions, resolves problems. Students, faculty, staff.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-04 <span class="tag-low">T1</span> &nbsp; <strong>Secondary:</strong> SS-07 <span class="tag-low">T1</span></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span>.</p>
+</div>
+
+<h3>Group B: Institutional AI Platforms</h3>
+
+<div class="use-case-block">
+<h3>#11 &mdash; CSU-GPT <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L2: Share</span> &nbsp; Colorado State &bull; Tools: NebulaOne, Azure, GPT-4o</p>
+<p>Institutional LLM chat client. User-created agents including course-specific Tutorbots.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-04 <span class="tag-low">T1</span> &nbsp; <strong>Secondary:</strong> SS-05 <span class="tag-med">T2</span> for Tutorbots</li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span> via SS-04 + SS-05. Multi-function platform guidance applies.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#19 &mdash; Purple: AI for All <span class="tag-cc-difficult">CC: Difficult</span></h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L3: Integrate</span> &nbsp; University of Washington &bull; Tools: Azure AI Foundry, NebulaOne, GPT-5</p>
+<p>Agentic AI platform for all UW community members.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-04 <span class="tag-low">T1</span></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; &ldquo;agentic&rdquo; capabilities may require governance beyond SS-04&rsquo;s scope.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#28 &mdash; Help Desk <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L5: Evolve</span> &nbsp; Juniata College &bull; Tools: TBD</p>
+<p>AI help desk that answers questions AND takes actions in systems on behalf of users.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-04 <span class="tag-low">T1</span> with <strong>tier override to T2</strong></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; SS-04 does not address AI that takes system actions on behalf of students.</p>
+<p><strong>Governance:</strong> P3 (human approval for irreversible actions), P5 (system access scope), P6 (student sees what was done), P7 (audit trail).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#47 &mdash; myUMBC Answers <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L1: Explore</span> &nbsp; UMBC &bull; Tools: AWS Bedrock, Custom Integrations</p>
+<p>AI-powered search with access to personal data for personalized answers.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-04 <span class="tag-low">T1</span> with <strong>tier override to T2</strong></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-partial">Partially covered</span> &mdash; personal data integration requires additional governance.</p>
+<p><strong>Governance:</strong> P5 (FERPA&mdash;what data?), P6 (student sees what data informed response?), P4 (opt out of personalization?).</p>
+</div>
+
+<h3>Group C: Tutoring &amp; Learning</h3>
+
+<div class="use-case-block">
+<h3>#10 &mdash; AI Exam Wrappers <span class="tag-cc-direct">CC: Direct</span></h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L2: Share</span> &nbsp; Northwestern &bull; Tools: Copilot/ChatGPT</p>
+<p>AI-guided structured post-exam reflection. Research project across Engineering, Chinese, Physical Therapy.</p>
+<p><strong>Primary:</strong> SS-05 <span class="tag-med">T2</span>. <strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span>.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#15 &mdash; SmartyCards <span class="tag-cc-direct">CC: Direct</span></h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L3: Integrate</span> &nbsp; UMN &bull; Tools: Azure OpenAI, Laravel</p>
+<p>Flashcard platform. Students create decks; LLMs transform into other learning activities. Preserves student agency by design.</p>
+<p><strong>Primary:</strong> SS-05 <span class="tag-med">T2</span>. <strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span>. Exemplar for P4 (student agency).</p>
+</div>
+
+<div class="use-case-block">
+<h3>#17 &mdash; PATHS (Process for Academic Transformation through Human-centric Systems) <span class="tag-cc-difficult">CC: Difficult</span></h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L5: Evolve</span> &nbsp; UDel &bull; Tools: AWS Bedrock, Claude, Neo4j</p>
+<p>AI + human oversight + Knowledge Graphs for adaptive curricula and academic knowledge management.</p>
+<h4>Navigator Mapping</h4>
+<ul><li><strong>Primary:</strong> SS-01 <span class="tag-high">T3</span> &nbsp; <strong>Secondary:</strong> SS-09 <span class="tag-med">T2</span></li></ul>
+<p><strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span>. Human-centric design exceeds Navigator governance requirements.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#18 &mdash; UD Study AiDE <span class="tag-cc-adapt">CC: Adaptable</span></h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L5: Evolve</span> &nbsp; UDel &bull; Tools: PATHS engine, custom UX/UI</p>
+<p>Transforms lecture materials into verified study materials. Personalized learning metrics.</p>
+<p><strong>Primary:</strong> SS-05 <span class="tag-med">T2</span>. <strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span>.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#37 &mdash; Faculty Assistants <span class="tag-cc-direct">CC: Direct</span></h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L2: Share</span> &nbsp; Ohio State &bull; Tools: PostgreSQL-pgvector, Claude</p>
+<p>Canvas-integrated AI &ldquo;GPTs&rdquo; for simulation and reflection, faculty-created.</p>
+<p><strong>Primary:</strong> SS-05 <span class="tag-med">T2</span>. <strong>Coverage:</strong> <span class="coverage-covered">Fully covered</span>.</p>
+</div>
+
+<h3>Group D: Accessibility</h3>
+
+<div class="use-case-block">
+<h3>#13 &mdash; Digital Accessibility Compliance <span class="tag-cc-direct">CC: Direct</span></h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L1: Explore</span> &nbsp; UGA &bull; Tools: Claude, ChatGPT</p>
+<p>AI for web/instructional accessibility. Making PPTs and images compliant.</p>
+<p><strong>Primary:</strong> <span class="tag-gap">SS-12 (proposed)</span>. <strong>Coverage:</strong> <span class="coverage-gap">Gap</span> &mdash; confirms Handbook Gap 2.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#27 &mdash; Accessibility Crawler <span class="tag-cc-direct">CC: Direct</span></h3>
+<p class="uc-meta"><span class="tag-idea">Just an Idea</span> <span class="tag-maturity">L4: Delegate</span> &nbsp; Juniata College &bull; Tools: TBD</p>
+<p>AI crawls sites, identifies issues, auto-corrects in test environments.</p>
+<p><strong>Primary:</strong> <span class="tag-gap">SS-12 (proposed)</span>. <strong>Coverage:</strong> <span class="coverage-gap">Gap</span> &mdash; confirms Handbook Gap 2.</p>
+</div>
+
+<div class="use-case-block">
+<h3>#44 &mdash; Make PDFs Accessible (Title 2) <span class="tag-cc-direct">CC: Direct</span></h3>
+<p class="uc-meta"><span class="tag-prod">In Production</span> <span class="tag-maturity">L4: Delegate</span> &nbsp; Ohio State &bull; Tools: AWS Bedrock, Adobe PDF Services</p>
+<p>AI PDF accessibility remediation for Title II compliance. Library + Arts &amp; Sciences.</p>
+<p><strong>Primary:</strong> <span class="tag-gap">SS-12 (proposed)</span>. <strong>Coverage:</strong> <span class="coverage-gap">Gap</span> &mdash; strongest SS-12 evidence across both sources (in production, R1, federal compliance).</p>
+</div>
+
+<hr>
+
+<h2>3. Summary Mapping Table</h2>
+
+<table>
+  <tr><th>#</th><th>Use Case</th><th>Institution</th><th>Status</th><th>Navigator UC(s)</th><th>Tier</th><th>Coverage</th><th>CC Adoption</th></tr>
+  <tr><td>8</td><td>Residency Petition</td><td>UMBC</td><td><span class="tag-dev">Dev</span></td><td>SS-10 / SS-03</td><td><span class="tag-high">T3</span></td><td><span class="coverage-partial">Partial</span></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>10</td><td>AI Exam Wrappers</td><td>Northwestern</td><td><span class="tag-prod">Prod</span></td><td>SS-05</td><td><span class="tag-med">T2</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>11</td><td>CSU-GPT</td><td>Colorado State</td><td><span class="tag-prod">Prod</span></td><td>SS-04 / SS-05</td><td><span class="tag-med">T2</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>12</td><td>RamGPT</td><td>Colorado State</td><td><span class="tag-dev">Dev</span></td><td>SS-04/07/03</td><td><span class="tag-high">T3</span></td><td><span class="coverage-partial">Partial</span></td><td><span class="tag-cc-difficult">Difficult</span></td></tr>
+  <tr style="background:#fff0f0;"><td>13</td><td>Digital Accessibility</td><td>UGA</td><td><span class="tag-idea">Idea</span></td><td>SS-12</td><td><span class="tag-gap">Gap</span></td><td><span class="coverage-gap">Gap</span></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>15</td><td>SmartyCards</td><td>UMN</td><td><span class="tag-prod">Prod</span></td><td>SS-05</td><td><span class="tag-med">T2</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>17</td><td>PATHS</td><td>UDel</td><td><span class="tag-prod">Prod</span></td><td>SS-01 / SS-09</td><td><span class="tag-high">T3</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-difficult">Difficult</span></td></tr>
+  <tr><td>18</td><td>UD Study AiDE</td><td>UDel</td><td><span class="tag-prod">Prod</span></td><td>SS-05</td><td><span class="tag-med">T2</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>19</td><td>Purple: AI for All</td><td>UW</td><td><span class="tag-prod">Prod</span></td><td>SS-04</td><td><span class="tag-low">T1+</span></td><td><span class="coverage-partial">Partial</span></td><td><span class="tag-cc-difficult">Difficult</span></td></tr>
+  <tr><td>25</td><td>AI Degree Plan</td><td>UNM</td><td><span class="tag-dev">Dev</span></td><td>SS-01 / SS-09</td><td><span class="tag-high">T3</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>26</td><td>Student Helper</td><td>UNM</td><td><span class="tag-idea">Idea</span></td><td>SS-04 / SS-07</td><td><span class="tag-low">T1</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr style="background:#fff0f0;"><td>27</td><td>Accessibility Crawler</td><td>Juniata</td><td><span class="tag-idea">Idea</span></td><td>SS-12</td><td><span class="tag-gap">Gap</span></td><td><span class="coverage-gap">Gap</span></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>28</td><td>Help Desk</td><td>Juniata</td><td><span class="tag-idea">Idea</span></td><td>SS-04</td><td><span class="tag-med">T2</span></td><td><span class="coverage-partial">Partial</span></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>37</td><td>Faculty Assistants</td><td>Ohio State</td><td><span class="tag-prod">Prod</span></td><td>SS-05</td><td><span class="tag-med">T2</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>41</td><td>Course Registration</td><td>UWM</td><td><span class="tag-idea">Idea</span></td><td>SS-10 / SS-01</td><td><span class="tag-high">T3</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>42</td><td>Transcript Scanning</td><td>UWM</td><td><span class="tag-idea">Idea</span></td><td>SS-10</td><td><span class="tag-med">T2</span></td><td><span class="coverage-partial">Partial</span></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+  <tr><td>43</td><td>UWM Services</td><td>UWM</td><td><span class="tag-idea">Idea</span></td><td>SS-04 / SS-07</td><td><span class="tag-low">T1</span></td><td><span class="coverage-covered">Covered</span></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr style="background:#fff0f0;"><td>44</td><td>PDF Accessibility</td><td>Ohio State</td><td><span class="tag-prod">Prod</span></td><td>SS-12</td><td><span class="tag-gap">Gap</span></td><td><span class="coverage-gap">Gap</span></td><td><span class="tag-cc-direct">Direct</span></td></tr>
+  <tr><td>47</td><td>myUMBC Answers</td><td>UMBC</td><td><span class="tag-prod">Prod</span></td><td>SS-04</td><td><span class="tag-med">T2</span></td><td><span class="coverage-partial">Partial</span></td><td><span class="tag-cc-adapt">Adaptable</span></td></tr>
+</table>
+
+<hr>
+
+<h2>4. Gap Analysis</h2>
+
+<h3>Gaps Confirmed from Handbook</h3>
+
+<table>
+  <tr><th>Gap</th><th>Original Evidence</th><th>New Evidence (ND Forum)</th><th>Recommendation</th></tr>
+  <tr><td><strong>Gap 2: Accessibility AI</strong></td><td>#49 Grammar Lab, #50 UDL, #52 Assistive</td><td><strong>#13</strong> UGA, <strong>#27</strong> Juniata, <strong>#44</strong> OSU (in production)</td><td><strong>Add SS-12.</strong> Now 6 evidence points. OSU Title II deployment is urgent.</td></tr>
+  <tr><td><strong>Gap 3: Multi-Function</strong></td><td>#21 Pounce, #24 Hawaii</td><td><strong>#11</strong> CSU-GPT, <strong>#12</strong> RamGPT, <strong>#19</strong> Purple</td><td><strong>Portfolio guidance.</strong> Agent-to-agent architectures accelerating this.</td></tr>
+</table>
+
+<h3>New Gaps</h3>
+
+<table>
+  <tr><th>Gap</th><th>Evidence</th><th>Problem</th><th>Recommendation</th></tr>
+  <tr><td><strong>Gap 6: Agentic AI</strong></td><td>#12 RamGPT, #19 Purple, #28 Help Desk, #47 myUMBC</td><td>Navigator assumes AI <em>informs</em>. These use cases describe AI that <em>acts</em> in systems&mdash;enrolling, modifying records. SS-04 governance is insufficient for transaction-executing AI.</td><td>Screening Q on SS-04/SS-10: &ldquo;Does AI take actions in systems on behalf of students?&rdquo; If yes, Tier 2 min + P3, P5, P7.</td></tr>
+  <tr><td><strong>Gap 7: Document Analysis</strong></td><td>#8 UMBC residency, #42 UWM transcripts</td><td>AI analyzing personal documents for eligibility. Neither SS-03 nor SS-10 address document-analysis workflows.</td><td>Screening Q on SS-03/SS-10: &ldquo;AI analyzes documents for eligibility?&rdquo; If yes, add P2, P5, NG-03.</td></tr>
+</table>
+
+<div class="highlight-box">
+<strong>Not confirmed by ND Forum (Handbook-only evidence):</strong> Gap 1 (Mental Health AI), Gap 4 (Yield Optimization), Gap 5 (Emotional Support Ambiguity). Recommendations stand but are not strengthened.
+</div>
+
+<hr>
+
+<h2>5. Coverage Summary</h2>
+
+<table>
+  <tr><th>Coverage Level</th><th>Count</th><th>Use Cases</th></tr>
+  <tr style="background: #d4edda;"><td><strong>Fully Covered</strong></td><td>10</td><td>#10, #11, #15, #17, #18, #25, #26, #37, #41, #43</td></tr>
+  <tr style="background: #fff3cd;"><td><strong>Partially Covered</strong></td><td>6</td><td>#8, #12, #19, #28, #42, #47</td></tr>
+  <tr style="background: #f8d7da;"><td><strong>Gap</strong></td><td>3</td><td>#13, #27, #44 (all accessibility)</td></tr>
+</table>
+
+<div class="success">
+<strong>Bottom line:</strong> 10/19 fully covered. Adding SS-12 + two screening questions (Gaps 6 &amp; 7) &rarr; <strong>19/19 (100%)</strong>.
+</div>
+
+<hr>
+
+<h2>6. Cross-Source Comparison</h2>
+
+<table>
+  <tr><th>Dimension</th><th>Handbook (Feb 2026)</th><th>ND Forum (Nov 2025)</th></tr>
+  <tr><td>Source type</td><td>Published, curated</td><td>Self-reported by practitioners</td></tr>
+  <tr><td>Total use cases</td><td>75</td><td>48</td></tr>
+  <tr><td>SS relevant</td><td>19 (25%)</td><td>19 (40%)</td></tr>
+  <tr><td>Maturity</td><td>Primarily validated</td><td>Mixed: 14 Prod, 18 Dev, 16 Idea</td></tr>
+  <tr><td>Institutions</td><td>Diverse (R1, CC, liberal arts)</td><td>Predominantly R1/R2</td></tr>
+  <tr><td>SS-12 evidence</td><td>3 use cases</td><td>3 use cases (6 total)</td></tr>
+  <tr><td>Multi-function</td><td>3 platforms</td><td>4 platforms (7 total)</td></tr>
+  <tr><td>Unique pattern</td><td>Mental health AI</td><td><strong>Agentic AI that takes system actions</strong></td></tr>
+  <tr><td>Coverage rate</td><td>68% fully covered</td><td>53% fully covered</td></tr>
+</table>
+
+<div class="callout">
+<strong>Key insight:</strong> The ND Forum reveals an <strong>emerging shift from AI that informs to AI that acts</strong>. RamGPT, Purple, Help Desk, and myUMBC all describe agentic capabilities where AI modifies systems or personalizes using student records. The Navigator&rsquo;s current model assumes a human between AI output and action. <strong>Gap 6 (Agentic AI)</strong> is the most significant new finding.
+</div>
+
+</div><!-- /tab-ndforum -->
+
+<!-- ============================================================ -->
+<!-- TAB 3: FRAMEWORK REFERENCE -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-framework">
+
+<h2>Navigator v2 Framework Reference</h2>
+
+<p>Quick reference to the Navigator v2 framework components referenced throughout both crosswalks.</p>
+
+<hr>
+
+<h2>Nine Governance Pillars</h2>
+
+<p>Each pillar has assessment questions, a 3-point scoring rubric, and remediation actions.</p>
+
+<div class="pillar-card" style="border-left-color: #0066cc;">
+  <h4><span style="color: #0066cc;">P1</span> &mdash; Purpose &amp; Educational Legitimacy</h4>
+  <div class="pillar-hook">&ldquo;If it doesn&rsquo;t serve students, it doesn&rsquo;t belong here.&rdquo;</div>
+  <p>Every AI deployment must serve a genuine educational purpose.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #28a745;">
+  <h4><span style="color: #28a745;">P2</span> &mdash; Equity &amp; Differential Impact</h4>
+  <div class="pillar-hook">&ldquo;If it doesn&rsquo;t work for all your students, it doesn&rsquo;t work.&rdquo;</div>
+  <p>Account for differential impacts on diverse CC populations. Disaggregated performance data required.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #6f42c1;">
+  <h4><span style="color: #6f42c1;">P3</span> &mdash; Human Authority &amp; Decision Accountability</h4>
+  <div class="pillar-hook">&ldquo;Who is accountable when the AI is wrong?&rdquo;</div>
+  <p>Humans make consequential decisions. Named reviewer before AI affects students.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #fd7e14;">
+  <h4><span style="color: #fd7e14;">P4</span> &mdash; Student &amp; Faculty Agency</h4>
+  <div class="pillar-hook">&ldquo;Your students are adults. Your faculty run the classroom. Respect both.&rdquo;</div>
+  <p>Opt-out, configuration, involvement in procurement. Adjuncts included.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #dc3545;">
+  <h4><span style="color: #dc3545;">P5</span> &mdash; Risk Proportionality &amp; Harm Mitigation</h4>
+  <div class="pillar-hook">&ldquo;What&rsquo;s the worst that happens to a student if this tool fails?&rdquo;</div>
+  <p>Failure mode determines governance requirements.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #17a2b8;">
+  <h4><span style="color: #17a2b8;">P6</span> &mdash; Data Stewardship &amp; System Integrity</h4>
+  <div class="pillar-hook">&ldquo;Your data, your rules. Not the vendor&rsquo;s.&rdquo;</div>
+  <p>FERPA compliance, data ownership, vendor training opt-out, portability.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #e83e8c;">
+  <h4><span style="color: #e83e8c;">P7</span> &mdash; Transparency &amp; Contestability</h4>
+  <div class="pillar-hook">&ldquo;Decisions without recourse are not governance.&rdquo;</div>
+  <p>Right to know AI is involved. Right to contest. Explainability.</p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #6610f2;">
+  <h4><span style="color: #6610f2;">P8</span> &mdash; Vendor Accountability &amp; Institutional Sovereignty</h4>
+  <div class="pillar-hook">&ldquo;Make sure the contract protects your students, not just the vendor.&rdquo;</div>
+  <p>Independent audits, exit rights, switching costs, data extraction. </p>
+</div>
+
+<div class="pillar-card" style="border-left-color: #795548;">
+  <h4><span style="color: #795548;">P9</span> &mdash; Institutional Capacity &amp; Continuous Governance</h4>
+  <div class="pillar-hook">&ldquo;Don&rsquo;t add tools to an ungoverned environment. Build the floor first.&rdquo;</div>
+  <p>Governance ownership, review cadence, training budget.</p>
+</div>
+
+
+<h2>Risk Tier System</h2>
+
+<table>
+  <tr><th>Tier</th><th>Risk Level</th><th>When It Applies</th><th>Requirements</th></tr>
+  <tr style="background: #d4edda;"><td><strong>Tier 1</strong></td><td>Lower</td><td>Informational only. No decisions. No sensitive data.</td><td>Score P1, P2, P6, P7, P8 minimum.</td></tr>
+  <tr style="background: #fff3cd;"><td><strong>Tier 2</strong></td><td>Medium</td><td>Advising/instructional. Human reviews. Student records.</td><td>All 9 pillars. P2 and P6 &ge; 2.</td></tr>
+  <tr style="background: #f8d7da;"><td><strong>Tier 3</strong></td><td>High</td><td>Enrollment, financial aid, academic standing. Automated decisions.</td><td>All 9 mandatory. P2 and P6 &ge; 2. Full review.</td></tr>
+</table>
+
+<div class="highlight-box">
+<strong>Override:</strong> Default tiers can be raised (e.g., chatbot accessing records &rarr; T1 to T2). Lowering requires documented reason.
+</div>
+
+<hr>
+
+<h2>Eight No-Go Criteria</h2>
+
+<div class="nogo-card"><strong>NG-01:</strong> No clear educational purpose.</div>
+<div class="nogo-card"><strong>NG-02:</strong> Students are not training data.</div>
+<div class="nogo-card"><strong>NG-03:</strong> No human override for consequential decisions.</div>
+<div class="nogo-card"><strong>NG-04:</strong> Vendor blocks independent bias audits.</div>
+<div class="nogo-card"><strong>NG-05:</strong> No FERPA-compliant data sharing agreement.</div>
+<div class="nogo-card"><strong>NG-06:</strong> No student disclosure of AI use.</div>
+<div class="nogo-card"><strong>NG-07:</strong> Decisions without recourse are not governance.</div>
+<div class="nogo-card"><strong>NG-08:</strong> Vendor lock-in undermines institutional sovereignty.</div>
+
+<hr>
+
+<h2>Three Archetypes</h2>
+
+<table>
+  <tr><th>Archetype</th><th>Tagline</th><th>Profile</th><th>Roadmap</th></tr>
+  <tr style="background: #d4edda;"><td><strong>Lightweight</strong></td><td><em>Start small.</em></td><td>Small/rural. 1&ndash;2 people. &lt;5K students.</td><td>~2 pages. One use case. Quarterly review.</td></tr>
+  <tr style="background: #e7f3ff;"><td><strong>Building</strong></td><td><em>Structure enables innovation.</em></td><td>Mid-size. IT director + IR. AI committee forming.</td><td>~4 pages. 2&ndash;3 use cases. Working group.</td></tr>
+  <tr style="background: #f3e8ff;"><td><strong>Scaling</strong></td><td><em>Govern the portfolio.</em></td><td>Large. Analytics team. Multiple AI tools.</td><td>~6 pages. Portfolio approach. Bias audits for T3.</td></tr>
+</table>
+
+<hr>
+
+<h2>Three-Layer Architecture</h2>
+
+<table>
+  <tr><th>Layer</th><th>Scope</th><th>Contents</th></tr>
+  <tr style="background: #e7f3ff;"><td><strong>Layer 1</strong></td><td>Portable</td><td>Four Ethical Criteria</td></tr>
+  <tr style="background: #d4edda;"><td><strong>Layer 2</strong></td><td>Portable</td><td>Nine Operational Pillars (P1&ndash;P9)</td></tr>
+  <tr style="background: #f3e8ff;"><td><strong>Layer 3</strong></td><td>California Only</td><td>CCCCO HUMANS Framework alignment</td></tr>
+</table>
+
+<div class="callout">
+<strong>Portability:</strong> Layers 1&ndash;2 work for any community college system. Layer 3 adds California-specific CCCCO HUMANS alignment.
+</div>
+
+</div><!-- /tab-framework -->
+
+<!-- ============================================================ -->
+<!-- TAB 4: CC ADAPTABILITY ANALYSIS -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-ccadopt">
+
+<h2>Community College Adaptability Analysis</h2>
+
+<div class="critical">
+<strong>Key finding:</strong> Zero of the 38 SS-relevant use cases across both sources originated from a community college. All come from R1/R2 universities, specialized institutions, or vendors. CCs are invisible in the current AI use case literature.
+</div>
+
+<hr>
+
+<h2>1. Rating Methodology</h2>
+
+<p>Each of the 38 SS-relevant use cases was assessed against CC-specific constraints:</p>
+
+<ul>
+<li><strong>IT capacity:</strong> Small teams (often 1&ndash;3 people), no dedicated AI/ML staff</li>
+<li><strong>Staffing:</strong> Heavy adjunct reliance, high counselor-to-student ratios</li>
+<li><strong>Student population:</strong> Part-time, working, first-gen, multilingual, stop-out patterns</li>
+<li><strong>Budget:</strong> Lower per-student funding than R1 institutions</li>
+<li><strong>Mandates:</strong> Guided pathways, AB 1705, Vision for Success metrics</li>
+<li><strong>Infrastructure:</strong> Shared SIS (PeopleSoft/Banner), Canvas, CCCApply</li>
+</ul>
+
+<table>
+<tr><th>Rating</th><th>Definition</th><th>Criteria</th></tr>
+<tr style="background: #d4edda;"><td><span class="tag-cc-direct">Direct</span></td><td>Could be deployed at a CC as-is or with minimal configuration</td><td>Uses widely available tools (ChatGPT, Copilot, Canvas); no custom infrastructure; concept maps directly to CC operations</td></tr>
+<tr style="background: #fff3cd;"><td><span class="tag-cc-adapt">Adaptable</span></td><td>Usable with modifications for CC context</td><td>Concept translates but needs: smaller scale, different data sources, CC-specific workflows, or lighter IT requirements</td></tr>
+<tr style="background: #f8d7da;"><td><span class="tag-cc-difficult">Difficult</span></td><td>Significant barriers to CC adoption</td><td>Assumes R1-level IT, dedicated research staff, graduate populations, custom ML infrastructure, or clinical expertise CCs lack</td></tr>
+</table>
+
+<hr>
+
+<h2>2. Combined Results</h2>
+
+<table>
+<tr><th>CC Adoption Rating</th><th>Handbook</th><th>ND Forum</th><th>Combined</th><th>% of 38</th></tr>
+<tr style="background: #d4edda;"><td><span class="tag-cc-direct">Direct Adoption</span></td><td>9</td><td>8</td><td><strong>17</strong></td><td><strong>45%</strong></td></tr>
+<tr style="background: #fff3cd;"><td><span class="tag-cc-adapt">Adaptable</span></td><td>6</td><td>8</td><td><strong>14</strong></td><td><strong>37%</strong></td></tr>
+<tr style="background: #f8d7da;"><td><span class="tag-cc-difficult">Difficult</span></td><td>4</td><td>3</td><td><strong>7</strong></td><td><strong>18%</strong></td></tr>
+<tr><td><strong>Total</strong></td><td><strong>19</strong></td><td><strong>19</strong></td><td><strong>38</strong></td><td><strong>100%</strong></td></tr>
+</table>
+
+<div class="success">
+<strong>82% of documented use cases are at least adaptable to CC contexts.</strong> This validates that the Navigator&rsquo;s SS-01 through SS-10 scope targets real, actionable use cases for CCs.
+</div>
+
+<hr>
+
+<h2>3. Possible Direct Adoption (17 use cases)</h2>
+
+<p>These use tool-agnostic approaches or widely available platforms. A CC could adopt the concept with minimal modification.</p>
+
+<table>
+<tr><th>Source</th><th>#</th><th>Use Case</th><th>Why Direct</th></tr>
+<tr><td>Handbook</td><td>21</td><td>Pounce Chatbot (GSU)</td><td>Chatbot for enrollment nudges; vendor product available to any institution</td></tr>
+<tr><td>Handbook</td><td>24</td><td>Hawaii Chatbots</td><td>Multi-campus system chatbot; mirrors CC district model</td></tr>
+<tr><td>Handbook</td><td>25</td><td>IU ChatGPT Edu</td><td>ChatGPT Edu available to any institution; no custom build</td></tr>
+<tr><td>Handbook</td><td>27</td><td>Michigan Ross AI TA</td><td>Socratic AI tutoring; concept works in any LMS</td></tr>
+<tr><td>Handbook</td><td>28</td><td>Career Coaching</td><td>Resume/career tools use generic AI; CTE alignment natural for CCs</td></tr>
+<tr><td>Handbook</td><td>29</td><td>Financial Aid Advising</td><td>FAFSA guidance chatbot; CC students need this most</td></tr>
+<tr><td>Handbook</td><td>50/52</td><td>UDL + Assistive Tech</td><td>Accessibility tools are universal; compliance mandates apply equally</td></tr>
+<tr><td>Handbook</td><td>67</td><td>PATHWISE</td><td>Labor market data; sector-agnostic</td></tr>
+<tr><td>Handbook</td><td>68</td><td>Lightcast</td><td>Many CCs already use Lightcast for program review</td></tr>
+<tr><td>ND Forum</td><td>10</td><td>AI Exam Wrappers</td><td>Uses Copilot/ChatGPT; any instructor can implement</td></tr>
+<tr><td>ND Forum</td><td>13</td><td>Digital Accessibility</td><td>Claude/ChatGPT for PPT/image compliance; no infrastructure needed</td></tr>
+<tr><td>ND Forum</td><td>15</td><td>SmartyCards</td><td>Student-driven flashcard tool; exemplar for student agency</td></tr>
+<tr><td>ND Forum</td><td>26</td><td>Student Helper</td><td>Google NotebookLM for basic needs navigation; zero IT overhead</td></tr>
+<tr><td>ND Forum</td><td>27</td><td>Accessibility Crawler</td><td>Web crawling for compliance; institutional size-agnostic</td></tr>
+<tr><td>ND Forum</td><td>37</td><td>Faculty Assistants</td><td>Canvas-integrated; LMS is the common platform at CCs</td></tr>
+<tr><td>ND Forum</td><td>43</td><td>UWM Services</td><td>Navigation chatbot; basic FAQ, low risk</td></tr>
+<tr><td>ND Forum</td><td>44</td><td>PDF Accessibility</td><td>Document remediation for Title II; compliance-driven, universal need</td></tr>
+</table>
+
+<hr>
+
+<h2>4. Possible Adaptable with Modifications (14 use cases)</h2>
+
+<p>These need adjustments for CC realities but the core concept transfers.</p>
+
+<table>
+<tr><th>Source</th><th>#</th><th>Use Case</th><th>CC Adaptation Needed</th></tr>
+<tr><td>Handbook</td><td>20</td><td>Sunny Chatbot (ASU)</td><td>Emotional support concept works but needs CC counseling referral paths, not R1 wellness center</td></tr>
+<tr><td>Handbook</td><td>26</td><td>Penn State MyResource</td><td>24/7 advising valuable for CC part-timers; needs smaller-scale implementation</td></tr>
+<tr><td>Handbook</td><td>33</td><td>Purdue Smart Plan</td><td>Ellucian used by some CCs; needs guided pathways integration, not R1 major selection</td></tr>
+<tr><td>Handbook</td><td>49</td><td>Grammar Lab (Deaf)</td><td>DSPS serves similar population at CCs; needs CC disability services workflow</td></tr>
+<tr><td>Handbook</td><td>71</td><td>Predictive Retention</td><td>CC stop-out patterns differ from R1 dropout; model needs different features (part-time, working)</td></tr>
+<tr><td>Handbook</td><td>74</td><td>Learning Dashboards</td><td>Valuable for CC counselors; needs integration with CC LMS and student records</td></tr>
+<tr><td>ND Forum</td><td>8</td><td>Residency Petition</td><td>Document analysis concept applies to CC residency/AB 540; smaller scale</td></tr>
+<tr><td>ND Forum</td><td>11</td><td>CSU-GPT</td><td>Institutional LLM concept viable but needs shared-service model for small CC IT teams</td></tr>
+<tr><td>ND Forum</td><td>18</td><td>UD Study AiDE</td><td>Study material generation useful; needs simpler infrastructure than PATHS engine</td></tr>
+<tr><td>ND Forum</td><td>25</td><td>AI Degree Plan</td><td>Maps directly to guided pathways mandate; needs CC catalog data, not university majors</td></tr>
+<tr><td>ND Forum</td><td>28</td><td>Help Desk</td><td>Agentic help desk concept works; CC system integrations differ (PeopleSoft vs. custom)</td></tr>
+<tr><td>ND Forum</td><td>41</td><td>Course Registration</td><td>Registration assistance valuable for CC students; needs SIS-specific integration</td></tr>
+<tr><td>ND Forum</td><td>42</td><td>Transcript Scanning</td><td>Useful for CC transfer articulation; needs CC equivalency logic, not R1 admissions</td></tr>
+<tr><td>ND Forum</td><td>47</td><td>myUMBC Answers</td><td>Personalized search useful; needs CC data architecture (often fragmented systems)</td></tr>
+</table>
+
+<hr>
+
+<h2>5. Possible Difficult to Adopt (7 use cases)</h2>
+
+<p>These assume infrastructure, expertise, or populations that most CCs lack.</p>
+
+<table>
+<tr><th>Source</th><th>#</th><th>Use Case</th><th>Barriers for CCs</th></tr>
+<tr><td>Handbook</td><td>22</td><td>WoeBot (Stanford)</td><td>Clinical AI requiring IRB, licensed mental health professionals, HIPAA compliance; CCs lack counseling infrastructure</td></tr>
+<tr><td>Handbook</td><td>23</td><td>Mental Wellness (Memphis)</td><td>Same clinical barriers; CBT-based AI requires clinical oversight CCs cannot staff</td></tr>
+<tr><td>Handbook</td><td>30</td><td>Dropout Prediction (Card Swipe)</td><td>Requires physical campus infrastructure (card swipe tracking); CC commuter students make this impractical</td></tr>
+<tr><td>Handbook</td><td>32</td><td>Enrollment Yield</td><td>Open-access CCs don&rsquo;t need yield optimization; fundamentally different enrollment model</td></tr>
+<tr><td>ND Forum</td><td>12</td><td>RamGPT</td><td>Agent-to-agent architecture with MCP servers requires dedicated AI engineering team</td></tr>
+<tr><td>ND Forum</td><td>17</td><td>PATHS</td><td>Knowledge graphs + Neo4j + custom AWS pipeline; requires ML engineering team CCs don&rsquo;t have</td></tr>
+<tr><td>ND Forum</td><td>19</td><td>Purple: AI for All</td><td>Agentic platform (GPT-5, Azure AI Foundry); R1-scale budget and dedicated AI team required</td></tr>
+</table>
+
+<div class="highlight-box">
+<strong>Note on &ldquo;Difficult&rdquo;:</strong> These are not impossible. They indicate that the concept would need to be fundamentally redesigned (not just scaled down) for CC adoption. For example, predictive retention (#30, #71) is useful at CCs, but the card-swipe approach fails for commuter students; an LMS-activity-based approach (#71, rated Adaptable) works better.
+</div>
+
+
+<h2>7. Recommended CC &ldquo;Quick Start&rdquo; Use Cases</h2>
+
+<p>Based on this analysis, these use cases offer the highest value with lowest adoption barriers for CCs:</p>
+
+<table>
+<tr><th>Priority</th><th>Use Case Type</th><th>Navigator UC</th><th>Why for CCs</th><th>Example Tools</th></tr>
+<tr style="background: #d4edda;"><td>1</td><td>Student FAQ / Navigation Chatbot</td><td>SS-04</td><td>Highest-volume student need; lowest risk tier; widely available tools</td><td>ChatGPT Edu, Google NotebookLM, vendor chatbots</td></tr>
+<tr style="background: #d4edda;"><td>2</td><td>Career Services + Resume AI</td><td>SS-08</td><td>Natural CTE alignment; CCs have strong workforce mission; low risk</td><td>ChatGPT, Lightcast, Handshake AI</td></tr>
+<tr style="background: #d4edda;"><td>3</td><td>Document Accessibility</td><td>SS-12 (proposed)</td><td>Title II compliance mandate; every CC needs this; tools already exist</td><td>Adobe, Claude, Bedrock</td></tr>
+<tr style="background: #e7f3ff;"><td>4</td><td>FAFSA / Financial Aid Chatbot</td><td>SS-03</td><td>CC students most impacted by FAFSA barriers; high value but Tier 3 governance</td><td>Custom chatbots, vendor tools</td></tr>
+<tr style="background: #e7f3ff;"><td>5</td><td>AI Tutoring Assistant</td><td>SS-05</td><td>Addresses CC tutoring center capacity; Socratic mode preserves learning; Canvas-integrated options exist</td><td>Canvas AI, ChatGPT Edu, SmartyCards model</td></tr>
+</table>
+
+</div><!-- /tab-ccadopt -->
+
+<script>
+function switchTab(btn, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+</script>
+
+<hr style="margin-top:3em">
+<p style="font-size:0.85em"><strong>AI Mode: Assisted</strong> · AI used for comparative analysis, framework mapping, and CC adaptability assessment; analytical priorities, framework design, and strategic judgments human-directed</p>
+<p style="font-size:0.75em; color:#666"><sup>1</sup> <em>AI Learning Mode tracking: <strong>Explore</strong> = open AI discovery; <strong>Assisted</strong> = AI supports specific tasks, human directs analysis; <strong>Restricted</strong> = AI constrained, human leads; <strong>Human-Only</strong> = no AI. Details available on request.</em></p>
+
+</body>
+</html>
