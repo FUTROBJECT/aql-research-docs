@@ -322,13 +322,11 @@ li { margin-bottom: 4px; }
   <rect x="0" y="38" width="620" height="82" rx="4" fill="#e7f3ff" stroke="#ccd9e8" stroke-width="1"/>
   <text x="24" y="62" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q1 Bottlenecks</text>
   <text x="24" y="80" font-family="Arial, sans-serif" font-size="11" fill="#0066cc" font-weight="bold">+3 pts per mapped use case</text>
-  <text x="24" y="106" font-family="Arial, sans-serif" font-size="10" fill="#666" font-style="italic">&#x2192; Raw signal score per use case (SS-01 through SS-10)</text>
-  <line x1="222" y1="48" x2="222" y2="110" stroke="#ccd9e8" stroke-width="1"/>
-  <text x="236" y="62" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q5 Equity gaps</text>
-  <text x="236" y="80" font-family="Arial, sans-serif" font-size="11" fill="#0066cc" font-weight="bold">+2 pts per mapped use case</text>
-  <line x1="430" y1="48" x2="430" y2="110" stroke="#ccd9e8" stroke-width="1"/>
-  <text x="444" y="62" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q8 Motivation</text>
-  <text x="444" y="80" font-family="Arial, sans-serif" font-size="11" fill="#0066cc" font-weight="bold">+1 pt per mapped use case</text>
+  <text x="24" y="106" font-family="Arial, sans-serif" font-size="10" fill="#666" font-style="italic">&#x2192; Signal score per use case, capped at 5 (SS-01 through SS-10)</text>
+  <line x1="310" y1="48" x2="310" y2="110" stroke="#ccd9e8" stroke-width="1"/>
+  <text x="324" y="62" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q5 Equity gaps</text>
+  <text x="324" y="80" font-family="Arial, sans-serif" font-size="11" fill="#0066cc" font-weight="bold">+2 pts per mapped use case</text>
+  <text x="324" y="98" font-family="Arial, sans-serif" font-size="10" fill="#856404" font-weight="bold">Cap: max 5 pts per use case</text>
 
   <!-- Arrow down 1→2 -->
   <line x1="310" y1="126" x2="310" y2="158" stroke="#0066cc" stroke-width="2" marker-end="url(#arrow-down)"/>
@@ -381,8 +379,8 @@ li { margin-bottom: 4px; }
   <text x="24" y="546" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q6 Current AI use</text>
   <text x="24" y="565" font-family="Arial, sans-serif" font-size="11" fill="#555">Urgency adjustment; boost deployed tools</text>
   <line x1="310" y1="532" x2="310" y2="578" stroke="#f0d4b0" stroke-width="1"/>
-  <text x="330" y="546" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q8 Motivation</text>
-  <text x="330" y="565" font-family="Arial, sans-serif" font-size="11" fill="#555">Political context weighting (+2 override)</text>
+  <text x="330" y="546" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">Q8 Motivation (sole location)</text>
+  <text x="330" y="565" font-family="Arial, sans-serif" font-size="11" fill="#555">Contextual boost: +2 pts per mapped use case</text>
 
   <!-- Arrow down 4→5 -->
   <line x1="310" y1="594" x2="310" y2="626" stroke="#333" stroke-width="2" marker-end="url(#arrow-down-dark)"/>
@@ -414,7 +412,7 @@ li { margin-bottom: 4px; }
   <li><strong>Q5 (equity gaps)</strong> adds 2 points to use cases that address the selected gaps</li>
   <li><strong>Q6 (current AI use)</strong> adjusts urgency and may override ranking ("govern what's already happening first")</li>
   <li><strong>Q7 (governance)</strong> confirms archetype and adjusts recommended starting complexity</li>
-  <li><strong>Q8 (motivation)</strong> provides final weighting toward use cases that match the institutional moment</li>
+  <li><strong>Q8 (motivation)</strong> provides contextual boost (+2 pts) toward use cases that match the institutional moment (scored only in Phase 4)</li>
 </ol>
 
 <h3>Scoring Summary</h3>
@@ -473,8 +471,8 @@ li { margin-bottom: 4px; }
     </tr>
     <tr>
       <td>Q8 Motivation</td>
-      <td>Final weight</td>
-      <td>Tiebreak</td>
+      <td>Contextual boost</td>
+      <td>+2 pts (Phase 4 only)</td>
       <td>Matches institutional moment</td>
     </tr>
   </tbody>
@@ -873,25 +871,18 @@ li { margin-bottom: 4px; }
   </tbody>
 </table>
 
-<h4>Q8 (Motivation): +1 point per mapped use case</h4>
-<p>User selects one. Adds contextual weight:</p>
+<h4>Signal Score Cap</h4>
 
-<table>
-  <thead>
-    <tr><th>Selection</th><th>+1 to</th><th>Note</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Leadership wants strategy</td><td>SS-04</td><td>Prefer lowest risk tier among top scorers</td></tr>
-    <tr><td>Specific tool / peer success</td><td>&mdash;</td><td>Route directly to relevant use case</td></tr>
-    <tr><td>Student demand</td><td>SS-04, SS-05, SS-06</td><td>Student-facing tools</td></tr>
-    <tr><td>Enrollment/retention</td><td>SS-01, SS-02, SS-10</td><td>Retention-oriented tools</td></tr>
-    <tr><td>Equity imperative</td><td><em>(amplify Q5)</em></td><td>+1 additional to all Q5-selected use cases</td></tr>
-    <tr><td>System directive</td><td>&mdash;</td><td>Add HUMANS/California flag to output</td></tr>
-  </tbody>
-</table>
+<div class="highlight-box">
+  <strong>Cap rule:</strong> Maximum Phase 1 signal score per use case = <strong>5 points</strong>. Any use case that accumulates more than 5 points from Q1 + Q5 is capped at 5.
+  <br><br>
+  <strong>Why:</strong> Without a cap, use cases with broad mapping surfaces dominate. SS-04 (Chatbot) maps to two Q1 selections and three Q5 selections &mdash; it can accumulate 12+ raw points while most use cases max at 5. The cap ensures signal strength reflects genuine institutional need, not mapping breadth. SS-04 is still likely to rank well (it&rsquo;s a genuinely good Tier 1 starting point), but it won&rsquo;t mathematically drown better-fit alternatives.
+  <br><br>
+  <strong>Example:</strong> A user selects &ldquo;No answers after hours&rdquo; (+3 to SS-04) and &ldquo;Don&rsquo;t know services exist&rdquo; (+3 to SS-04, SS-07) and &ldquo;Working/caregiving access&rdquo; (+2 to SS-04, SS-06). SS-04 raw = 8. Capped = 5. SS-07 = 3. SS-06 = 2. Without the cap, SS-04 would be unreachable. With it, the race is competitive.
+</div>
 
 <div class="success">
-  <strong>Phase 1 output:</strong> Each use case has a raw signal score. Maximum possible per use case depends on how many questions map to it. SS-04 (Chatbot) has the widest mapping surface; SS-09 (Journey Mapping) has no direct signal from Q1 or Q5.
+  <strong>Phase 1 output:</strong> Each use case has a raw signal score based on institutional need (Q1) and equity priorities (Q5) only. Maximum possible per use case is capped at 5 points (see cap rule above). Motivational context (Q8) applies separately in Phase 4.
 </div>
 
 <hr>
@@ -970,6 +961,23 @@ li { margin-bottom: 4px; }
 &nbsp;&nbsp;IF Over 30,000 + Lightweight &rarr; flag capacity concern
 </div>
 
+<h4>Archetype &rarr; Tier Ceiling Feedback</h4>
+
+<div style="background: #f9f9f9; border: 1px solid #ddd; padding: 16px 20px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.7;">
+AFTER archetype is derived:<br>
+&nbsp;&nbsp;IF final_archetype = Scaling &nbsp;&rarr; tier_ceiling = Tier 3<br>
+&nbsp;&nbsp;IF final_archetype = Building &rarr; tier_ceiling = Tier 2<br>
+&nbsp;&nbsp;IF final_archetype = Lightweight &rarr; tier_ceiling = Tier 1<br><br>
+This <strong>OVERRIDES</strong> the raw Q4 tier ceiling from Phase 2.<br><br>
+Example: Q4 = &ldquo;Central IT only&rdquo; (raw ceiling = Tier 2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q7 = &ldquo;Formal governance&rdquo; &rarr; archetype upgrades Building &rarr; Scaling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adjusted tier ceiling = Tier 3
+</div>
+
+<div class="callout">
+  <strong>Why the archetype feeds back into the tier ceiling:</strong> Q4 captures staffing reality. Q7 captures governance maturity. A college with central-only IT but a formal AI governance committee has more capacity than Q4 alone suggests. The archetype &mdash; which synthesizes both signals &mdash; is the better judgment of what the institution can handle. The tier ceiling should follow the archetype, not just the staffing answer.
+</div>
+
 <hr>
 
 <!-- PHASE 4 -->
@@ -989,24 +997,26 @@ li { margin-bottom: 4px; }
   </tbody>
 </table>
 
-<h4>Q8 (Motivation): Political context weighting</h4>
+<h4>Q8 (Motivation): Contextual boost (sole location)</h4>
+
+<p>Q8 is scored <strong>only</strong> in Phase 4. It provides a contextual boost of +2 points to use cases matching the institutional motivation:</p>
 
 <table>
   <thead>
     <tr><th>Q8 Answer</th><th>Override Action</th></tr>
   </thead>
   <tbody>
-    <tr><td>Leadership wants strategy</td><td>Among top scorers, prefer lowest risk tier. Visible win matters more than optimal use case.</td></tr>
-    <tr><td>Specific tool / peer</td><td>Note: <em>&ldquo;Validate the tool you&rsquo;ve identified through the full assessment.&rdquo;</em></td></tr>
+    <tr><td>Leadership wants strategy</td><td>+2 to SS-04. Among top scorers, prefer lowest risk tier. Visible win matters more than optimal use case.</td></tr>
+    <tr><td>Specific tool / peer</td><td>+2 to the identified use case. Note: <em>&ldquo;Validate the tool you&rsquo;ve identified through the full assessment.&rdquo;</em></td></tr>
     <tr><td>Student demand</td><td>+2 to SS-04, SS-05, SS-06 (student-facing tools)</td></tr>
     <tr><td>Enrollment/retention</td><td>+2 to SS-01, SS-02, SS-10 (retention-oriented tools)</td></tr>
-    <tr><td>Equity imperative</td><td>+1 additional to all Q5-selected use cases (amplification)</td></tr>
-    <tr><td>System directive</td><td>Add California/HUMANS alignment flag to output</td></tr>
+    <tr><td>Equity imperative</td><td>+2 to all Q5-selected use cases (amplification)</td></tr>
+    <tr><td>System directive</td><td>+2 to top-ranked use case. Add California/HUMANS alignment flag to output.</td></tr>
   </tbody>
 </table>
 
 <div class="callout">
-  <strong>Design note:</strong> Q8 appears in both Phase 1 (signal scoring at +1 pt) and Phase 4 (contextual override at +2 pts). This is intentional. In Phase 1 it contributes a small base signal; in Phase 4 the override provides a stronger contextual boost after all other scoring is complete. Q8 = &ldquo;Equity imperative&rdquo; amplifies Q5 rather than adding new points &mdash; it says &ldquo;take my equity answers more seriously.&rdquo;
+  <strong>Design note:</strong> Q8 appears <strong>only</strong> in Phase 4. Earlier versions had Q8 contributing +1 pt in Phase 1 (signal scoring) and +2 pts here, but this created a double-count problem: motivation was influencing both the base signal and the contextual override. Moving Q8 entirely to Phase 4 means Phase 1 reflects pure institutional need (Q1 bottlenecks + Q5 equity), while Phase 4 applies political/contextual adjustments after feasibility and archetype are resolved. Q8 = &ldquo;Equity imperative&rdquo; amplifies Q5 rather than adding new points &mdash; it says &ldquo;take my equity answers more seriously.&rdquo;
 </div>
 
 <hr>
@@ -1018,26 +1028,34 @@ li { margin-bottom: 4px; }
 
 <div style="background: #f9f9f9; border: 1px solid #ddd; padding: 16px 20px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.7;">
 FOR each use case (SS-01 through SS-10):<br>
-&nbsp;&nbsp;final_score = signal_score (Phase 1) + overrides (Phase 4)<br>
+&nbsp;&nbsp;signal_score = min(raw_signal (Phase 1), 5) &nbsp;&nbsp;<em>// capped at 5</em><br>
+&nbsp;&nbsp;final_score = signal_score + overrides (Phase 4)<br>
 &nbsp;&nbsp;data_flag = Q3 feasibility (Phase 2)<br>
-&nbsp;&nbsp;tier_flag = Q4 ceiling check (Phase 2)<br><br>
-SORT by final_score descending<br><br>
+&nbsp;&nbsp;tier_ceiling = adjusted ceiling (Phase 3) &nbsp;&nbsp;<em>// uses archetype, not raw Q4</em><br><br>
+SORT by:<br>
+&nbsp;&nbsp;1. final_score descending &nbsp;&nbsp;<em>(primary)</em><br>
+&nbsp;&nbsp;2. risk_tier ascending &nbsp;&nbsp;&nbsp;&nbsp;<em>(secondary &mdash; lower risk wins ties)</em><br>
+&nbsp;&nbsp;3. data_flag priority: GREEN &gt; YELLOW &gt; RED &nbsp;&nbsp;<em>(tertiary)</em><br><br>
 CLASSIFY each use case:<br>
-&nbsp;&nbsp;IF data_flag = <span class="tag-low">GREEN</span> AND within tier ceiling<br>
+&nbsp;&nbsp;IF data_flag = <span class="tag-low">GREEN</span> AND use_case_tier &le; tier_ceiling<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&rarr; <strong>RECOMMENDED</strong><br>
-&nbsp;&nbsp;IF data_flag = <span class="tag-med">YELLOW</span> OR at tier ceiling<br>
+&nbsp;&nbsp;IF data_flag = <span class="tag-med">YELLOW</span> OR use_case_tier = tier_ceiling<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&rarr; <strong>POSSIBLE</strong> (with caveats)<br>
-&nbsp;&nbsp;IF data_flag = <span class="tag-high">RED</span> OR above tier ceiling<br>
+&nbsp;&nbsp;IF data_flag = <span class="tag-high">RED</span> OR use_case_tier &gt; tier_ceiling<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&rarr; <strong>CONSIDER LATER</strong><br><br>
 OUTPUT:<br>
 &nbsp;&nbsp;Top 2&ndash;3 RECOMMENDED with:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;- Use case name + one-liner<br>
 &nbsp;&nbsp;&nbsp;&nbsp;- Risk tier badge<br>
 &nbsp;&nbsp;&nbsp;&nbsp;- Data readiness indicator (green/yellow/red)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;- &ldquo;Why it fits&rdquo; connecting specific Q1/Q5/Q8 answers<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- &ldquo;Why it fits&rdquo; connecting specific Q1 + Q5 answers<br>
 &nbsp;&nbsp;&nbsp;&nbsp;- &ldquo;Evaluate This Use Case &rarr;&rdquo; button<br>
 &nbsp;&nbsp;Up to 2&ndash;3 CONSIDER LATER with:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;- What needs to change before pursuing
+</div>
+
+<div class="highlight-box">
+  <strong>Tie-breaker rationale:</strong> When two use cases have the same final score, the lower-risk option ranks higher. This isn&rsquo;t arbitrary &mdash; at equal signal strength, the use case requiring less governance overhead is a better <em>starting</em> point. If both are the same tier, data readiness breaks the tie: a GREEN use case is more immediately actionable than a YELLOW one. The user always has the option to pursue a higher-risk use case &mdash; this just determines display order.
 </div>
 
 <h4>&ldquo;Why it fits&rdquo; generation</h4>
@@ -1052,6 +1070,7 @@ OUTPUT:<br>
     <tr><td>Q5 match</td><td><em>&ldquo;Your equity priorities include [gap label].&rdquo;</em></td></tr>
     <tr><td>Use case connection</td><td><em>&ldquo;This use case &mdash; [one-liner] &mdash; directly addresses these needs.&rdquo;</em></td></tr>
     <tr><td>Tier/archetype fit</td><td><em>&ldquo;At Tier [N], it&rsquo;s governance-light enough to match your current capacity.&rdquo;</em> (when applicable)</td></tr>
+    <tr><td>Q8 context (if applicable)</td><td><em>&ldquo;Given your focus on [motivation], this aligns with your institutional priorities.&rdquo;</em></td></tr>
   </tbody>
 </table>
 
@@ -1074,8 +1093,8 @@ OUTPUT:<br>
     <tr><td>Q4 Staffing</td><td>Phase 2, Phase 3</td><td>Tier ceiling + archetype primary</td><td>Filter + archetype</td></tr>
     <tr><td>Q5 Equity</td><td>Phase 1</td><td>Equity signal</td><td>+2 pts/selection</td></tr>
     <tr><td>Q6 Current AI</td><td>Phase 4</td><td>Urgency override</td><td>Context boost</td></tr>
-    <tr><td>Q7 Governance</td><td>Phase 3</td><td>Archetype adjustment</td><td>&plusmn;1 step</td></tr>
-    <tr><td>Q8 Motivation</td><td>Phase 1, Phase 4</td><td>Signal + context override</td><td>+1 pt + context boost</td></tr>
+    <tr><td>Q7 Governance</td><td>Phase 3 &rarr; feeds Phase 2 ceiling</td><td>Archetype adjustment &rarr; tier ceiling override</td><td>&plusmn;1 step</td></tr>
+    <tr><td>Q8 Motivation</td><td>Phase 4</td><td>Contextual boost (sole location)</td><td>+2 pts / context boost</td></tr>
   </tbody>
 </table>
 
