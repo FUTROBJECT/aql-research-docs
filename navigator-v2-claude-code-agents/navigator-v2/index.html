@@ -596,6 +596,92 @@ body {
 .mb-1 { margin-bottom: 0.8rem; } .mb-2 { margin-bottom: 1.6rem; } .mb-3 { margin-bottom: 2.4rem; }
 .text-muted { color: var(--ink-muted); } .text-signal { color: var(--signal); }
 .text-center { text-align: center; }
+
+/* ============================================================
+   ACCORDION (Pillar Scoring Progressive Disclosure)
+   ============================================================ */
+.accordion-toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 1.4rem 1.6rem; background: var(--surface);
+  border: 1px solid var(--border); cursor: pointer;
+  font-family: var(--display); font-size: 1.4rem; font-weight: 600;
+  color: var(--ink-soft); transition: background 0.15s;
+}
+.accordion-toggle:hover { background: var(--signal-10); }
+.accordion-chevron {
+  width: 0.8rem; height: 0.8rem;
+  border-right: 2px solid var(--ink-muted); border-bottom: 2px solid var(--ink-muted);
+  transform: rotate(-45deg); transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+.accordion-toggle.open .accordion-chevron { transform: rotate(45deg); }
+.accordion-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.accordion-body.open { max-height: 200rem; }
+
+/* ============================================================
+   NO-GO AUTO-FLAGGED
+   ============================================================ */
+.nogo-item.auto-flagged {
+  border-color: var(--accent); background: var(--accent-light);
+}
+.nogo-auto-note {
+  font-size: 1.3rem; color: var(--accent); font-weight: 600;
+  padding: 0.8rem 1.2rem; margin-bottom: 1.2rem;
+  border-left: 3px solid var(--accent); background: rgba(217,119,6,0.08);
+}
+.nogo-item.auto-flagged .nogo-opt {
+  opacity: 0.4; pointer-events: none;
+}
+
+/* ============================================================
+   WORST-CASE SCENARIO (SS-XX)
+   ============================================================ */
+.worst-case-box {
+  padding: 2.4rem; margin-bottom: 2.4rem;
+  border: 2px solid var(--accent); background: var(--accent-light);
+}
+.worst-case-textarea {
+  width: 100%; min-height: 8rem; padding: 1.2rem;
+  border: 1px solid var(--border); font-family: var(--body);
+  font-size: 1.4rem; resize: vertical; margin-top: 1.2rem;
+}
+.worst-case-textarea:focus { outline: none; border-color: var(--signal); }
+.worst-case-hint {
+  font-size: 1.2rem; color: var(--ink-muted); margin-top: 0.6rem;
+  transition: opacity 0.3s ease;
+}
+.worst-case-hint.hidden { opacity: 0; }
+.tier-cards-gated .card {
+  opacity: 0.4; pointer-events: none; cursor: not-allowed;
+}
+.worst-case-callout {
+  padding: 2rem 2.4rem; margin-top: 2rem;
+  border: 2px solid var(--accent); background: var(--accent-light);
+}
+.worst-case-callout-label {
+  font-family: var(--display); font-size: 1.2rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--accent); margin-bottom: 0.6rem;
+}
+
+/* ============================================================
+   EXPORT / IMPORT
+   ============================================================ */
+.export-bar {
+  display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center;
+  padding-top: 2rem; margin-top: 2rem; border-top: 1px solid var(--border);
+}
+.import-toast {
+  position: fixed; bottom: 3.2rem; left: 50%; transform: translateX(-50%);
+  background: var(--dark); color: var(--white); padding: 1.2rem 2.4rem;
+  font-family: var(--display); font-size: 1.4rem; font-weight: 600;
+  z-index: 200; opacity: 0; transition: opacity 0.3s ease;
+  pointer-events: none; max-width: 90vw; text-align: center;
+}
+.import-toast.visible { opacity: 1; }
 </style>
 </head>
 <body>
@@ -613,12 +699,14 @@ body {
   </div>
   <div class="nav-right">
     <button class="nav-link" onclick="navigate('about')">About</button>
+    <button class="nav-link" onclick="importAssessment()">Import</button>
     <label class="ca-toggle" title="Show CCCCO HUMANS Framework mapping">
       <input type="checkbox" id="ca-toggle" onchange="toggleCalifornia(this.checked)"> CA
     </label>
     <button class="btn btn-primary btn-sm" onclick="startRouting()">Get Started</button>
   </div>
 </nav>
+<div class="import-toast" id="import-toast"></div>
 
 <!-- ============================================================
      VIEW: LANDING
@@ -929,6 +1017,7 @@ var state = {
   isCalifornia: false,
   institutionName: '',
   assessmentDate: new Date().toISOString().split('T')[0],
+  customWorstCase: '',
   routingAnswers: { q1: [], q2: null, q3: null, q4: null, q5: [], q6: null, q7: null, q8: null },
   routingResults: null,
   currentRoutingQ: 0
@@ -1631,10 +1720,30 @@ function getDependencyGovernanceReqs() {
    RENDER: RISK TIER
    ============================================================ */
 function renderRiskTier() {
-  document.getElementById('risk-tier-title').textContent = state.useCase.name;
-  document.getElementById('risk-tier-desc').textContent = 'Auto-assigned based on use case. You can override if your implementation differs from the default.';
+  var isCustom = state.useCase && state.useCase.id === 'SS-XX';
 
-  var html = '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem;">';
+  document.getElementById('risk-tier-title').textContent = state.useCase.name;
+  document.getElementById('risk-tier-desc').textContent = isCustom
+    ? 'Custom use case — describe the worst-case harm scenario, then select a risk tier.'
+    : 'Auto-assigned based on use case. You can override if your implementation differs from the default.';
+
+  var html = '';
+
+  /* Worst-case textarea for SS-XX */
+  if (isCustom) {
+    var wcVal = state.customWorstCase || '';
+    var gated = wcVal.length < 20;
+    html += '<div class="worst-case-box">';
+    html += '<div style="font-family: var(--display); font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem;">Worst-case scenario</div>';
+    html += '<div style="font-size: 1.4rem; color: var(--ink-soft); line-height: 1.5;">If this tool fails or behaves unexpectedly, what is the worst realistic outcome for a student? Be specific about the harm.</div>';
+    html += '<textarea class="worst-case-textarea" id="worst-case-input" oninput="updateWorstCaseGate()" placeholder="Example: A student receives incorrect financial aid guidance and misses a deadline, losing access to a Cal Grant...">' + wcVal + '</textarea>';
+    html += '<div class="worst-case-hint' + (gated ? '' : ' hidden') + '" id="worst-case-hint">Minimum 20 characters required to unlock tier selection.</div>';
+    html += '</div>';
+
+    html += '<div id="tier-cards-wrapper" class="' + (gated ? 'tier-cards-gated' : '') + '">';
+  }
+
+  html += '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem;">';
   [3, 2, 1].forEach(function(t) {
     var rt = RISK_TIERS[t];
     var sel = state.riskTier === t ? ' card-selected' : '';
@@ -1645,11 +1754,31 @@ function renderRiskTier() {
       '<div style="margin-top: 1.2rem; font-size: 1.2rem; color: var(--signal); font-weight: 600;">' + rt.governance + '</div></div>';
   });
   html += '</div>';
+
+  if (isCustom) {
+    html += '</div>'; /* close tier-cards-wrapper */
+  }
+
   document.getElementById('risk-tier-cards').innerHTML = html;
 
-  /* Show/hide override reason */
-  var isOverride = state.riskTier !== state.useCase.default_risk_tier;
-  document.getElementById('override-reason-box').style.display = isOverride ? 'block' : 'none';
+  /* Show/hide override reason (hidden for SS-XX since they must select manually) */
+  if (isCustom) {
+    document.getElementById('override-reason-box').style.display = 'none';
+  } else {
+    var isOverride = state.riskTier !== state.useCase.default_risk_tier;
+    document.getElementById('override-reason-box').style.display = isOverride ? 'block' : 'none';
+  }
+}
+
+function updateWorstCaseGate() {
+  var input = document.getElementById('worst-case-input');
+  if (!input) return;
+  state.customWorstCase = input.value;
+  var hint = document.getElementById('worst-case-hint');
+  var wrapper = document.getElementById('tier-cards-wrapper');
+  var gated = input.value.length < 20;
+  if (hint) hint.classList.toggle('hidden', !gated);
+  if (wrapper) wrapper.classList.toggle('tier-cards-gated', gated);
 }
 
 function pickRiskTier(tier) {
@@ -1659,6 +1788,17 @@ function pickRiskTier(tier) {
 }
 
 function confirmRiskTier() {
+  /* SS-XX validation: require worst-case scenario and tier selection */
+  if (state.useCase && state.useCase.id === 'SS-XX') {
+    if (!state.customWorstCase || state.customWorstCase.length < 20) {
+      alert('Please describe the worst-case harm scenario (at least 20 characters) before continuing.');
+      return;
+    }
+    if (!state.riskTier) {
+      alert('Please select a risk tier for your custom use case.');
+      return;
+    }
+  }
   if (state.riskTierOverride) {
     var reason = document.getElementById('override-reason').value.trim();
     if (state.riskTier < state.useCase.default_risk_tier && !reason) {
@@ -1714,8 +1854,13 @@ function renderScoring() {
   if (p.hook) html += '<div style="font-family: var(--display); font-weight: 700; color: ' + p.color + '; margin-top: 0.8rem; font-size: 1.6rem;">' + p.hook + '</div>';
   html += '</div>';
 
-  /* Questions reference */
+  /* Questions reference (accordion) */
   if (p.questions && p.questions.length > 0) {
+    html += '<div class="accordion-toggle" onclick="toggleAccordion(this)">';
+    html += '<span>What to look for (' + p.questions.length + ' reference questions)</span>';
+    html += '<span class="accordion-chevron"></span>';
+    html += '</div>';
+    html += '<div class="accordion-body">';
     html += '<div class="q-table">';
     p.questions.forEach(function(q) {
       html += '<div class="q-row">' +
@@ -1724,12 +1869,13 @@ function renderScoring() {
         '<div class="q-guidance">' + q.what_youre_looking_for + '</div></div></div>';
     });
     html += '</div>';
+    html += '</div>';
   }
 
   /* Score selector */
   var currentScore = state.pillarScores[p.id] || null;
   html += '<div class="display-xs" style="margin-top: 3.2rem; margin-bottom: 0.8rem;">Score this pillar</div>';
-  html += '<div style="font-size: 1.3rem; color: var(--ink-muted); margin-bottom: 1.6rem;">Read the questions above as a reference. Score the pillar as a whole based on these rubrics:</div>';
+  html += '<div style="font-size: 1.3rem; color: var(--ink-muted); margin-bottom: 1.6rem;">Expand \'What to look for\' above for detailed reference questions. Score the pillar as a whole based on these rubrics:</div>';
   html += '<div class="score-options">';
   [3, 2, 1].forEach(function(s) {
     var sel = currentScore === s ? ' selected' : '';
@@ -1802,6 +1948,14 @@ function scoreNext() {
   }
 }
 
+function toggleAccordion(el) {
+  el.classList.toggle('open');
+  var body = el.nextElementSibling;
+  if (body && body.classList.contains('accordion-body')) {
+    body.classList.toggle('open');
+  }
+}
+
 function goBackToLastPillar() {
   state.currentPillar = getPillarOrder().length - 1;
   renderScoring();
@@ -1812,17 +1966,38 @@ function goBackToLastPillar() {
    RENDER: NO-GO CHECKLIST
    ============================================================ */
 function renderNoGoChecklist() {
+  /* Build auto-flagged map from pillar scores */
+  var autoFlagged = {};
+  if (state.pillarScores.P1 === 1) autoFlagged['NG-01'] = 'P1 scored 1 — no clear educational purpose identified.';
+  if (state.pillarScores.P3 === 1 && state.riskTier === 3) autoFlagged['NG-03'] = 'P3 scored 1 on a High-Risk tool — no human override for consequential decisions.';
+  if (state.pillarScores.P7 === 1) {
+    autoFlagged['NG-06'] = 'P7 scored 1 — no student disclosure of AI use identified.';
+    autoFlagged['NG-07'] = 'P7 scored 1 — no contestability process identified.';
+  }
+
+  /* Pre-set answers and flags for auto-flagged items */
+  Object.keys(autoFlagged).forEach(function(id) {
+    state.noGoAnswers[id] = 'no';
+    if (state.noGoFlags.indexOf(id) === -1) state.noGoFlags.push(id);
+  });
+
   var html = '';
   NO_GO_CRITERIA.forEach(function(ng, i) {
+    var isAuto = autoFlagged.hasOwnProperty(ng.id);
     var answer = state.noGoAnswers[ng.id];
     var flagged = answer === 'no';
     var clear = answer === 'yes';
-    var cls = flagged ? ' flagged' : clear ? ' clear' : '';
+    var cls = isAuto ? ' auto-flagged' : flagged ? ' flagged' : clear ? ' clear' : '';
 
-    html += '<div class="nogo-item' + cls + '">' +
-      '<div class="nogo-statement">' + (i + 1) + '. ' + ng.statement + '</div>' +
-      '<div class="nogo-why">' + ng.why + '</div>' +
-      '<div class="nogo-options">' +
+    html += '<div class="nogo-item' + cls + '">';
+    html += '<div class="nogo-statement">' + (i + 1) + '. ' + ng.statement + '</div>';
+    html += '<div class="nogo-why">' + ng.why + '</div>';
+
+    if (isAuto) {
+      html += '<div class="nogo-auto-note">Auto-flagged from your pillar scores: ' + autoFlagged[ng.id] + '</div>';
+    }
+
+    html += '<div class="nogo-options">' +
         '<div class="nogo-opt' + (clear ? ' selected-yes' : '') + '" onclick="pickNoGo(\'' + ng.id + '\',\'yes\')">Yes \u2014 condition met</div>' +
         '<div class="nogo-opt' + (flagged ? ' selected-no' : '') + '" onclick="pickNoGo(\'' + ng.id + '\',\'no\')">No \u2014 not met</div>' +
       '</div>';
@@ -1892,6 +2067,14 @@ function renderProfile() {
     html += depBadge(state.dependencyProfile.profile);
   }
   html += '</div>';
+
+  /* Worst-case callout for SS-XX */
+  if (state.useCase && state.useCase.id === 'SS-XX' && state.customWorstCase) {
+    html += '<div class="worst-case-callout">';
+    html += '<div class="worst-case-callout-label">Worst-Case Harm Scenario</div>';
+    html += '<div style="font-size: 1.4rem; color: var(--ink-soft); line-height: 1.6;">' + state.customWorstCase.replace(/</g, '&lt;') + '</div>';
+    html += '</div>';
+  }
 
   /* Score summary */
   var totalScore = 0;
@@ -2000,11 +2183,18 @@ function renderProfile() {
   }
 
   /* Action buttons */
-  html += '<div class="section" style="padding: 4rem 6rem;"><div class="section-inner" style="display: flex; gap: 1.6rem; flex-wrap: wrap;">';
+  html += '<div class="section" style="padding: 4rem 6rem;"><div class="section-inner">';
+  html += '<div style="display: flex; gap: 1.6rem; flex-wrap: wrap;">';
   html += '<button class="btn btn-primary btn-lg" onclick="generateRoadmap()">Generate Your Roadmap</button>';
   html += '<button class="btn btn-outline" onclick="saveAssessment()">Save Assessment</button>';
   html += '<button class="btn btn-outline" onclick="printView()">Print / Export</button>';
   html += '<button class="btn btn-outline" onclick="navigate(\'scoring\'); state.currentPillar = 0; renderScoring();">Edit Scores</button>';
+  html += '</div>';
+  html += '<div class="export-bar">';
+  html += '<button class="btn btn-sm btn-outline" onclick="exportAssessment()">Export JSON</button>';
+  html += '<button class="btn btn-sm btn-outline" onclick="shareAssessmentLink()">Copy Shareable Link</button>';
+  html += '<button class="btn btn-sm btn-outline" onclick="importAssessment()">Import Assessment</button>';
+  html += '</div>';
   html += '</div></div>';
 
   document.getElementById('profile-content').innerHTML = html;
@@ -2480,6 +2670,30 @@ function computeRoutingResults() {
     }
   });
 
+  /* --- PHASE 1: Signal Scoring (Q1 + Q5 only) --- */
+
+  /* Q5: Equity gap points (2 pts each) */
+  var q5 = state.routingAnswers.q5 || [];
+  q5.forEach(function(selId) {
+    var opt = ROUTING_QUESTIONS[4].options.find(function(o) { return o.id === selId; });
+    if (opt && opt.useCasePoints) {
+      Object.keys(opt.useCasePoints).forEach(function(ucId) {
+        if (scores[ucId] !== undefined) {
+          scores[ucId] += opt.useCasePoints[ucId];
+          whyFits[ucId] = whyFits[ucId] || [];
+          whyFits[ucId].push('equity:' + opt.label);
+        }
+      });
+    }
+  });
+
+  /* Phase 1 Signal Cap: max 5 points per use case from Q1 + Q5 */
+  Object.keys(scores).forEach(function(ucId) {
+    if (scores[ucId] > 5) scores[ucId] = 5;
+  });
+
+  /* --- PHASE 2: Feasibility Gating --- */
+
   /* Q2: Scale effects */
   var q2 = state.routingAnswers.q2;
   if (q2 === 'under5k') {
@@ -2521,20 +2735,11 @@ function computeRoutingResults() {
     }
   }
 
-  /* Q5: Equity gap points (2 pts each) */
-  var q5 = state.routingAnswers.q5 || [];
-  q5.forEach(function(selId) {
-    var opt = ROUTING_QUESTIONS[4].options.find(function(o) { return o.id === selId; });
-    if (opt && opt.useCasePoints) {
-      Object.keys(opt.useCasePoints).forEach(function(ucId) {
-        if (scores[ucId] !== undefined) {
-          scores[ucId] += opt.useCasePoints[ucId];
-          whyFits[ucId] = whyFits[ucId] || [];
-          whyFits[ucId].push('equity:' + opt.label);
-        }
-      });
-    }
-  });
+  /* --- PHASE 3: Archetype Derivation (before overrides, feeds tier ceiling) --- */
+  var archetype = deriveArchetype(state.routingAnswers.q4, state.routingAnswers.q7);
+  var maxTier = getArchetypeMaxTier(archetype);
+
+  /* --- PHASE 4: Contextual Overrides (Q6 + Q8) --- */
 
   /* Q6: AI use urgency */
   var q6 = state.routingAnswers.q6;
@@ -2545,31 +2750,55 @@ function computeRoutingResults() {
     if (scores['SS-07'] !== undefined) scores['SS-07'] += 1;
   }
 
-  /* Q7: governance — archetype adjustment handled in deriveArchetype */
-
-  /* Q8: Motivation weighting */
+  /* Q8: Motivation — contextual boost (sole location, +2 pts) */
   var q8 = state.routingAnswers.q8;
   if (q8 === 'leadership') {
     if (scores['SS-04'] !== undefined) scores['SS-04'] += 2;
+    whyFits['SS-04'] = whyFits['SS-04'] || [];
+    whyFits['SS-04'].push('motivation:Leadership is asking for an AI strategy');
+  } else if (q8 === 'peer_tool') {
+    /* +2 to top-scoring use case so far */
+    var topUc = Object.keys(scores).reduce(function(best, ucId) {
+      return scores[ucId] > scores[best] ? ucId : best;
+    }, Object.keys(scores)[0]);
+    if (topUc && scores[topUc] !== undefined) {
+      scores[topUc] += 2;
+      whyFits[topUc] = whyFits[topUc] || [];
+      whyFits[topUc].push('motivation:You identified a specific tool or peer success');
+    }
   } else if (q8 === 'student_demand') {
-    ['SS-04','SS-05','SS-06'].forEach(function(id) { if (scores[id] !== undefined) scores[id] += 2; });
+    ['SS-04','SS-05','SS-06'].forEach(function(id) {
+      if (scores[id] !== undefined) {
+        scores[id] += 2;
+        whyFits[id] = whyFits[id] || [];
+        whyFits[id].push('motivation:Student demand for AI-enabled services');
+      }
+    });
   } else if (q8 === 'enrollment') {
-    ['SS-01','SS-02','SS-10'].forEach(function(id) { if (scores[id] !== undefined) scores[id] += 2; });
-  } else if (q8 === 'equity') {
-    /* Amplify Q5 scores */
+    ['SS-01','SS-02','SS-10'].forEach(function(id) {
+      if (scores[id] !== undefined) {
+        scores[id] += 2;
+        whyFits[id] = whyFits[id] || [];
+        whyFits[id].push('motivation:Enrollment and retention pressure');
+      }
+    });
+  } else if (q8 === 'equity_imp') {
+    /* Amplify Q5 scores — +2 (not +1) to all Q5-selected use cases */
     q5.forEach(function(selId) {
       var opt = ROUTING_QUESTIONS[4].options.find(function(o) { return o.id === selId; });
       if (opt && opt.useCasePoints) {
         Object.keys(opt.useCasePoints).forEach(function(ucId) {
-          if (scores[ucId] !== undefined) scores[ucId] += 1;
+          if (scores[ucId] !== undefined) scores[ucId] += 2;
         });
       }
     });
+  } else if (q8 === 'system_directive') {
+    /* +2 to top-scoring use case, add HUMANS alignment flag */
+    var topUc2 = Object.keys(scores).reduce(function(best, ucId) {
+      return scores[ucId] > scores[best] ? ucId : best;
+    }, Object.keys(scores)[0]);
+    if (topUc2 && scores[topUc2] !== undefined) scores[topUc2] += 2;
   }
-
-  /* Derive archetype */
-  var archetype = deriveArchetype(state.routingAnswers.q4, state.routingAnswers.q7);
-  var maxTier = getArchetypeMaxTier(archetype);
 
   /* Derive urgency label */
   var urgencyLabels = {
@@ -2595,10 +2824,21 @@ function computeRoutingResults() {
     return opt ? opt.label : selId;
   });
 
-  /* Sort use cases by score descending */
+  /* Sort: final_score desc, risk_tier asc (lower risk wins ties), data_flag priority */
+  var dataFlagPriority = { 'green': 0, 'yellow': 1, 'red': 2 };
   var ranked = Object.keys(scores).map(function(ucId) {
-    return { id: ucId, score: scores[ucId], dataReady: dataReady[ucId] || 'green' };
-  }).sort(function(a, b) { return b.score - a.score; });
+    var uc = USE_CASES.find(function(u) { return u.id === ucId; });
+    return {
+      id: ucId,
+      score: scores[ucId],
+      dataReady: dataReady[ucId] || 'green',
+      tier: uc ? (uc.default_risk_tier || 2) : 2
+    };
+  }).sort(function(a, b) {
+    if (b.score !== a.score) return b.score - a.score;
+    if (a.tier !== b.tier) return a.tier - b.tier;
+    return (dataFlagPriority[a.dataReady] || 0) - (dataFlagPriority[b.dataReady] || 0);
+  });
 
   /* Partition: recommended vs consider later */
   var recommended = [];
@@ -2653,6 +2893,13 @@ function computeRoutingResults() {
       if (tierInfo && archetype === 'lightweight' && uc.default_risk_tier === 1) {
         parts.push('At Tier 1, it\u2019s governance-light enough to match your current capacity.');
       }
+    }
+
+    /* Add Q8 motivation context */
+    var motivations = reasons.filter(function(r) { return r.indexOf('motivation:') === 0; });
+    if (motivations.length > 0) {
+      var mLabel = motivations[0].replace('motivation:', '');
+      parts.push('Given your focus on ' + mLabel.toLowerCase().replace(/\.$/, '') + ', this aligns with your institutional priorities.');
     }
 
     return parts.join(' ') || 'This use case matches your institutional profile.';
@@ -2832,6 +3079,90 @@ function saveAssessment() {
   }
 }
 
+function showToast(msg) {
+  var el = document.getElementById('import-toast');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('visible');
+  setTimeout(function() { el.classList.remove('visible'); }, 3500);
+}
+
+function exportAssessment() {
+  var name = state.toolName || 'assessment';
+  var date = state.assessmentDate || new Date().toISOString().split('T')[0];
+  var filename = 'navigator_' + name.replace(/[^a-zA-Z0-9]/g, '_') + '_' + date + '.json';
+  var blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Assessment exported as ' + filename);
+}
+
+function importAssessment() {
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      try {
+        var data = JSON.parse(ev.target.result);
+        /* Validate: must have useCase or pillarScores */
+        if (!data.useCase && !data.pillarScores) {
+          alert('Invalid assessment file. Must contain useCase or pillarScores.');
+          return;
+        }
+        /* Merge into state */
+        Object.keys(data).forEach(function(key) {
+          state[key] = data[key];
+        });
+        populateDataFromContent();
+        /* Navigate to appropriate view */
+        if (state.pillarScores && Object.keys(state.pillarScores).length > 0) {
+          renderProfile();
+          navigate('profile');
+        } else if (state.useCase) {
+          navigate('use-case');
+        } else {
+          navigate('landing');
+        }
+        showToast('Assessment imported: ' + (state.toolName || state.useCase.name || 'Unnamed'));
+      } catch (err) {
+        alert('Could not parse file. Please select a valid Navigator JSON export.');
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+function shareAssessmentLink() {
+  try {
+    var json = JSON.stringify(state);
+    var encoded = btoa(unescape(encodeURIComponent(json)));
+    var url = window.location.origin + window.location.pathname + '?state=' + encoded;
+    if (url.length > 8000) {
+      showToast('Assessment too large for URL sharing. Use Export JSON instead.');
+      return;
+    }
+    navigator.clipboard.writeText(url).then(function() {
+      showToast('Shareable link copied to clipboard.');
+    }).catch(function() {
+      /* Fallback */
+      prompt('Copy this link:', url);
+    });
+  } catch (err) {
+    showToast('Could not generate shareable link. Use Export JSON instead.');
+  }
+}
+
 function startNewAssessment() {
   state.useCase = null;
   state.screeningAnswers = {};
@@ -2849,6 +3180,7 @@ function startNewAssessment() {
   state.noGoFlags = [];
   state.toolName = '';
   state.assessmentDate = new Date().toISOString().split('T')[0];
+  state.customWorstCase = '';
   state.entryPath = 'full';
   state.routingAnswers = { q1: [], q2: null, q3: null, q4: null, q5: [], q6: null, q7: null, q8: null };
   state.routingResults = null;
@@ -2862,6 +3194,34 @@ function startNewAssessment() {
 function init() {
   loadContent(function() {
     populateDataFromContent();
+
+    /* Check for shared state in URL */
+    var urlParams = new URLSearchParams(window.location.search);
+    var stateParam = urlParams.get('state');
+    if (stateParam) {
+      try {
+        var decoded = JSON.parse(decodeURIComponent(escape(atob(stateParam))));
+        if (decoded && (decoded.useCase || decoded.pillarScores)) {
+          Object.keys(decoded).forEach(function(key) {
+            state[key] = decoded[key];
+          });
+          populateDataFromContent();
+          renderLanding();
+          renderArchetypeSelector();
+          renderUseCaseSelector();
+          renderAbout();
+          renderProfile();
+          navigate('profile');
+          /* Clean URL */
+          history.replaceState(null, '', window.location.pathname);
+          showToast('Assessment loaded from shared link.');
+          return;
+        }
+      } catch (e) {
+        /* Invalid state param, continue normally */
+      }
+    }
+
     renderLanding();
     renderArchetypeSelector();
     renderUseCaseSelector();
