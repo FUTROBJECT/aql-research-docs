@@ -1,0 +1,3223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigator v3 Concept &mdash; AI Governance Navigator for Student Services</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    color: #333;
+  }
+  h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-size: 14pt;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    margin-top: 28px;
+  }
+  h3 {
+    font-size: 12pt;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+    margin-top: 20px;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #444;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+    margin: 12px 0;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .metadata {
+    color: #666;
+    font-size: 10pt;
+  }
+  .subtitle {
+    font-size: 14pt;
+    color: #666;
+    margin-top: -8px;
+  }
+  .callout {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .critical {
+    background: #f8d7da;
+    border-left: 4px solid #c00;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+  .about-box {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 16px;
+    font-size: 10pt;
+    font-style: italic;
+    margin: 24px 0;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 24px 0;
+  }
+  ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+  .big-quote {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #0066cc;
+    text-align: center;
+    padding: 20px;
+    margin: 24px 0;
+    border-top: 2px solid #0066cc;
+    border-bottom: 2px solid #0066cc;
+  }
+
+  /* Tab navigation */
+  .tab-nav {
+    display: flex;
+    border-bottom: 2px solid #0066cc;
+    margin: 24px 0 0 0;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    cursor: pointer;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #555;
+    border-radius: 4px 4px 0 0;
+    transition: background 0.2s;
+  }
+  .tab-btn:hover {
+    background: #e0e0e0;
+  }
+  .tab-btn.active {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+  }
+  .tab-panel {
+    display: none;
+    padding: 4px 0 0 0;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+
+  /* Screen mockup cards */
+  .screen-card {
+    background: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  .screen-header {
+    background: linear-gradient(135deg, #0066cc, #004999);
+    color: white;
+    padding: 12px 16px;
+    font-weight: bold;
+    font-size: 11pt;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .screen-header .screen-num {
+    background: rgba(255,255,255,0.25);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12pt;
+    flex-shrink: 0;
+  }
+  .screen-body {
+    padding: 16px 20px;
+  }
+  .screen-body h4 {
+    margin-top: 8px;
+  }
+  .screen-body p {
+    font-size: 10pt;
+  }
+  .screen-wireframe {
+    background: #f8f9fa;
+    border: 1px dashed #bbb;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 12px 0;
+    font-size: 9.5pt;
+    color: #555;
+  }
+  .screen-wireframe .wire-label {
+    font-size: 8pt;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  /* Archetype cards for wireframe */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  .arch-card {
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .arch-card:hover {
+    border-color: #0066cc;
+    background: #e7f3ff;
+  }
+  .arch-card .arch-name {
+    font-weight: bold;
+    font-size: 10pt;
+    color: #333;
+  }
+  .arch-card .arch-tagline {
+    font-size: 8.5pt;
+    color: #0066cc;
+    font-weight: bold;
+    margin-top: 2px;
+  }
+  .arch-card .arch-desc {
+    font-size: 8.5pt;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  /* Assessment question mockup */
+  .q-mock {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 8px 0;
+  }
+  .q-mock .q-text {
+    font-weight: bold;
+    font-size: 10pt;
+    margin-bottom: 6px;
+  }
+  .q-mock .q-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .q-option {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 9pt;
+    cursor: pointer;
+  }
+  .q-option:hover {
+    background: #e7f3ff;
+    border-color: #0066cc;
+  }
+  .q-option.selected {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+  }
+
+  /* Dashboard mockup */
+  .dash-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .dash-stat {
+    text-align: center;
+    padding: 12px;
+    border-radius: 6px;
+  }
+  .dash-stat .dash-num {
+    font-size: 22pt;
+    font-weight: bold;
+    color: white;
+  }
+  .dash-stat .dash-label {
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.85);
+    margin-top: 2px;
+  }
+
+  /* Phase cards */
+  .phase-card {
+    border-left: 4px solid #0066cc;
+    background: #f8f9fa;
+    padding: 12px 16px;
+    margin: 10px 0;
+  }
+  .phase-card h4 {
+    margin: 0 0 4px 0;
+    font-size: 11pt;
+  }
+  .phase-card p {
+    margin: 0;
+    font-size: 10pt;
+    color: #555;
+  }
+  .phase-card .phase-tech {
+    margin-top: 6px;
+    font-size: 9pt;
+    color: #888;
+  }
+  .phase-1 { border-left-color: #28a745; }
+  .phase-2 { border-left-color: #0066cc; }
+  .phase-3 { border-left-color: #6f42c1; }
+  .phase-4 { border-left-color: #fd7e14; }
+
+  /* Flow arrow */
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    background: #0066cc;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 9.5pt;
+    font-weight: bold;
+    text-align: center;
+  }
+  .flow-step.alt { background: #28a745; }
+  .flow-step.alt2 { background: #6f42c1; }
+  .flow-step.alt3 { background: #fd7e14; }
+  .flow-step.alt4 { background: #dc3545; }
+  .flow-step.alt5 { background: #17a2b8; }
+  .flow-connector {
+    font-size: 16pt;
+    color: #bbb;
+  }
+
+  /* Data model table */
+  .dm-field {
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+    background: #f0f0f0;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+
+  /* Layer visualization */
+  .layer-stack {
+    margin: 16px 0;
+  }
+  .layer-box {
+    padding: 16px 20px;
+    margin: 0;
+    border: 2px solid;
+    position: relative;
+  }
+  .layer-box .layer-label {
+    font-size: 8pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .layer-box .layer-title {
+    font-size: 12pt;
+    font-weight: bold;
+  }
+  .layer-box .layer-items {
+    font-size: 9.5pt;
+    margin-top: 6px;
+    color: inherit;
+  }
+
+  /* Pillar color swatch */
+  .pillar-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+
+  /* No-go item */
+  .nogo-item-card {
+    border: 1px solid #ddd;
+    border-left: 4px solid #c00;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 10pt;
+  }
+  .nogo-item-card strong {
+    color: #c00;
+  }
+
+  @media print {
+    body { padding: 0.5in; }
+    .screen-card { page-break-inside: avoid; }
+    .tab-nav { display: none; }
+    .tab-panel { display: block !important; page-break-before: always; }
+    .tab-panel:first-of-type { page-break-before: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-container" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+  <svg id="FO_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172.97 142.95" style="width: 80px; height: auto;">
+    <defs>
+      <style>
+        .cls-1 {
+          font-family: Switzer-SemiboldItalic, Switzer, Arial, sans-serif;
+          font-size: 130.25px;
+          font-style: italic;
+          font-weight: 600;
+        }
+        .cls-2 {
+          letter-spacing: -.02em;
+        }
+        .cls-3 {
+          letter-spacing: -.04em;
+        }
+      </style>
+    </defs>
+    <text class="cls-1" transform="translate(0 112.21)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="70.47" y="0">O</tspan></text>
+  </svg>
+  <span style="font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #333; margin-left: 4px; padding-bottom: 12px;">RESEARCH</span>
+</div>
+
+<h1>Navigator v3 Concept</h1>
+<p class="subtitle">AI Governance Navigator for Student Services &mdash; Community Colleges</p>
+
+<p class="metadata">
+<strong>Date:</strong> February 26, 2026<br>
+<strong>Team:</strong> Amin, Mimi, Adam<br>
+<strong>Purpose:</strong> Design rationale and architecture for Navigator v3 &mdash; adds AI augmentation layer (Claude integration) to the v2 governance framework<br>
+<strong>Status:</strong> Concept &mdash; for team alignment<br>
+<strong>Builds on:</strong> Navigator v2 Concept (Feb 22&ndash;25, 2026)
+</p>
+
+<!-- TAB NAVIGATION -->
+<div class="tab-nav">
+  <div class="tab-btn active" onclick="switchTab('vision')">The Vision</div>
+  <div class="tab-btn" onclick="switchTab('framework')">Framework Architecture</div>
+  <div class="tab-btn" onclick="switchTab('journey')">User Journey</div>
+  <div class="tab-btn" onclick="switchTab('ai')">AI Integration</div>
+  <div class="tab-btn" onclick="switchTab('content')">Content Architecture</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 1: THE VISION -->
+<!-- ============================================================ -->
+<div class="tab-panel active" id="tab-vision">
+
+<h2>The Core Idea</h2>
+
+<div class="big-quote">
+Navigate AI governance.<br>
+Built for Student Services.
+</div>
+
+<p>Of 224 AI governance frameworks reviewed across 12 global domains, only 2 directly address community colleges. Community colleges serve nearly half of all US undergraduates, disproportionately serve historically marginalized populations, and are the primary workforce training pipeline. And increasingly, they are deploying AI tools in Student Services that make or influence decisions about students &mdash; advising, financial aid, early alerts, enrollment, tutoring &mdash; with no governance framework designed for their context.</p>
+
+<p>The Navigator v2 answers that gap. Not with a document. With a tool that walks a college through evaluating a specific Student Services AI use case, scores it against nine governance pillars, and generates a tailored roadmap.</p>
+
+<div class="callout">
+<strong>The product concept:</strong> An interactive web-based tool where institutional leadership identifies a Student Services AI use case, evaluates it against governance pillars, checks it against hard-stop criteria, and receives a generated governance roadmap &mdash; tailored to their institution&rsquo;s archetype, risk tier, and scores.
+</div>
+
+<hr>
+
+<h2>Evolution from v1 &rarr; v2 &rarr; v3</h2>
+
+<p>The v1 Navigator was an institutional readiness assessment: &ldquo;Tell us about your college, we&rsquo;ll show you where to start.&rdquo; The v2 Navigator became a tool-specific governance evaluation: &ldquo;Tell us about the AI tool you&rsquo;re considering, we&rsquo;ll tell you if it&rsquo;s ready for your students.&rdquo; The v3 Navigator adds an AI augmentation layer: &ldquo;We&rsquo;ll help you see new tools clearly and understand how they work &mdash; then the framework tells you what to govern.&rdquo;</p>
+
+<table>
+  <tr>
+    <th style="width:20%">Dimension</th>
+    <th style="width:25%">v1 Navigator</th>
+    <th style="width:25%">v2 Navigator</th>
+    <th style="width:30%">v3 Navigator</th>
+  </tr>
+  <tr>
+    <td><strong>Scope</strong></td>
+    <td>Whole institution</td>
+    <td>Student Services &mdash; specific AI use case</td>
+    <td>Same as v2, with AI-assisted tool recognition</td>
+  </tr>
+  <tr>
+    <td><strong>Assessment unit</strong></td>
+    <td>The institution</td>
+    <td>The AI tool</td>
+    <td>The AI tool (including tools that launched last week)</td>
+  </tr>
+  <tr>
+    <td><strong>Tool landscape</strong></td>
+    <td>Generic</td>
+    <td>10 use cases with static dropdowns</td>
+    <td>AI layer identifies unfamiliar tools and maps to framework categories</td>
+  </tr>
+  <tr>
+    <td><strong>Velocity problem</strong></td>
+    <td>N/A</td>
+    <td>Tool list stale within months</td>
+    <td>AI layer absorbs new tools; framework logic stays stable</td>
+  </tr>
+  <tr>
+    <td><strong>Architecture</strong></td>
+    <td>Single layer</td>
+    <td>Three-layer (Criteria &rarr; Pillars &rarr; HUMANS)</td>
+    <td>Two-part: Framework Layer (deterministic, human-owned) + AI Augmentation Layer (optional, swappable)</td>
+  </tr>
+  <tr>
+    <td><strong>AI dependency</strong></td>
+    <td>None</td>
+    <td>None</td>
+    <td>None. Framework works without AI. AI layer enhances but is optional.</td>
+  </tr>
+  <tr>
+    <td><strong>Decision authority</strong></td>
+    <td>Framework</td>
+    <td>Framework</td>
+    <td>Framework. AI assists perception; humans and algorithms make decisions.</td>
+  </tr>
+</table>
+
+<div class="success">
+<strong>The v3 shift:</strong> v2 asked &ldquo;Is this specific AI tool ready for your students?&rdquo; v3 asks the same question but can now <strong>see</strong> tools the framework hasn&rsquo;t catalogued yet. The governance logic is identical. The perception is dramatically broader. And if the AI layer is removed, the framework still works &mdash; just with a static dropdown instead of intelligent routing.
+</div>
+
+<hr>
+
+<h2>Why Student Services</h2>
+
+<p>The scope decision was deliberate. Not all-of-institution. Not instruction. Not HR or finance. Student Services, specifically.</p>
+
+<p>The reason: <strong>AI tools in Student Services make or influence decisions about students.</strong> Advising pathways. Financial aid triage. Early alert risk profiles. Enrollment recommendations. These are consequential decisions with real impact on access, equity, and outcomes &mdash; and they are the AI deployments spreading fastest through community colleges.</p>
+
+<div class="callout">
+<strong>The specific risk:</strong> A CC purchasing an AI advising tool is not the same as a CC adopting a plagiarism detector or a faculty chatbot. Student Services AI can affect enrollment, financial aid, academic standing &mdash; the highest-stakes decisions a college makes about its students. That&rsquo;s where governance matters most.
+</div>
+
+<p>This scoping choice also makes the tool actionable. A VPSS or Dean can use this for a specific procurement decision. An AI governance committee can evaluate a specific tool. The output is a governance roadmap for that tool, not a general readiness report.</p>
+
+<hr>
+
+<h2>Why a Tool, Not a Document</h2>
+
+<table>
+  <tr>
+    <th style="width:35%">A Static Document Says</th>
+    <th>The Navigator Says</th>
+  </tr>
+  <tr>
+    <td>&ldquo;Here are 9 governance pillars&rdquo;</td>
+    <td>&ldquo;For this advising tool at <strong>your risk tier</strong>, score these 9 pillars using these rubrics&rdquo;</td>
+  </tr>
+  <tr>
+    <td>&ldquo;Consider equity implications&rdquo;</td>
+    <td>&ldquo;Has the vendor provided <strong>disaggregated accuracy data</strong> across Pell, first-gen, and multilingual students?&rdquo;</td>
+  </tr>
+  <tr>
+    <td>&ldquo;Risk varies by use case&rdquo;</td>
+    <td>&ldquo;Early Alert is <strong>Tier 3 (High Risk)</strong>. Here are the 5 screening questions for that use case. Your answer triggered a <strong>PAUSE</strong>.&rdquo;</td>
+  </tr>
+  <tr>
+    <td>&ldquo;Human oversight is important&rdquo;</td>
+    <td>&ldquo;P3 scored 1. <strong>No-Go: No human override for consequential decisions.</strong> Here&rsquo;s what to do before deployment.&rdquo;</td>
+  </tr>
+  <tr>
+    <td>&ldquo;Implementation varies by institution&rdquo;</td>
+    <td>&ldquo;You&rsquo;re a <strong>Building</strong> institution evaluating a <strong>Tier 2</strong> tool. Here&rsquo;s your RACI, 90-day metrics, and review cadence.&rdquo;</td>
+  </tr>
+  <tr>
+    <td>&ldquo;Follow these principles&rdquo;</td>
+    <td>&ldquo;Your scores show <strong>strong P6 &amp; P8 but weak P4 &amp; P7</strong>. That means: vendor is technically sound but product wasn&rsquo;t designed with students as participants. <strong>You</strong> need to build the student-facing layer.&rdquo;</td>
+  </tr>
+</table>
+
+<div class="success">
+<strong>The difference:</strong> A document presents principles. The Navigator applies them to a specific tool at a specific institution and produces specific actions. The framework architecture &mdash; pillars, tiers, archetypes, use cases &mdash; contains the logic for personalization. The tool exposes that logic to the user.
+</div>
+
+<hr>
+
+<h2>Who Uses This</h2>
+
+<table>
+  <tr>
+    <th style="width:20%">User</th>
+    <th style="width:30%">What They Need</th>
+    <th>What the Navigator Gives Them</th>
+  </tr>
+  <tr>
+    <td><strong>VP Student Services</strong></td>
+    <td>GO/NO-GO on a tool purchase, board-ready justification, risk classification</td>
+    <td>Screening result, governance profile, executive summary, decision rules, escalation triggers</td>
+  </tr>
+  <tr>
+    <td><strong>Dean of Student Services</strong></td>
+    <td>Operational governance plan, who&rsquo;s responsible, what to track</td>
+    <td>RACI structure, 90-day metrics, review cadence, pre-deployment requirements</td>
+  </tr>
+  <tr>
+    <td><strong>IT / CTO</strong></td>
+    <td>Vendor evaluation criteria, data governance requirements, contract language</td>
+    <td>P6 (Data) and P8 (Vendor) scoring rubrics, FERPA checklist, exit strategy requirements</td>
+  </tr>
+  <tr>
+    <td><strong>Equity Officer</strong></td>
+    <td>Differential impact analysis, bias audit requirements, student protection</td>
+    <td>P2 (Equity) scoring, equity flags per use case, disaggregated performance requirements</td>
+  </tr>
+  <tr>
+    <td><strong>AI Governance Committee</strong></td>
+    <td>Comprehensive evaluation framework, scoring standards, portfolio-level coordination</td>
+    <td>Full 9-pillar assessment, no-go checklist, pattern interpretation, annual review guidance</td>
+  </tr>
+  <tr>
+    <td><strong>Faculty Leader / Senate Rep</strong></td>
+    <td>Faculty agency protections, shared governance integration, adjunct provisions</td>
+    <td>P4 (Agency) scoring, faculty configuration requirements, adjunct training specifications</td>
+  </tr>
+  <tr>
+    <td><strong>VPSS / Dean (exploratory)</strong></td>
+    <td>&ldquo;We want to do something with AI in Student Services but we don&rsquo;t know where to start&rdquo;</td>
+    <td>Step 0 routing questionnaire: 8 questions &rarr; 2&ndash;3 recommended use cases ranked by fit, with archetype derivation and data readiness flags. &ldquo;Evaluate This Use Case &rarr;&rdquo; routes directly into the assessment with context pre-loaded.</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>What Makes This Novel</h2>
+
+<div class="success">
+<strong>No AI governance framework globally offers an interactive tool that evaluates specific use cases against scored pillars and generates tailored roadmaps.</strong> All 224 frameworks studied are documents. None scope to Student Services. None have use-case-specific screening. None have no-go criteria. The Navigator v2 is the first framework that governs tools, not just institutions.
+</div>
+
+<table>
+  <tr>
+    <th style="width:25%">Novelty Dimension</th>
+    <th>What the Navigator v2 Adds</th>
+  </tr>
+  <tr>
+    <td>Content novelty</td>
+    <td>9 operational pillars synthesized from 224 global frameworks, scoped to Student Services. 54 assessment questions with source citations. 8 no-go criteria.</td>
+  </tr>
+  <tr>
+    <td>Delivery novelty</td>
+    <td>First AI governance framework delivered as an interactive assessment tool. Single-file HTML, no dependencies, runs anywhere.</td>
+  </tr>
+  <tr>
+    <td>Scope novelty</td>
+    <td>Student Services only. 10 specific use cases with tailored screening questions, risk tiers, and equity flags.</td>
+  </tr>
+  <tr>
+    <td>Personalization novelty</td>
+    <td>Roadmap adapts to archetype + use case + risk tier + pillar scores. Lightweight/Tier 1 gets ~2 pages. Scaling/Tier 3 gets ~6 pages.</td>
+  </tr>
+  <tr>
+    <td>Portability novelty</td>
+    <td>Portable to any CC system. California toggle adds CCCCO HUMANS mapping. Non-CA colleges get the same framework minus one optional layer.</td>
+  </tr>
+  <tr>
+    <td>Routing novelty</td>
+    <td>8-question intake (Step 0) routes institutions to recommended use cases based on student bottlenecks, equity gaps, data readiness, staffing capacity, and governance maturity. No other framework provides a guided entry path that derives institutional archetype and maps to specific governance-ready use cases.</td>
+  </tr>
+  <tr>
+    <td>Mechanism detection novelty</td>
+    <td>3 targeted questions detect hidden AI mechanisms (behavioral pattern-matching, student classification, autonomous action) that silently escalate risk. Additive tier adjustments, forced pillar minimums, and equity screening flags ensure governance depth matches actual tool behavior &mdash; not just stated purpose. No other framework screens for mechanism-level risk.</td>
+  </tr>
+  <tr>
+    <td>AI integration novelty</td>
+    <td>Optional AI augmentation layer handles tool recognition, technical analysis, and screening assistance &mdash; while all governance decisions (tier assignment, pillar scoring, no-go checks) remain in deterministic, human-owned logic. The framework works without AI. The AI makes it faster and more current. No other governance framework separates perception (AI-assisted) from judgment (human-owned) at the architectural level.</td>
+  </tr>
+</table>
+
+</div><!-- /tab-vision -->
+
+<!-- ============================================================ -->
+<!-- TAB 2: FRAMEWORK ARCHITECTURE -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-framework">
+
+<h2>Three-Layer Model</h2>
+
+<p>The framework uses a three-layer architecture. Layers 1 and 2 are portable (any CC system). Layer 3 is California-specific and optional.</p>
+
+<div class="layer-stack">
+  <div class="layer-box" style="border-color: #0066cc; background: #e7f3ff;">
+    <div class="layer-label" style="color: #004999;">Layer 1 &mdash; Portable</div>
+    <div class="layer-title" style="color: #0066cc;">Four Ethical Criteria</div>
+    <div class="layer-items">
+      1. Equitable Student Outcomes &nbsp;&bull;&nbsp;
+      2. Quality Data, Governed Responsibly &nbsp;&bull;&nbsp;
+      3. Ethics &amp; Safety Foundation &nbsp;&bull;&nbsp;
+      4. Thoughtful, Multi-Year Approach
+    </div>
+  </div>
+  <div class="layer-box" style="border-color: #28a745; background: #d4edda; margin-top: -2px;">
+    <div class="layer-label" style="color: #155724;">Layer 2 &mdash; Portable</div>
+    <div class="layer-title" style="color: #28a745;">Nine Operational Pillars</div>
+    <div class="layer-items">
+      P1&ndash;P9: The evaluation structure. Each pillar has questions, a 3-point scoring rubric, and remediation actions. This is the assessment engine.
+    </div>
+  </div>
+  <div class="layer-box" style="border-color: #6f42c1; background: #f3e8ff; margin-top: -2px;">
+    <div class="layer-label" style="color: #4a1d96;">Layer 3 &mdash; California Only (Optional)</div>
+    <div class="layer-title" style="color: #6f42c1;">CCCCO HUMANS Framework</div>
+    <div class="layer-items">
+      H&ndash;U&ndash;M&ndash;A&ndash;N&ndash;S is binding for all 116 CCC colleges. The Navigator maps pillars to HUMANS letters. Non-California colleges skip this and still have a complete framework.
+    </div>
+  </div>
+</div>
+
+<div class="highlight-box">
+<strong>Design principle:</strong> The California toggle adds HUMANS mapping to pillar scores and roadmap sections. It does not change what is assessed. A non-CA college evaluating the same tool sees the same pillars, the same rubrics, and gets the same governance roadmap &mdash; minus the HUMANS alignment column.
+</div>
+
+<div class="callout">
+<strong>Gap identified:</strong> The CCCCO HUMANS framework does not address institutional capacity building (Criterion 4 / Pillar 9). The Navigator fills this gap. This is explicitly documented in the tool.
+</div>
+
+<hr>
+
+<h2>Nine Pillars</h2>
+
+<table>
+  <tr>
+    <th style="width:5%">ID</th>
+    <th style="width:24%">Name</th>
+    <th style="width:33%">Principle Statement</th>
+    <th style="width:15%">Hook</th>
+    <th style="width:5%">Qs</th>
+    <th style="width:6%">Color</th>
+    <th style="width:12%">HUMANS</th>
+  </tr>
+  <tr>
+    <td><strong>P1</strong></td>
+    <td>Purpose &amp; Educational Legitimacy</td>
+    <td>Every AI deployment must serve a genuine educational purpose and protect the meaning of credentials.</td>
+    <td><em>If it doesn&rsquo;t serve students, it doesn&rsquo;t belong here.</em></td>
+    <td>5</td>
+    <td><span class="pillar-swatch" style="background:#0066cc;"></span>#0066cc</td>
+    <td>(AQL-original)</td>
+  </tr>
+  <tr>
+    <td><strong>P2</strong></td>
+    <td>Equity &amp; Differential Impact</td>
+    <td>AI governance must center equity and account for differential impacts on diverse CC student populations.</td>
+    <td><em>If it doesn&rsquo;t work for all your students, it doesn&rsquo;t work.</em></td>
+    <td>7</td>
+    <td><span class="pillar-swatch" style="background:#28a745;"></span>#28a745</td>
+    <td>U, A</td>
+  </tr>
+  <tr>
+    <td><strong>P3</strong></td>
+    <td>Human Authority &amp; Decision Accountability</td>
+    <td>Humans &mdash; not algorithms &mdash; make consequential decisions about students.</td>
+    <td><em>Who is accountable when the AI is wrong?</em></td>
+    <td>5</td>
+    <td><span class="pillar-swatch" style="background:#6f42c1;"></span>#6f42c1</td>
+    <td>H</td>
+  </tr>
+  <tr>
+    <td><strong>P4</strong></td>
+    <td>Student &amp; Faculty Agency</td>
+    <td>Students and faculty are empowered participants, not subjects.</td>
+    <td><em>Your students are adults. Your faculty run the classroom. Respect both.</em></td>
+    <td>8</td>
+    <td><span class="pillar-swatch" style="background:#fd7e14;"></span>#fd7e14</td>
+    <td>H, U</td>
+  </tr>
+  <tr>
+    <td><strong>P5</strong></td>
+    <td>Risk Proportionality &amp; Harm Mitigation</td>
+    <td>Governance intensity matches risk level.</td>
+    <td><em>What&rsquo;s the worst that happens to a student if this tool fails?</em></td>
+    <td>6</td>
+    <td><span class="pillar-swatch" style="background:#dc3545;"></span>#dc3545</td>
+    <td>S</td>
+  </tr>
+  <tr>
+    <td><strong>P6</strong></td>
+    <td>Data Stewardship &amp; System Integrity</td>
+    <td>Student data is a public trust.</td>
+    <td><em>Your data, your rules. Not the vendor&rsquo;s.</em></td>
+    <td>8</td>
+    <td><span class="pillar-swatch" style="background:#17a2b8;"></span>#17a2b8</td>
+    <td>M</td>
+  </tr>
+  <tr>
+    <td><strong>P7</strong></td>
+    <td>Transparency &amp; Contestability</td>
+    <td>Students and faculty have the right to know when AI influences decisions that affect them &mdash; and the right to contest those decisions.</td>
+    <td><em>Decisions without recourse are not governance.</em></td>
+    <td>7</td>
+    <td><span class="pillar-swatch" style="background:#e83e8c;"></span>#e83e8c</td>
+    <td>N</td>
+  </tr>
+  <tr>
+    <td><strong>P8</strong></td>
+    <td>Vendor Accountability &amp; Institutional Sovereignty</td>
+    <td>Community colleges are buyers, not builders. Vendor relationships must protect institutional sovereignty.</td>
+    <td><em>You&rsquo;re signing the contract. Make sure it protects your students, not just the vendor.</em></td>
+    <td>7</td>
+    <td><span class="pillar-swatch" style="background:#6610f2;"></span>#6610f2</td>
+    <td>S</td>
+  </tr>
+  <tr>
+    <td><strong>P9</strong></td>
+    <td>Institutional Capacity &amp; Continuous Governance</td>
+    <td>Governance must be achievable at every institutional scale.</td>
+    <td><em>Don&rsquo;t add tools to an ungoverned environment. Build the floor first.</em></td>
+    <td>6</td>
+    <td><span class="pillar-swatch" style="background:#795548;"></span>#795548</td>
+    <td>(AQL-original &mdash; HUMANS gap)</td>
+  </tr>
+</table>
+
+<p style="font-size: 9pt; color: #888;">Total: 59 questions across 9 pillars. Each pillar has a 3-point scoring rubric (3 = Good, 2 = Partial, 1 = Poor). Source citations on every question.</p>
+
+<hr>
+
+<h2>Ten Use Cases</h2>
+
+<table>
+  <tr>
+    <th style="width:7%">ID</th>
+    <th style="width:24%">Use Case</th>
+    <th style="width:10%">Default Tier</th>
+    <th style="width:18%">Key Pillars</th>
+    <th style="width:5%">Qs</th>
+    <th>Equity Flag</th>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>SS-01</td>
+    <td>AI Advising / Guided Pathways</td>
+    <td><strong>Tier 3</strong> (High)</td>
+    <td>P1, P2, P3, P5</td>
+    <td>5</td>
+    <td>Recommendations affect trajectory. Errors compound for first-gen and Pell-eligible.</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>SS-02</td>
+    <td>Early Alert / Student Risk System</td>
+    <td><strong>Tier 3</strong> (High)</td>
+    <td>P2, P3, P5, P7</td>
+    <td>5</td>
+    <td>Risk profiling creates surveillance dynamic. Disparate impact on students of color.</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td>SS-03</td>
+    <td>Financial Aid Triage &amp; FAFSA</td>
+    <td><strong>Tier 3</strong> (High)</td>
+    <td>P3, P5, P6</td>
+    <td>5</td>
+    <td>Automated decisions on access to resources. Errors disproportionately affect low-income.</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td>SS-04</td>
+    <td>Student-Facing Chatbot</td>
+    <td><strong>Tier 1</strong> (Low)</td>
+    <td>P1, P7, P8</td>
+    <td>4</td>
+    <td>Multilingual coverage gaps. Accessibility barriers.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-05</td>
+    <td>AI Course Tutoring Assistant</td>
+    <td><strong>Tier 2</strong> (Med)</td>
+    <td>P1, P4, P5</td>
+    <td>5</td>
+    <td>Hallucination risk. Socratic vs. answer mode affects learning.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-06</td>
+    <td>Multilingual Support / Translation</td>
+    <td><strong>Tier 2</strong> (Med)</td>
+    <td>P2, P7</td>
+    <td>4</td>
+    <td>Quality varies by language. Cultural appropriateness.</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td>SS-07</td>
+    <td>Basic Needs Support</td>
+    <td><strong>Tier 1</strong> (Low)</td>
+    <td>P6, P7</td>
+    <td>4</td>
+    <td>Sensitive data (food insecurity, housing, immigration status). Privacy paramount.</td>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td>SS-08</td>
+    <td>Career Services AI</td>
+    <td><strong>Tier 1</strong> (Low)</td>
+    <td>P1, P2</td>
+    <td>4</td>
+    <td>Pathway bias across career clusters. Equity across CTE and transfer.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-09</td>
+    <td>Student Journey Mapping</td>
+    <td><strong>Tier 2</strong> (Med)</td>
+    <td>P5, P6, P7</td>
+    <td>5</td>
+    <td>PII. Aggregation vs. individual tracking. Surveillance risk.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td>SS-10</td>
+    <td>Registration &amp; Enrollment</td>
+    <td><strong>Tier 2</strong> (Med)</td>
+    <td>P1, P3, P5</td>
+    <td>4</td>
+    <td>Automated enrollment decisions affect access. Waitlist prioritization.</td>
+  </tr>
+  <tr>
+    <td>SS-XX</td>
+    <td>Custom / Other</td>
+    <td>User assigns</td>
+    <td>User describes</td>
+    <td>5</td>
+    <td>User describes equity considerations.</td>
+  </tr>
+</table>
+
+<p style="font-size: 9pt; color: #888;">Red = High risk (Tier 3). Yellow = Medium (Tier 2). Green = Lower (Tier 1). Color indicates default; users can override with documented reason.</p>
+
+<hr>
+
+<h2>Three Archetypes</h2>
+
+<div class="arch-grid">
+  <div class="arch-card" style="border-color: #28a745;">
+    <div class="arch-name">Lightweight</div>
+    <div class="arch-tagline">Start small. Start now.</div>
+    <div class="arch-desc" style="text-align: left; margin-top: 8px;">
+      Small or rural. Limited IT. 1&ndash;2 people wearing many hats. Under 5,000 students. No formal AI governance yet. Start with one Tier 1 or 2 use case, use templates directly, quarterly review.
+    </div>
+  </div>
+  <div class="arch-card" style="border-color: #0066cc;">
+    <div class="arch-name">Building</div>
+    <div class="arch-tagline">Structure enables innovation.</div>
+    <div class="arch-desc" style="text-align: left; margin-top: 8px;">
+      Mid-size with some analytics capacity. IT director and IR. AI committee forming. 2&ndash;3 use cases across tiers, cross-functional working group, begin disaggregated tracking. All 9 pillars active.
+    </div>
+  </div>
+  <div class="arch-card" style="border-color: #6f42c1;">
+    <div class="arch-name">Scaling</div>
+    <div class="arch-tagline">Govern the portfolio, not just the tool.</div>
+    <div class="arch-desc" style="text-align: left; margin-top: 8px;">
+      Large with dedicated staff. Data warehouse, analytics team, innovation office. Multiple AI tools deployed. Portfolio approach, formal governance with project owners, bias audits for Tier 3.
+    </div>
+  </div>
+</div>
+
+<p style="font-size: 10pt;">Archetypes determine the roadmap&rsquo;s RACI structure, metric complexity, and governance intensity. A Lightweight institution evaluating a Tier 1 chatbot gets a 2-page roadmap. A Scaling institution evaluating a Tier 3 early alert system gets 6 pages.</p>
+
+<hr>
+
+<h2>Step 0: Routing Questionnaire</h2>
+
+<p>Not every user arrives knowing which AI tool to evaluate. A VPSS or dean may say: &ldquo;We want to do something with AI in Student Services but don&rsquo;t know where to start.&rdquo; Step 0 answers that question. Eight questions identify the institution&rsquo;s context and route them to 2&ndash;3 recommended use cases, ranked by fit.</p>
+
+<div class="callout">
+<strong>Position in the flow:</strong> Step 0 precedes the Use Case Selector (Step 1), Screening (Step 2), and Scoring (Step 3). Users who already know what they&rsquo;re evaluating skip Step 0 entirely. Users who need help figuring out where to start begin here. The &ldquo;Evaluate This Use Case &rarr;&rdquo; button pre-selects the use case and carries archetype and institutional profile into the assessment.
+</div>
+
+<h3>The 8 Questions</h3>
+
+<table>
+  <tr>
+    <th style="width:5%">#</th>
+    <th style="width:28%">Question</th>
+    <th style="width:12%">Type</th>
+    <th style="width:15%">Signal</th>
+    <th style="width:10%">Weight</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td>Q1</td>
+    <td>Where are students getting stuck?</td>
+    <td>Multi (up to 3)</td>
+    <td>Direct mapping</td>
+    <td>+3 pts/sel</td>
+    <td>Primary use case signal</td>
+  </tr>
+  <tr>
+    <td>Q2</td>
+    <td>How many students?</td>
+    <td>Single</td>
+    <td>Scale modifier</td>
+    <td>Filter</td>
+    <td>Archetype validation (soft)</td>
+  </tr>
+  <tr>
+    <td>Q3</td>
+    <td>What&rsquo;s your data situation?</td>
+    <td>Single</td>
+    <td>Feasibility gate</td>
+    <td>Filter</td>
+    <td>Flags/downranks data-dependent use cases</td>
+  </tr>
+  <tr>
+    <td>Q4</td>
+    <td>Staffing reality for SS tech?</td>
+    <td>Single</td>
+    <td>Archetype primary</td>
+    <td>Filter</td>
+    <td>Tier ceiling + archetype derivation</td>
+  </tr>
+  <tr>
+    <td>Q5</td>
+    <td>Biggest equity gaps?</td>
+    <td>Multi (up to 2)</td>
+    <td>Equity boost</td>
+    <td>+2 pts/sel</td>
+    <td>Weight toward equity-aligned use cases</td>
+  </tr>
+  <tr>
+    <td>Q6</td>
+    <td>Is AI already being used informally?</td>
+    <td>Single</td>
+    <td>Urgency override</td>
+    <td>Override</td>
+    <td>May override ranking (&ldquo;govern what exists first&rdquo;)</td>
+  </tr>
+  <tr>
+    <td>Q7</td>
+    <td>Any AI governance in place?</td>
+    <td>Single</td>
+    <td>Archetype adjust</td>
+    <td>&plusmn;1 step</td>
+    <td>Adjusts archetype, feeds back to tier ceiling</td>
+  </tr>
+  <tr>
+    <td>Q8</td>
+    <td>What&rsquo;s driving this?</td>
+    <td>Single</td>
+    <td>Contextual boost</td>
+    <td>+2 pts</td>
+    <td>Matches institutional moment (Phase 4 only)</td>
+  </tr>
+</table>
+
+<h3>5-Phase Algorithm</h3>
+
+<div class="flow-arrow">
+  <div class="flow-step">Phase 1<br><span style="font-size: 7pt; opacity: 0.8;">Signal Scoring</span></div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step alt">Phase 2<br><span style="font-size: 7pt; opacity: 0.8;">Feasibility Gating</span></div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step alt2">Phase 3<br><span style="font-size: 7pt; opacity: 0.8;">Archetype Derivation</span></div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step alt3">Phase 4<br><span style="font-size: 7pt; opacity: 0.8;">Contextual Overrides</span></div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step" style="background: #333;">Phase 5<br><span style="font-size: 7pt; opacity: 0.8;">Ranking &amp; Output</span></div>
+</div>
+
+<table>
+  <tr>
+    <th style="width:18%">Phase</th>
+    <th style="width:15%">Inputs</th>
+    <th>What Happens</th>
+  </tr>
+  <tr>
+    <td><strong>1. Signal Scoring</strong></td>
+    <td>Q1, Q5</td>
+    <td>Each use case gets points: Q1 selections = +3 pts, Q5 selections = +2 pts, capped at 5 per use case. Measures institutional need + equity priority.</td>
+  </tr>
+  <tr>
+    <td><strong>2. Feasibility Gating</strong></td>
+    <td>Q3, Q4</td>
+    <td>Q3 assigns GREEN/YELLOW/RED data readiness flag per use case. Q4 sets tier ceiling (dedicated staff = Tier 3 max, central IT = Tier 2, vendor-dep = Tier 1). RED-flagged use cases move to &ldquo;Consider Later.&rdquo;</td>
+  </tr>
+  <tr>
+    <td><strong>3. Archetype Derivation</strong></td>
+    <td>Q4, Q7, Q2</td>
+    <td>Q4 = primary signal (Scaling/Building/Lightweight). Q7 adjusts &plusmn;1 step (e.g., Building + formal governance &rarr; Scaling). Q2 validates (flags unusual combos like &lt;5K + Scaling). Derived archetype overrides the raw Q4 tier ceiling.</td>
+  </tr>
+  <tr>
+    <td><strong>4. Contextual Overrides</strong></td>
+    <td>Q6, Q8</td>
+    <td>Q6: &ldquo;Already happening&rdquo; boosts deployed tools (&ldquo;govern what exists&rdquo;). Q8: +2 pts to motivation-matched use cases (scored only here, not in Phase 1).</td>
+  </tr>
+  <tr>
+    <td><strong>5. Ranking &amp; Output</strong></td>
+    <td>All phases</td>
+    <td>Sort by: final score desc &rarr; risk tier asc &rarr; data flag priority. Classify: GREEN + within ceiling = Recommended; YELLOW or at ceiling = Possible; RED or above ceiling = Consider Later. Output top 2&ndash;3 with &ldquo;Why it fits&rdquo; text.</td>
+  </tr>
+</table>
+
+<div class="highlight-box">
+<strong>Archetype derivation feedback loop:</strong> The derived archetype feeds back into the tier ceiling from Phase 2. A college with central-only IT (raw ceiling = Tier 2) but formal AI governance (Q7) gets upgraded to Building &rarr; Scaling, which adjusts the tier ceiling to Tier 3. The archetype &mdash; which synthesizes staffing and governance maturity &mdash; is a better judge of capacity than staffing alone.
+</div>
+
+<div class="success">
+<strong>Connection to assessment:</strong> The &ldquo;Evaluate This Use Case &rarr;&rdquo; button pre-selects the use case in the Use Case Selector and carries the archetype and institutional profile into the assessment. The user doesn&rsquo;t re-answer capacity questions &mdash; that context travels with them. Users who already know their use case skip Step 0 entirely.
+</div>
+
+<p style="font-size: 9pt; color: #888;">Full specification: See companion document <em>Step 0: Student Services Use Case Routing Questionnaire</em> for complete mapping logic, formal algorithm, and feasibility matrix.</p>
+
+<hr>
+
+<h2>Risk Tier System</h2>
+
+<table>
+  <tr>
+    <th style="width:12%">Tier</th>
+    <th style="width:20%">Risk Level</th>
+    <th style="width:35%">When It Applies</th>
+    <th>Governance Requirements</th>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td><strong>Tier 1</strong></td>
+    <td>Lower Risk</td>
+    <td>Informational only. No decisions affecting access. No sensitive data. (e.g., FAQ chatbot)</td>
+    <td>Score P1, P2, P6, P7, P8 minimum. Others recommended.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td><strong>Tier 2</strong></td>
+    <td>Medium Risk</td>
+    <td>Touches advising or instructional core. Human reviews outputs. Accesses student records. (e.g., tutoring assistant)</td>
+    <td>All 9 pillars scored. P2 and P6 must score &ge; 2.</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td><strong>Tier 3</strong></td>
+    <td>High Risk</td>
+    <td>Affects enrollment, financial aid, academic standing. Automated or semi-automated decisions. Sensitive data. (e.g., early alert system)</td>
+    <td>All 9 pillars mandatory. P2 and P6 &ge; 2. Full governance review required.</td>
+  </tr>
+</table>
+
+<div class="highlight-box">
+<strong>Override mechanism:</strong> Each use case has a default risk tier. Users can override (e.g., a chatbot that accesses student records upgrades from Tier 1 to Tier 2). Lowering the tier requires a documented reason.
+</div>
+
+<hr>
+
+<h2>Eight No-Go Criteria</h2>
+
+<p>These are the hard stops. If any condition is true, the tool should not deploy until it&rsquo;s resolved. Each has both a checklist detection path and a score-derived detection path.</p>
+
+<div class="nogo-item-card">
+<strong>NG-01: No clear educational purpose.</strong><br>
+<em>If you can&rsquo;t articulate the educational purpose, don&rsquo;t buy it.</em><br>
+Detection: P1 score = 1, OR screening indicates no educational purpose.
+</div>
+
+<div class="nogo-item-card">
+<strong>NG-02: Students are not training data.</strong><br>
+<em>Vendors that train models on student data are extracting value from the most vulnerable populations in higher education.</em><br>
+Detection: Explicit yes/no in no-go checklist.
+</div>
+
+<div class="nogo-item-card">
+<strong>NG-03: No human override for consequential decisions.</strong><br>
+<em>When AI makes decisions about financial aid, enrollment, or academic standing without human review, students lose recourse.</em><br>
+Detection: P3 score = 1 AND risk tier = High.
+</div>
+
+<div class="nogo-item-card">
+<strong>NG-04: Vendor blocks independent bias audits.</strong><br>
+<em>Vendors who block audits behind IP claims are choosing their property over your students&rsquo; civil rights.</em><br>
+Detection: Explicit yes/no in no-go checklist.
+</div>
+
+<div class="nogo-item-card">
+<strong>NG-05: No FERPA-compliant data sharing agreement.</strong><br>
+<em>This is a legal requirement, not a best practice.</em><br>
+Detection: Explicit yes/no in no-go checklist.
+</div>
+
+<div class="nogo-item-card">
+<strong>NG-06: No student disclosure of AI use.</strong><br>
+<em>Students have a right to know when AI influences decisions that affect them. Period.</em><br>
+Detection: P7 score = 1 OR explicit no-go question.
+</div>
+
+<div class="nogo-item-card">
+<strong>NG-07: Decisions without recourse are not governance.</strong><br>
+<em>If a student cannot contest an AI-influenced decision, you have automation, not governance.</em><br>
+Detection: P7 score = 1 OR explicit no-go question.
+</div>
+
+<div class="nogo-item-card">
+<strong>NG-08: Vendor lock-in undermines institutional sovereignty.</strong><br>
+<em>If you can&rsquo;t leave without losing your students&rsquo; data or paying punitive switching costs, the vendor is governing you.</em><br>
+Detection: Explicit yes/no in no-go checklist.
+</div>
+
+<div class="callout">
+<strong>Dual detection with proactive rendering:</strong> No-go criteria are triggered both by explicit checklist answers and by score-derived signals (e.g., P1=1 automatically flags NG-01). Score-derived flags are now applied <strong>at render time</strong> when the no-go checklist loads &mdash; auto-flagged items appear pre-set with an amber warning note explaining the trigger, and their radio buttons are disabled. This prevents a user from scoring a pillar poorly but not flagging the corresponding no-go, and makes the connection between pillar scores and hard stops visible and immediate.
+</div>
+
+<hr>
+
+<h2>Scoring &amp; Interpretation</h2>
+
+<h3>Per-Pillar Scoring</h3>
+<p>Each pillar is scored 1&ndash;3 using a rubric specific to that pillar:</p>
+
+<table>
+  <tr>
+    <th style="width:10%">Score</th>
+    <th style="width:15%">Label</th>
+    <th>Meaning</th>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td><strong>3</strong></td>
+    <td>Good</td>
+    <td>Governance requirements met. The tool and the institution&rsquo;s practices align with pillar expectations.</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td><strong>2</strong></td>
+    <td>Partial</td>
+    <td>Basics met but gaps exist. Institution will need to compensate for vendor limitations.</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td><strong>1</strong></td>
+    <td>Poor</td>
+    <td>Critical governance gap. Remediation required before deployment (or no-go for high-risk tools).</td>
+  </tr>
+</table>
+
+<h3>Pattern Analysis</h3>
+<p>The profile screen interprets score patterns, not just individual scores:</p>
+
+<table>
+  <tr>
+    <th style="width:30%">Pattern</th>
+    <th>Interpretation</th>
+    <th style="width:30%">Action</th>
+  </tr>
+  <tr>
+    <td>Any pillar = 1 on a High-Risk tool</td>
+    <td>Critical governance gap. For P2, P3, or P5 this is effectively a no-go.</td>
+    <td>Do not deploy without documented mitigation plan.</td>
+  </tr>
+  <tr>
+    <td>P1 = 1</td>
+    <td>No clear educational purpose.</td>
+    <td><strong>No-go.</strong> If you can&rsquo;t articulate the purpose, don&rsquo;t buy it.</td>
+  </tr>
+  <tr>
+    <td>Multiple pillars = 2</td>
+    <td>Tool meets basics but has gaps the institution must compensate for. Common for tools not designed for CCs.</td>
+    <td>Proceed with conditions. Document compensation plans.</td>
+  </tr>
+  <tr>
+    <td>All pillars &ge; 2</td>
+    <td>Solid baseline. Tool and governance aligned enough to proceed.</td>
+    <td>Standard governance. Annual inventory. Monitor per schedule.</td>
+  </tr>
+  <tr>
+    <td>Strong P6 &amp; P8, weak P4 &amp; P7</td>
+    <td>Vendor is technically sound (good data, solid contracts) but product wasn&rsquo;t designed with students as participants.</td>
+    <td>Institution must build the student-facing layer: disclosure, contestability, opt-out, faculty config.</td>
+  </tr>
+  <tr>
+    <td>Strong P4 &amp; P7, weak P6</td>
+    <td>Vendor markets well (student-friendly interface, good transparency) but hasn&rsquo;t done data governance work.</td>
+    <td>Investigate data practices deeply before proceeding.</td>
+  </tr>
+  <tr>
+    <td>P9 = 1</td>
+    <td>Not about the vendor or tool &mdash; it&rsquo;s about institutional readiness. No governance structure.</td>
+    <td>Build governance capacity first. Don&rsquo;t add tools to an ungoverned environment.</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Capability &amp; Dependency Profile</h2>
+
+<p>A universal 4-question assessment asked after screening and before pillar scoring. Measures how dependent the institution would become on an AI tool &mdash; not as a warning, but as a governance input.</p>
+
+<div class="highlight-box">
+<strong>Key principle:</strong> Dependency is not inherently bad. Permanent infrastructure is valid. But the governance response should match the dependency level. A tool you could drop tomorrow needs different oversight than one woven into enrollment workflows.
+</div>
+
+<h3>Four Questions</h3>
+
+<table>
+  <tr>
+    <th style="width:5%">#</th>
+    <th style="width:22%">Question</th>
+    <th style="width:35%">What It Measures</th>
+    <th>Response Tiers (1 / 2 / 3)</th>
+  </tr>
+  <tr>
+    <td>D1</td>
+    <td><strong>Disappearance Test</strong></td>
+    <td>Operational fragility &mdash; what happens if the tool vanishes tomorrow?</td>
+    <td>1 = Minor inconvenience / 2 = Significant disruption, workarounds exist / 3 = Service stops</td>
+  </tr>
+  <tr>
+    <td>D2</td>
+    <td><strong>Capability Trajectory</strong></td>
+    <td>Skill direction &mdash; is the institution building capability or outsourcing it?</td>
+    <td>1 = Staff gaining skills / 2 = Stable, tool-assisted / 3 = Declining without tool</td>
+  </tr>
+  <tr>
+    <td>D3</td>
+    <td><strong>Navigate-With vs. Navigate-For</strong></td>
+    <td>Agency &mdash; does the tool help staff do the work, or does it do the work?</td>
+    <td>1 = Staff drive, tool assists / 2 = Shared work / 3 = Tool drives, staff monitor</td>
+  </tr>
+  <tr>
+    <td>D4</td>
+    <td><strong>Exit Design</strong></td>
+    <td>Reversibility &mdash; how hard is it to switch or stop?</td>
+    <td>1 = Easy switch / 2 = Possible with effort / 3 = Deeply embedded, costly exit</td>
+  </tr>
+</table>
+
+<h3>Scoring Bands</h3>
+
+<table>
+  <tr>
+    <th>Score Range</th>
+    <th>Profile</th>
+    <th>Governance Response</th>
+  </tr>
+  <tr>
+    <td><strong>4&ndash;5</strong></td>
+    <td style="color: #059669; font-weight: bold;">Low Dependency</td>
+    <td>No additional governance required beyond standard pillar-based assessment.</td>
+  </tr>
+  <tr>
+    <td><strong>6&ndash;8</strong></td>
+    <td style="color: #d97706; font-weight: bold;">Medium Dependency</td>
+    <td>Configuration review required. 6-month capability check. Alternative maintenance plan.</td>
+  </tr>
+  <tr>
+    <td><strong>9&ndash;12</strong></td>
+    <td style="color: #dc2626; font-weight: bold;">High Dependency</td>
+    <td>Dependency acknowledgment. Vendor lock-in assessment. 12-month sunset evaluation. Capability impact tracking (Tier 3 only).</td>
+  </tr>
+</table>
+
+<h3>Design Principles</h3>
+<ol>
+  <li><strong>Not gates.</strong> No dependency score blocks deployment. Scores trigger governance requirements, not stops.</li>
+  <li><strong>Permanent infrastructure is valid.</strong> A high dependency score for a mission-critical tool is expected, not alarming.</li>
+  <li><strong>Legitimize every answer.</strong> Tier 3 responses are honest, not wrong. The tool respects institutions that acknowledge deep integration.</li>
+  <li><strong>Patterns emerge through use.</strong> Dependency data across tools reveals institutional patterns (trending toward outsourcing vs. building capability).</li>
+  <li><strong>Dependency is not risk.</strong> Risk tier measures potential harm to students. Dependency measures institutional reliance. They interact but are distinct dimensions.</li>
+</ol>
+
+<h3>Interaction with Risk Tier</h3>
+<p>Dependency profile and risk tier are independent inputs that produce combined governance requirements:</p>
+<ul>
+  <li><strong>High Dependency + High Risk (Tier 3):</strong> Triggers escalation &mdash; capability impact tracking added to governance requirements</li>
+  <li><strong>High Dependency + declining capability:</strong> Escalation trigger in the roadmap</li>
+  <li><strong>Low Dependency + any tier:</strong> No additional governance layer from dependency</li>
+</ul>
+
+<hr>
+
+<h2>Mechanism Detection</h2>
+
+<p>Risk tier should reflect the tool&rsquo;s <strong>mechanism</strong>, not just its <strong>category</strong>. A campus life recommender and an FAQ chatbot both live in &ldquo;Student-Facing Chatbot&rdquo; (SS-04) &mdash; but one pattern-matches student behavior and the other serves static information. The governance requirements are fundamentally different.</p>
+
+<p>Three questions detect mechanism types that reliably elevate risk regardless of what the tool is called. They run for every use case, after dependency profiling and before risk tier confirmation. Takes under 2 minutes.</p>
+
+<div class="callout">
+<strong>Core principle:</strong> Instead of adding named use cases for every tool that might hide equity risk, the Navigator asks three mechanism questions that surface the risk regardless of category. SS-04 stays SS-04 &mdash; but if the chatbot pattern-matches, the Navigator catches it.
+</div>
+
+<h3>Three Mechanism Questions</h3>
+
+<table>
+  <tr>
+    <th style="width:8%">ID</th>
+    <th style="width:22%">Question</th>
+    <th style="width:35%">What It Detects</th>
+    <th>Escalation Triggers</th>
+  </tr>
+  <tr>
+    <td><strong>MD-01</strong></td>
+    <td>How does this tool decide what to show or recommend to each student?</td>
+    <td><strong>Behavioral pattern-matching.</strong> Tools that personalize outputs based on individual student data &mdash; behavioral history, profile characteristics, usage patterns, predicted preferences. This is the mechanism that turns a neutral chatbot into an equity risk.</td>
+    <td>
+      Options A&ndash;B: No escalation<br>
+      C (profile-based): <strong>+1 tier</strong>. Force P2 &ge; 2, P7 &ge; 2.<br>
+      D (behavioral): <strong>+1 tier</strong>. Force P2 &ge; 2, P7 &ge; 2. Equity flag.<br>
+      E (unknown): <strong>+1 tier</strong>. Force P7 &ge; 2. Investigation required.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>MD-02</strong></td>
+    <td>Does this tool group, classify, or score individual students?</td>
+    <td><strong>Student classification &amp; segmentation.</strong> Tools that create categories of students &mdash; risk scores, behavioral clusters, predicted outcomes. This mechanism hides inside early alert systems, registration tools, nudge campaigns, and advising platforms that &ldquo;prioritize&rdquo; outreach.</td>
+    <td>
+      Options A&ndash;B: No escalation<br>
+      C (predictive scoring): <strong>+1 tier</strong>. Force P2 &ge; 2, P5 &ge; 2, P7 &ge; 2.<br>
+      D (behavioral clustering): <strong>+1 tier</strong>. Force P2 &ge; 2, P5 &ge; 2, P7 &ge; 2. Equity flag.<br>
+      E (unknown): <strong>+1 tier</strong>. Force P7 &ge; 2. Investigation required.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>MD-03</strong></td>
+    <td>Can this tool take actions or contact students without a human initiating it?</td>
+    <td><strong>Autonomous action &amp; outreach.</strong> Tools that act on their own &mdash; sending messages, triggering workflows, escalating cases &mdash; without a human deciding &ldquo;yes, do this for this student right now.&rdquo; Turns a passive tool into an active agent in the student&rsquo;s experience.</td>
+    <td>
+      Options A&ndash;B: No escalation<br>
+      C (rule-based triggers): <strong>+1 tier</strong> (only if current Tier 1). Force P3 &ge; 2, P5 &ge; 2.<br>
+      D (autonomous outreach): <strong>+1 tier</strong>. Force P3 &ge; 2, P5 &ge; 2, P7 &ge; 2.<br>
+      E (cascading actions): <strong>+2 tiers</strong> (cap at 3). Force P3 &ge; 2, P5 &ge; 2, P7 &ge; 2. No-go flag for review.
+    </td>
+  </tr>
+</table>
+
+<h3>Escalation Logic</h3>
+
+<p>Tier adjustments from mechanism detection are <strong>additive</strong> across all three questions but <strong>capped at Tier 3</strong>:</p>
+
+<div style="font-family: 'Courier New', monospace; font-size: 9pt; background: #f0f0f0; padding: 12px; border-radius: 4px; margin: 12px 0;">
+adjusted_tier = min(3, default_tier + MD01_escalation + MD02_escalation + MD03_escalation)
+</div>
+
+<table>
+  <tr>
+    <th style="width:35%">Example</th>
+    <th style="width:15%">Default Tier</th>
+    <th style="width:25%">Mechanism Flags</th>
+    <th>Adjusted Tier</th>
+  </tr>
+  <tr>
+    <td>SS-04 Chatbot + profile-based personalization</td>
+    <td>Tier 1</td>
+    <td>MD-01 C (+1)</td>
+    <td><strong>Tier 2</strong></td>
+  </tr>
+  <tr>
+    <td>SS-04 Chatbot + behavioral matching + autonomous outreach</td>
+    <td>Tier 1</td>
+    <td>MD-01 D (+1), MD-03 D (+1)</td>
+    <td><strong>Tier 3</strong></td>
+  </tr>
+  <tr>
+    <td>SS-08 Career + predictive scoring</td>
+    <td>Tier 1</td>
+    <td>MD-02 C (+1)</td>
+    <td><strong>Tier 2</strong></td>
+  </tr>
+  <tr>
+    <td>SS-02 Early Alert + any mechanism flags</td>
+    <td>Tier 3</td>
+    <td>Any</td>
+    <td><strong>Tier 3</strong> (already max)</td>
+  </tr>
+</table>
+
+<h3>Forced Pillar Requirements</h3>
+
+<p>Mechanism flags force minimum pillar scores independent of tier. If a forced pillar scores below the minimum during pillar scoring, the Navigator surfaces a warning and carries the gap forward as a deployment blocker.</p>
+
+<table>
+  <tr>
+    <th style="width:35%">Mechanism Detected</th>
+    <th>Forced Pillar Requirements</th>
+  </tr>
+  <tr>
+    <td>Profile-based personalization (MD-01 C)</td>
+    <td>P2 &ge; 2, P7 &ge; 2</td>
+  </tr>
+  <tr>
+    <td>Behavioral pattern-matching (MD-01 D)</td>
+    <td>P2 &ge; 2, P7 &ge; 2</td>
+  </tr>
+  <tr>
+    <td>Predictive scoring (MD-02 C)</td>
+    <td>P2 &ge; 2, P5 &ge; 2, P7 &ge; 2</td>
+  </tr>
+  <tr>
+    <td>Behavioral clustering (MD-02 D)</td>
+    <td>P2 &ge; 2, P5 &ge; 2, P7 &ge; 2</td>
+  </tr>
+  <tr>
+    <td>Autonomous outreach (MD-03 D)</td>
+    <td>P3 &ge; 2, P5 &ge; 2, P7 &ge; 2</td>
+  </tr>
+  <tr>
+    <td>Cascading autonomous actions (MD-03 E)</td>
+    <td>P3 &ge; 2, P5 &ge; 2, P7 &ge; 2</td>
+  </tr>
+  <tr>
+    <td>Unknown (any question)</td>
+    <td>P7 &ge; 2</td>
+  </tr>
+</table>
+
+<div class="highlight-box">
+<strong>Equity screening flag:</strong> When MD-01 D (behavioral pattern-matching) or MD-02 D (behavioral clustering) is selected, an additional equity screening question is injected into the P2 (Equity) pillar scoring: &ldquo;Has your institution tested whether this tool&rsquo;s personalization or classification produces different outcomes for different student populations?&rdquo; This forces the evaluator to confront the equity implications of the mechanism before scoring P2.
+</div>
+
+<h3>Design Principles</h3>
+
+<ol>
+  <li><strong>Detection, not punishment.</strong> Every answer has a &ldquo;what you&rsquo;re looking for&rdquo; description that legitimizes it. A tool that uses behavioral pattern-matching isn&rsquo;t bad &mdash; it requires more governance.</li>
+  <li><strong>Transparent adjustments.</strong> The user sees exactly why the tier changed and which mechanism caused it. No black box.</li>
+  <li><strong>&ldquo;Unknown&rdquo; is the most important answer.</strong> If the governance team can&rsquo;t answer how the tool personalizes, classifies, or acts autonomously, that&rsquo;s the most critical finding. Treated as an investigation item, not a stop sign.</li>
+  <li><strong>Compounds with dependency profiling.</strong> A tool that is high-dependency AND uses behavioral pattern-matching is qualitatively different from either characteristic alone. Both dimensions are captured independently and combine in the governance profile.</li>
+  <li><strong>Solves the &ldquo;Campus Life Recommender&rdquo; problem.</strong> Instead of adding named use cases for every tool that might hide equity risk, three mechanism questions surface the risk regardless of category.</li>
+</ol>
+
+<p style="font-size: 9pt; color: #888;">Full specification with detailed option descriptions, &ldquo;what you&rsquo;re looking for&rdquo; guidance, equity implications text, UX rendering, and roadmap integration: see companion document <em>Mechanism Detection Screen Specification</em>.</p>
+
+</div><!-- /tab-framework -->
+
+<!-- ============================================================ -->
+<!-- TAB 3: USER JOURNEY -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-journey">
+
+<h2>User Journey</h2>
+
+<p>Three entry paths converge to the same destination. The full path walks through every step. The quick path pre-configures based on archetype self-identification. The routing path guides users who don&rsquo;t know where to start through 8 questions to recommended use cases.</p>
+
+<div class="callout">
+<strong>AI augmentation in the journey:</strong> Nodes marked with &#9729; are AI-assisted when the augmentation layer is enabled. The AI helps with tool recognition and technical analysis at those steps. All other nodes use deterministic framework logic only. The full journey works identically with or without the AI layer &mdash; see &ldquo;AI Augmentation Layer&rdquo; tab for details.
+</div>
+
+<div class="flow-arrow">
+  <div class="flow-step">Landing</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step" style="background: #E87722;">Step 0<br><span style="font-size: 7pt; opacity: 0.8;">(routing path)</span></div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step" style="background: #999;">Archetype<br><span style="font-size: 7pt; opacity: 0.8;">(quick path)</span></div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step alt">Use Case</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step alt2">Screening</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step alt3">Result</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step" style="background: #7c3aed;">Dependency</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step" style="background: #9f1239;">Mechanism</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step alt4">Risk Tier</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step alt5">Scoring</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step" style="background: #c00;">No-Go</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step" style="background: #333;">Profile</div>
+  <div class="flow-connector">&rarr;</div>
+  <div class="flow-step" style="background: #0891b2;">Roadmap</div>
+</div>
+
+<div style="display: flex; gap: 12px; margin: 12px 0; font-size: 9.5pt;">
+  <div style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+    <strong>Routing Path:</strong> Landing &rarr; Step 0 (8 Questions) &rarr; Recommendations &rarr; Use Case (pre-selected) &rarr; Screening &rarr; &hellip; same flow
+  </div>
+  <div style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+    <strong>Full Path:</strong> Landing &rarr; Use Case &rarr; Screening &rarr; Result &rarr; Dependency Profile &rarr; Mechanism Detection &rarr; Risk Tier &rarr; Pillar Scoring &rarr; No-Go Check &rarr; Profile &rarr; Roadmap
+  </div>
+  <div style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+    <strong>Quick Path:</strong> Landing &rarr; Archetype Selector &rarr; Use Case &rarr; (same flow from there, including Dependency Profile)
+  </div>
+</div>
+
+<hr>
+
+<!-- SCREEN 1 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">1</div>
+    Landing &mdash; &ldquo;Navigate AI Governance. Built for Student Services.&rdquo;
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> Dark hero section with bold typography. Three CTAs: &ldquo;Start Your Assessment&rdquo; (full path), &ldquo;I Know My Institution&rdquo; (quick path), and &ldquo;Help Me Choose&rdquo; (routing path / Step 0). Not a framework overview &mdash; an invitation to evaluate a specific tool.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Hero section wireframe</div>
+      <div style="text-align:center; padding: 20px 0; background: #111; color: white; border-radius: 4px;">
+        <div style="font-size: 8pt; color: #0891b2; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Built from 224 Global Frameworks</div>
+        <div style="font-size: 18pt; font-weight: bold; margin-bottom: 8px;">Navigate AI governance.<br>Built for Student Services.</div>
+        <div style="font-size: 10pt; color: #888; margin-bottom: 16px; max-width: 400px; margin-left: auto; margin-right: auto;">The first AI governance tool designed for community colleges. Answer a few questions &mdash; get a governance roadmap tailored to your institution.</div>
+        <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+          <div style="background: #0891b2; color: white; padding: 8px 20px; font-weight: bold; font-size: 9pt;">Start Your Assessment</div>
+          <div style="border: 1px solid rgba(255,255,255,0.4); color: white; padding: 8px 20px; font-weight: bold; font-size: 9pt;">I Know My Institution</div>
+          <div style="background: #E87722; color: white; padding: 8px 20px; font-weight: bold; font-size: 9pt;">Help Me Choose</div>
+        </div>
+      </div>
+    </div>
+
+    <h4>Below the Hero</h4>
+    <ul>
+      <li><strong>Stat strip:</strong> 224 Frameworks Reviewed &bull; 10 Use Cases &bull; 9 Pillars &bull; 54 Questions &bull; 3 Implementation Paths</li>
+      <li><strong>&ldquo;How It Works&rdquo; steps:</strong> 5-step grid (Identify &rarr; Evaluate &rarr; Check the Lines &rarr; Get Your Profile &rarr; Get Your Roadmap)</li>
+      <li><strong>Archetype quick-start:</strong> 3 cards (Lightweight, Building, Scaling) that pre-configure the assessment</li>
+      <li><strong>Credibility statement:</strong> &ldquo;Built from analysis of 224 global AI governance frameworks across 12 domains. Designed to complement the CCCCO HUMANS Framework.&rdquo;</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 0a: ROUTING QUESTIONNAIRE -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num" style="background: #E87722;">0a</div>
+    Step 0: Routing Questionnaire &mdash; &ldquo;Where Should You Start?&rdquo;
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> 8 questions, shown one at a time with progress bar. Routes institutions that don&rsquo;t know which AI use case to evaluate. Derives archetype, data readiness, equity priorities, and urgency level to produce ranked use case recommendations.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Routing question example (Q1: Bottlenecks)</div>
+      <div style="padding: 12px; border-radius: 4px;">
+        <div style="font-size: 8pt; color: #E87722; text-transform: uppercase; letter-spacing: 0.08em; font-weight: bold; margin-bottom: 4px;">Step 0 &mdash; Question 1 of 8</div>
+        <div style="font-size: 12pt; font-weight: bold; margin-bottom: 4px;">Where are students getting stuck?</div>
+        <div style="font-size: 9pt; color: #666; font-style: italic; margin-bottom: 10px;">Pick up to three. This tells us where AI could have the biggest impact for your students.</div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="border: 2px solid #E87722; background: #fff3e0; padding: 8px 12px; border-radius: 4px; font-size: 9.5pt; font-weight: bold;">&#9745; Students can&rsquo;t get advising appointments when they need them</div>
+          <div style="border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; font-size: 9.5pt;">&#9744; Students are falling off track and we don&rsquo;t catch it early enough</div>
+          <div style="border: 2px solid #E87722; background: #fff3e0; padding: 8px 12px; border-radius: 4px; font-size: 9.5pt; font-weight: bold;">&#9745; Financial aid is confusing and students abandon applications</div>
+          <div style="border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; font-size: 9.5pt;">&#9744; Students can&rsquo;t get answers outside business hours</div>
+          <div style="font-size: 8.5pt; color: #999;">+ 4 more options&hellip;</div>
+        </div>
+        <div style="margin-top: 10px; background: #eee; border-radius: 4px; height: 6px;">
+          <div style="background: #E87722; border-radius: 4px; height: 6px; width: 12.5%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <h4>Question Types</h4>
+    <ul>
+      <li><strong>Q1 and Q5:</strong> Multi-select (up to 3 and 2 respectively). These questions produce the strongest scoring signals.</li>
+      <li><strong>Q2, Q3, Q4, Q6, Q7, Q8:</strong> Single-select. Each modifies feasibility, archetype, or context.</li>
+      <li>One question per screen with progress bar. Approx. 3&ndash;5 minutes to complete.</li>
+    </ul>
+
+    <h4>Design Notes</h4>
+    <ul>
+      <li>Skippable: users who know their use case go straight to Step 1</li>
+      <li>Each question has a plain-language hint explaining why it&rsquo;s being asked</li>
+      <li>Q3 (data) and Q4 (staffing) encourage honesty: &ldquo;Be honest. This is the most common reason AI tools underperform.&rdquo;</li>
+      <li>Q8 (motivation) adds context but never blocks: all answers are valid</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 0b: ROUTING RESULTS -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num" style="background: #E87722;">0b</div>
+    Step 0 Results &mdash; &ldquo;Your Recommended Starting Points&rdquo;
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> Shows 2&ndash;3 recommended use cases ranked by fit, plus institutional profile (archetype, data readiness, equity priority, urgency). Each recommendation includes a &ldquo;Why it fits&rdquo; narrative connecting the user&rsquo;s specific answers to the use case. &ldquo;Evaluate This Use Case &rarr;&rdquo; pre-selects the use case and enters the assessment.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Routing results wireframe</div>
+      <div style="margin-bottom: 12px;">
+        <div style="font-size: 8pt; color: #E87722; text-transform: uppercase; letter-spacing: 0.08em; font-weight: bold; margin-bottom: 4px;">Your Starting Points</div>
+
+        <!-- Recommendation 1 -->
+        <div style="border: 2px solid #ddd; border-left: 4px solid #28a745; padding: 12px; border-radius: 4px; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+            <span style="font-weight: bold; font-size: 10pt;">1. Student-Facing Chatbot / Digital Front Door</span>
+            <span style="background: #d4edda; color: #155724; font-size: 8pt; font-weight: bold; padding: 2px 6px; border-radius: 3px;">Tier 1</span>
+            <span style="background: #d4edda; color: #155724; font-size: 8pt; font-weight: bold; padding: 2px 6px; border-radius: 3px;">Data: GREEN</span>
+          </div>
+          <div style="font-size: 9pt; color: #555; line-height: 1.5;">You said students can&rsquo;t get answers outside business hours and your working students can&rsquo;t access services during the day. A chatbot addresses both &mdash; and at Tier 1, it&rsquo;s governance-light enough to match your current capacity.</div>
+          <div style="margin-top: 6px;">
+            <span style="background: #0891b2; color: white; padding: 4px 12px; border-radius: 3px; font-size: 9pt; font-weight: bold;">Evaluate This Use Case &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Recommendation 2 -->
+        <div style="border: 2px solid #ddd; border-left: 4px solid #ffc107; padding: 12px; border-radius: 4px; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+            <span style="font-weight: bold; font-size: 10pt;">2. Multilingual Support / Translation</span>
+            <span style="background: #fff3cd; color: #856404; font-size: 8pt; font-weight: bold; padding: 2px 6px; border-radius: 3px;">Tier 2</span>
+            <span style="background: #d4edda; color: #155724; font-size: 8pt; font-weight: bold; padding: 2px 6px; border-radius: 3px;">Data: GREEN</span>
+          </div>
+          <div style="font-size: 9pt; color: #555; line-height: 1.5;">Language barriers showed up in both your bottleneck and equity responses. Your SIS data is clean enough to support this. Medium governance lift.</div>
+          <div style="margin-top: 6px;">
+            <span style="background: #0891b2; color: white; padding: 4px 12px; border-radius: 3px; font-size: 9pt; font-weight: bold;">Evaluate This Use Case &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Consider Later -->
+        <div style="border: 2px solid #ddd; border-left: 4px solid #dc3545; padding: 12px; border-radius: 4px; opacity: 0.7;">
+          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+            <span style="font-weight: bold; font-size: 10pt;">3. Consider Later: Early Alert System</span>
+            <span style="background: #f8d7da; color: #721c24; font-size: 8pt; font-weight: bold; padding: 2px 6px; border-radius: 3px;">Tier 3</span>
+            <span style="background: #f8d7da; color: #721c24; font-size: 8pt; font-weight: bold; padding: 2px 6px; border-radius: 3px;">Data: RED</span>
+          </div>
+          <div style="font-size: 9pt; color: #555; line-height: 1.5;">Your completion gaps suggest this would have high impact, but your data situation and staffing point to starting with Tier 1&ndash;2 first. Revisit when your data systems are integrated.</div>
+        </div>
+      </div>
+
+      <!-- Institutional profile -->
+      <div style="background: #f5f5f3; padding: 10px 14px; border-radius: 4px; margin-top: 12px;">
+        <div style="font-size: 8.5pt; font-weight: bold; text-transform: uppercase; color: #888; margin-bottom: 4px;">Your Institutional Profile</div>
+        <div style="font-size: 9pt; display: flex; gap: 16px; flex-wrap: wrap;">
+          <span><strong>Archetype:</strong> Building</span>
+          <span><strong>Equity priority:</strong> Multilingual access, first-gen persistence</span>
+          <span><strong>Urgency:</strong> Moderate</span>
+          <span><strong>Data readiness:</strong> Level 1 (basic SIS)</span>
+        </div>
+      </div>
+    </div>
+
+    <h4>Output Components</h4>
+    <ul>
+      <li><strong>Ranked recommendations (2&ndash;3):</strong> Use case name, one-liner, risk tier badge, data readiness flag, &ldquo;Why it fits&rdquo; narrative, &ldquo;Evaluate This Use Case &rarr;&rdquo; button</li>
+      <li><strong>Consider Later (0&ndash;2):</strong> Use cases that would have high impact but aren&rsquo;t feasible yet, with explanation of what needs to change</li>
+      <li><strong>Institutional Profile:</strong> Archetype (derived from Q4+Q7+Q2), equity priority (from Q5), urgency (from Q6), data readiness (from Q3)</li>
+    </ul>
+
+    <h4>Design Notes</h4>
+    <ul>
+      <li>&ldquo;Why it fits&rdquo; text is assembled from the user&rsquo;s specific Q1 + Q5 + Q8 answers, not generic descriptions</li>
+      <li>&ldquo;Consider Later&rdquo; items explain what needs to change, not just &ldquo;not yet&rdquo; &mdash; this prevents users from jumping to Tier 3 without infrastructure</li>
+      <li>&ldquo;Evaluate This Use Case &rarr;&rdquo; carries archetype and profile into the assessment; the user doesn&rsquo;t re-answer capacity questions</li>
+      <li>If no use case scores above 0, SS-04 (Chatbot) is recommended as the default starting point</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">2</div>
+    Archetype Selector (Quick Path) &mdash; &ldquo;Which Sounds Like Your Institution?&rdquo;
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> Self-identification cards for Lightweight, Building, and Scaling. Pre-configures assessment context. Skippable for users taking the full path.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Archetype cards</div>
+      <div class="arch-grid">
+        <div class="arch-card">
+          <div class="arch-name">Lightweight</div>
+          <div class="arch-tagline">Start small. Start now.</div>
+          <div class="arch-desc" style="text-align: left;">&bull; Under 5,000 students<br>&bull; No formal AI governance yet<br>&bull; 1&ndash;2 people wearing many hats</div>
+        </div>
+        <div class="arch-card" style="border-color: #0066cc; background: #e7f3ff;">
+          <div class="arch-name">Building</div>
+          <div class="arch-tagline">Structure enables innovation.</div>
+          <div class="arch-desc" style="text-align: left;">&bull; AI committee forming<br>&bull; IT director and IR capacity<br>&bull; Ready for comprehensive evaluation</div>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Scaling</div>
+          <div class="arch-tagline">Govern the portfolio.</div>
+          <div class="arch-desc" style="text-align: left;">&bull; Multiple AI tools deployed<br>&bull; Standing committee<br>&bull; Portfolio-level coordination</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:9pt; color:#888;">Each archetype includes &ldquo;You might be this if&hellip;&rdquo; bullets and a starting recommendation. Selection persists through the assessment and determines roadmap output complexity.</p>
+  </div>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">3</div>
+    Use Case Selector &mdash; &ldquo;What Student Services AI Use Case Are You Considering?&rdquo;
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> 10 + 1 cards in a responsive grid. Each card shows: risk tier badge, pillar badges, one-liner description, and equity flag. The 11th card is &ldquo;Custom / Other&rdquo; for use cases not listed.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Use case card example</div>
+      <div style="border: 2px solid #ddd; padding: 12px; border-radius: 6px; max-width: 280px;">
+        <div style="margin-bottom: 6px;">
+          <span style="background: #f8d7da; color: #c00; font-size: 8pt; font-weight: bold; padding: 2px 6px;">TIER 3 (HIGH)</span>
+          <span style="background: #0066cc; color: white; font-size: 7pt; font-weight: bold; padding: 2px 4px; margin-left: 2px;">P1</span>
+          <span style="background: #28a745; color: white; font-size: 7pt; font-weight: bold; padding: 2px 4px;">P2</span>
+          <span style="background: #6f42c1; color: white; font-size: 7pt; font-weight: bold; padding: 2px 4px;">P3</span>
+          <span style="background: #dc3545; color: white; font-size: 7pt; font-weight: bold; padding: 2px 4px;">P5</span>
+        </div>
+        <div style="font-weight: bold; font-size: 10pt;">AI Advising / Guided Pathways</div>
+        <div style="font-size: 9pt; color: #666;">AI that recommends courses, pathways, or programs to students.</div>
+        <div style="font-size: 8.5pt; color: #d97706; font-weight: bold; margin-top: 4px;">&#9888; Recommendations affect trajectory. Errors compound for first-gen and Pell-eligible.</div>
+      </div>
+    </div>
+
+    <h4>Design Details</h4>
+    <ul>
+      <li>Cards sorted by risk tier (High first, then Medium, then Lower, then Custom)</li>
+      <li>Risk tier badges color-coded: red (High), yellow (Medium), green (Lower)</li>
+      <li>Key pillar badges show which pillars are most critical for that use case</li>
+      <li>Equity flag in amber shows the specific equity concern</li>
+      <li>Single selection &mdash; one use case at a time</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 4 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">4</div>
+    Screening &mdash; Use-Case-Specific Questions
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> 4&ndash;5 questions specific to the selected use case. Each answer maps to GO, PAUSE, or NO-GO logic. One question per screen with progress bar.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Screening question example (SS-01: AI Advising)</div>
+      <div style="margin-bottom: 8px;">
+        <span style="background: #f8d7da; color: #c00; font-size: 8pt; font-weight: bold; padding: 2px 6px;">SS-01</span>
+        <span style="font-size: 9pt; color: #666; margin-left: 4px;">AI Advising / Guided Pathways</span>
+      </div>
+
+      <div class="q-mock">
+        <div class="q-text">Will a human counselor review AI pathway recommendations before they reach students?</div>
+        <div class="q-options">
+          <div class="q-option">Always</div>
+          <div class="q-option">Sometimes</div>
+          <div class="q-option selected" style="background: #c00; border-color: #c00;">Never</div>
+        </div>
+      </div>
+      <div style="font-size: 8.5pt; color: #c00; margin-top: 4px; font-weight: bold;">Never &rarr; NO-GO</div>
+    </div>
+
+    <h4>Screening Logic</h4>
+    <ul>
+      <li>Each answer option has a <span class="dm-field">logic</span> value: <span class="dm-field">go</span>, <span class="dm-field">pause</span>, or <span class="dm-field">nogo</span></li>
+      <li>Any <span class="dm-field">nogo</span> answer = NO-GO result</li>
+      <li>2+ <span class="dm-field">pause</span> answers = PAUSE result</li>
+      <li>Otherwise = GO result</li>
+      <li>Flags carry forward into the profile and roadmap</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 5 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">5</div>
+    Screening Result &mdash; GO / PAUSE / NO-GO
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> Traffic light recommendation with flagged concerns. Users can proceed to full evaluation (concerns noted), choose a different use case, or (for NO-GO) continue anyway with flags documented.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Result variants</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+        <div style="padding: 10px; border-left: 4px solid #28a745; background: #d4edda;">
+          <div style="font-weight: bold; color: #28a745; font-size: 10pt;">GO</div>
+          <div style="font-size: 8.5pt;">No red flags. Proceed to evaluation.</div>
+        </div>
+        <div style="padding: 10px; border-left: 4px solid #ffc107; background: #fff3cd;">
+          <div style="font-weight: bold; color: #856404; font-size: 10pt;">PAUSE</div>
+          <div style="font-size: 8.5pt;">Concerns flagged. Not deal-breakers. Proceed or switch.</div>
+        </div>
+        <div style="padding: 10px; border-left: 4px solid #c00; background: #f8d7da;">
+          <div style="font-weight: bold; color: #c00; font-size: 10pt;">NO-GO</div>
+          <div style="font-size: 8.5pt;">Hard stop. Condition must be resolved. Can continue anyway (noted).</div>
+        </div>
+      </div>
+    </div>
+
+    <h4>Design Decisions</h4>
+    <ul>
+      <li>Each flagged concern shows: the question, the user&rsquo;s answer, and the reasoning</li>
+      <li>NO-GO results always offer &ldquo;Continue Anyway&rdquo; &mdash; the tool advises but doesn&rsquo;t block</li>
+      <li>Flags carry into the profile and are referenced in the roadmap</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 5b -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num" style="background: #7c3aed;">5b</div>
+    Dependency Profile &mdash; Capability &amp; Dependency Questions
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> Assess how dependent the institution would become on this AI tool. Four universal questions asked for every use case, between screening result and risk tier assignment. Produces a dependency profile (Low / Medium / High) that feeds into governance requirements.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Dependency questions (4 total, shown one at a time)</div>
+      <div style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; margin: 8px 0;">
+        <div style="font-weight: bold; margin-bottom: 6px;">D1: The Disappearance Test</div>
+        <div style="font-size: 9pt; color: #666; margin-bottom: 8px;">If this tool vanished tomorrow, what happens to the service?</div>
+        <div style="display: flex; gap: 8px;">
+          <div style="flex: 1; padding: 8px; border: 1px solid #059669; border-radius: 4px; text-align: center; font-size: 8.5pt; background: #f0fdf4;">
+            <div style="font-weight: bold;">1</div>
+            Minor inconvenience
+          </div>
+          <div style="flex: 1; padding: 8px; border: 1px solid #d97706; border-radius: 4px; text-align: center; font-size: 8.5pt; background: #fffbeb;">
+            <div style="font-weight: bold;">2</div>
+            Significant disruption
+          </div>
+          <div style="flex: 1; padding: 8px; border: 1px solid #dc2626; border-radius: 4px; text-align: center; font-size: 8.5pt; background: #fef2f2;">
+            <div style="font-weight: bold;">3</div>
+            Service stops
+          </div>
+        </div>
+      </div>
+      <div style="font-size: 8.5pt; color: #666; text-align: center;">Progress: Question 1 of 4</div>
+    </div>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Dependency profile result</div>
+      <div style="text-align: center; padding: 16px;">
+        <div style="font-size: 14pt; font-weight: bold; color: #d97706; margin-bottom: 4px;">Medium Dependency</div>
+        <div style="font-size: 10pt; color: #666;">Score: 7 of 12</div>
+        <div style="margin-top: 12px; font-size: 9pt; text-align: left; padding: 8px; background: #fffbeb; border-radius: 4px;">
+          <strong>What this means:</strong> Your institution would be meaningfully affected if this tool changed or disappeared. This triggers three governance additions: configuration review, 6-month capability check, and alternative maintenance plan.
+        </div>
+      </div>
+    </div>
+
+    <h4>Design Decisions</h4>
+    <ul>
+      <li>Asked universally &mdash; every use case and archetype gets dependency questions</li>
+      <li>No score blocks deployment. High dependency is honest, not wrong.</li>
+      <li>&ldquo;What You&rsquo;re Looking For&rdquo; guidance per question helps users assess accurately</li>
+      <li>Dependency badge appears on the governance profile alongside risk tier and archetype</li>
+      <li>Profile result shows plain-language explanation of what the dependency level triggers</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 5c: MECHANISM DETECTION -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num" style="background: #9f1239;">5c</div>
+    Mechanism Detection &mdash; &ldquo;How Does This Tool Work?&rdquo;
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> Three questions detect mechanism types that elevate governance requirements regardless of use case category. Catches hidden risk that lives in <em>how</em> a tool works, not <em>what category</em> it belongs to. Produces tier adjustments and forced pillar minimums that carry into risk tier and scoring.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Mechanism question example (MD-01: Behavioral Pattern-Matching)</div>
+      <div style="padding: 12px;">
+        <div style="font-size: 8pt; color: #9f1239; text-transform: uppercase; letter-spacing: 0.08em; font-weight: bold; margin-bottom: 4px;">Mechanism Detection &mdash; Question 1 of 3</div>
+        <div style="font-size: 12pt; font-weight: bold; margin-bottom: 6px;">How does this tool decide what to show or recommend to each student?</div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; font-size: 9.5pt;">
+            <strong>A. Same for everyone</strong><br>
+            <span style="color: #666; font-size: 8.5pt;">Every student sees the same information. The tool responds to what the student asks, not who they are.</span>
+          </div>
+          <div style="border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; font-size: 9.5pt;">
+            <strong>B. Student-configured</strong><br>
+            <span style="color: #666; font-size: 8.5pt;">Students choose preferences themselves. Personalization is driven by explicit student choice.</span>
+          </div>
+          <div style="border: 2px solid #9f1239; padding: 8px 12px; border-radius: 4px; font-size: 9.5pt; background: #fff1f2;">
+            <strong>C. Profile-based personalization</strong> <span style="color: #9f1239; font-size: 8pt; font-weight: bold;">+1 TIER &bull; P2 &ge; 2 &bull; P7 &ge; 2</span><br>
+            <span style="color: #666; font-size: 8.5pt;">The tool uses student data (major, demographics, prior interactions) to tailor what it shows.</span>
+          </div>
+          <div style="border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; font-size: 9.5pt;">
+            <strong>D. Behavioral pattern-matching</strong><br>
+            <span style="color: #666; font-size: 8.5pt;">The tool observes behavior over time and adjusts based on inferred patterns.</span>
+          </div>
+          <div style="border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; font-size: 9.5pt;">
+            <strong>E. Unknown</strong><br>
+            <span style="color: #666; font-size: 8.5pt;">The team doesn&rsquo;t know how the tool personalizes.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Mechanism result interstitial (shown if tier adjusted)</div>
+      <div style="text-align: center; padding: 16px;">
+        <div style="font-size: 8pt; color: #9f1239; text-transform: uppercase; letter-spacing: 0.08em; font-weight: bold;">Mechanism Profile</div>
+        <div style="font-size: 14pt; font-weight: bold; color: #9f1239; margin: 4px 0;">Risk Tier Adjusted</div>
+        <div style="font-size: 10pt; color: #666; max-width: 400px; margin: 0 auto; line-height: 1.5;">Based on your answers, this tool uses <strong>profile-based personalization</strong>. This mechanism elevates the risk tier from <strong>Tier 1</strong> to <strong>Tier 2</strong> because different students receive different information based on data they may not know drives the personalization.</div>
+        <div style="margin-top: 12px; font-size: 9pt; text-align: left; padding: 8px; background: #f5f5f3; border-radius: 4px;">
+          <strong>Forced pillar minimums:</strong> P2 (Equity) &ge; 2 &bull; P7 (Transparency) &ge; 2
+        </div>
+      </div>
+    </div>
+
+    <h4>Design Details</h4>
+    <ul>
+      <li>One question per card, same interaction pattern as dependency profile (click to select, show description)</li>
+      <li>Runs for <strong>every use case</strong> regardless of initial tier assignment</li>
+      <li>Tier adjustments are additive across all three questions, capped at Tier 3</li>
+      <li>If tier is adjusted, an interstitial shows the change with explanation before the Risk Tier screen</li>
+      <li>If no adjustment needed, a brief &ldquo;No Adjustment Needed&rdquo; confirmation before Risk Tier</li>
+      <li>&ldquo;Unknown&rdquo; (Option E) is treated seriously &mdash; it&rsquo;s an investigation item flagged in the profile</li>
+      <li>When MD-01 D or MD-02 D is selected, an equity screening flag triggers an additional question during P2 scoring</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 6 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">6</div>
+    Risk Tier &mdash; Confirm or Override
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> Show the risk tier &mdash; which may now reflect <strong>mechanism-adjusted</strong> values from the Mechanism Detection screen. If mechanism flags elevated the tier, the adjusted tier is shown as default with the original category-based tier noted for reference. Allow the user to override if their implementation differs. <strong>For SS-XX (Custom/Other), a worst-case harm scenario is required before tier selection is unlocked.</strong> Overriding <em>downward</em> from a mechanism-adjusted tier requires justification (same pattern as the existing override reason box).</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">SS-XX Custom: Worst-case scenario gate</div>
+      <div style="border: 2px solid #d97706; background: #fef3c7; padding: 12px; border-radius: 4px; margin-bottom: 12px;">
+        <div style="font-weight: bold; font-size: 10pt; margin-bottom: 4px;">Worst-case scenario</div>
+        <div style="font-size: 9pt; color: #666; margin-bottom: 8px;">If this tool fails or behaves unexpectedly, what is the worst realistic outcome for a student? Be specific about the harm.</div>
+        <div style="border: 1px solid #d97706; padding: 8px; border-radius: 4px; font-size: 9pt; color: #999; background: white;">Example: A student receives incorrect financial aid guidance and misses a deadline, losing access to a Cal Grant&hellip;</div>
+        <div style="font-size: 8pt; color: #d97706; margin-top: 4px;">Minimum 20 characters required to unlock tier selection.</div>
+      </div>
+    </div>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Risk tier cards (gated for SS-XX until worst-case entered)</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; text-align: center; opacity: 0.4;">
+        <div style="padding: 12px; border: 2px solid #c00; border-radius: 4px;">
+          <div style="font-weight: bold; color: #c00;">TIER 3</div>
+          <div style="font-size: 9pt; font-weight: bold;">High Risk</div>
+          <div style="font-size: 8.5pt; color: #666;">Affects enrollment, aid, standing</div>
+        </div>
+        <div style="padding: 12px; border: 2px solid #ddd; border-radius: 4px;">
+          <div style="font-weight: bold; color: #856404;">TIER 2</div>
+          <div style="font-size: 9pt; font-weight: bold;">Medium Risk</div>
+          <div style="font-size: 8.5pt; color: #666;">Touches advising or instruction</div>
+        </div>
+        <div style="padding: 12px; border: 2px solid #ddd; border-radius: 4px;">
+          <div style="font-weight: bold; color: #28a745;">TIER 1</div>
+          <div style="font-size: 9pt; font-weight: bold;">Lower Risk</div>
+          <div style="font-size: 8.5pt; color: #666;">Informational only</div>
+        </div>
+      </div>
+      <div style="font-size: 8.5pt; color: #999; text-align: center; margin-top: 6px;"><em>Cards unlock after worst-case text is entered (&#8805;20 characters)</em></div>
+    </div>
+
+    <h4>Standard Use Cases (SS-01 through SS-10)</h4>
+    <ul>
+      <li>Default tier is pre-selected based on use case</li>
+      <li>Overriding shows a &ldquo;reason required&rdquo; text field (mandatory when lowering the tier)</li>
+      <li>Override reason is documented in the profile and roadmap</li>
+    </ul>
+
+    <h4>Custom Use Case (SS-XX) Gating</h4>
+    <ul>
+      <li><strong>Required textarea</strong> renders above tier cards: &ldquo;Describe the worst realistic outcome for a student if this tool fails, gives bad advice, or is misused.&rdquo;</li>
+      <li>Tier cards are <strong>grayed out</strong> (opacity: 0.4, pointer-events: none) until the textarea has &ge;20 characters</li>
+      <li>Hint text below textarea disappears when sufficient text is entered</li>
+      <li>Worst-case text is stored in <span class="dm-field">state.customWorstCase</span> and carries forward to the governance profile</li>
+      <li>Validation: confirmRiskTier() blocks progression if customWorstCase is missing or &lt;20 characters for SS-XX</li>
+    </ul>
+    <div class="callout">
+    <strong>Why gate custom use cases:</strong> SS-XX lets users self-assign a risk tier without the default tier assignment that standard use cases provide. Without friction, users underestimate tier and bypass scrutiny. Requiring a worst-case scenario forces deliberate engagement with potential student harm before tier selection.
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 7 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">7</div>
+    Pillar Scoring &mdash; Nine Pillars, 3-Point Rubric
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> The assessment engine. One pillar per screen. Each shows: pillar name, principle statement, hook line, reference questions (5&ndash;8 per pillar), and a 3-point scoring rubric. User scores the pillar as a whole, with optional notes.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Pillar scoring wireframe (P2: Equity)</div>
+      <div style="border-left: 4px solid #28a745; padding-left: 12px; margin-bottom: 12px;">
+        <div style="font-size: 8pt; color: #28a745; font-weight: bold; text-transform: uppercase;">P2</div>
+        <div style="font-size: 12pt; font-weight: bold;">Equity &amp; Differential Impact</div>
+        <div style="font-size: 9pt; color: #666; font-style: italic;">AI governance must center equity and account for differential impacts.</div>
+        <div style="font-size: 10pt; color: #28a745; font-weight: bold; margin-top: 4px;">If it doesn&rsquo;t work for all your students, it doesn&rsquo;t work.</div>
+      </div>
+
+      <!-- Progressive disclosure: questions collapsed by default -->
+      <div style="background: #f5f5f3; padding: 10px 14px; border-radius: 4px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 10pt; font-weight: bold; margin-top: 8px;">
+        <span>What to look for (7 reference questions)</span>
+        <span style="font-size: 8pt; color: #999;">&#9660; click to expand</span>
+      </div>
+      <div style="border-left: 2px solid #eee; margin-left: 4px; padding-left: 12px; margin-top: 4px; font-size: 8.5pt; color: #999;">
+        <em>Collapsed by default.</em> Questions expand on click to show:
+        <div style="font-size: 9pt; color: #555; margin-top: 6px; border-bottom: 1px solid #eee; padding: 4px 0;"><span style="color: #28a745; font-weight: bold;">2.1</span> Has this tool been tested with populations similar to yours?</div>
+        <div style="font-size: 9pt; color: #555; border-bottom: 1px solid #eee; padding: 4px 0;"><span style="color: #28a745; font-weight: bold;">2.2</span> Are error rates consistent across demographics?</div>
+        <div style="font-size: 9pt; color: #999; padding: 4px 0;">+ 5 more questions&hellip;</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 12px;">
+        <div style="padding: 10px; border: 2px solid #ddd; border-top: 4px solid #28a745; text-align: center;">
+          <div style="font-size: 16pt; font-weight: bold; color: #28a745;">3</div>
+          <div style="font-size: 9pt; font-weight: bold;">Good</div>
+          <div style="font-size: 8pt; color: #666;">Disaggregated data. Bias audit. All pathways covered.</div>
+        </div>
+        <div style="padding: 10px; border: 2px solid #ffc107; border-top: 4px solid #ffc107; text-align: center; background: #fffdf0;">
+          <div style="font-size: 16pt; font-weight: bold; color: #856404;">2</div>
+          <div style="font-size: 9pt; font-weight: bold;">Partial</div>
+          <div style="font-size: 8pt; color: #666;">Equity acknowledged. Data limited. Willing to audit.</div>
+        </div>
+        <div style="padding: 10px; border: 2px solid #ddd; border-top: 4px solid #c00; text-align: center;">
+          <div style="font-size: 16pt; font-weight: bold; color: #c00;">1</div>
+          <div style="font-size: 9pt; font-weight: bold;">Poor</div>
+          <div style="font-size: 8pt; color: #666;">No disaggregated data. No analysis. Barriers exist.</div>
+        </div>
+      </div>
+    </div>
+
+    <h4>Design Details</h4>
+    <ul>
+      <li><strong>Progressive disclosure:</strong> Sub-questions are collapsed by default inside a &ldquo;What to look for (N reference questions)&rdquo; accordion toggle. Principle statement, hook line, and scoring rubric are always visible &mdash; these are the primary decision inputs. Users expand the accordion only if they need the detailed reference questions.</li>
+      <li>Progress bar shows pillar N of 9</li>
+      <li>Tier 1 tools: P1, P2, P6, P7, P8 mandatory; P3, P4, P5, P9 recommended (can skip)</li>
+      <li>Tier 2 and 3: all 9 pillars mandatory</li>
+      <li>California toggle adds HUMANS badge to each pillar header</li>
+      <li>Score selection triggers inline no-go warning for P1=1 or P3=1 on High-Risk</li>
+      <li><strong>Mechanism-forced pillar minimums:</strong> If Mechanism Detection flagged a pillar (e.g., P2 &ge; 2 due to behavioral pattern-matching), a banner shows at the top of that pillar&rsquo;s scoring view. Scoring below the forced minimum triggers a warning: &ldquo;This pillar scored below the mechanism-required minimum. This gap must be documented and resolved before deployment.&rdquo;</li>
+      <li><strong>Equity screening injection:</strong> If MD-01 D or MD-02 D was selected, an additional equity question is injected into the P2 scoring view</li>
+      <li>Score prompt text reads &ldquo;Expand &lsquo;What to look for&rsquo; above to review reference questions before scoring&rdquo;</li>
+      <li>Optional notes textarea per pillar (persists in profile/roadmap)</li>
+    </ul>
+    <div class="callout">
+    <strong>Why progressive disclosure:</strong> Showing 5&ndash;8 sub-questions per pillar as a wall of text caused users to skim and default to score &ldquo;2&rdquo;. The principle statement and scoring rubric &mdash; the actual decision inputs &mdash; were getting buried. The accordion pattern keeps the scoring interface clean while preserving full reference detail on demand.
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 8 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">8</div>
+    No-Go Checklist &mdash; &ldquo;Eight Hard Stops&rdquo;
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> After scoring all pillars, the user walks through 8 no-go criteria. Each is a yes/no question. &ldquo;No&rdquo; triggers a flag with remediation action. The tool does not block &mdash; it flags and documents. <strong>Criteria linked to low pillar scores are auto-flagged at render time</strong> so users see the connection immediately.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">No-go checklist wireframe</div>
+      <!-- Auto-flagged item (score-derived) -->
+      <div style="border: 2px solid #d97706; padding: 10px; border-radius: 4px; margin-bottom: 8px; background: #fef3c7;">
+        <div style="font-weight: bold; font-size: 10pt;">1. No clear educational purpose.</div>
+        <div style="font-size: 8.5pt; color: #666;">If you can&rsquo;t articulate it, don&rsquo;t buy it.</div>
+        <div style="margin-top: 6px; font-size: 8.5pt; color: #d97706; font-weight: bold; border-left: 3px solid #d97706; padding-left: 8px; background: rgba(217,119,6,0.08); padding: 4px 8px;">Auto-flagged from your pillar scores: P1 scored 1 &mdash; no clear educational purpose identified.</div>
+        <div style="margin-top: 6px; display: flex; gap: 6px; opacity: 0.4; pointer-events: none;">
+          <span style="border: 1px solid #ddd; padding: 4px 10px; font-size: 9pt;">Yes &mdash; condition met</span>
+          <span style="background: #f8d7da; border: 1px solid #c00; padding: 4px 10px; font-size: 9pt; font-weight: bold; color: #c00;">No &mdash; not met &cross;</span>
+        </div>
+      </div>
+      <!-- Manually answered item -->
+      <div style="border: 2px solid #c00; padding: 10px; border-radius: 4px; background: #fef2f2;">
+        <div style="font-weight: bold; font-size: 10pt;">2. Students are not training data.</div>
+        <div style="font-size: 8.5pt; color: #666;">Vendors training on student data are extracting value from vulnerable populations.</div>
+        <div style="margin-top: 6px; display: flex; gap: 6px;">
+          <span style="border: 1px solid #ddd; padding: 4px 10px; font-size: 9pt;">Yes &mdash; condition met</span>
+          <span style="background: #f8d7da; border: 1px solid #c00; padding: 4px 10px; font-size: 9pt; font-weight: bold; color: #c00;">No &mdash; not met &cross;</span>
+        </div>
+        <div style="margin-top: 6px; font-size: 8.5pt; color: #c00; font-weight: bold;">Action required: Require contractual prohibition. If vendor won&rsquo;t agree, walk away.</div>
+      </div>
+    </div>
+
+    <h4>Auto-Flagging from Pillar Scores</h4>
+    <ul>
+      <li><strong>At render time</strong>, the checklist checks pillar scores and auto-flags linked no-go criteria: P1=1 &rarr; NG-01, P3=1+HighRisk &rarr; NG-03, P7=1 &rarr; NG-06 + NG-07</li>
+      <li>Auto-flagged items show a warning note explaining the score-derived trigger (e.g., &ldquo;Auto-flagged: your P1 score is 1&rdquo;)</li>
+      <li>Radio buttons on auto-flagged items are grayed out (pointer-events: none, opacity: 0.5) &mdash; the answer is pre-set to &ldquo;No&rdquo;</li>
+      <li>Styled with accent (amber) border and background to distinguish from user-flagged items (red border)</li>
+      <li>finishNoGo() retains the same detection logic as a safety net, but the UI now shows auto-flags proactively</li>
+    </ul>
+
+    <h4>Manual Items</h4>
+    <ul>
+      <li>All 8 criteria must be answered before continuing (auto-flagged items count as answered)</li>
+      <li>Flagged items appear as banners in the profile and as &ldquo;resolve before deployment&rdquo; in the roadmap</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 9 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">9</div>
+    Governance Profile &mdash; Score Dashboard
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> The payoff screen. Shows everything the user needs to understand their tool&rsquo;s governance position: scores, no-go flags, and pattern interpretation.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Profile dashboard wireframe</div>
+
+      <div style="background: #111; color: white; padding: 16px; border-radius: 4px; margin-bottom: 12px;">
+        <div style="font-size: 8pt; color: #0891b2; text-transform: uppercase; letter-spacing: 0.1em;">Governance Profile</div>
+        <div style="font-size: 14pt; font-weight: bold; margin: 4px 0;">AI Advising / Guided Pathways</div>
+        <div style="margin: 6px 0;">
+          <span style="background: #f8d7da; color: #c00; font-size: 8pt; font-weight: bold; padding: 2px 6px;">TIER 3 (HIGH)</span>
+          <span style="font-size: 9pt; color: #888; margin-left: 6px;">Building Institution</span>
+        </div>
+        <div class="dash-grid" style="margin-top: 12px;">
+          <div class="dash-stat" style="background: #0891b2;">
+            <div class="dash-num">19</div>
+            <div class="dash-label">Total Score</div>
+          </div>
+          <div class="dash-stat" style="background: #333;">
+            <div class="dash-num">27</div>
+            <div class="dash-label">Possible</div>
+          </div>
+          <div class="dash-stat" style="background: #c00;">
+            <div class="dash-num">2</div>
+            <div class="dash-label">No-Go Flags</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-weight: bold; font-size: 10pt; margin: 8px 0;">Pillar Scores</div>
+      <div style="font-size: 9pt;">
+        <div style="display: flex; align-items: center; padding: 4px 0; border-bottom: 1px solid #eee;">
+          <span style="width: 4px; height: 20px; background: #0066cc; margin-right: 8px;"></span>
+          <span style="width: 30px; font-weight: bold;">P1</span>
+          <span style="flex: 1;">Purpose &amp; Educational Legitimacy</span>
+          <span style="font-weight: bold; color: #28a745; width: 30px; text-align: center;">3</span>
+          <span style="color: #28a745; font-size: 8pt; width: 80px; text-align: right;">GOOD</span>
+        </div>
+        <div style="display: flex; align-items: center; padding: 4px 0; border-bottom: 1px solid #eee;">
+          <span style="width: 4px; height: 20px; background: #28a745; margin-right: 8px;"></span>
+          <span style="width: 30px; font-weight: bold;">P2</span>
+          <span style="flex: 1;">Equity &amp; Differential Impact</span>
+          <span style="font-weight: bold; color: #ffc107; width: 30px; text-align: center;">2</span>
+          <span style="color: #856404; font-size: 8pt; width: 80px; text-align: right;">PARTIAL</span>
+        </div>
+        <div style="display: flex; align-items: center; padding: 4px 0; border-bottom: 1px solid #eee;">
+          <span style="width: 4px; height: 20px; background: #6f42c1; margin-right: 8px;"></span>
+          <span style="width: 30px; font-weight: bold;">P3</span>
+          <span style="flex: 1;">Human Authority</span>
+          <span style="font-weight: bold; color: #c00; width: 30px; text-align: center;">1</span>
+          <span style="color: #c00; font-size: 8pt; width: 80px; text-align: right;">REMEDIATION</span>
+        </div>
+        <div style="font-size: 8.5pt; color: #999; padding: 4px 0;">+ P4&ndash;P9&hellip;</div>
+      </div>
+
+      <div style="font-weight: bold; font-size: 10pt; margin: 12px 0 4px;">What Your Scores Mean</div>
+      <div style="padding: 8px; background: #f0f0f0; border-left: 3px solid #0891b2; font-size: 9pt; margin-bottom: 4px;">
+        <strong>P3 = 1 on a High-Risk tool:</strong> No human override for consequential decisions. This is a no-go condition. Build human override into the workflow before deployment.
+      </div>
+    </div>
+
+    <h4>Profile Sections</h4>
+    <ul>
+      <li><strong>Hero:</strong> Use case name, risk tier badge (mechanism-adjusted if applicable), archetype, dependency badge, mechanism badges (e.g., &ldquo;Pattern-Matching Detected&rdquo;, &ldquo;Predictive Scoring&rdquo;, &ldquo;Autonomous Outreach&rdquo;), override note if applicable</li>
+      <li><strong>Worst-case callout (SS-XX only):</strong> For custom use cases, the worst-case harm scenario text entered during risk tier selection is displayed as a caution-bordered callout in the profile hero</li>
+      <li><strong>Score summary:</strong> Total score / possible, no-go flag count</li>
+      <li><strong>No-go banners:</strong> Red banners for each triggered no-go with remediation action</li>
+      <li><strong>Pillar table:</strong> All 9 pillars with color bar, score, status label, HUMANS badge (CA only)</li>
+      <li><strong>Mechanism profile:</strong> Detected mechanisms with tier adjustment explanation, forced pillar minimums, equity flags, unknown investigation items</li>
+      <li><strong>Pattern interpretation:</strong> Matched patterns from the scoring interpretation engine</li>
+      <li><strong>Actions (primary):</strong> Generate Roadmap, Save Assessment (localStorage), Print/Export, Edit Scores</li>
+      <li><strong>Export bar (below primary actions):</strong> Export JSON (downloads <span class="dm-field">navigator_[name]_[date].json</span>), Copy Shareable Link (base64-encodes state to URL), Import Assessment (file picker for JSON import)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCREEN 10 -->
+<div class="screen-card">
+  <div class="screen-header">
+    <div class="screen-num">10</div>
+    Roadmap &mdash; &ldquo;Based on Your Profile, Here&rsquo;s What to Do&rdquo;
+  </div>
+  <div class="screen-body">
+    <p><strong>Purpose:</strong> Generated governance roadmap tailored to archetype + use case + risk tier + pillar scores. This is the screen that gets printed, shared with the governance committee, or taken to the board.</p>
+
+    <div class="screen-wireframe">
+      <div class="wire-label">Roadmap sections</div>
+      <div style="font-size: 9pt;">
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>1. Executive Summary</strong> &mdash; Tool name, tier, archetype, total score, no-go count, recommendation</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>2. No-Go Conditions</strong> (if any) &mdash; Red banners with remediation</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>3. Before You Deploy</strong> &mdash; Pre-deployment requirements (tier-specific)</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>4. Pillar-Specific Remediation</strong> &mdash; Actions for any pillar scoring 1</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>5. Who&rsquo;s Involved (RACI)</strong> &mdash; Role matrix (archetype-specific)</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>6. 90-Day Metrics</strong> &mdash; What to track in first 90 days (tier-specific)</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>7. Review Cadence</strong> &mdash; How often to rescore (tier-specific)</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>8. Escalation Triggers</strong> &mdash; When to pause, investigate, or stop</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>9. Decision Rules</strong> &mdash; Pause When / Investigate When / Stop When (3-column grid)</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>10. Toolkit References</strong> &mdash; Templates relevant to this tier</div>
+        <div style="padding: 6px 0; border-bottom: 1px solid #ddd;"><strong>11. HUMANS Alignment</strong> (CA only) &mdash; Pillar-to-HUMANS mapping</div>
+        <div style="padding: 6px 0;"><strong>12. Next Steps Checklist</strong> &mdash; Actionable checklist</div>
+      </div>
+    </div>
+
+    <h4>Roadmap Scaling by Archetype + Tier</h4>
+    <table>
+      <tr>
+        <th></th>
+        <th>Tier 1 (Lower)</th>
+        <th>Tier 2 (Medium)</th>
+        <th>Tier 3 (High)</th>
+      </tr>
+      <tr>
+        <td><strong>Lightweight</strong></td>
+        <td>~2 pages. 5 pre-deploy items. 3-role RACI. 4 metrics.</td>
+        <td>~3 pages. Full pre-deploy. 3-role RACI. Extended metrics.</td>
+        <td>~4 pages. Full pre-deploy. All sections. Simplified RACI.</td>
+      </tr>
+      <tr>
+        <td><strong>Building</strong></td>
+        <td>~3 pages. 6-role RACI. Standard metrics.</td>
+        <td>~4 pages. Full governance. 6-role RACI. Disaggregated metrics.</td>
+        <td>~5 pages. Full governance. Bias audit. All sections.</td>
+      </tr>
+      <tr>
+        <td><strong>Scaling</strong></td>
+        <td>~3 pages. 6-role RACI. Portfolio context.</td>
+        <td>~5 pages. Standing committee. Cross-tool coordination.</td>
+        <td>~6 pages. Full portfolio governance. External audit. System coordination.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+</div><!-- /tab-journey -->
+
+<!-- ============================================================ -->
+<!-- TAB 4: AI INTEGRATION -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-ai">
+
+<h2>The Architecture Decision</h2>
+
+<p>The AI tool landscape changes weekly. New tools launch, existing tools add features, vendor claims shift, regulatory guidance updates. A static framework can&rsquo;t keep pace &mdash; but an AI-driven framework creates a different problem: governance decisions become opaque, inarguable, and vendor-locked.</p>
+
+<p>The Navigator v3 resolves this tension by separating what changes fast from what changes slow, and assigning each to the appropriate layer.</p>
+
+<div class="big-quote">
+The framework is the product. The AI is the lens.
+</div>
+
+<div class="critical">
+<strong>The meta-irony:</strong> Building an AI governance framework that <em>requires</em> AI to function would mean the governance tool itself has the dependency problem the framework is designed to detect. The Navigator must work without AI. Otherwise we&rsquo;re asking institutions anxious about AI dependency to become dependent on a specific AI product for their AI governance.
+</div>
+
+<table>
+  <tr>
+    <th style="width:50%">Changes Weekly (AI Handles This)</th>
+    <th style="width:50%">Changes Annually (Governance Handles This)</th>
+  </tr>
+  <tr>
+    <td>
+      New AI tools launch<br>
+      Existing tools add features<br>
+      Vendor claims shift<br>
+      Regulatory guidance updates<br>
+      Tool integrations change<br>
+      Incident reports surface
+    </td>
+    <td>
+      Pillar weights and rubrics<br>
+      No-go criteria<br>
+      Risk tier thresholds<br>
+      Template content<br>
+      Forced pillar minimums<br>
+      HUMANS mapping<br>
+      Use case category definitions
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: center; font-weight: bold; color: #0891b2;">&darr; AI augmentation layer<br><span style="font-weight: normal; font-size: 9pt;">(system prompt updated as needed)</span></td>
+    <td style="text-align: center; font-weight: bold; color: #28a745;">&darr; Framework layer<br><span style="font-weight: normal; font-size: 9pt;">(governance body approves changes)</span></td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Where AI Sits vs. Where It Doesn&rsquo;t</h2>
+
+<table>
+  <tr>
+    <th style="width:22%">Node</th>
+    <th style="width:12%">AI Role</th>
+    <th style="width:33%">What AI Does</th>
+    <th style="width:33%">What AI Cannot Do</th>
+  </tr>
+  <tr style="background: #ecfeff;">
+    <td><strong>Step 0 (Routing)</strong></td>
+    <td style="color: #0891b2; font-weight: bold;">Assisted</td>
+    <td>Recognize unfamiliar tools by name or description. Map tools to use case categories (SS-01 through SS-10). Surface what the tool actually does vs. what the vendor says.</td>
+    <td>Recommend whether the tool is appropriate. Assign archetypes. Override routing algorithm.</td>
+  </tr>
+  <tr style="background: #ecfeff;">
+    <td><strong>Screening</strong></td>
+    <td style="color: #0891b2; font-weight: bold;">Assisted</td>
+    <td>Answer factual questions about tool behavior: data storage, content generation, SIS/LMS integrations, known incidents. Pre-fill answers flagged &ldquo;Claude-suggested &mdash; verify with vendor.&rdquo;</td>
+    <td>Score the screening. Decide GO/PAUSE/NO-GO. Override user answers.</td>
+  </tr>
+  <tr style="background: #ecfeff;">
+    <td><strong>Mechanism Detection</strong></td>
+    <td style="color: #0891b2; font-weight: bold;">Assisted</td>
+    <td>Help users answer &ldquo;how does this tool work?&rdquo; questions they genuinely can&rsquo;t answer. Identify whether a tool uses personalization, classification, or autonomous action based on technical knowledge.</td>
+    <td>Assign tier escalation. Set forced pillar minimums. Those are deterministic outputs of the mechanism logic.</td>
+  </tr>
+  <tr>
+    <td><strong>Dependency Profile</strong></td>
+    <td style="color: #666;">Hybrid</td>
+    <td>Help interpret ambiguous answers. Surface context the user might not know about their own tool&rsquo;s integration depth.</td>
+    <td>Score dependency. Assign profile level.</td>
+  </tr>
+  <tr>
+    <td><strong>Archetype Selector</strong></td>
+    <td style="color: #666;">Hybrid</td>
+    <td>Help users identify their archetype when self-identification is unclear.</td>
+    <td>Override archetype selection.</td>
+  </tr>
+  <tr style="background: #f8f8f8;">
+    <td><strong>Risk Tier</strong></td>
+    <td style="color: #c00; font-weight: bold;">None</td>
+    <td colspan="2">Deterministic arithmetic: <span class="dm-field">adjusted_tier = min(3, default_tier + mechanism_escalation)</span>. Visible. Auditable. No AI needed.</td>
+  </tr>
+  <tr style="background: #f8f8f8;">
+    <td><strong>Pillar Scoring</strong></td>
+    <td style="color: #c00; font-weight: bold;">None</td>
+    <td colspan="2">Institutional value judgments. The Nine Pillars are values made explicit. Rubrics are standards a faculty senate can argue about. Human-scored, human-owned.</td>
+  </tr>
+  <tr style="background: #f8f8f8;">
+    <td><strong>No-Go Check</strong></td>
+    <td style="color: #c00; font-weight: bold;">None</td>
+    <td colspan="2">Hard lines: FERPA violations, no student opt-out, students as training data. Institutional policy decisions. Must be visible, contestable, and owned by the governance body.</td>
+  </tr>
+  <tr style="background: #f8f8f8;">
+    <td><strong>Profile + Roadmap</strong></td>
+    <td style="color: #c00; font-weight: bold;">None</td>
+    <td colspan="2">Deterministic outputs from scoring. if score &lt; threshold, flag gap. If gap flagged, surface template. Rendering, not reasoning.</td>
+  </tr>
+</table>
+
+<div class="critical">
+<strong>The boundary rule:</strong> AI sits behind nodes that require <em>current knowledge about the external world</em> (what tools exist, how they work, what they do). AI stays out of nodes that require <em>institutional value judgments</em> (what&rsquo;s acceptable, how to weight priorities, what&rsquo;s off-limits). The first category changes weekly. The second changes deliberately through governance processes.
+</div>
+
+<hr>
+
+<h2>The System Prompt</h2>
+
+<p>The AI augmentation layer is delivered as a system prompt (effectively a <span class="dm-field">claude.md</span> file) that constrains the AI&rsquo;s behavior to the perception role. The prompt encodes the framework&rsquo;s structure so the AI can map tools to categories, but enforces strict boundaries on what the AI cannot do.</p>
+
+<div style="font-family: 'Courier New', monospace; font-size: 9pt; background: #f0f0f0; padding: 16px; border-radius: 4px; margin: 12px 0; line-height: 1.6;">
+<span style="color: #888;"># Navigator AI Augmentation Layer &mdash; System Prompt (sketch)</span><br><br>
+<strong>YOUR ROLE:</strong><br>
+You help community college governance teams identify, classify,<br>
+and understand AI tools so they can evaluate them using the<br>
+Navigator framework. You are a PERCEPTION LAYER &mdash; you help<br>
+users SEE tools clearly. You are NOT a DECISION LAYER &mdash; you<br>
+never make governance judgments.<br><br>
+<strong>YOU CAN:</strong><br>
+&bull; Identify AI tools by name, vendor, or description<br>
+&bull; Map tools to the Navigator&rsquo;s 10 use case categories<br>
+&bull; Explain how a tool technically works (personalization,<br>
+&nbsp;&nbsp;classification, autonomous action) to help users answer<br>
+&nbsp;&nbsp;Mechanism Detection questions<br>
+&bull; Surface factual information about tools (data handling,<br>
+&nbsp;&nbsp;integrations, known incidents) for screening<br>
+&bull; Clarify what Navigator questions are asking<br>
+&bull; Flag uncertainty: &ldquo;Verify directly with vendor&rdquo;<br><br>
+<strong>YOU CANNOT:</strong><br>
+&bull; Assign or recommend risk tiers<br>
+&bull; Score pillars<br>
+&bull; Determine no-go outcomes<br>
+&bull; Override or adjust framework logic<br>
+&bull; Make recommendations about whether to adopt a tool<br>
+&bull; Express opinions on institutional policy decisions<br>
+&bull; Provide legal or compliance advice<br><br>
+<strong>WHEN ASKED TO DO SOMETHING YOU CANNOT DO:</strong><br>
+Explain that this is a governance decision that belongs to the<br>
+institution&rsquo;s evaluation team, and point to the specific<br>
+Navigator step where that decision gets made.<br><br>
+<span style="color: #888;"># [USE CASE DEFINITIONS: SS-01 through SS-10 inserted here]</span><br>
+<span style="color: #888;"># [MECHANISM DETECTION CRITERIA: MD-01, MD-02, MD-03 inserted here]</span><br>
+<span style="color: #888;"># [SCREENING DIMENSIONS: factual checklist items inserted here]</span><br>
+<span style="color: #888;"># [DEPENDENCY PROFILE QUESTIONS: D1&ndash;D4 inserted here]</span>
+</div>
+
+<p style="font-size: 10pt;">The system prompt is updated by AQL as needed to reflect new use case definitions or screening criteria. Updates to the system prompt do not change the governance framework &mdash; they change what the AI knows about the external tool landscape.</p>
+
+<hr>
+
+<h2>Why This Architecture, Not &ldquo;Just AI&rdquo;</h2>
+
+<table>
+  <tr>
+    <th style="width:20%">Concern</th>
+    <th style="width:40%">&ldquo;Just AI&rdquo; Approach</th>
+    <th style="width:40%">Framework + AI Layer (v3)</th>
+  </tr>
+  <tr>
+    <td><strong>Legitimacy</strong></td>
+    <td>&ldquo;The AI told us it&rsquo;s okay&rdquo;</td>
+    <td>&ldquo;Our framework scored it Tier 2; here&rsquo;s why&rdquo;</td>
+  </tr>
+  <tr>
+    <td><strong>Contestability</strong></td>
+    <td>Can&rsquo;t argue with a prompt</td>
+    <td>Can argue with a rubric in a faculty meeting</td>
+  </tr>
+  <tr>
+    <td><strong>Vendor lock-in</strong></td>
+    <td>Requires specific AI subscription</td>
+    <td>Framework works offline; AI is optional</td>
+  </tr>
+  <tr>
+    <td><strong>Fundability</strong></td>
+    <td>CFF funds an API subscription?</td>
+    <td>CFF funds institutional governance capacity</td>
+  </tr>
+  <tr>
+    <td><strong>Velocity</strong></td>
+    <td>AI absorbs change, but opaquely</td>
+    <td>AI absorbs tool changes; framework absorbs value changes at governance pace</td>
+  </tr>
+  <tr>
+    <td><strong>Auditability</strong></td>
+    <td>&ldquo;What did the AI consider?&rdquo;</td>
+    <td>Scoring logic is visible arithmetic</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Graceful Degradation</h2>
+
+<p>The v3 architecture is designed so that removing the AI layer produces a functional v2-equivalent tool, not a broken product.</p>
+
+<table>
+  <tr>
+    <th style="width:25%">Capability</th>
+    <th style="width:37%">With AI Layer</th>
+    <th style="width:38%">Without AI Layer</th>
+  </tr>
+  <tr>
+    <td>Tool recognition</td>
+    <td>Describe any tool; AI maps to category</td>
+    <td>Static dropdown of 10 use cases + custom</td>
+  </tr>
+  <tr>
+    <td>Screening</td>
+    <td>AI pre-fills factual answers (flagged for verification)</td>
+    <td>User answers all questions manually</td>
+  </tr>
+  <tr>
+    <td>Mechanism detection</td>
+    <td>AI explains how the tool works technically</td>
+    <td>User reads vendor docs and answers</td>
+  </tr>
+  <tr>
+    <td>Scoring</td>
+    <td colspan="2" style="text-align: center;">Identical &mdash; human scores, framework logic</td>
+  </tr>
+  <tr>
+    <td>No-go checks</td>
+    <td colspan="2" style="text-align: center;">Identical &mdash; human checks, framework criteria</td>
+  </tr>
+  <tr>
+    <td>Profile + roadmap</td>
+    <td colspan="2" style="text-align: center;">Identical &mdash; deterministic rendering from scores</td>
+  </tr>
+</table>
+
+<div class="success">
+<strong>The test:</strong> If Anthropic disappears tomorrow, the Navigator still works. The governance logic, scoring, templates, and roadmaps are all in the static HTML. The framework is complete without the AI layer. Schools that never enable the AI layer get the same governance quality &mdash; just with a static tool selection interface.
+</div>
+
+<hr>
+
+<h2>Implementation Options</h2>
+
+<p>The AI augmentation layer can be delivered through several integration approaches, ranging from lightweight to fully embedded.</p>
+
+<div class="phase-card phase-1">
+  <h4>Option A: Companion Chat</h4>
+  <p>A separate Claude conversation window (or Claude Project) with the system prompt pre-loaded. Users open the Navigator in one tab and the AI companion in another. They describe their tool to the AI, get classification and technical analysis, then manually apply those answers in the Navigator.</p>
+  <div class="phase-tech">Lightest implementation. No code changes to Navigator. System prompt lives as a <span class="dm-field">claude.md</span> file or Claude Project instruction.</div>
+</div>
+
+<div class="phase-card phase-2">
+  <h4>Option B: Embedded Assistant</h4>
+  <p>A chat interface embedded in the Navigator UI (sidebar or modal) that is contextually aware of which screen the user is on. When the user is on the Screening step, the AI focuses on factual tool information. When on Mechanism Detection, it focuses on technical analysis.</p>
+  <div class="phase-tech">Requires API integration. Navigator sends current view context to AI. Adds Anthropic API dependency (optional, disabled by default).</div>
+</div>
+
+<div class="phase-card phase-3">
+  <h4>Option C: Smart Pre-Fill</h4>
+  <p>The user enters a tool name or description at the start. The AI returns structured data (suggested use case category, pre-filled screening answers, mechanism detection hints) which the Navigator displays as suggestions the user can accept or override. Every AI suggestion is visually flagged.</p>
+  <div class="phase-tech">Deepest integration. Requires structured output from AI. Navigator must display &ldquo;AI-suggested&rdquo; vs. &ldquo;user-confirmed&rdquo; states for every answer. Most seamless UX but most complex build.</div>
+</div>
+
+<div class="highlight-box">
+<strong>Recommended starting point:</strong> Option A. A Claude Project with the system prompt is zero-code, immediately deployable, and lets us test whether the AI augmentation adds value before investing in embedded integration. Schools that don&rsquo;t want AI augmentation simply don&rsquo;t open the companion.
+</div>
+
+</div><!-- /tab-ai -->
+
+<!-- ============================================================ -->
+<!-- TAB 5: CONTENT ARCHITECTURE -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="tab-content">
+
+<h2>Data Model</h2>
+
+<p>All content is structured as a single JSON object, inlined in the HTML file with a fallback fetch for an external <span class="dm-field">navigator-v3-content.json</span>. The tool works offline &mdash; no external dependencies. The AI augmentation layer is a separate system prompt document that references this content structure but does not modify it.</p>
+
+<table>
+  <tr>
+    <th style="width:20%">Section</th>
+    <th style="width:40%">Key Fields</th>
+    <th>Content Size</th>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">landing</span></strong></td>
+    <td><span class="dm-field">hero_headline, hero_subhead, cta_full_path, cta_quick_path, cta_routing, how_it_works{}, stat_strip[], credibility_statement</span></td>
+    <td>Hero copy, 5 stat items, 5 process steps, 3 CTA variants</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">routing</span></strong></td>
+    <td><span class="dm-field">questions[]{id, text, hint, type, options[], max_selections}, scoring_maps{q1_map, q5_map, q8_map}, feasibility_matrix{use_case &times; data_level}, archetype_derivation{q4_primary, q7_adjustment, q2_validation}, tier_ceiling_rules{}, output_templates{why_it_fits, consider_later}</span></td>
+    <td>8 questions, 5-phase scoring algorithm, per-use-case feasibility matrix (10 &times; 4), archetype derivation logic, &ldquo;Why it fits&rdquo; templates</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">use_cases[]</span></strong></td>
+    <td><span class="dm-field">id, name, one_liner, description, default_risk_tier, key_pillars[], equity_flag, screening_questions[], governance_requirements_summary</span></td>
+    <td>11 use cases &times; 4&ndash;5 screening questions each</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">archetypes[]</span></strong></td>
+    <td><span class="dm-field">id, name, tagline, characteristics[], starting_recommendation, you_might_be_this_if[]</span></td>
+    <td>3 archetypes</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">screening</span></strong></td>
+    <td><span class="dm-field">intro_text, go_message, pause_message, nogo_message</span></td>
+    <td>4 message variants</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">pillars[]</span></strong></td>
+    <td><span class="dm-field">id, name, color, principle_statement, hook, criteria_mapping, humans_mapping, questions[]{id, text, what_youre_looking_for, source_note}, scoring{3, 2, 1}</span></td>
+    <td>9 pillars &times; 5&ndash;8 questions each = 59 total. Each question includes &ldquo;what you&rsquo;re looking for&rdquo; guidance and source citation.</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">nogo_criteria[]</span></strong></td>
+    <td><span class="dm-field">id, statement, pillar, why, what_to_do, detection</span></td>
+    <td>8 no-go criteria</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">scoring_interpretation</span></strong></td>
+    <td><span class="dm-field">overall_patterns[]{pattern, interpretation, action}, tier_benchmarks{lightweight, building, scaling}{minimum_viable, good, strong}</span></td>
+    <td>7 score patterns + 9 tier benchmarks (3 archetypes &times; 3 levels)</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">dependency_profile</span></strong></td>
+    <td><span class="dm-field">intro, questions[]{id, label, question, what_youre_looking_for, tiers{1, 2, 3}}, scoring_bands{low, medium, high}{range, label, governance_requirements[]}, design_principles[], voice_guidance{}</span></td>
+    <td>4 universal questions (D1&ndash;D4). 3 scoring bands with governance requirements per level. 5 design principles. Voice framing per question.</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">mechanism_detection</span></strong></td>
+    <td><span class="dm-field">intro_text, subhead, questions[]{id, question_text, what_it_detects, options[]{value, label, description, escalation, forced_pillars[], equity_flag}, what_youre_looking_for, equity_implications_text}, escalation_rules{}, result_templates{adjusted, no_adjustment}, roadmap_additions{pattern_matching, predictive_scoring, autonomous_outreach, cascading_actions}</span></td>
+    <td>3 mechanism questions (MD-01&ndash;MD-03). 5 options each. Escalation logic, forced pillar requirements, equity screening flag, interstitial result templates, mechanism-specific roadmap additions.</td>
+  </tr>
+  <tr style="background: #ecfeff;">
+    <td><strong><span class="dm-field">ai_augmentation</span></strong></td>
+    <td><span class="dm-field">system_prompt, use_case_definitions[]{id, name, description, mapping_hints[]}, mechanism_criteria[]{id, detection_guidance}, screening_factual_dimensions[], dependency_context_guidance[], boundary_rules{can_do[], cannot_do[], when_asked_to_exceed}</span></td>
+    <td>System prompt text. 10 use case definitions with mapping hints for AI tool recognition. 3 mechanism detection criteria with AI guidance. Factual screening dimensions. Strict boundary rules. Optional &mdash; framework operates without this section.</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">roadmap_content</span></strong></td>
+    <td><span class="dm-field">intro_text, executive_summary_template, before_deployment{tier_1, tier_2, tier_3}, raci_sketches{lightweight, building, scaling}, ninety_day_metrics{}, review_cadence{}, escalation_triggers[], decision_rules{pause_when, investigate_when, stop_when}, pillar_specific_actions{P1_low&hellip;P9_low}, toolkit_references{}, humans_alignment{}, humans_gap_note, next_steps_checklist_template</span></td>
+    <td>Largest section. Full roadmap generation content by tier and archetype.</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">annual_review</span></strong></td>
+    <td><span class="dm-field">headline, description, checklist_items[]{area, pillar, questions}</span></td>
+    <td>9 annual review areas (one per pillar)</td>
+  </tr>
+  <tr>
+    <td><strong><span class="dm-field">about</span></strong></td>
+    <td><span class="dm-field">framework_description, research_base, source_citations[], built_by, footer_text</span></td>
+    <td>Framework description, research methodology, 23 source citations</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Assessment Logic</h2>
+
+<h3>Routing Algorithm (Step 0)</h3>
+
+<p>The routing questionnaire processes 8 answers through five sequential phases to produce ranked use case recommendations.</p>
+
+<div style="font-family: 'Courier New', monospace; font-size: 9pt; background: #f0f0f0; padding: 12px; border-radius: 4px; margin: 12px 0;">
+<strong>Phase 1 &mdash; Signal Scoring</strong><br>
+for each use_case (SS-01 through SS-10): score = 0<br>
+&nbsp;&nbsp;Q1 selections: +3 pts to each mapped use case<br>
+&nbsp;&nbsp;Q5 selections: +2 pts to each mapped use case<br>
+&nbsp;&nbsp;cap: max 5 pts per use case (prevents broad-mapping use cases from dominating)<br>
+<br>
+<strong>Phase 2 &mdash; Feasibility Gating</strong><br>
+&nbsp;&nbsp;Q3 data readiness &rarr; GREEN / YELLOW / RED flag per use case<br>
+&nbsp;&nbsp;Q4 staffing &rarr; tier ceiling (dedicated=T3, central=T2, vendor-dep=T1)<br>
+&nbsp;&nbsp;RED flag OR use_case_tier &gt; ceiling &rarr; &ldquo;Consider Later&rdquo;<br>
+<br>
+<strong>Phase 3 &mdash; Archetype Derivation</strong><br>
+&nbsp;&nbsp;archetype = f(Q4, Q7) with Q2 validation<br>
+&nbsp;&nbsp;Q4 primary: dedicated &rarr; Scaling, central &rarr; Building, vendor/1-2 &rarr; Lightweight<br>
+&nbsp;&nbsp;Q7 adjusts &plusmn;1: Building + formal governance &rarr; Scaling, etc.<br>
+&nbsp;&nbsp;Q2 validates: flags unusual combos (e.g., &lt;5K + Scaling)<br>
+&nbsp;&nbsp;derived archetype OVERRIDES raw Q4 tier ceiling<br>
+<br>
+<strong>Phase 4 &mdash; Contextual Overrides</strong><br>
+&nbsp;&nbsp;Q6 &ldquo;already happening&rdquo; &rarr; boost deployed tools to top<br>
+&nbsp;&nbsp;Q6 &ldquo;don&rsquo;t know&rdquo; &rarr; +2 to SS-04, add &ldquo;start with AI inventory&rdquo;<br>
+&nbsp;&nbsp;Q8 motivation: +2 pts to motivation-matched use cases (sole location)<br>
+<br>
+<strong>Phase 5 &mdash; Ranking &amp; Output</strong><br>
+&nbsp;&nbsp;final_score = min(raw_signal, 5) + overrides<br>
+&nbsp;&nbsp;sort: final_score desc &rarr; risk_tier asc &rarr; data_flag (G &gt; Y &gt; R)<br>
+&nbsp;&nbsp;classify: GREEN + within ceiling = Recommended<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; YELLOW or at ceiling = Possible (caveats)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RED or above ceiling = Consider Later<br>
+&nbsp;&nbsp;output: top 2&ndash;3 Recommended + &ldquo;Why it fits&rdquo; from Q1/Q5/Q8<br>
+&nbsp;&nbsp;fallback: if no use case scores &gt; 0, recommend SS-04 (Chatbot)
+</div>
+
+<p style="font-size: 9pt; color: #888;">Full algorithm specification with complete mapping tables: see companion document <em>Step 0: Student Services Use Case Routing Questionnaire</em>.</p>
+
+<hr>
+
+<h3>Mechanism Detection Logic</h3>
+
+<p>Three questions (MD-01, MD-02, MD-03) produce a mechanism profile with tier adjustment and forced pillar requirements. Runs after dependency profiling, before risk tier confirmation.</p>
+
+<div style="font-family: 'Courier New', monospace; font-size: 9pt; background: #f0f0f0; padding: 12px; border-radius: 4px; margin: 12px 0;">
+// Escalation accumulator<br>
+var esc = 0, forced = {}, eqFlag = false, unknowns = [];<br>
+<br>
+// MD-01: Behavioral Pattern-Matching<br>
+if md01 = 'c': esc += 1, forced.P2 = 2, forced.P7 = 2<br>
+if md01 = 'd': esc += 1, forced.P2 = 2, forced.P7 = 2, eqFlag = true<br>
+if md01 = 'e': esc += 1, forced.P7 = 2, unknowns.push('MD-01')<br>
+<br>
+// MD-02: Student Classification<br>
+if md02 = 'c': esc += 1, forced.P2 = 2, forced.P5 = 2, forced.P7 = 2<br>
+if md02 = 'd': esc += 1, forced.P2 = 2, forced.P5 = 2, forced.P7 = 2, eqFlag = true<br>
+if md02 = 'e': esc += 1, forced.P7 = 2, unknowns.push('MD-02')<br>
+<br>
+// MD-03: Autonomous Action<br>
+if md03 = 'c' AND default_tier = 1: esc += 1, forced.P3 = 2, forced.P5 = 2<br>
+if md03 = 'd': esc += 1, forced.P3 = 2, forced.P5 = 2, forced.P7 = 2<br>
+if md03 = 'e': esc += 2, forced.P3 = 2, forced.P5 = 2, forced.P7 = 2<br>
+<br>
+adjusted_tier = min(3, default_tier + esc)<br>
+// forced pillars carry into pillar scoring as minimum score requirements<br>
+// eqFlag injects equity screening question into P2 scoring<br>
+// unknowns flagged as investigation items in profile
+</div>
+
+<p style="font-size: 9pt; color: #888;">Full specification with detailed option descriptions, equity implications text, and roadmap integration: see companion document <em>Mechanism Detection Screen Specification</em>.</p>
+
+<hr>
+
+<h3>Screening Scoring</h3>
+
+<p>Each screening question answer has a <span class="dm-field">logic</span> property:</p>
+
+<table>
+  <tr>
+    <th style="width:15%">Logic Value</th>
+    <th style="width:40%">Meaning</th>
+    <th>Result Rule</th>
+  </tr>
+  <tr style="background: #d4edda;">
+    <td><span class="dm-field">go</span></td>
+    <td>No concerns with this answer</td>
+    <td>Does not trigger any flags</td>
+  </tr>
+  <tr style="background: #fff3cd;">
+    <td><span class="dm-field">pause</span></td>
+    <td>Concern flagged, not a deal-breaker</td>
+    <td>2+ pause answers = PAUSE result</td>
+  </tr>
+  <tr style="background: #f8d7da;">
+    <td><span class="dm-field">nogo</span></td>
+    <td>Hard stop condition</td>
+    <td>Any nogo answer = NO-GO result</td>
+  </tr>
+</table>
+
+<div class="callout">
+<strong>Screening formula:</strong><br>
+<span class="dm-field">if (nogo_count > 0) result = 'nogo'</span><br>
+<span class="dm-field">else if (pause_count >= 2) result = 'pause'</span><br>
+<span class="dm-field">else result = 'go'</span>
+</div>
+
+<h3>Risk Tier Assignment</h3>
+
+<p>Each use case has a <span class="dm-field">default_risk_tier</span> (1, 2, or 3). Users can override. Risk tier determines:</p>
+<ul>
+  <li>Which pillars are mandatory vs. recommended</li>
+  <li>Minimum score requirements (P2 and P6 &ge; 2 for Tier 2+)</li>
+  <li>Roadmap complexity and pre-deployment requirements</li>
+  <li>RACI structure detail</li>
+  <li>Review cadence frequency</li>
+</ul>
+
+<h3>Pillar Scoring Rubrics</h3>
+
+<p>Each pillar has a <span class="dm-field">scoring</span> object with three keys (<span class="dm-field">"3"</span>, <span class="dm-field">"2"</span>, <span class="dm-field">"1"</span>). Rubric text is specific to each pillar. Users score the pillar holistically after reviewing the reference questions.</p>
+
+<div class="highlight-box">
+<strong>Design decision:</strong> Reference questions are displayed as guidance, not as individual scored items. The user reads 5&ndash;8 questions per pillar, then scores the pillar 1&ndash;3 as a whole. This is faster (54 questions would take too long to score individually) and produces a more actionable output (pillar-level scores map directly to remediation actions).
+</div>
+
+<h3>No-Go Detection (Dual Path)</h3>
+
+<table>
+  <tr>
+    <th style="width:10%">No-Go</th>
+    <th style="width:45%">Checklist Detection</th>
+    <th>Score-Derived Detection</th>
+  </tr>
+  <tr>
+    <td>NG-01</td>
+    <td>User answers &ldquo;No &mdash; not met&rdquo; on checklist</td>
+    <td>P1 score = 1 (auto-flags)</td>
+  </tr>
+  <tr>
+    <td>NG-02</td>
+    <td>User answers &ldquo;No&rdquo; on training data question</td>
+    <td>&mdash;</td>
+  </tr>
+  <tr>
+    <td>NG-03</td>
+    <td>User answers &ldquo;No&rdquo; on human override question</td>
+    <td>P3 score = 1 AND risk tier = 3 (auto-flags)</td>
+  </tr>
+  <tr>
+    <td>NG-04</td>
+    <td>User answers &ldquo;No&rdquo; on bias audit question</td>
+    <td>&mdash;</td>
+  </tr>
+  <tr>
+    <td>NG-05</td>
+    <td>User answers &ldquo;No&rdquo; on FERPA question</td>
+    <td>&mdash;</td>
+  </tr>
+  <tr>
+    <td>NG-06</td>
+    <td>User answers &ldquo;No&rdquo; on student disclosure</td>
+    <td>P7 score = 1 (auto-flags)</td>
+  </tr>
+  <tr>
+    <td>NG-07</td>
+    <td>User answers &ldquo;No&rdquo; on contestability</td>
+    <td>P7 score = 1 (auto-flags)</td>
+  </tr>
+  <tr>
+    <td>NG-08</td>
+    <td>User answers &ldquo;No&rdquo; on vendor lock-in</td>
+    <td>&mdash;</td>
+  </tr>
+</table>
+
+<h3>Pattern Matching Algorithm</h3>
+
+<p>After scoring, the profile runs pattern analysis against the user&rsquo;s scores. Logic:</p>
+
+<div style="font-family: 'Courier New', monospace; font-size: 9pt; background: #f0f0f0; padding: 12px; border-radius: 4px; margin: 12px 0;">
+for each pattern in SCORE_PATTERNS:<br>
+&nbsp;&nbsp;if pattern = "Any pillar = 1" AND riskTier = 3:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;check each pillar; if any = 1, match<br>
+&nbsp;&nbsp;if pattern = "P1 = 1": check P1 score<br>
+&nbsp;&nbsp;if pattern = "P9 = 1": check P9 score<br>
+&nbsp;&nbsp;if pattern = "Multiple pillars = 2": count pillars with score 2; if >= 3, match<br>
+&nbsp;&nbsp;if pattern = "All pillars >= 2": check all scored pillars >= 2 AND scoredCount >= 5<br>
+&nbsp;&nbsp;if pattern = "Strong P6 & P8, weak P4 & P7": check P6>=3 AND P8>=3 AND (P4<=1 OR P7<=1)<br>
+&nbsp;&nbsp;if pattern = "Strong P4 & P7, weak P6": check P4>=3 AND P7>=3 AND P6<=1<br>
+<br>
+matched patterns display with interpretation + action
+<br>
+// Dependency-aware pattern (added by Section F):<br>
+if dependencyProfile = 'high' AND capabilityTrajectory = 3 (declining):<br>
+&nbsp;&nbsp;add escalation trigger: "High dependency with declining institutional capability"
+</div>
+
+<hr>
+
+<h2>Roadmap Generation</h2>
+
+<p>The roadmap is assembled from five inputs:</p>
+
+<div class="flow-arrow">
+  <div class="flow-step alt5">Archetype</div>
+  <div class="flow-connector">+</div>
+  <div class="flow-step alt">Use Case</div>
+  <div class="flow-connector">+</div>
+  <div class="flow-step alt4">Risk Tier</div>
+  <div class="flow-connector">+</div>
+  <div class="flow-step" style="background: #7c3aed;">Dependency</div>
+  <div class="flow-connector">+</div>
+  <div class="flow-step alt2">Pillar Scores</div>
+  <div class="flow-connector">=</div>
+  <div class="flow-step">Roadmap</div>
+</div>
+
+<table>
+  <tr>
+    <th style="width:25%">Roadmap Section</th>
+    <th style="width:25%">Driven By</th>
+    <th>What Changes</th>
+  </tr>
+  <tr>
+    <td>Executive Summary</td>
+    <td>All five inputs</td>
+    <td>Tool name, tier, archetype, total score, no-go count, recommendation text</td>
+  </tr>
+  <tr>
+    <td>Before You Deploy</td>
+    <td>Risk tier</td>
+    <td>Tier 1: 5 items. Tier 2: 8 items. Tier 3: 11 items.</td>
+  </tr>
+  <tr>
+    <td>Pillar Remediation</td>
+    <td>Pillar scores</td>
+    <td>Only appears for pillars scoring 1. Each has pillar-specific action text.</td>
+  </tr>
+  <tr>
+    <td>RACI</td>
+    <td>Archetype</td>
+    <td>Lightweight: 3 roles. Building: 6 roles. Scaling: 6 roles with external auditor and system liaison.</td>
+  </tr>
+  <tr>
+    <td>90-Day Metrics</td>
+    <td>Risk tier</td>
+    <td>Tier 1: 4 metrics. Tier 2: 8 metrics. Tier 3: 11 metrics.</td>
+  </tr>
+  <tr>
+    <td>Review Cadence</td>
+    <td>Risk tier</td>
+    <td>Tier 1: Every 2 years. Tier 2: Annual + quarterly. Tier 3: Annual + quarterly + monthly.</td>
+  </tr>
+  <tr>
+    <td>Decision Rules</td>
+    <td>Static (all tiers)</td>
+    <td>Same pause/investigate/stop triggers for all assessments.</td>
+  </tr>
+  <tr>
+    <td>Toolkit References</td>
+    <td>Risk tier</td>
+    <td>Tier 1: 3 templates. Tier 2: 6 templates. Tier 3: 11 templates.</td>
+  </tr>
+  <tr>
+    <td>HUMANS Alignment</td>
+    <td>California toggle</td>
+    <td>Only shows when CA toggle is on. Maps each HUMANS letter to Navigator pillars.</td>
+  </tr>
+  <tr>
+    <td>Dependency Governance</td>
+    <td>Dependency profile</td>
+    <td>Low = none additional. Medium = configuration review + 6-month capability check + alternative maintenance. High = dependency acknowledgment + vendor lock-in assessment + 12-month sunset evaluation + capability impact tracking (Tier 3).</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Portability</h2>
+
+<h3>The California Toggle</h3>
+
+<p>A checkbox in the nav bar labeled &ldquo;CA&rdquo;. When enabled:</p>
+<ul>
+  <li>Pillar headers show HUMANS letter mapping (e.g., P3 shows &ldquo;H&rdquo; badge)</li>
+  <li>Profile pillar table includes HUMANS column</li>
+  <li>Roadmap adds HUMANS Alignment section with letter-by-letter mapping</li>
+  <li>Roadmap notes the HUMANS gap (P9 / Criterion 4 not covered)</li>
+</ul>
+
+<p>When disabled: none of the above appears. The framework is complete without it.</p>
+
+<h3>What Non-California Colleges Get</h3>
+
+<table>
+  <tr>
+    <th>Component</th>
+    <th>CA Colleges</th>
+    <th>Non-CA Colleges</th>
+  </tr>
+  <tr>
+    <td>Layer 1 (4 Ethical Criteria)</td>
+    <td>Full</td>
+    <td>Full</td>
+  </tr>
+  <tr>
+    <td>Layer 2 (9 Operational Pillars)</td>
+    <td>Full</td>
+    <td>Full</td>
+  </tr>
+  <tr>
+    <td>Layer 3 (HUMANS)</td>
+    <td>Full mapping</td>
+    <td>Not shown</td>
+  </tr>
+  <tr>
+    <td>Use cases</td>
+    <td>All 10 + custom</td>
+    <td>All 10 + custom</td>
+  </tr>
+  <tr>
+    <td>Screening</td>
+    <td>Includes CA-specific option on SS-03 (Cal Grant, AB 540)</td>
+    <td>N/A option available</td>
+  </tr>
+  <tr>
+    <td>Roadmap</td>
+    <td>Includes HUMANS alignment + CCCCO references</td>
+    <td>All sections except HUMANS</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Technical Notes</h2>
+
+<table>
+  <tr>
+    <th style="width:25%">Aspect</th>
+    <th>Details</th>
+  </tr>
+  <tr>
+    <td><strong>Architecture</strong></td>
+    <td>Single-file HTML. No build step. No framework. All JavaScript inline. Content JSON inlined with fallback external fetch.</td>
+  </tr>
+  <tr>
+    <td><strong>Dependencies</strong></td>
+    <td>Zero runtime dependencies. Google Fonts loaded for display (Plus Jakarta Sans + Inter) with system fallback.</td>
+  </tr>
+  <tr>
+    <td><strong>State Management</strong></td>
+    <td>Plain JavaScript object (<span class="dm-field">state</span>). Tracks: entry path, archetype, use case, screening answers/result/flags, dependency profile (D1&ndash;D4 answers + total score + profile level), risk tier (+ override flag/reason), pillar scores/notes, no-go answers/flags, California toggle, assessment date, tool name, institution name, <span class="dm-field">customWorstCase</span> (SS-XX harm scenario text), <span class="dm-field">routingAnswers</span> (Q1&ndash;Q8 answers object), <span class="dm-field">routingResults</span> (computed recommendations), <span class="dm-field">currentRoutingQ</span> (progress index), <span class="dm-field">mechanismProfile</span> (MD-01/02/03 answers + computed tierAdjustment, adjustedTier, forcedPillars, equityFlag, unknownFlags). Full state is serializable to JSON for export/import/URL sharing.</td>
+  </tr>
+  <tr>
+    <td><strong>Persistence</strong></td>
+    <td>Three mechanisms: (1) <strong>localStorage</strong> &mdash; quick save/load within the same browser. (2) <strong>JSON export/import</strong> &mdash; serializes full state to a downloadable <span class="dm-field">.json</span> file; import via file picker validates the presence of <span class="dm-field">useCase</span> or <span class="dm-field">pillarScores</span> before merging into state. (3) <strong>Shareable URL</strong> &mdash; base64-encodes state into a <span class="dm-field">?state=</span> URL parameter (capped at 8,000 chars; falls back to export if too large). On init, the app checks for the <span class="dm-field">state</span> URL param, decodes and loads the assessment, navigates to profile, then cleans the URL with <span class="dm-field">replaceState</span>. No backend, no tracking, no analytics.</td>
+  </tr>
+  <tr>
+    <td><strong>Navigation</strong></td>
+    <td>View-based SPA. Hash routing (<span class="dm-field">#landing</span>, <span class="dm-field">#use-case</span>, <span class="dm-field">#dependency/{use-case-id}</span>, etc.). Browser back/forward supported via <span class="dm-field">popstate</span>. Nav bar includes: logo, About, Import (triggers file picker), and CA toggle.</td>
+  </tr>
+  <tr>
+    <td><strong>Print</strong></td>
+    <td>CSS <span class="dm-field">@media print</span> rules. Hides nav, buttons. Shows profile and roadmap views for export.</td>
+  </tr>
+  <tr>
+    <td><strong>Hosting</strong></td>
+    <td>Framework layer: Any static server. GitHub Pages, Netlify, Vercel, or a simple web server. No server-side logic required. AI augmentation layer: Delivered as a system prompt file (<span class="dm-field">claude.md</span>) or Claude Project configuration. No additional hosting required for Option A (Companion Chat).</td>
+  </tr>
+  <tr>
+    <td><strong>Privacy</strong></td>
+    <td>No data collection. No cookies. No tracking. No external API calls in the framework layer. Assessment results stay in the browser. AI augmentation layer (when enabled) sends tool descriptions to the AI provider for classification &mdash; no student data, no institutional data, no assessment results are transmitted.</td>
+  </tr>
+  <tr>
+    <td><strong>Accessibility</strong></td>
+    <td>Keyboard navigable. Semantic HTML. Color contrast meets WCAG 2.1 AA on critical elements. Screen reader compatible (ARIA labels on interactive elements).</td>
+  </tr>
+  <tr>
+    <td><strong>Responsive</strong></td>
+    <td>Mobile-first breakpoint at 768px. Assessment works one-question-per-screen on mobile. Dashboard stacks vertically. Score options stack to single column.</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Content Inventory Summary</h2>
+
+<table>
+  <tr>
+    <th>Content Type</th>
+    <th>Count</th>
+    <th>Source</th>
+  </tr>
+  <tr>
+    <td>Ethical criteria</td>
+    <td>4</td>
+    <td>Synthesized from 224 frameworks</td>
+  </tr>
+  <tr>
+    <td>Operational pillars</td>
+    <td>9</td>
+    <td>Synthesized from 224 frameworks + CCCCO HUMANS</td>
+  </tr>
+  <tr>
+    <td>Pillar questions</td>
+    <td>59</td>
+    <td>Derived from 23 source frameworks (cited per question)</td>
+  </tr>
+  <tr>
+    <td>Scoring rubrics</td>
+    <td>27 (9 &times; 3)</td>
+    <td>Original, pillar-specific</td>
+  </tr>
+  <tr>
+    <td>Use cases</td>
+    <td>11 (10 + custom)</td>
+    <td>Scoped to Student Services</td>
+  </tr>
+  <tr>
+    <td>Screening questions</td>
+    <td>~50 (4&ndash;5 per use case)</td>
+    <td>Use-case-specific with GO/PAUSE/NO-GO logic</td>
+  </tr>
+  <tr>
+    <td>Dependency questions</td>
+    <td>4</td>
+    <td>Universal (all use cases). 3 response tiers each.</td>
+  </tr>
+  <tr>
+    <td>No-go criteria</td>
+    <td>8</td>
+    <td>Derived from pillar principles + legal requirements</td>
+  </tr>
+  <tr>
+    <td>Score patterns</td>
+    <td>7</td>
+    <td>Pattern analysis logic</td>
+  </tr>
+  <tr>
+    <td>Tier benchmarks</td>
+    <td>9</td>
+    <td>3 archetypes &times; 3 levels (minimum/good/strong)</td>
+  </tr>
+  <tr>
+    <td>RACI structures</td>
+    <td>3</td>
+    <td>One per archetype (3/6/6 roles)</td>
+  </tr>
+  <tr>
+    <td>Pillar remediation actions</td>
+    <td>9</td>
+    <td>One per pillar (for score = 1)</td>
+  </tr>
+  <tr>
+    <td>Escalation triggers</td>
+    <td>10</td>
+    <td>Universal across tiers</td>
+  </tr>
+  <tr>
+    <td>Decision rules</td>
+    <td>16</td>
+    <td>6 pause + 5 investigate + 5 stop</td>
+  </tr>
+  <tr>
+    <td>Source citations</td>
+    <td>23</td>
+    <td>Referenced in About section</td>
+  </tr>
+  <tr>
+    <td>HUMANS mappings</td>
+    <td>6</td>
+    <td>H-U-M-A-N-S to pillar descriptions</td>
+  </tr>
+  <tr>
+    <td>Annual review areas</td>
+    <td>9</td>
+    <td>One per pillar</td>
+  </tr>
+  <tr style="background: #ecfeff;">
+    <td>AI augmentation system prompt</td>
+    <td>1</td>
+    <td>Optional. Defines AI perception boundaries, use case mapping hints, mechanism detection guidance. Framework operates without it.</td>
+  </tr>
+</table>
+
+</div><!-- /tab-content -->
+
+<!-- ============================================================ -->
+<!-- FOOTER -->
+<!-- ============================================================ -->
+
+<hr>
+
+<div class="about-box">
+  <strong>About This Document</strong><br>
+  This concept document describes the design rationale, framework architecture, user journey, AI augmentation layer, and content architecture of the AI Governance Navigator v3 &mdash; an interactive governance tool for Student Services AI use cases at community colleges, with an optional AI perception layer for tool recognition and technical analysis. It captures the what, why, and how for team alignment.<br><br>
+  <strong>Date:</strong> February 26, 2026<br>
+  <strong>Team:</strong> Amin, Mimi, Adam<br>
+  <strong>Source:</strong> AQL Ethical AI Framework (4 criteria, 9 pillars, 10 use cases, 8 no-go criteria, 3 archetypes), CCCCO HUMANS Framework, global AI governance research (224 frameworks across 12 domains)<br>
+  <strong>Commissioned by:</strong> College Futures Foundation<br>
+  <strong>Companion deliverables:</strong> AI Governance Toolkit PDF (complete reference with all templates, playbooks, and measurement guidance); Navigator Claude Integration Logic (AI layer specification)<br><br>
+  <strong>v3 additions (Feb 26):</strong> Four-layer architecture separating governance logic (human-owned, auditable, works offline) from optional AI augmentation layer (tool recognition, technical analysis, mechanism detection assistance). Perception-Extending vs. Interpretation-Delivery boundary rule: AI handles what requires current knowledge of the external tool landscape; governance body handles what requires institutional value judgments. Three implementation options (Companion Chat, Embedded Assistant, Smart Pre-Fill) with graceful degradation specification.<br><br>
+  <strong>v2 additions (Feb 22&ndash;25):</strong> Documented four UX improvements, Step 0: Routing Questionnaire (8-question intake with 5-phase scoring algorithm), and Mechanism Detection Screen (3 questions with additive tier escalation, forced pillar minimums, and equity screening flags).<br><br>
+  <span style="font-size: 9pt; color: #999;">AI Mode: Assisted &middot; AI used for document structuring and formatting; concepts, architecture decisions, integration logic, and design rationale human-directed</span>
+</div>
+
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(panel) { panel.classList.remove('active'); });
+  document.getElementById('tab-' + tabId).classList.add('active');
+  var btns = document.querySelectorAll('.tab-btn');
+  var tabMap = { 'vision': 0, 'framework': 1, 'journey': 2, 'ai': 3, 'content': 4 };
+  if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+}
+</script>
+
+</body>
+</html>

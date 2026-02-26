@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigator v3 — AI Chat Panel Wireframe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+  :root {
+    --nav-dark: #0f1419;
+    --teal: #0891b2;
+    --teal-light: #ecfeff;
+    --blue: #0066cc;
+    --blue-light: #e7f3ff;
+    --green: #28a745;
+    --green-light: #d4edda;
+    --red: #c00;
+    --red-light: #f8d7da;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --gray-50: #f8f9fa;
+    --gray-100: #f0f0f0;
+    --gray-200: #e0e0e0;
+    --gray-300: #ccc;
+    --gray-400: #999;
+    --gray-500: #666;
+    --gray-700: #333;
+    --panel-bg: #f7f8f9;
+    --panel-border: #dde1e6;
+    --ai-accent: #0891b2;
+    --ai-bg: #f0fafb;
+    --ai-border: #b2e0e8;
+    --font: 'DM Sans', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    font-size: 11pt;
+    line-height: 1.5;
+    color: var(--gray-700);
+    background: #e8eaed;
+  }
+
+  /* ---- Top-level layout ---- */
+  .wireframe-shell {
+    max-width: 1280px;
+    margin: 24px auto;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  }
+
+  /* ---- Document header ---- */
+  .doc-header {
+    background: var(--nav-dark);
+    color: white;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .doc-header h1 {
+    font-size: 14pt;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .doc-header .subtitle {
+    font-size: 9pt;
+    color: var(--gray-400);
+    margin-top: 2px;
+  }
+  .doc-badge {
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: rgba(8,145,178,0.2);
+    color: var(--teal);
+  }
+
+  /* ---- Screen selector ---- */
+  .screen-selector {
+    display: flex;
+    border-bottom: 2px solid var(--gray-200);
+    background: var(--gray-50);
+    padding: 0 20px;
+  }
+  .screen-tab {
+    padding: 12px 20px;
+    font-size: 9.5pt;
+    font-weight: 500;
+    color: var(--gray-400);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .screen-tab:hover { color: var(--gray-700); }
+  .screen-tab.active {
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+    font-weight: 600;
+  }
+  .screen-tab .tab-badge {
+    font-size: 7pt;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .screen-tab .tab-badge.ai {
+    background: var(--ai-bg);
+    color: var(--ai-accent);
+    border: 1px solid var(--ai-border);
+  }
+  .screen-tab .tab-badge.no-ai {
+    background: var(--gray-100);
+    color: var(--gray-400);
+  }
+
+  /* ---- Screen panels ---- */
+  .screen-panel { display: none; }
+  .screen-panel.active { display: flex; }
+
+  /* ---- Main content + chat layout ---- */
+  .screen-layout {
+    display: flex;
+    min-height: 600px;
+    width: 100%;
+  }
+  .main-area {
+    flex: 1;
+    padding: 28px 32px;
+    overflow-y: auto;
+  }
+  .main-area h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--gray-700);
+  }
+  .main-area .screen-desc {
+    font-size: 10pt;
+    color: var(--gray-500);
+    margin-bottom: 20px;
+  }
+
+  /* ---- Chat panel ---- */
+  .chat-panel {
+    width: 340px;
+    flex-shrink: 0;
+    background: var(--panel-bg);
+    border-left: 1px solid var(--panel-border);
+    display: flex;
+    flex-direction: column;
+  }
+  .chat-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--panel-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chat-header .ai-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ai-accent);
+    flex-shrink: 0;
+  }
+  .chat-header .chat-title {
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--gray-700);
+  }
+  .chat-header .chat-context {
+    font-size: 8pt;
+    color: var(--gray-400);
+    margin-left: auto;
+    font-style: italic;
+  }
+  .chat-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .chat-msg {
+    max-width: 92%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+  .chat-msg.user {
+    background: var(--blue);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 3px;
+  }
+  .chat-msg.ai {
+    background: white;
+    color: var(--gray-700);
+    align-self: flex-start;
+    border: 1px solid var(--panel-border);
+    border-bottom-left-radius: 3px;
+  }
+  .chat-msg.ai .msg-source {
+    font-size: 8pt;
+    color: var(--ai-accent);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .chat-msg.ai .msg-caveat {
+    font-size: 8pt;
+    color: var(--gray-400);
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--gray-200);
+    font-style: italic;
+  }
+  .chat-input-area {
+    padding: 12px 16px;
+    border-top: 1px solid var(--panel-border);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .chat-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--gray-300);
+    border-radius: 6px;
+    font-size: 9.5pt;
+    font-family: var(--font);
+    outline: none;
+    color: var(--gray-500);
+  }
+  .chat-send {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--ai-accent);
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---- No panel state ---- */
+  .no-panel-indicator {
+    width: 48px;
+    flex-shrink: 0;
+    background: var(--gray-50);
+    border-left: 1px solid var(--panel-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 16px;
+    gap: 4px;
+  }
+  .no-panel-indicator .collapsed-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-300);
+  }
+  .no-panel-indicator .collapsed-label {
+    writing-mode: vertical-rl;
+    font-size: 7.5pt;
+    color: var(--gray-400);
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+  }
+
+  /* ---- Use case cards ---- */
+  .uc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .uc-card {
+    border: 2px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .uc-card:hover {
+    border-color: var(--blue);
+    background: var(--blue-light);
+  }
+  .uc-card .uc-id {
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .uc-card .uc-name {
+    font-size: 10pt;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .uc-card .uc-tier {
+    font-size: 8pt;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 4px;
+  }
+  .tier-1 { background: var(--green-light); color: #155724; }
+  .tier-2 { background: var(--amber-light); color: #856404; }
+  .tier-3 { background: var(--red-light); color: var(--red); }
+
+  /* ---- AI tool input ---- */
+  .ai-tool-input-wrapper {
+    background: var(--ai-bg);
+    border: 1px solid var(--ai-border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .ai-tool-input-wrapper .input-label {
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--ai-accent);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ai-tool-input-wrapper .input-label .ai-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--ai-accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+  }
+  .ai-tool-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--ai-border);
+    border-radius: 6px;
+    font-size: 10pt;
+    font-family: var(--font);
+    background: white;
+    outline: none;
+    color: var(--gray-700);
+  }
+  .ai-tool-hint {
+    font-size: 8pt;
+    color: var(--gray-400);
+    margin-top: 6px;
+  }
+  .ai-suggestion-card {
+    background: white;
+    border: 1px solid var(--ai-border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .ai-suggestion-card .suggestion-content {
+    flex: 1;
+  }
+  .ai-suggestion-card .suggestion-label {
+    font-size: 8pt;
+    font-weight: 600;
+    color: var(--ai-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+  .ai-suggestion-card .suggestion-text {
+    font-size: 9.5pt;
+    color: var(--gray-700);
+    font-weight: 500;
+  }
+  .ai-suggestion-card .suggestion-reason {
+    font-size: 8.5pt;
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+  .ai-suggestion-card .suggestion-action {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 8pt;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .suggestion-accept {
+    background: var(--ai-accent);
+    color: white;
+  }
+
+  /* ---- Screening question mockup ---- */
+  .screening-q {
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .screening-q .q-label {
+    font-size: 10pt;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .screening-q .q-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .q-opt {
+    padding: 6px 14px;
+    border-radius: 5px;
+    font-size: 9pt;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--gray-300);
+    background: white;
+    transition: all 0.15s;
+  }
+  .q-opt:hover { border-color: var(--blue); background: var(--blue-light); }
+  .q-opt.selected { border-color: var(--blue); background: var(--blue); color: white; }
+
+  /* AI pre-fill state */
+  .screening-q.ai-prefilled {
+    border-color: var(--ai-border);
+    background: var(--ai-bg);
+  }
+  .screening-q .ai-prefill-tag {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: var(--ai-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 6px;
+    padding: 2px 6px;
+    background: white;
+    border: 1px solid var(--ai-border);
+    border-radius: 3px;
+  }
+  .q-opt.ai-suggested {
+    border-color: var(--ai-accent);
+    background: rgba(8,145,178,0.08);
+    color: var(--ai-accent);
+    font-weight: 600;
+    position: relative;
+  }
+
+  /* ---- Mechanism detection ---- */
+  .md-question-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .md-question-card .md-id {
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .md-question-card .md-text {
+    font-size: 11pt;
+    font-weight: 600;
+    margin: 4px 0 8px;
+  }
+  .md-option {
+    border: 1.5px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .md-option:hover { border-color: var(--blue); background: var(--blue-light); }
+  .md-option .opt-radio {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--gray-300);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .md-option .opt-label { font-size: 10pt; font-weight: 500; }
+  .md-option .opt-desc { font-size: 8.5pt; color: var(--gray-500); margin-top: 2px; }
+
+  /* AI context note */
+  .ai-context-note {
+    background: var(--ai-bg);
+    border: 1px solid var(--ai-border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 9pt;
+    color: var(--gray-700);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .ai-context-note .note-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ai-accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .ai-context-note .note-source {
+    font-size: 8pt;
+    color: var(--ai-accent);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ---- Pillar scoring (no-AI screen) ---- */
+  .pillar-header {
+    border-left: 4px solid var(--green);
+    padding-left: 14px;
+    margin-bottom: 16px;
+  }
+  .pillar-header .p-id {
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+  }
+  .pillar-header .p-name { font-size: 13pt; font-weight: 700; }
+  .pillar-header .p-principle { font-size: 9.5pt; color: var(--gray-500); font-style: italic; }
+  .pillar-header .p-hook { font-size: 10pt; color: var(--green); font-weight: 600; margin-top: 4px; }
+
+  .score-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .score-card {
+    border: 2px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .score-card:hover { border-color: var(--blue); }
+  .score-card .score-num { font-size: 20pt; font-weight: 700; }
+  .score-card .score-label { font-size: 9pt; font-weight: 600; margin-top: 2px; }
+  .score-card .score-desc { font-size: 8pt; color: var(--gray-500); margin-top: 4px; }
+  .score-3 { border-top: 4px solid var(--green); }
+  .score-3 .score-num { color: var(--green); }
+  .score-2 { border-top: 4px solid var(--amber); }
+  .score-2 .score-num { color: var(--amber); }
+  .score-1 { border-top: 4px solid var(--red); }
+  .score-1 .score-num { color: var(--red); }
+
+  /* ---- Footer ---- */
+  .doc-footer {
+    padding: 14px 28px;
+    font-size: 8.5pt;
+    color: var(--gray-400);
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ---- Annotations ---- */
+  .annotation {
+    background: var(--amber-light);
+    border: 1px solid var(--amber);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 9pt;
+    color: #92400e;
+    margin: 16px 0;
+  }
+  .annotation strong { color: #78350f; }
+
+  .screen-nav-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px 18px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 8.5pt;
+    color: var(--gray-400);
+    gap: 6px;
+  }
+  .screen-nav-bar .nav-step {
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .screen-nav-bar .nav-step.current {
+    background: var(--blue);
+    color: white;
+    font-weight: 600;
+  }
+  .screen-nav-bar .nav-arrow { color: var(--gray-300); }
+
+  /* ---- Panel visibility label ---- */
+  .panel-state {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  .panel-state.visible {
+    background: var(--ai-bg);
+    color: var(--ai-accent);
+    border: 1px solid var(--ai-border);
+  }
+  .panel-state.hidden {
+    background: var(--gray-100);
+    color: var(--gray-400);
+  }
+
+  .screen-wrapper {
+    position: relative;
+  }
+</style>
+</head>
+<body>
+
+<div class="wireframe-shell">
+
+  <!-- Document Header -->
+  <div class="doc-header">
+    <div>
+      <h1>Navigator v3 &mdash; AI Chat Panel Wireframe</h1>
+      <div class="subtitle">How the AI augmentation layer appears (and disappears) across the assessment flow</div>
+    </div>
+    <div class="doc-badge">UX Mockup &middot; Feb 2026</div>
+  </div>
+
+  <!-- Screen Selector -->
+  <div class="screen-selector">
+    <div class="screen-tab active" onclick="showScreen('uc')">
+      Use Case Selection
+      <span class="tab-badge ai">AI</span>
+    </div>
+    <div class="screen-tab" onclick="showScreen('screening')">
+      Screening
+      <span class="tab-badge ai">AI</span>
+    </div>
+    <div class="screen-tab" onclick="showScreen('mechanism')">
+      Mechanism Detection
+      <span class="tab-badge ai">AI</span>
+    </div>
+    <div class="screen-tab" onclick="showScreen('scoring')">
+      Pillar Scoring
+      <span class="tab-badge no-ai">No AI</span>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 1: USE CASE SELECTION ========== -->
+  <div class="screen-panel active" id="screen-uc">
+    <div class="screen-layout screen-wrapper">
+
+      <div class="main-area">
+        <div class="screen-nav-bar">
+          <span class="nav-step">Landing</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step current">Use Case</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Screening</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Dependency</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Mechanism</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Risk Tier</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Scoring</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">No-Go</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Profile</span>
+        </div>
+
+        <div style="padding: 24px;">
+          <h2>What AI Tool Are You Evaluating?</h2>
+          <p class="screen-desc">Select a use case category, or describe the tool you&rsquo;re considering and we&rsquo;ll help classify it.</p>
+
+          <!-- AI tool input — the NEW element -->
+          <div class="ai-tool-input-wrapper">
+            <div class="input-label">
+              <span class="ai-icon">&#10047;</span>
+              Describe your tool
+            </div>
+            <input type="text" class="ai-tool-input" value="Mainstay — it's a chatbot vendor pitching us on student engagement" readonly>
+            <div class="ai-tool-hint">Enter a tool name, vendor, or description. The AI assistant will suggest a category.</div>
+
+            <!-- AI suggestion -->
+            <div class="ai-suggestion-card">
+              <div class="suggestion-content">
+                <div class="suggestion-label">AI Suggestion</div>
+                <div class="suggestion-text">SS-06: Nudge Campaigns / Behavioral Messaging</div>
+                <div class="suggestion-reason">Mainstay uses behavioral messaging with personalized nudges based on student enrollment data. While marketed as a &ldquo;chatbot,&rdquo; its primary mechanism is proactive outreach, not reactive Q&amp;A. This is closer to SS-06 than SS-04.</div>
+              </div>
+              <button class="suggestion-action suggestion-accept">Select &rarr;</button>
+            </div>
+          </div>
+
+          <div style="font-size: 9pt; color: var(--gray-400); text-align: center; margin-bottom: 12px;">or select a category directly</div>
+
+          <!-- Existing use case cards -->
+          <div class="uc-grid">
+            <div class="uc-card">
+              <div class="uc-id">SS-01</div>
+              <div class="uc-name">AI Advising / Guided Pathways</div>
+              <div class="uc-tier tier-3">Tier 3 &middot; High</div>
+            </div>
+            <div class="uc-card">
+              <div class="uc-id">SS-02</div>
+              <div class="uc-name">Early Alert / Predictive Analytics</div>
+              <div class="uc-tier tier-3">Tier 3 &middot; High</div>
+            </div>
+            <div class="uc-card">
+              <div class="uc-id">SS-04</div>
+              <div class="uc-name">Student-Facing Chatbot</div>
+              <div class="uc-tier tier-1">Tier 1 &middot; Lower</div>
+            </div>
+            <div class="uc-card" style="border-color: var(--ai-accent); background: var(--ai-bg);">
+              <div class="uc-id" style="color: var(--ai-accent);">SS-06</div>
+              <div class="uc-name">Nudge Campaigns / Behavioral Messaging</div>
+              <div class="uc-tier tier-2">Tier 2 &middot; Medium</div>
+            </div>
+            <div class="uc-card">
+              <div class="uc-id">SS-07</div>
+              <div class="uc-name">AI Tutoring / Learning Support</div>
+              <div class="uc-tier tier-2">Tier 2 &middot; Medium</div>
+            </div>
+            <div class="uc-card" style="border: 2px dashed var(--gray-300);">
+              <div class="uc-id" style="color: var(--gray-400);">SS-XX</div>
+              <div class="uc-name" style="color: var(--gray-400);">Custom / Other</div>
+              <div class="uc-tier" style="background: var(--gray-100); color: var(--gray-500);">You assign tier</div>
+            </div>
+          </div>
+
+          <div class="annotation">
+            <strong>Wireframe note:</strong> The tool input field and AI suggestion card are the only new UI elements on this screen. The use case card grid is unchanged from v2. The AI suggestion highlights the recommended card (SS-06 glows teal). If the user ignores the AI and clicks a different card, that selection takes priority.
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat panel — contextual for Use Case -->
+      <div class="chat-panel">
+        <div class="chat-header">
+          <div class="ai-dot"></div>
+          <div class="chat-title">Navigator AI</div>
+          <div class="chat-context">Tool Identification</div>
+        </div>
+        <div class="chat-messages">
+          <div class="chat-msg user">We're looking at Mainstay — they pitched us on student engagement and retention. Is that a chatbot?</div>
+          <div class="chat-msg ai">
+            <div class="msg-source">Navigator AI</div>
+            Mainstay markets itself as a &ldquo;chatbot,&rdquo; but its core mechanism is proactive behavioral messaging, not reactive Q&amp;A. It sends personalized nudges to students based on enrollment data, deadlines, and behavioral signals.<br><br>
+            In the Navigator, that&rsquo;s <strong>SS-06: Nudge Campaigns / Behavioral Messaging</strong> (Tier 2), not SS-04: Student-Facing Chatbot (Tier 1). The distinction matters because nudge systems access student data to <em>initiate</em> contact, while FAQ chatbots only <em>respond</em> to student queries.
+            <div class="msg-caveat">This classification is based on Mainstay&rsquo;s published product description. Verify with your vendor contact that this matches the specific product configuration they&rsquo;re offering you.</div>
+          </div>
+          <div class="chat-msg user">Good to know. What should I watch for in screening?</div>
+          <div class="chat-msg ai">
+            <div class="msg-source">Navigator AI</div>
+            For SS-06 specifically, the screening will ask about:<br><br>
+            &bull; What student data triggers the nudges<br>
+            &bull; Whether students can opt out<br>
+            &bull; Whether message content is AI-generated or template-based<br>
+            &bull; Whether the system escalates to human staff<br><br>
+            I can help with factual answers about Mainstay&rsquo;s capabilities when you reach that step. The screening questions will appear next.
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" value="Ask about this tool..." readonly>
+          <button class="chat-send">&uarr;</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 2: SCREENING ========== -->
+  <div class="screen-panel" id="screen-screening">
+    <div class="screen-layout screen-wrapper">
+
+      <div class="main-area">
+        <div class="screen-nav-bar">
+          <span class="nav-step">Landing</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Use Case</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step current">Screening</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Dependency</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Mechanism</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Risk Tier</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Scoring</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">No-Go</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Profile</span>
+        </div>
+
+        <div style="padding: 24px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <h2>Screening: Nudge Campaigns / Behavioral Messaging</h2>
+            <span style="font-size: 8pt; font-weight: 600; padding: 2px 6px; border-radius: 3px; background: var(--amber-light); color: #856404;">Tier 2</span>
+          </div>
+          <p class="screen-desc">Answer these questions about the specific tool you&rsquo;re evaluating. AI-suggested answers are based on published product information &mdash; verify with your vendor.</p>
+
+          <!-- Question 1: AI pre-filled -->
+          <div class="screening-q ai-prefilled">
+            <div class="ai-prefill-tag">
+              <span style="font-size: 10px;">&#10047;</span> AI-suggested &middot; verify with vendor
+            </div>
+            <div class="q-label">Does this tool access personally identifiable student data (PII)?</div>
+            <div class="q-options">
+              <div class="q-opt ai-suggested">Yes &mdash; accesses student records</div>
+              <div class="q-opt">Yes &mdash; limited to directory info</div>
+              <div class="q-opt">No &mdash; anonymous only</div>
+            </div>
+          </div>
+
+          <!-- Question 2: AI pre-filled -->
+          <div class="screening-q ai-prefilled">
+            <div class="ai-prefill-tag">
+              <span style="font-size: 10px;">&#10047;</span> AI-suggested &middot; verify with vendor
+            </div>
+            <div class="q-label">Can students opt out of AI-initiated contact?</div>
+            <div class="q-options">
+              <div class="q-opt ai-suggested">Yes &mdash; opt-out available</div>
+              <div class="q-opt">Partial &mdash; some messages mandatory</div>
+              <div class="q-opt">No opt-out</div>
+              <div class="q-opt">Unknown</div>
+            </div>
+          </div>
+
+          <!-- Question 3: NOT pre-filled -->
+          <div class="screening-q">
+            <div class="q-label">Is the content of outgoing messages AI-generated or template-based?</div>
+            <div class="q-options">
+              <div class="q-opt">Template only &mdash; staff write all messages</div>
+              <div class="q-opt">AI-generated with staff review</div>
+              <div class="q-opt">Fully AI-generated</div>
+              <div class="q-opt">Unknown</div>
+            </div>
+          </div>
+
+          <!-- Question 4: AI pre-filled -->
+          <div class="screening-q ai-prefilled">
+            <div class="ai-prefill-tag">
+              <span style="font-size: 10px;">&#10047;</span> AI-suggested &middot; verify with vendor
+            </div>
+            <div class="q-label">Does the vendor use student interaction data to train or improve their models?</div>
+            <div class="q-options">
+              <div class="q-opt">No &mdash; contractually prohibited</div>
+              <div class="q-opt ai-suggested">Aggregated/anonymized only</div>
+              <div class="q-opt">Yes &mdash; individual data used</div>
+              <div class="q-opt">Unknown</div>
+            </div>
+          </div>
+
+          <div class="annotation">
+            <strong>Wireframe note:</strong> AI pre-fills answers it has confidence about (teal background, &ldquo;AI-suggested&rdquo; tag). Question 3 has no suggestion because Claude doesn&rsquo;t have reliable information about Mainstay&rsquo;s specific message generation process. The user can override any suggestion by clicking a different option. Clicking an AI-suggested option confirms it (changes to solid selected state). All unconfirmed suggestions are flagged in the governance profile as &ldquo;AI-suggested, unverified.&rdquo;
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat panel — contextual for Screening -->
+      <div class="chat-panel">
+        <div class="chat-header">
+          <div class="ai-dot"></div>
+          <div class="chat-title">Navigator AI</div>
+          <div class="chat-context">Screening &middot; SS-06</div>
+        </div>
+        <div class="chat-messages">
+          <div class="chat-msg ai">
+            <div class="msg-source">Navigator AI</div>
+            I&rsquo;ve pre-filled answers I&rsquo;m confident about based on Mainstay&rsquo;s published information. Look for the teal-highlighted options.<br><br>
+            I left <strong>Question 3</strong> blank &mdash; I don&rsquo;t have reliable information about whether Mainstay&rsquo;s messages are template-based or AI-generated in your specific configuration. This is worth asking your vendor contact directly.
+          </div>
+          <div class="chat-msg user">What do you know about their data training practices? Question 4.</div>
+          <div class="chat-msg ai">
+            <div class="msg-source">Navigator AI</div>
+            Mainstay&rsquo;s published data practices state they use aggregated, anonymized interaction data to improve their models, but do not train on individual student data. Their standard contract includes this provision.<br><br>
+            I suggested &ldquo;Aggregated/anonymized only&rdquo; but this is a <strong>PAUSE</strong>-level answer for SS-06. The screening will flag it. You should verify the specific language in your contract &mdash; &ldquo;aggregated&rdquo; can mean different things.
+            <div class="msg-caveat">If your institution requires zero data use for model training, ask Mainstay whether they offer a contractual opt-out from aggregated training.</div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" value="Ask about screening..." readonly>
+          <button class="chat-send">&uarr;</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 3: MECHANISM DETECTION ========== -->
+  <div class="screen-panel" id="screen-mechanism">
+    <div class="screen-layout screen-wrapper">
+
+      <div class="main-area">
+        <div class="screen-nav-bar">
+          <span class="nav-step">Landing</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Use Case</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Screening</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Dependency</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step current">Mechanism</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Risk Tier</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Scoring</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">No-Go</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Profile</span>
+        </div>
+
+        <div style="padding: 24px;">
+          <h2>How Does This Tool Work?</h2>
+          <p class="screen-desc">Three questions about the tool&rsquo;s underlying mechanisms. These detect hidden risk that lives in <em>how</em> the tool works, not what category it belongs to.</p>
+
+          <!-- AI context note — the NEW element -->
+          <div class="ai-context-note">
+            <div class="note-icon">&#10047;</div>
+            <div>
+              <strong>Based on Mainstay:</strong> This tool uses student enrollment data and behavioral signals to personalize outgoing messages. It groups students into segments based on enrollment status, milestone proximity, and past response patterns. Messages are sent automatically based on configured triggers.
+              <div class="note-source">This analysis is based on published product information. If your configuration differs, answer based on your actual deployment.</div>
+            </div>
+          </div>
+
+          <!-- MD-01 -->
+          <div class="md-question-card">
+            <div class="md-id">MD-01: Behavioral Pattern-Matching</div>
+            <div class="md-text">How does this tool decide what to show or recommend to each student?</div>
+
+            <div class="md-option">
+              <div class="opt-radio"></div>
+              <div>
+                <div class="opt-label">A. Same for everyone</div>
+                <div class="opt-desc">Every student sees the same information.</div>
+              </div>
+            </div>
+            <div class="md-option">
+              <div class="opt-radio"></div>
+              <div>
+                <div class="opt-label">B. Student-configured</div>
+                <div class="opt-desc">Students choose preferences themselves.</div>
+              </div>
+            </div>
+            <div class="md-option" style="border-color: var(--ai-accent); background: var(--ai-bg);">
+              <div class="opt-radio" style="border-color: var(--ai-accent);"></div>
+              <div>
+                <div class="opt-label">C. Profile-based personalization</div>
+                <div class="opt-desc">Tool uses student data to tailor what it shows. Students may not know what drives the personalization.</div>
+                <div style="font-size: 8pt; color: var(--ai-accent); font-weight: 600; margin-top: 4px;">&#10047; AI analysis suggests this option &mdash; Mainstay uses enrollment data and milestone proximity to personalize messages.</div>
+              </div>
+            </div>
+            <div class="md-option">
+              <div class="opt-radio"></div>
+              <div>
+                <div class="opt-label">D. Behavioral pattern-matching</div>
+                <div class="opt-desc">Tool observes behavior over time and adjusts based on inferred patterns.</div>
+              </div>
+            </div>
+            <div class="md-option">
+              <div class="opt-radio"></div>
+              <div>
+                <div class="opt-label">E. Unknown</div>
+                <div class="opt-desc">The team doesn&rsquo;t know how the tool personalizes.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="annotation">
+            <strong>Wireframe note:</strong> The AI context note at the top provides a plain-language summary of how the tool works. Within the MD-01 options, the AI highlights the option it believes matches (Option C, teal border) with a brief explanation. The user still clicks to select. If they disagree with the AI&rsquo;s analysis, they pick a different option. The chat panel is available for follow-up questions about the tool&rsquo;s technical architecture.
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat panel — contextual for Mechanism Detection -->
+      <div class="chat-panel">
+        <div class="chat-header">
+          <div class="ai-dot"></div>
+          <div class="chat-title">Navigator AI</div>
+          <div class="chat-context">Mechanism &middot; SS-06</div>
+        </div>
+        <div class="chat-messages">
+          <div class="chat-msg user">Is Mainstay more like C or D? What's the difference here?</div>
+          <div class="chat-msg ai">
+            <div class="msg-source">Navigator AI</div>
+            The distinction is between <strong>static profile data</strong> (Option C) and <strong>learned behavior patterns</strong> (Option D).<br><br>
+            <strong>Option C</strong> means the tool personalizes based on data that already exists in your SIS: major, enrollment status, how close they are to a deadline. The student&rsquo;s profile drives what they see.<br><br>
+            <strong>Option D</strong> means the tool <em>watches what students do over time</em> &mdash; which messages they open, which links they click, how quickly they respond &mdash; and adjusts future messages based on those behavioral patterns.<br><br>
+            Mainstay&rsquo;s base product uses enrollment data and configured triggers (Option C). However, their &ldquo;Behavioral Intelligence&rdquo; add-on analyzes response patterns to optimize message timing and content, which would be Option D.
+            <div class="msg-caveat">Ask your vendor: are we getting the base product or the Behavioral Intelligence tier? The governance requirements are different.</div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" value="Ask about mechanisms..." readonly>
+          <button class="chat-send">&uarr;</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 4: PILLAR SCORING (NO AI) ========== -->
+  <div class="screen-panel" id="screen-scoring">
+    <div class="screen-layout screen-wrapper">
+
+      <div class="main-area">
+        <div class="screen-nav-bar">
+          <span class="nav-step">Landing</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Use Case</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Screening</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Dependency</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Mechanism</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Risk Tier</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step current">Scoring</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">No-Go</span>
+          <span class="nav-arrow">&rarr;</span>
+          <span class="nav-step">Profile</span>
+        </div>
+
+        <div style="padding: 24px;">
+          <div class="pillar-header">
+            <div class="p-id">P2</div>
+            <div class="p-name">Equity &amp; Differential Impact</div>
+            <div class="p-principle">AI governance must center equity and account for differential impacts on diverse CC student populations.</div>
+            <div class="p-hook">If it doesn&rsquo;t work for all your students, it doesn&rsquo;t work.</div>
+          </div>
+
+          <div style="background: var(--gray-50); padding: 10px 14px; border-radius: 4px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 10pt; font-weight: 600; margin-bottom: 16px;">
+            <span>What to look for (7 reference questions)</span>
+            <span style="font-size: 8pt; color: var(--gray-400);">&#9660; click to expand</span>
+          </div>
+
+          <div class="score-cards">
+            <div class="score-card score-3">
+              <div class="score-num">3</div>
+              <div class="score-label">Good</div>
+              <div class="score-desc">Disaggregated data. Bias audit. All pathways covered.</div>
+            </div>
+            <div class="score-card score-2">
+              <div class="score-num">2</div>
+              <div class="score-label">Partial</div>
+              <div class="score-desc">Equity acknowledged. Data limited. Willing to audit.</div>
+            </div>
+            <div class="score-card score-1">
+              <div class="score-num">1</div>
+              <div class="score-label">Poor</div>
+              <div class="score-desc">No disaggregated data. No analysis. Barriers exist.</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px;">
+            <div style="font-size: 9pt; font-weight: 500; color: var(--gray-500); margin-bottom: 4px;">Notes (optional)</div>
+            <div style="border: 1px solid var(--gray-200); border-radius: 6px; padding: 10px; font-size: 9pt; color: var(--gray-400); min-height: 60px;">Add notes about your scoring rationale...</div>
+          </div>
+
+          <div class="annotation">
+            <strong>Wireframe note:</strong> No chat panel on this screen. No AI suggestions. No pre-fills. The pillar scoring is a human judgment about the institution&rsquo;s governance maturity. The collapsed rail on the right signals that the AI panel exists in the tool but is intentionally absent here. This <em>is</em> the boundary rule made visible.
+          </div>
+        </div>
+      </div>
+
+      <!-- Collapsed panel indicator — AI is deliberately absent -->
+      <div class="no-panel-indicator">
+        <div class="collapsed-dot"></div>
+        <div class="collapsed-label">AI not available — institutional judgment</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <span>Navigator v3 AI Chat Panel Wireframe &middot; FO Research / AQL Labs</span>
+    <span style="font-style: italic;">AI Mode: Assisted &middot; Wireframe design and content human-directed; formatting and code AI-produced</span>
+  </div>
+
+</div>
+
+<script>
+function showScreen(id) {
+  document.querySelectorAll('.screen-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.screen-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById('screen-' + id).classList.add('active');
+
+  var tabs = document.querySelectorAll('.screen-tab');
+  var map = { 'uc': 0, 'screening': 1, 'mechanism': 2, 'scoring': 3 };
+  if (map[id] !== undefined) tabs[map[id]].classList.add('active');
+}
+</script>
+
+</body>
+</html>
